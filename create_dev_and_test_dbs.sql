@@ -1,4 +1,4 @@
-CREATE ROLE health_api WITH LOGIN PASSWORD 'health_api'  CREATEDB;
+CREATE ROLE health_api WITH LOGIN PASSWORD 'health_api' CREATEDB;
 
 CREATE DATABASE health_api_development;
 CREATE DATABASE health_api_test;

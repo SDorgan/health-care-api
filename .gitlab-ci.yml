@@ -4,9 +4,9 @@ services:
   - postgres:9.5
 
 variables:
-  POSTGRES_DB: jobvacancy_test
-  POSTGRES_USER: jobvacancy
-  POSTGRES_PASSWORD: jobvacancy
+  POSTGRES_DB: healt_api_test
+  POSTGRES_USER: healt_api
+  POSTGRES_PASSWORD: healt_api
   DB_HOST: postgres
 
 stages:

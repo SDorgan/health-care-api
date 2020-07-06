@@ -65,5 +65,4 @@ if %w[development test travis].include?(RACK_ENV)
   end
 
   task default: [:all]
-
 end
