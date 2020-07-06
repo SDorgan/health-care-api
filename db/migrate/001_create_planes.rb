@@ -1,14 +1,12 @@
 Sequel.migration do
   up do
-    create_table(:users) do
+    create_table(:planes) do
       primary_key :id
       String :name
-      String :crypted_password
-      String :email
     end
   end
 
   down do
-    drop_table(:users)
+    drop_table(:planes)
   end
 end
