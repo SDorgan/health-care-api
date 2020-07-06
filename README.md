@@ -1,12 +1,7 @@
-Job Vacancy Application - Alto Jardin
-=====================================
+Health API - Alto Jardin
+========================
 
-[![build status](https://gitlab.com/fiuba-memo2/tp1/altojardin/badges/master/pipeline.svg)](https://gitlab.com/fiuba-memo2/tp1/altojardin/commits/master)
-
-## Heroku
-
-- [Staging](https://altojardin-jobvacancy-staging.herokuapp.com/)
-- [Production](https://altojardin-jobvacancy-prod.herokuapp.com/)
+[![build status](https://gitlab.com/fiuba-memo2/tp2/altojardin-api/badges/master/pipeline.svg)](https://gitlab.com/fiuba-memo2/tp2/altojardin-api/commits/master)
 
 ## Workflow
 
