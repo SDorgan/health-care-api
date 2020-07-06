@@ -11,6 +11,7 @@ variables:
 
 stages:
   - build
+  - deploy
 
 job_build:
   stage: build
@@ -21,3 +22,19 @@ job_build:
     - gem install bundler --no-document
     - bundle install --without staging production
     - RACK_ENV=test bundle exec rake
+
+job_deploy_staging:
+  stage: deploy
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_STAGING_APP --api-key=$HEROKU_STAGING_API_KEY
+  only:
+    - staging
+
+job_deploy_production:
+  stage: deploy
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_PRODUCTION_APP --api-key=$HEROKU_PRODUCTION_API_KEY
+  only:
+    - master
