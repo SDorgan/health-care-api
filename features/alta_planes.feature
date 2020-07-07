@@ -10,7 +10,6 @@ Característica: CRUD Planes
     Cuando consulto los planes disponibles
     Entonces obtengo el plan con nombre "Neo"
 
-  @wip
   Escenario: Crear varios planes
     Dado el plan con nombre "Neo"
     Dado el plan con nombre "Familiar"
