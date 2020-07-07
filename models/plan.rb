@@ -1,5 +1,5 @@
 class Plan
-  attr_accessor :nombre
+  attr_accessor :id, :nombre
 
   def initialize(nombre)
     @nombre = nombre
