@@ -1,9 +1,25 @@
 require File.expand_path(File.dirname(__FILE__) + '/../../config/boot')
 
-require 'capybara/cucumber'
+require 'faraday'
+require 'rack/test'
+require 'simplecov'
 require 'rspec/expectations'
 
-require 'simplecov'
+BASE_URL = 'http://localhost:3000'.freeze
+
+if ENV['BASE_URL']
+  BASE_URL = ENV['BASE_URL']
+else
+  include Rack::Test::Methods
+
+  def app
+    Rack::Builder.new do
+      map '/' do
+        run HealthAPI::App
+      end
+    end
+  end
+end
 
 SimpleCov.start do
   root(File.join(File.dirname(__FILE__), '..', '..'))
@@ -22,5 +38,4 @@ Around do |_scenario, block|
   DB.transaction(rollback: :always, auto_savepoint: true) { block.call }
 end
 
-# Capybara.default_driver = :selenium
-Capybara.app = HealthAPI::App.tap { |app| }
+PLANES_URL = BASE_URL + '/planes'
