@@ -2,16 +2,9 @@ HealthAPI::App.controllers :planes do
   get :index do
     planes = PlanRepository.new.all
 
-    output = { 'planes': [] }
+    response = PlanResponseBuilder.create_from_all(planes)
 
-    planes.each do |plan|
-      output[:planes] << {
-        'id': plan.id,
-        'nombre': plan.nombre
-      }
-    end
-
-    output.to_json
+    response.to_json
   end
 
   post :index do
@@ -20,14 +13,11 @@ HealthAPI::App.controllers :planes do
     plan = Plan.new(params['nombre'])
 
     plan_id = PlanRepository.new.save(plan)
+    plan.id = plan_id
+
+    response = PlanResponseBuilder.create_from(plan)
 
     status 201
-
-    {
-      'plan': {
-        'id': plan_id,
-        'nombre': plan.nombre
-      }
-    }.to_json
+    response.to_json
   end
 end
