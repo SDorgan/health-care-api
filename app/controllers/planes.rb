@@ -5,7 +5,7 @@ HealthAPI::App.controllers :planes do
     output = { 'planes': [] }
 
     planes.each do |plan|
-      output['planes'] << {
+      output[:planes] << {
         'id': plan.id,
         'nombre': plan.nombre
       }

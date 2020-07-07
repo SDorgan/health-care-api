@@ -28,3 +28,6 @@ RSpec/MultipleExpectations:
   Max: 3
 RSpec/InstanceVariable:
   Enabled: false
+AllCops:
+ Exclude:
+   - 'features/support/env.rb'
