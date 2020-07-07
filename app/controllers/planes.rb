@@ -1,9 +1,17 @@
 HealthAPI::App.controllers :planes do
   get :index do
-    { 'planes': [
-      { id: 1, 'nombre': 'neo' },
-      { id: 2, 'nombre': 'familiar' }
-    ] }.to_json
+    planes = PlanRepository.new.all
+
+    output = { 'planes': [] }
+
+    planes.each do |plan|
+      output['planes'] << {
+        'id': plan.id,
+        'nombre': plan.nombre
+      }
+    end
+
+    output.to_json
   end
 
   post :index do
