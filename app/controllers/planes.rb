@@ -8,8 +8,18 @@ HealthAPI::App.controllers :planes do
 
   post :index do
     params = JSON.parse(request.body.read)
-    status 200
 
-    params.to_json
+    plan = Plan.new(params['nombre'])
+
+    plan_id = PlanRepository.new.save(plan)
+
+    status 201
+
+    {
+      'plan': {
+        'id': plan_id,
+        'nombre': plan.nombre
+      }
+    }.to_json
   end
 end
