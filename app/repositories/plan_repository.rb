@@ -11,6 +11,10 @@ class PlanRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def all
+    load_collection(dataset)
+  end
+
   private
 
   def insert(a_record)
@@ -30,6 +34,10 @@ class PlanRepository
     plan.id = a_record[:id]
 
     plan
+  end
+
+  def load_collection(rows)
+    rows.map { |a_record| load_object(a_record) }
   end
 
   def changeset(plan)
