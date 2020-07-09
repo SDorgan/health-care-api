@@ -8,6 +8,11 @@ Health API - Alto Jardin
 - [Staging](https://altojardin-health-api-staging.herokuapp.com/)
 - [Production](https://altojardin-health-api-prod.herokuapp.com/)
 
+# Bots
+
+- [Staging](https://web.telegram.org/#/im?p=@altojardin_staging_bot)
+- [Production](https://web.telegram.org/#/im?p=@altojardin_bot)
+
 ## Workflow
 
 1. We create _feature-branch_ and _merge-request_ from _issue_ (this one has its _target_ branch pointing to **develop** _branch_)
