@@ -1,0 +1,57 @@
+swagger: '2.0'
+info:
+  description: Health API
+  title: Altojardin - Health API
+  version: 1.0.0
+host: altojardin-health-api-prod.herokuapp.com
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+
+paths:
+  /planes:
+    get:
+      description: "Obtener todos los planes médicos disponibles"
+      responses:
+        200:
+          description: "Todos los planes"
+          schema:
+            properties:
+              planes:
+                items:
+                  $ref: '#/definitions/Plan'
+    post:
+      description: "Dar de alta un nuevo plan médico"
+      parameters:
+        - description: "Datos para generar un nuevo plan"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/PlanesCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              plan:
+                $ref: '#/definitions/Plan'
+                
+definitions:
+  Id:
+    type: integer
+  PlanesCreate:
+    properties:
+      name:
+        type: string
+  Plan:
+    description: Plan médico
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      name:
+        type: string
+  
