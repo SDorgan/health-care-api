@@ -13,7 +13,6 @@ Característica: Infraestructura
     Cuando se ejecuta POST /reset
     Entonces se eliminan los datos
 
-  @wip
   Escenario: INFRA3.2 - Endpoint de /reset no está disponible en el ambiente de producción
     Dado que se esta en el ambiente de producción
     Cuando se ejecuta POST /reset
