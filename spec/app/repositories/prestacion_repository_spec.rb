@@ -18,7 +18,7 @@ describe 'PrestacionRepository' do
     expect(prest_guardada.nombre).to eql @prestacion.nombre
   end
 
-  xit 'deberia devolver la prestación existente cuando se solicitan todas las prestaciones' do
+  it 'deberia devolver la prestación existente cuando se solicitan todas las prestaciones' do
     prestaciones = @repo.all
 
     expect(prestaciones.length).to be 1
