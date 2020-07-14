@@ -5,7 +5,7 @@ class PlanResponseBuilder
         'id': plan.id,
         'nombre': plan.nombre
       }
-    }
+    }.to_json
   end
 
   def self.create_from_all(planes)
@@ -18,6 +18,6 @@ class PlanResponseBuilder
       }
     end
 
-    output
+    output.to_json
   end
 end

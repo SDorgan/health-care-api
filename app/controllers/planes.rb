@@ -2,9 +2,7 @@ HealthAPI::App.controllers :planes do
   get :index do
     planes = PlanRepository.new.all
 
-    response = PlanResponseBuilder.create_from_all(planes)
-
-    response.to_json
+    PlanResponseBuilder.create_from_all(planes)
   end
 
   post :index do
@@ -14,9 +12,8 @@ HealthAPI::App.controllers :planes do
 
     plan = PlanRepository.new.save(plan)
 
-    response = PlanResponseBuilder.create_from(plan)
-
     status 201
-    response.to_json
+
+    PlanResponseBuilder.create_from(plan)
   end
 end
