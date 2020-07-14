@@ -4,7 +4,11 @@ class PlanRepository
   end
 
   def save(plan)
-    insert(plan)
+    id = insert(plan)
+
+    plan.id = id
+
+    plan
   end
 
   def find(id)

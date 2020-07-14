@@ -5,15 +5,15 @@ describe 'PlanRepository' do
     @plan = Plan.new('neo')
     @repo = PlanRepository.new
 
-    @plan_id = @repo.save(@plan)
+    @plan = @repo.save(@plan)
   end
 
   it 'deberia guardar el plan generando un id positivo' do
-    expect(@plan_id).to be_positive
+    expect(@plan.id).to be_positive
   end
 
   it 'deberia encontrar el plan luego de haberse guardado' do
-    saved_plan = @repo.find(@plan_id)
+    saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.nombre).to eql @plan.nombre
   end
@@ -22,7 +22,7 @@ describe 'PlanRepository' do
     planes = @repo.all
 
     expect(planes.length).to be 1
-    expect(planes.first.id).to eq @plan_id
+    expect(planes.first.id).to eq @plan.id
   end
 
   it 'deberia devolver todos los planes disponibles' do

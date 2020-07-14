@@ -12,8 +12,7 @@ HealthAPI::App.controllers :planes do
 
     plan = Plan.new(params['nombre'])
 
-    plan_id = PlanRepository.new.save(plan)
-    plan.id = plan_id
+    plan = PlanRepository.new.save(plan)
 
     response = PlanResponseBuilder.create_from(plan)
 
