@@ -34,7 +34,7 @@ class PrestacionRepository
   end
 
   def load_object(a_record)
-    prestacion = Prestacion.new(a_record[:name])
+    prestacion = Prestacion.new(a_record[:name], a_record[:cost])
     prestacion.id = a_record[:id]
 
     prestacion

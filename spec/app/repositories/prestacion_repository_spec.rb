@@ -12,7 +12,7 @@ describe 'PrestacionRepository' do
     expect(@prestacion.id).to be_positive
   end
 
-  xit 'deberia encontrar la prestación luego de haberse guardado' do
+  it 'deberia encontrar la prestación luego de haberse guardado' do
     prest_guardada = @repo.find(@prestacion.id)
 
     expect(prest_guardada.nombre).to eql @prestacion.nombre
