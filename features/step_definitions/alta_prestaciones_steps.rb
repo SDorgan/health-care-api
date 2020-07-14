@@ -1,3 +1,4 @@
+require 'byebug'
 Dado('la prestación con nombre {string}') do |string|
   @nombre = string
 end
@@ -17,10 +18,9 @@ end
 
 Entonces('la prestación se registra exitosamente') do
   json_response = JSON.parse(@response.body)
-  prestaciones = json_response['prestaciones']
 
-  mi_prestacion = prestaciones.first
+  mi_prestacion = json_response['prestacion']
 
   expect(mi_prestacion['nombre']).to eq 'Traumatología'
-  expect(mi_prestacion['costo']).to eq '1200'
+  expect(mi_prestacion['costo']).to eq 1200
 end

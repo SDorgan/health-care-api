@@ -6,7 +6,6 @@ Característica: CRUD Prestaciones
   Quiero poder manejar las prestaciones
 
     @mvp
-    @wip
     Escenario: APRE1 - Alta exitosa de prestacion traumatología
         Dado la prestación con nombre "Traumatología"
         Y costo unitario de prestación $1200

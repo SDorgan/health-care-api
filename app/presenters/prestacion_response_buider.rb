@@ -6,7 +6,7 @@ class PrestacionResponseBuilder
         'nombre': prestacion.nombre,
         'costo': prestacion.costo
       }
-    }
+    }.to_json
   end
 
   def self.create_from_all(prestaciones)
@@ -17,7 +17,7 @@ class PrestacionResponseBuilder
         'id': prestacion.id,
         'nombre': prestacion.nombre,
         'costo': prestacion.costo
-      }
+      }.to_json
     end
 
     output
