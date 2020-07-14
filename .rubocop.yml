@@ -33,5 +33,3 @@ AllCops:
    - 'features/support/env.rb'
 Layout/EndOfLine:
   Enabled: false
-Lint/Debugger:
-  Enabled: false

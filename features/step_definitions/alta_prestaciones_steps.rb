@@ -1,4 +1,3 @@
-require 'byebug'
 Dado('la prestación con nombre {string}') do |string|
   @nombre = string
 end
