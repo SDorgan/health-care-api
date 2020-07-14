@@ -25,8 +25,8 @@ describe 'PrestacionRepository' do
     expect(prestaciones.first.id).to eq @prestacion.id
   end
 
-  xit 'deberia devolver todas las prestaciones disponibles' do
-    @repo.save(Prestacione.new('Odontología', 900))
+  it 'deberia devolver todas las prestaciones disponibles' do
+    @repo.save(Prestacion.new('Odontología', 900))
 
     prestaciones = @repo.all
 
