@@ -6,7 +6,7 @@ describe 'PrestacionesController' do
     last_response.body.include?('prestaciones')
   end
 
-  xit 'deberia devolver la prestación con la que se hizo POST' do
+  it 'deberia devolver la prestación con la que se hizo POST' do
     post '/prestaciones', { 'nombre': 'Traumatología', 'costo': 1200 }.to_json
     last_response.body.include?('nombre')
     last_response.body.include?('costo')
