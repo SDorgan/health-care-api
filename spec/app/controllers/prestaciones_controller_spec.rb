@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'PrestacionesController' do
-  xit 'deberia devoler las prestaciones' do
+  it 'deberia devoler las prestaciones' do
     get '/prestaciones'
     last_response.body.include?('prestaciones')
   end
