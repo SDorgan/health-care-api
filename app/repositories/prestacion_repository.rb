@@ -1,14 +1,14 @@
-class PlanRepository
+class PrestacionRepository
   def initialize
-    @table_name = :planes
+    @table_name = :prestaciones
   end
 
-  def save(plan)
-    id = insert(plan)
+  def save(prestacion)
+    id = insert(prestacion)
 
-    plan.id = id
+    prestacion.id = id
 
-    plan
+    prestacion
   end
 
   def find(id)
@@ -34,19 +34,20 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name])
-    plan.id = a_record[:id]
+    prestacion = Prestacion.new(a_record[:name], a_record[:cost])
+    prestacion.id = a_record[:id]
 
-    plan
+    prestacion
   end
 
   def load_collection(rows)
     rows.map { |a_record| load_object(a_record) }
   end
 
-  def changeset(plan)
+  def changeset(prestacion)
     {
-      name: plan.nombre
+      name: prestacion.nombre,
+      cost: prestacion.costo
     }
   end
 end
