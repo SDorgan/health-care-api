@@ -9,7 +9,6 @@ Característica: Infraestructura
     Dado que existe un plan
 
    @mvp
-   @wip
   Escenario: INFRA3.1 - Endpoint de /reset elimina los datos
     Cuando se ejecuta POST /reset
     Entonces se eliminan los datos
