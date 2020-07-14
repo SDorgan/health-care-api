@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-Health API - Alto Jardin
-========================
-
 [![build status](https://gitlab.com/fiuba-memo2/tp2/altojardin-api/badges/master/pipeline.svg)](https://gitlab.com/fiuba-memo2/tp2/altojardin-api/commits/master)
 
 ## Heroku
@@ -75,4 +71,3 @@ Follow these steps to initialize the PostgreSQL databases:
 * Add descriptive commits messages in English to every commit
 * Write code and comments in English
 * Use REST routes
->>>>>>> develop
