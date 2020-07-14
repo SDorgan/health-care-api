@@ -39,3 +39,4 @@ Around do |_scenario, block|
 end
 
 PLANES_URL = BASE_URL + '/planes'
+PRESTACIONES_URL = BASE_URL + '/prestaciones'
