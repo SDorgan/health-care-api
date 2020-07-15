@@ -1,15 +1,15 @@
 Dado('la prestación con nombre {string}') do |string|
-  @nombre = string
+  @nombre_prestacion = string
 end
 
 Dado('costo unitario de prestación ${int}') do |int|
-  @costo = int
+  @costo_prestacion = int
 end
 
 Cuando('se registra la prestación') do
   @request = {
-    'nombre': @nombre,
-    'costo': @costo
+    'nombre': @nombre_prestacion,
+    'costo': @costo_prestacion
   }
 
   @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json')
