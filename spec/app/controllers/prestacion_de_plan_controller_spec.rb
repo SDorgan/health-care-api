@@ -22,12 +22,12 @@ describe 'PrestacionDePlanController' do
     @prestacion_de_neo = @repo.save(prestacion_de_neo)
   end
 
-  xit 'deberia devoler las prestaciones del plan' do
+  it 'deberia devoler las prestaciones del plan' do
     get "/planes/#{@plan.id}/prestaciones"
     last_response.body.include?('prestaciones')
   end
 
-  xit 'deberia devolver el plan con el que se hizo POST' do
+  xit 'deberia devolver ok al hacer el POST' do
     post "/planes/#{@plan.id}/prestaciones", { 'prestacion': 'Traumatología' }.to_json
     last_response.body.include?('ok')
   end
