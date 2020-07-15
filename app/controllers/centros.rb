@@ -1,4 +1,10 @@
 HealthAPI::App.controllers :centros do
+  get :index do
+    centros = CentroRepository.new.all
+
+    CentroResponseBuilder.create_from_all(centros)
+  end
+
   post :index do
     params = JSON.parse(request.body.read)
 
