@@ -1,4 +1,5 @@
 require_relative '../errors/not_available_in_production_error'
+require_relative '../../lib/version'
 
 HealthAPI::App.controllers :reset do
   post :index do
@@ -14,5 +15,13 @@ HealthAPI::App.controllers :reset do
   rescue NotAvailableInProductionError
     status 405
     'error'
+  end
+end
+
+HealthAPI::App.controllers :version do
+  get :index do
+    {
+      'version': Version.current
+    }.to_json
   end
 end

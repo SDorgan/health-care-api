@@ -164,6 +164,16 @@ paths:
             properties:
               id:
                 $ref: '#/definitions/Id'
+  /version:
+    get:
+      description: "Obtener version actual"
+      responses:
+        200:
+          description: "Version"
+          schema:
+            properties:
+                version: 
+                  $ref: '#/definitions/Version'                
 
 definitions:
   Id:
@@ -228,3 +238,5 @@ definitions:
         type: string
       costo:
         type: integer
+  Version:
+        type: string
