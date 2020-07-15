@@ -22,6 +22,11 @@ describe 'PrestacionDeCentroController' do
     @repo.save(prestacion_de_hosp_aleman)
   end
 
+  it 'deberia devolver un JSON con prestaciones como clave' do
+    get "/centros/#{@centro.id}/prestaciones"
+    last_response.body.include?('prestaciones')
+  end
+
   it 'deberia devolver ok al hacer el POST' do
     post "/centros/#{@centro.id}/prestaciones", { 'prestacion': 'Traumatología' }.to_json
     last_response.body.include?('ok')
