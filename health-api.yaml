@@ -39,6 +39,67 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
+  /planes/{plan_id}/prestaciones:
+    parameters:
+    - name: plan_id
+      in: path
+      type: string
+      description: "id del Plan"
+      required: true
+    get:
+      description: "Obtener todas las prestaciones del plan"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Agrega la prestacion al plan"
+      parameters:
+        - description: "La prestacion a Agregar"
+          in: body
+          name: body
+          required: true
+          schema:
+            prestacion:
+              type: string
+              description: "nombre de la prestacion a agregar al plan"
+      responses:
+        201:
+          description: "Correctamente agregado"
+          schema:
+            properties:
+              
+  /prestaciones:
+    get:
+      description: "Obtener todas las prestaciones"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Dar de alta una nueva prestación"
+      parameters:
+        - description: "Datos para generar ua prestación nueva"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/PrestacionCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
                 
 definitions:
   Id:
@@ -54,4 +115,17 @@ definitions:
         $ref: '#/definitions/Id'
       name:
         type: string
-  
+  PrestacionCreate:
+    properties:
+      nombre:
+        type: string
+      costo:
+        type: integer
+  Prestacion:
+    description: Prestacion médica
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      name:
+        type: string
+      costo: integer
