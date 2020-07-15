@@ -12,6 +12,8 @@ HealthAPI::App.controllers :afiliados do
 
     afiliado = Afiliado.new(params['nombre'], plan.id)
 
+    afiliado.id_telegram = params['id_telegram'] unless params['id_telegram'].nil?
+
     afiliado = AfiliadoRepository.new.save(afiliado)
 
     status 201

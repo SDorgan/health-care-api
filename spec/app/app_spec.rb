@@ -21,5 +21,17 @@ describe 'App' do
     expect(afiliados.first.nombre).to eql 'Juan'
     expect(afiliados.first.id_plan).to eql id_plan
   end
+
+  it 'deberia guardarse el afiliado con plan y id telegram' do
+    plan = @plan_repository.all.first
+    id_plan = plan.id
+    id_telegram = '24'
+    afiliado_repository = AfiliadoRepository.new
+    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud', 'id_telegram': id_telegram }.to_json
+    afiliados = afiliado_repository.all
+    expect(afiliados.first.nombre).to eql 'Juan'
+    expect(afiliados.first.id_plan).to eql id_plan
+    expect(afiliados.first.id_telegram).to eql id_telegram
+  end
   # rubocop:enable RSpec/ExampleLength
 end

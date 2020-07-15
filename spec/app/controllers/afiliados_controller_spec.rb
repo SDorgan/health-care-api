@@ -15,4 +15,9 @@ describe 'AfiliadosController' do
     post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud' }.to_json
     last_response.body.include?('id')
   end
+
+  it 'deberia devolver un id al crearse con un plan y id telegram' do
+    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10' }.to_json
+    last_response.body.include?('id')
+  end
 end
