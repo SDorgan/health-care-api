@@ -179,7 +179,7 @@ definitions:
     properties:
       id:
         $ref: '#/definitions/Id'
-      nonmbre:
+      nombre:
         type: string
       costo:
         type: integer
