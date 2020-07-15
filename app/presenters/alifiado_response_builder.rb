@@ -13,4 +13,10 @@ class AfiliadoResponseBuilder
 
     output.to_json
   end
+
+  def self.create_from(afiliado)
+    {
+      'id': afiliado.id
+    }.to_json
+  end
 end
