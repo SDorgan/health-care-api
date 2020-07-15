@@ -46,6 +46,7 @@ class AfiliadoRepository
     afiliado = Afiliado.new(a_record[:name], a_record[:plan_id])
     afiliado.id = a_record[:id]
     afiliado.id_telegram = a_record[:id_telegram]
+    afiliado.covid_sospechoso = a_record[:covid_suspect]
     afiliado
   end
 
@@ -57,7 +58,8 @@ class AfiliadoRepository
     {
       name: afiliado.nombre,
       id_telegram: afiliado.id_telegram.to_s,
-      plan_id: afiliado.plan_id
+      plan_id: afiliado.plan_id,
+      covid_suspect: afiliado.covid_sospechoso
     }
   end
 end

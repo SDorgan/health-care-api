@@ -37,12 +37,30 @@ describe 'AfiliadoRepository' do
     expect(afiliado_obtenido.first.covid_sospechoso).to eq false
   end
 
-  xit 'afiliado   covid sospechoso' do
+  it 'afiliado covid sospechoso' do
     @repo = AfiliadoRepository.new
     @afiliado.covid_sospechoso = true
 
     @afiliado = @repo.save(@afiliado)
     afiliado_obtenido = @repo.all
     expect(afiliado_obtenido.first.covid_sospechoso).to eq true
+  end
+
+  xit 'deberia poder ver todos los sospechosos' do
+    @repo = AfiliadoRepository.new
+    @afiliado.covid_sospechoso = true
+
+    @afiliado = @repo.save(@afiliado)
+    afiliados_sospechosos = @repo.find_sospechosos
+    expect(afiliados_sospechosos.length?.is_positive?).to eq true
+  end
+
+  xit 'deberia poder ver si un usuario es sospechoso' do
+    @repo = AfiliadoRepository.new
+    @afiliado.covid_sospechoso = true
+
+    @afiliado = @repo.save(@afiliado)
+    afiliados_sospechosos = @repo.es_sospechoso(@afiliado.id)
+    expect(afiliados_sospechosos.length?.is_positive?).to eq true
   end
 end
