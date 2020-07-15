@@ -32,4 +32,12 @@ describe 'CentroRepository' do
 
     expect(centros.length).to be 2
   end
+
+  it 'deberia devolver cero centros cuando se eliminan todos' do
+    @repo.delete_all
+
+    centros = @repo.all
+
+    expect(centros.length).to be 0
+  end
 end
