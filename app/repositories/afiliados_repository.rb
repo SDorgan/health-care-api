@@ -1,26 +1,18 @@
-class PlanRepository
+class AfiliadoRepository
   def initialize
-    @table_name = :planes
+    @table_name = :afiliados
   end
 
-  def save(plan)
-    id = insert(plan)
+  def save(afiliado)
+    id = insert(afiliado)
 
-    plan.id = id
+    afiliado.id = id
 
-    plan
+    afiliado
   end
 
   def find(id)
     load_object(dataset.first!(pk_column => id))
-  end
-
-  def find_by_name(nombre)
-    load_object(dataset.first!(name: nombre))
-  end
-
-  def all
-    load_collection(dataset)
   end
 
   def destroy(a_record)
@@ -30,6 +22,10 @@ class PlanRepository
 
   def delete_all
     dataset.delete
+  end
+
+  def all
+    load_collection(dataset)
   end
 
   private
@@ -47,20 +43,21 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name], a_record[:cost])
-    plan.id = a_record[:id]
-
-    plan
+    afiliado = Afiliado.new(a_record[:name], a_record[:plan_id])
+    afiliado.id = a_record[:id]
+    afiliado.id_telegram = a_record[:id_telegram]
+    afiliado
   end
 
   def load_collection(rows)
     rows.map { |a_record| load_object(a_record) }
   end
 
-  def changeset(plan)
+  def changeset(afiliado)
     {
-      name: plan.nombre,
-      cost: plan.costo
+      name: afiliado.nombre,
+      id_telegram: afiliado.id_telegram.to_s,
+      plan_id: afiliado.plan_id
     }
   end
 end

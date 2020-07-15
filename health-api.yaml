@@ -12,6 +12,14 @@ produces:
   - application/json
 
 paths:
+  /reset:
+    post:
+      description: "Elimina todos los datos de las tablas"
+      responses:
+        200:
+          description: "Se eliminaron los datos"
+        405:
+          description: "No se puede eliminar datos en el ambiente de producción"
   /planes:
     get:
       description: "Obtener todos los planes médicos disponibles"
@@ -39,7 +47,7 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
-  
+
   /centros:
     get:
       description: "Obtener todos los centros médicos disponibles"
@@ -68,29 +76,155 @@ paths:
               centro:
                 $ref: '#/definitions/Centro'
 
+  /planes/{plan_id}/prestaciones:
+    parameters:
+    - name: plan_id
+      in: path
+      type: string
+      description: "id del Plan"
+      required: true
+    get:
+      description: "Obtener todas las prestaciones del plan"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Agrega la prestacion al plan"
+      parameters:
+        - description: "La prestacion a Agregar"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PrestacionCreate'
+      responses:
+        201:
+          description: "Correctamente agregado"
+          schema:
+            properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
+              
+  /prestaciones:
+    get:
+      description: "Obtener todas las prestaciones"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Dar de alta una nueva prestación"
+      parameters:
+        - description: "Datos para generar ua prestación nueva"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/PrestacionCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
+  /afiliados:
+    get:
+      description: "Obtener todos los afiliados"
+      responses:
+        200:
+          description: "Todos los afiliados"
+          schema:
+            properties:
+              planes:
+                items:
+                  $ref: '#/definitions/Afiliado'
+    post:
+      description: "Dar de alta un nuevo afiliado"
+      parameters:
+        - description: "Datos para generar un nuevo afiliado"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/AfiliadosCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              id:
+                $ref: '#/definitions/Id'
+
 definitions:
   Id:
     type: integer
   PlanesCreate:
     properties:
-      name:
+      nombre:
         type: string
+      costo:
+        type: integer
+  Plan:
+    description: Plan médico
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      nonmbre:
+        type: string
+      costo:
+        type: integer
   CentrosCreate:
     properties:
-      name:
+      nombre:
         type: string
   Centro:
     description: Centro médico
     properties:
       id:
         $ref: '#/definitions/Id'
-      name:
+      nombre:
         type: string
-  Plan:
-    description: Plan médico
+  AfiliadosCreate:
+    properties:
+      nombre:
+        type: string
+      nombre_plan:
+        type: string
+      id_telegram:
+        type: string
+  Afiliado:
+    description: Afiliado
     properties:
       id:
         $ref: '#/definitions/Id'
-      name:
+      nombre:
         type: string
-  
+      nombre_plan:
+        type: string
+      id_telegram:
+        type: string
+  PrestacionCreate:
+    properties:
+      nombre:
+        type: string
+      costo:
+        type: integer
+  Prestacion:
+    description: Prestacion médica
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      nombre:
+        type: string
+      costo:
+        type: integer
