@@ -29,7 +29,7 @@ Cuando('se le agrega la prestación {string}') do |string|
 end
 
 Entonces('se actualiza el plan exitosamente') do
-  URL = "#{PLAN_URL}/#{@plan_id}/prestaciones".freeze
+  URL = "#{PLANES_URL}/#{@plan_id}/prestaciones".freeze
   @response = Faraday.get(URL)
 
   json_response = JSON.parse(@response.body)
@@ -37,5 +37,5 @@ Entonces('se actualiza el plan exitosamente') do
 
   nombres = prestaciones.map { |prestacion| prestacion['nombre'] }
 
-  expect(nombres.include?(nombre_plan)).to eq @nombre_prestacion
+  expect(nombres.include?(@nombre_prestacion)).to eq true
 end

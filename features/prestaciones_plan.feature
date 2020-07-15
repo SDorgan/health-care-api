@@ -9,11 +9,10 @@ Característica: Prestaciones para un Plan
         Dado el plan con nombre "PlanJuventud" con costo unitario $500
         Y se registra el plan
         Y la prestación con nombre "Traumatología"
-        Y el costo unitario de prestación $1200
+        Y costo unitario de prestación $1200
         Y se registra la prestación
 
     @mvp
-    @wip
     Escenario: APLAPRES1 - Alta exitosa traumatología para PlanJuventud
         Dado el plan llamado "PlanJuventud"
         Cuando se le agrega la prestación "Traumatología"

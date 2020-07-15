@@ -11,15 +11,14 @@ class PrestacionResponseBuilder
 
   def self.create_from_all(prestaciones)
     output = { 'prestaciones': [] }
-
     prestaciones.each do |prestacion|
       output[:prestaciones] << {
         'id': prestacion.id,
         'nombre': prestacion.nombre,
         'costo': prestacion.costo
-      }.to_json
+      }
     end
 
-    output
+    output.to_json
   end
 end
