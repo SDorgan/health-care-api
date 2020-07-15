@@ -39,12 +39,51 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
-                
+  
+  /centros:
+    get:
+      description: "Obtener todos los centros médicos disponibles"
+      responses:
+        200:
+          description: "Todos los centros"
+          schema:
+            properties:
+              centros:
+                items:
+                  $ref: '#/definitions/Centro'
+    post:
+      description: "Dar de alta un nuevo centro médico"
+      parameters:
+        - description: "Datos para generar un nuevo centro"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/CentrosCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              centro:
+                $ref: '#/definitions/Centro'
+
 definitions:
   Id:
     type: integer
   PlanesCreate:
     properties:
+      name:
+        type: string
+  CentrosCreate:
+    properties:
+      name:
+        type: string
+  Centro:
+    description: Centro médico
+    properties:
+      id:
+        $ref: '#/definitions/Id'
       name:
         type: string
   Plan:
