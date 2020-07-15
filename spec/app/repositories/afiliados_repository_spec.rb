@@ -16,4 +16,13 @@ describe 'AfiliadoRepository' do
     expect(afiliado_obtenido.first.id_telegram).to eq @afiliado.id_telegram
     expect(afiliado_obtenido.first.id_plan).to eq @afiliado.id_plan
   end
+
+  it 'deberia poder guardar afiliado sin id telegram' do
+    @repo = AfiliadoRepository.new
+
+    @afiliado = @repo.save(@afiliado)
+    afiliado_obtenido = @repo.all
+    expect(afiliado_obtenido.first.nombre).to eq @afiliado.nombre
+    expect(afiliado_obtenido.first.id_telegram).to eq ''
+  end
 end
