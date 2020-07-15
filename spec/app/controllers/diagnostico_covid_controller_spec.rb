@@ -28,10 +28,25 @@ describe 'DiagnosticoCovidController' do
     expect(response['sospechoso']).to be true
   end
 
-  xit 'Caso Borde: diagnostico negativo debería dar sospechoso con 37 grados' do
+  it 'Caso Borde: diagnostico negativo debería dar sospechoso con 37 grados' do
     data = { 'temperatura': 37, 'afiliado': @afiliado.id }.to_json
     post '/covid', data
     response = JSON.parse(last_response.body)
     expect(response['sospechoso']).to be true
+  end
+
+  xit 'Ver si un afiliado es sospechoso cuando no lo es' do
+    get '/covid', {}, @afiliado.id
+    response = JSON.parse(last_response.body)
+    expect(response['sospechoso']).to be false
+  end
+
+  xit 'Ver si un afiliado es sospechoso cuando si lo es' do
+    data = { 'temperatura': 37, 'afiliado': @afiliado.id }.to_json
+    post '/covid', data
+
+    get '/covid', {}, @afiliado.id
+    response = JSON.parse(last_response.body)
+    expect(response['sospechoso']).to be false
   end
 end

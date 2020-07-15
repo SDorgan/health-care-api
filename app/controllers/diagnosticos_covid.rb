@@ -5,7 +5,7 @@ HealthAPI::App.controllers :covid do
     temperatura = params['temperatura'].to_i
 
     sospechoso = true
-    sospechoso = false unless temperatura > 37
+    sospechoso = false unless temperatura >= 37
 
     CovidResponseBuilder.create_from(sospechoso)
   end
