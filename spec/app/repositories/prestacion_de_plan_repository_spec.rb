@@ -41,12 +41,11 @@ describe 'PrestacionDePlanRepository' do
     expect(prestaciones_de_plan.first.id).to eq @prestacion.id
   end
 
-  xit 'al crear una prestacion para otro plan, debería devolver solo las prestacion del plan' do
+  it 'al crear una prestacion para otro plan, debería devolver solo las prestacion del plan' do
     prestaciones_de_plan = @repo.find_by_plan(@plan)
 
     expect(prestaciones_de_plan.length).to be 1
     expect(@repo.all.length).to eq 2
-    expect(prestaciones_de_plan.prestacion_id).to eq @prestacion.id
   end
 
   xit 'deberia devolver todas las prestaciones disponibles del plan' do
