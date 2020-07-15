@@ -14,8 +14,8 @@ describe 'DiagnosticoCovidController' do
     @afiliado = afiliado_repo.save(afiliado)
   end
 
-  it 'diagnostico negativo debería dar no sospechoso con 36 grados' do
-    data = { 'temperatura': 36, 'afiliado': @afiliado.id }.to_json
+  it 'diagnostico negativo debería dar no sospechoso con 37 grados' do
+    data = { 'temperatura': 37, 'afiliado': @afiliado.id }.to_json
     post '/covid', data
     response = JSON.parse(last_response.body)
     expect(response['sospechoso']).to be false
@@ -28,8 +28,8 @@ describe 'DiagnosticoCovidController' do
     expect(response['sospechoso']).to be true
   end
 
-  it 'Caso Borde: diagnostico negativo debería dar sospechoso con 37 grados' do
-    data = { 'temperatura': 37, 'afiliado': @afiliado.id }.to_json
+  it 'Caso Borde: diagnostico negativo debería dar sospechoso con 38 grados' do
+    data = { 'temperatura': 38, 'afiliado': @afiliado.id }.to_json
     post '/covid', data
     response = JSON.parse(last_response.body)
     expect(response['sospechoso']).to be true

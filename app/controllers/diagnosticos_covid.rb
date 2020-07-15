@@ -4,14 +4,14 @@ HealthAPI::App.controllers :covid do
 
     temperatura = params['temperatura'].to_i
 
-    return CovidResponseBuilder.create_from(false) unless temperatura >= 37
+    return CovidResponseBuilder.create_from(false) unless temperatura >= 38
 
     @repo = AfiliadoRepository.new
     afiliado = @repo.find(params['afiliado'])
     afiliado.covid_sospechoso = true
-    @repo.save(afiliado)
+    afiliado = @repo.save(afiliado)
 
-    CovidResponseBuilder.create_from(true)
+    CovidResponseBuilder.create_from(afiliado.covid_sospechoso)
   end
 
   get :index, with: :afiliado_id do

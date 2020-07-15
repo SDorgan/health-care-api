@@ -4,9 +4,12 @@ class AfiliadoRepository
   end
 
   def save(afiliado)
-    id = insert(afiliado)
-
-    afiliado.id = id
+    if find_dataset_by_id(afiliado.id).first
+      update(afiliado)
+    else
+      id = insert(afiliado)
+      afiliado.id = id
+    end
 
     afiliado
   end
@@ -39,8 +42,16 @@ class AfiliadoRepository
 
   private
 
+  def find_dataset_by_id(id)
+    dataset.where(pk_column => id)
+  end
+
   def insert(a_record)
     dataset.insert(changeset(a_record))
+  end
+
+  def update(a_record)
+    find_dataset_by_id(a_record.id).update(changeset(a_record))
   end
 
   def dataset

@@ -19,30 +19,23 @@ end
 Entonces('se obtiene que no es sospechoso') do
   json_response = JSON.parse(@response.body)
 
-  resultado = json_response['resultado']
+  resultado = json_response['sospechoso']
   expect(@response.status).to eq 200
-  expect(resultado).not_to be 'Sospechoso'
+  expect(resultado).to be false
 end
 
 Entonces('se obtiene que es sospechoso') do
   json_response = JSON.parse(@response.body)
-
-  resultado = json_response['resultado']
+  resultado = json_response['sospechoso']
   expect(@response.status).to eq 200
-  expect(resultado).to be 'Sospechoso'
+  expect(resultado).to be true
 end
 
-Entonces('queda registrado que el afiliado {string} es sospechoso') do |string|
-  @request = {
-    'afiliado' => string
-  }
-  json_afiliado = JSON.parse(@response_afiliado.body)
-  id_afiliado = json_afiliado['id']
-  URL = "#{COVID_URL}/#{id_afiliado}".freeze
-
-  @response = Faraday.get(COVID_URL, @request.to_json, 'Content-Type' => 'application/json')
+Entonces('queda registrado que el afiliado es sospechoso') do
+  URL = "#{COVID_URL}/#{@id_afiliado}".freeze
+  @response = Faraday.get(URL, @request.to_json, 'Content-Type' => 'application/json')
   json_response = JSON.parse(@response.body)
 
-  resultado = json_response['resultado']
-  expect(resultado).to be 'Sospechoso'
+  resultado = json_response['sospechoso']
+  expect(resultado).to be true
 end

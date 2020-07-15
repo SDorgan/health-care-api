@@ -14,9 +14,8 @@ Característica: Diagnóstico COVID-19
         Cuando se realiza la consulta por COVID con temperatura 37
         Entonces se obtiene que no es sospechoso
 
-    @wip
     Escenario: DIAG2.1 - Diagnóstico por temperatura con COVID
         Dado el afiliado "Lionel Messi" afiliado a "PlanJuventud"
         Cuando se realiza la consulta por COVID con temperatura 40
         Entonces se obtiene que es sospechoso
-        Y queda registrado que el afiliado "Lionel Messi" es sospechoso
+        Y queda registrado que el afiliado es sospechoso
