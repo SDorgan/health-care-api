@@ -7,7 +7,11 @@ HealthAPI::App.controllers :covid do
     return CovidResponseBuilder.create_from(false) unless temperatura >= 38
 
     @repo = AfiliadoRepository.new
-    afiliado = @repo.find(params['afiliado'])
+    afiliado = if params['afiliado'].nil?
+                 @repo.find_by_telegram_id(params['id_telegram'])
+               else
+                 @repo.find(params['afiliado'])
+               end
     afiliado.covid_sospechoso = true
     afiliado = @repo.save(afiliado)
 

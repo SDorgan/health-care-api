@@ -18,6 +18,10 @@ class AfiliadoRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def find_by_telegram_id(tele_id)
+    load_object(dataset.first!(id_telegram: tele_id))
+  end
+
   def find_sospechosos
     load_collection dataset.where(covid_suspect: true)
   end
