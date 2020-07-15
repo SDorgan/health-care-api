@@ -7,10 +7,9 @@ HealthAPI::App.controllers :prestaciones, parent: :planes do
   end
 
   post :index do
-    params = JSON.parse(request.body.read)
-
+    json_params = JSON.parse(request.body.read)
     plan = PlanRepository.new.find(params[:plane_id])
-    prestacion = PrestacionRepository.new.find_by_name(params['prestacion'])
+    prestacion = PrestacionRepository.new.find_by_name(json_params['prestacion'])
 
     prestacion_de_plan = PrestacionDePlan.new(plan, prestacion)
     PrestacionDePlanRepository.new.save(prestacion_de_plan)

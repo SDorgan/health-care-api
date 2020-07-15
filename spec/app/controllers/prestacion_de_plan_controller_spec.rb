@@ -27,7 +27,7 @@ describe 'PrestacionDePlanController' do
     last_response.body.include?('prestaciones')
   end
 
-  xit 'deberia devolver ok al hacer el POST' do
+  it 'deberia devolver ok al hacer el POST' do
     post "/planes/#{@plan.id}/prestaciones", { 'prestacion': 'Traumatología' }.to_json
     last_response.body.include?('ok')
   end

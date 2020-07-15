@@ -16,7 +16,7 @@ class PrestacionRepository
   end
 
   def find_by_name(nombre)
-    load_object(dataset.where(nombre: nombre))
+    load_object(dataset.first!(name: nombre))
   end
 
   def all
