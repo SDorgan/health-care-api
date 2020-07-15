@@ -7,7 +7,7 @@ class AfiliadoResponseBuilder
         'id': afiliado.id,
         'nombre': afiliado.nombre,
         'id_telegram': afiliado.id_telegram,
-        'id_plan': afiliado.id_plan
+        'plan_id': afiliado.plan_id
       }
     end
 

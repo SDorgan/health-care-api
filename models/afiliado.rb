@@ -1,8 +1,8 @@
 class Afiliado
-  attr_accessor :id, :nombre, :id_telegram, :id_plan
+  attr_accessor :id, :nombre, :id_telegram, :plan_id
 
-  def initialize(nombre, id_plan)
+  def initialize(nombre, plan_id)
     @nombre = nombre
-    @id_plan = id_plan
+    @plan_id = plan_id
   end
 end

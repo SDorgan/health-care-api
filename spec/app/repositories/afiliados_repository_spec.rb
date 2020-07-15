@@ -2,7 +2,10 @@ require 'integration_spec_helper'
 
 describe 'AfiliadoRepository' do
   before(:each) do
-    @afiliado = Afiliado.new('Juan', 10)
+    @plan = Plan.new('neo', 100)
+    @plan_repository = PlanRepository.new
+    @plan = @plan_repository.save(@plan)
+    @afiliado = Afiliado.new('Juan', @plan.id)
     @repo = AfiliadoRepository.new
   end
 
@@ -14,7 +17,7 @@ describe 'AfiliadoRepository' do
     afiliado_obtenido = @repo.all
     expect(afiliado_obtenido.first.nombre).to eq @afiliado.nombre
     expect(afiliado_obtenido.first.id_telegram).to eq @afiliado.id_telegram
-    expect(afiliado_obtenido.first.id_plan).to eq @afiliado.id_plan
+    expect(afiliado_obtenido.first.plan_id).to eq @afiliado.plan_id
   end
 
   it 'deberia poder guardar afiliado sin id telegram' do

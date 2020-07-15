@@ -34,7 +34,7 @@ class AfiliadoRepository
   end
 
   def load_object(a_record)
-    afiliado = Afiliado.new(a_record[:name], a_record[:id_plan])
+    afiliado = Afiliado.new(a_record[:name], a_record[:plan_id])
     afiliado.id = a_record[:id]
     afiliado.id_telegram = a_record[:id_telegram]
     afiliado
@@ -48,7 +48,7 @@ class AfiliadoRepository
     {
       name: afiliado.nombre,
       id_telegram: afiliado.id_telegram.to_s,
-      id_plan: afiliado.id_plan
+      plan_id: afiliado.plan_id
     }
   end
 end

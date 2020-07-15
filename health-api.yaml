@@ -100,7 +100,7 @@ definitions:
         $ref: '#/definitions/Id'
       name:
         type: string
-      id_plan:
+      plan_id:
         type: integer
       id_telegram:
         type: string  

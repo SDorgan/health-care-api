@@ -4,7 +4,7 @@ Sequel.migration do
       primary_key :id
       String :name
       String :id_telegram
-      Integer :id_plan
+      foreign_key :plan_id, :planes, key: :id
     end
   end
 
