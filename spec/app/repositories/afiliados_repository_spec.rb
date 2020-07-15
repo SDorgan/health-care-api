@@ -55,7 +55,7 @@ describe 'AfiliadoRepository' do
     expect(afiliados_sospechosos.length.positive?).to eq true
   end
 
-  xit 'deberia poder ver si un usuario es sospechoso' do
+  it 'deberia poder ver si un usuario es sospechoso' do
     @repo = AfiliadoRepository.new
     @afiliado.covid_sospechoso = true
 

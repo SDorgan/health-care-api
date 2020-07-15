@@ -19,6 +19,11 @@ class AfiliadoRepository
     load_collection dataset.where(covid_suspect: true)
   end
 
+  def es_sospechoso(id)
+    afiliado = load_object(dataset.first!(pk_column => id))
+    afiliado.covid_sospechoso
+  end
+
   def destroy(a_record)
     find_dataset_by_id(a_record.id).delete.positive?
   end
