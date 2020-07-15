@@ -32,4 +32,12 @@ describe 'PrestacionRepository' do
 
     expect(prestaciones.length).to be 2
   end
+
+  it 'deberia devolver cero prestaciones cuando se eliminan todas' do
+    @repo.delete_all
+
+    prestaciones = @repo.all
+
+    expect(prestaciones.length).to be 0
+  end
 end

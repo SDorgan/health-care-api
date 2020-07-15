@@ -17,9 +17,9 @@ class PrestacionResponseBuilder
         'id': prestacion.id,
         'nombre': prestacion.nombre,
         'costo': prestacion.costo
-      }.to_json
+      }
     end
 
-    output
+    output.to_json
   end
 end
