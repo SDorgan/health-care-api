@@ -17,4 +17,19 @@ describe 'CentroRepository' do
 
     expect(saved_centro.nombre).to eql @centro.nombre
   end
+
+  it 'deberia devolver el centro existente cuando se solicitan todos los centros' do
+    centros = @repo.all
+
+    expect(centros.length).to be 1
+    expect(centros.first.id).to eq @centro.id
+  end
+
+  it 'deberia devolver todos los centros disponibles' do
+    @repo.save(Centro.new('Hospital Aleman'))
+
+    centros = @repo.all
+
+    expect(centros.length).to be 2
+  end
 end

@@ -15,6 +15,10 @@ class CentroRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def all
+    load_collection(dataset)
+  end
+
   private
 
   def insert(a_record)
@@ -34,6 +38,10 @@ class CentroRepository
     centro.id = a_record[:id]
 
     centro
+  end
+
+  def load_collection(rows)
+    rows.map { |a_record| load_object(a_record) }
   end
 
   def changeset(centro)
