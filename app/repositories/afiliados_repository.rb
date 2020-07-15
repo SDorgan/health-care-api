@@ -15,6 +15,15 @@ class AfiliadoRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def destroy(a_record)
+    find_dataset_by_id(a_record.id).delete.positive?
+  end
+  alias delete destroy
+
+  def delete_all
+    dataset.delete
+  end
+
   def all
     load_collection(dataset)
   end

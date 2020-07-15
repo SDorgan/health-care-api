@@ -15,6 +15,15 @@ class PrestacionDePlanRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def destroy(a_record)
+    find_dataset_by_id(a_record.id).delete.positive?
+  end
+  alias delete destroy
+
+  def delete_all
+    dataset.delete
+  end
+
   def find_by_plan(plan)
     collection = load_collection dataset.where(plan_id: plan.id)
     prestaciones = []
