@@ -48,7 +48,7 @@ describe 'PrestacionDePlanRepository' do
     expect(@repo.all.length).to eq 2
   end
 
-  xit 'deberia devolver todas las prestaciones disponibles del plan' do
+  it 'deberia devolver todas las prestaciones disponibles del plan' do
     otra_prestacion_de_neo = PrestacionDePlan.new(@plan, @otra_prestacion)
     @repo.save(otra_prestacion_de_neo)
 
