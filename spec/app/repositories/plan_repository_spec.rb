@@ -44,4 +44,12 @@ describe 'PlanRepository' do
     plan_encontrado = @repo.find_plan(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
+
+  it 'deberia devolver cero planes cuando se eliminan todos' do
+    @repo.delete_all
+
+    planes = @repo.all
+
+    expect(planes.length).to be 0
+  end
 end
