@@ -38,4 +38,12 @@ describe 'PlanRepository' do
 
     expect(saved_plan.costo).to eql @plan.costo
   end
+
+  it 'deberia devolver cero planes cuando se eliminan todos' do
+    @repo.delete_all
+
+    planes = @repo.all
+
+    expect(planes.length).to be 0
+  end
 end
