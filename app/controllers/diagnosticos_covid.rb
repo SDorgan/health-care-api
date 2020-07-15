@@ -9,4 +9,9 @@ HealthAPI::App.controllers :covid do
 
     CovidResponseBuilder.create_from(sospechoso)
   end
+
+  get :index, with: :afiliado_id do
+    sospechoso = AfiliadoRepository.new.es_sospechoso(params[:afiliado_id])
+    CovidResponseBuilder.create_from(sospechoso)
+  end
 end
