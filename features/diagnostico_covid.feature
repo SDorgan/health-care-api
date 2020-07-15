@@ -9,7 +9,6 @@ Característica: Diagnóstico COVID-19
       Dado el plan con nombre "PlanJuventud" con costo unitario $500
       Y se registra el plan
 
-    @wip
     Escenario: DIAG1.1 - Diagnóstico por temperatura sin COVID
         Dado el afiliado "Lionel Messi" afiliado a "PlanJuventud"
         Cuando se realiza la consulta por COVID con temperatura 37

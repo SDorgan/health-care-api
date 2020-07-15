@@ -13,7 +13,7 @@ Cuando('se realiza la consulta por COVID con temperatura {int}') do |int|
     'afiliado' => @id_afiliado,
     'temperatura' => int
   }
-  Faraday.post(COVID_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(COVID_URL, @request.to_json, 'Content-Type' => 'application/json')
 end
 
 Entonces('se obtiene que no es sospechoso') do
