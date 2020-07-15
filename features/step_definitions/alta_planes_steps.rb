@@ -18,3 +18,18 @@ Entonces('obtengo el plan con nombre {string}') do |nombre_plan|
 
   expect(nombres.include?(nombre_plan)).to eq true
 end
+
+Dado('el plan con nombre {string} con costo unitario ${int}') do |nombre_plan, costo|
+  @request = {
+    'nombre' => nombre_plan,
+    'costo' => costo
+  }
+end
+
+Cuando('se registra el plan') do
+  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json')
+end
+
+Entonces('se registra exitosamente') do
+  expect(@response.status).to eq 201
+end

@@ -19,6 +19,15 @@ class PlanRepository
     load_collection(dataset)
   end
 
+  def destroy(a_record)
+    find_dataset_by_id(a_record.id).delete.positive?
+  end
+  alias delete destroy
+
+  def delete_all
+    dataset.delete
+  end
+
   private
 
   def insert(a_record)
@@ -34,7 +43,7 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name])
+    plan = Plan.new(a_record[:name], a_record[:cost])
     plan.id = a_record[:id]
 
     plan
@@ -46,7 +55,8 @@ class PlanRepository
 
   def changeset(plan)
     {
-      name: plan.nombre
+      name: plan.nombre,
+      cost: plan.costo
     }
   end
 end

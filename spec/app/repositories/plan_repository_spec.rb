@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'PlanRepository' do
   before(:each) do
-    @plan = Plan.new('neo')
+    @plan = Plan.new('neo', 100)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -26,10 +26,24 @@ describe 'PlanRepository' do
   end
 
   it 'deberia devolver todos los planes disponibles' do
-    @repo.save(Plan.new('familiar'))
+    @repo.save(Plan.new('familiar', 100))
 
     planes = @repo.all
 
     expect(planes.length).to be 2
+  end
+
+  it 'deberia devolver el costo del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.costo).to eql @plan.costo
+  end
+
+  it 'deberia devolver cero planes cuando se eliminan todos' do
+    @repo.delete_all
+
+    planes = @repo.all
+
+    expect(planes.length).to be 0
   end
 end

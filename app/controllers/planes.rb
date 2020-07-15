@@ -8,7 +8,7 @@ HealthAPI::App.controllers :planes do
   post :index do
     params = JSON.parse(request.body.read)
 
-    plan = Plan.new(params['nombre'])
+    plan = Plan.new(params['nombre'], params['costo'])
 
     plan = PlanRepository.new.save(plan)
 

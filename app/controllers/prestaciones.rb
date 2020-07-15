@@ -1,8 +1,8 @@
 HealthAPI::App.controllers :prestaciones do
   get :index do
-    planes = PrestacionRepository.new.all
+    prestaciones = PrestacionRepository.new.all
 
-    PrestacionResponseBuilder.create_from_all(planes)
+    PrestacionResponseBuilder.create_from_all(prestaciones)
   end
 
   post :index do

@@ -39,4 +39,5 @@ Around do |_scenario, block|
 end
 
 PLANES_URL = BASE_URL + '/planes'
+RESET_URL = BASE_URL + '/reset'
 PRESTACIONES_URL = BASE_URL + '/prestaciones'
