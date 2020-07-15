@@ -46,7 +46,8 @@ class PlanRepository
 
   def changeset(plan)
     {
-      name: plan.nombre
+      name: plan.nombre,
+      precio: plan.precio
     }
   end
 end

@@ -32,4 +32,10 @@ describe 'PlanRepository' do
 
     expect(planes.length).to be 2
   end
+
+  it 'deberia devolver el precio del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.precio).to eql @plan.precio
+  end
 end
