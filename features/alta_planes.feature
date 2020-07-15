@@ -22,4 +22,3 @@ Característica: CRUD Planes
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
     Cuando se registra el plan
     Entonces se registra exitosamente
-

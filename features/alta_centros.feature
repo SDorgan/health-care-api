@@ -5,8 +5,7 @@ Característica: CRUD Centros
   Como administrador de la prepaga
   Quiero poder manejar los centros medicos
 
-  @wip
   Escenario: ACEN1.1 - Alta exitosa de centro con nombre
     Dado el centro con nombre "Hospital Alemán"
     Cuando se registra el centro
-    Entonces se registra existosamente
+    Entonces se registra exitosamente
