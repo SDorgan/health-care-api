@@ -31,7 +31,7 @@ describe 'Afiliado' do
     expect(afiliado.covid_sospechoso).to eq false
   end
 
-  xit 'afiliado debería poder ser sospechoso covid' do
+  it 'afiliado debería poder ser sospechoso covid' do
     nombre = 'Juan'
     plan_id = 10
     afiliado = Afiliado.new(nombre, plan_id)
