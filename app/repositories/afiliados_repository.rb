@@ -1,0 +1,54 @@
+class AfiliadoRepository
+  def initialize
+    @table_name = :afiliados
+  end
+
+  def save(afiliado)
+    id = insert(afiliado)
+
+    afiliado.id = id
+
+    afiliado
+  end
+
+  def find(id)
+    load_object(dataset.first!(pk_column => id))
+  end
+
+  def all
+    load_collection(dataset)
+  end
+
+  private
+
+  def insert(a_record)
+    dataset.insert(changeset(a_record))
+  end
+
+  def dataset
+    DB[@table_name]
+  end
+
+  def pk_column
+    Sequel[@table_name][:id]
+  end
+
+  def load_object(a_record)
+    afiliado = Afiliado.new(a_record[:name], a_record[:id_plan])
+    afiliado.id = a_record[:id]
+    afiliado.id_telegram = a_record[:id_telegram]
+    afiliado
+  end
+
+  def load_collection(rows)
+    rows.map { |a_record| load_object(a_record) }
+  end
+
+  def changeset(afiliado)
+    {
+      name: afiliado.nombre,
+      id_telegram: afiliado.id_telegram.to_s,
+      id_plan: afiliado.id_plan
+    }
+  end
+end
