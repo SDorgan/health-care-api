@@ -41,7 +41,7 @@ describe 'PlanRepository' do
 
   it 'deberia poder filtrar por nombre plan' do
     @repo.save(Plan.new('familiar', 200))
-    plan_encontrado = @repo.find_plan(@plan.nombre)
+    plan_encontrado = @repo.find_by_name(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
 

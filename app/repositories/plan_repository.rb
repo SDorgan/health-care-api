@@ -15,10 +15,8 @@ class PlanRepository
     load_object(dataset.first!(pk_column => id))
   end
 
-  def find_plan(name_plan)
-    result = load_collection dataset.grep(%i[name],
-                                          name_plan.to_s)
-    result.first
+  def find_by_name(nombre)
+    load_object(dataset.first!(name: nombre))
   end
 
   def all

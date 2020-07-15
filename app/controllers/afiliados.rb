@@ -8,7 +8,7 @@ HealthAPI::App.controllers :afiliados do
   post :index do
     params = JSON.parse(request.body.read)
     plan_repository = PlanRepository.new
-    plan = plan_repository.find_plan(params['nombre_plan'].to_s)
+    plan = plan_repository.find_by_name(params['nombre_plan'].to_s)
 
     afiliado = Afiliado.new(params['nombre'], plan.id)
 
