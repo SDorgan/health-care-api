@@ -40,3 +40,4 @@ end
 
 PLANES_URL = BASE_URL + '/planes'
 PRESTACIONES_URL = BASE_URL + '/prestaciones'
+AFILIADOS_URL = BASE_URL + '/afiliados'
