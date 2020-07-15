@@ -3,7 +3,8 @@ class PlanResponseBuilder
     {
       'plan': {
         'id': plan.id,
-        'nombre': plan.nombre
+        'nombre': plan.nombre,
+        'precio': plan.precio
       }
     }.to_json
   end
@@ -14,7 +15,8 @@ class PlanResponseBuilder
     planes.each do |plan|
       output[:planes] << {
         'id': plan.id,
-        'nombre': plan.nombre
+        'nombre': plan.nombre,
+        'precio': plan.precio
       }
     end
 
