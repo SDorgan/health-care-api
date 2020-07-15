@@ -4,6 +4,9 @@ describe 'AfiliadosController' do
   before(:each) do
     data = { 'nombre' => 'PlanJuventud', 'precio' => 100 }.to_json
     post '/planes', data
+
+    data_afiliado = { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud' }.to_json
+    post '/afiliados', data_afiliado
   end
 
   it 'deberia devoler los afiliados' do

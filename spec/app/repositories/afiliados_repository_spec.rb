@@ -28,4 +28,39 @@ describe 'AfiliadoRepository' do
     expect(afiliado_obtenido.first.nombre).to eq @afiliado.nombre
     expect(afiliado_obtenido.first.id_telegram).to eq ''
   end
+
+  it 'afiliado nuevo en la base debería no ser covid sospechoso' do
+    @repo = AfiliadoRepository.new
+
+    @afiliado = @repo.save(@afiliado)
+    afiliado_obtenido = @repo.all
+    expect(afiliado_obtenido.first.covid_sospechoso).to eq false
+  end
+
+  it 'afiliado covid sospechoso' do
+    @repo = AfiliadoRepository.new
+    @afiliado.covid_sospechoso = true
+
+    @afiliado = @repo.save(@afiliado)
+    afiliado_obtenido = @repo.all
+    expect(afiliado_obtenido.first.covid_sospechoso).to eq true
+  end
+
+  it 'deberia poder ver todos los sospechosos' do
+    @repo = AfiliadoRepository.new
+    @afiliado.covid_sospechoso = true
+
+    @afiliado = @repo.save(@afiliado)
+    afiliados_sospechosos = @repo.find_sospechosos
+    expect(afiliados_sospechosos.length.positive?).to eq true
+  end
+
+  it 'deberia poder ver si un usuario es sospechoso' do
+    @repo = AfiliadoRepository.new
+    @afiliado.covid_sospechoso = true
+
+    @afiliado = @repo.save(@afiliado)
+    sospechoso = @repo.es_sospechoso(@afiliado.id)
+    expect(sospechoso).to eq true
+  end
 end
