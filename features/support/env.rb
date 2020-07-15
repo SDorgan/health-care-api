@@ -38,6 +38,8 @@ Around do |_scenario, block|
   DB.transaction(rollback: :always, auto_savepoint: true) { block.call }
 end
 
-PLANES_URL = BASE_URL + '/planes'
-RESET_URL = BASE_URL + '/reset'
 PRESTACIONES_URL = BASE_URL + '/prestaciones'
+PLANES_URL = BASE_URL + '/planes'
+CENTROS_URL = BASE_URL + '/centros'
+RESET_URL = BASE_URL + '/reset'
+AFILIADOS_URL = BASE_URL + '/afiliados'

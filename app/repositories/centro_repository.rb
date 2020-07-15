@@ -1,22 +1,18 @@
-class PlanRepository
+class CentroRepository
   def initialize
-    @table_name = :planes
+    @table_name = :centros
   end
 
-  def save(plan)
-    id = insert(plan)
+  def save(centro)
+    id = insert(centro)
 
-    plan.id = id
+    centro.id = id
 
-    plan
+    centro
   end
 
   def find(id)
     load_object(dataset.first!(pk_column => id))
-  end
-
-  def find_by_name(nombre)
-    load_object(dataset.first!(name: nombre))
   end
 
   def all
@@ -47,20 +43,19 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name], a_record[:cost])
-    plan.id = a_record[:id]
+    centro = Centro.new(a_record[:name])
+    centro.id = a_record[:id]
 
-    plan
+    centro
   end
 
   def load_collection(rows)
     rows.map { |a_record| load_object(a_record) }
   end
 
-  def changeset(plan)
+  def changeset(centro)
     {
-      name: plan.nombre,
-      cost: plan.costo
+      name: centro.nombre
     }
   end
 end

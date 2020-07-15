@@ -1,4 +1,4 @@
-   # language: es
+# language: es
 
 Característica: Infraestructura
   Para poder probar la API
@@ -8,6 +8,7 @@ Característica: Infraestructura
   Antecedentes:
     Dado que existe un plan
     Y que existe una prestacion
+    Y que existe un centro
 
   @mvp
   Escenario: INFRA3.1 - Endpoint de /reset elimina los datos

@@ -28,6 +28,9 @@ end
 
 Cuando('se registra el plan') do
   @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json')
+  json_response = JSON.parse(@response.body)
+  plan = json_response['plan']
+  @plan_id = plan['id']
 end
 
 Entonces('se registra exitosamente') do
