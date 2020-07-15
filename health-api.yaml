@@ -108,6 +108,33 @@ paths:
             properties:
               prestacion:
                 $ref: '#/definitions/Prestacion'
+  /afiliados:
+    get:
+      description: "Obtener todos los afiliados"
+      responses:
+        200:
+          description: "Todos los afiliados"
+          schema:
+            properties:
+              planes:
+                items:
+                  $ref: '#/definitions/Afiliado'
+    post:
+      description: "Dar de alta un nuevo afiliado"
+      parameters:
+        - description: "Datos para generar un nuevo afiliado"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/AfiliadosCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              id:
+                $ref: '#/definitions/Id'
                 
 definitions:
   Id:
@@ -116,6 +143,8 @@ definitions:
     properties:
       name:
         type: string
+      costo:
+        type: integer
   Plan:
     description: Plan médico
     properties:
@@ -123,6 +152,25 @@ definitions:
         $ref: '#/definitions/Id'
       name:
         type: string
+  AfiliadosCreate:
+    properties:
+      nombre:
+        type: string
+      nombre_plan:
+        type: string
+      id_telegram:
+        type: string
+  Afiliado:
+    description: Afiliado
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      name:
+        type: string
+      plan_id:
+        type: integer
+      id_telegram:
+        type: string  
   PrestacionCreate:
     properties:
       nombre:
@@ -137,3 +185,4 @@ definitions:
       name:
         type: string
       costo: integer
+
