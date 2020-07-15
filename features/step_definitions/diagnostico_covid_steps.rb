@@ -3,14 +3,17 @@ Dado('el afiliado {string} afiliado a {string}') do |nombre, plan|
     'nombre' => nombre,
     'nombre_plan' => plan
   }
-  Faraday.post(AFILIADOS_URL, request.to_json, 'Content-Type' => 'application/json')
+  response = Faraday.post(AFILIADOS_URL, request.to_json, 'Content-Type' => 'application/json')
+  json_response = JSON.parse(response.body)
+  @id_afiliado = json_response['id']
 end
 
 Cuando('se realiza la consulta por COVID con temperatura {int}') do |int|
   @request = {
+    'afiliado' => @id_afiliado,
     'temperatura' => int
   }
-  @response = Faraday.post(COVID_URL, @request.to_json, 'Content-Type' => 'application/json')
+  Faraday.post(COVID_URL, @request.to_json, 'Content-Type' => 'application/json')
 end
 
 Entonces('se obtiene que no es sospechoso') do

@@ -28,4 +28,12 @@ describe 'AfiliadoRepository' do
     expect(afiliado_obtenido.first.nombre).to eq @afiliado.nombre
     expect(afiliado_obtenido.first.id_telegram).to eq ''
   end
+
+  xit 'afiliado nuevo en la base debería no ser covid sospechoso' do
+    @repo = AfiliadoRepository.new
+
+    @afiliado = @repo.save(@afiliado)
+    afiliado_obtenido = @repo.all
+    expect(afiliado_obtenido.first.covid_sospechoso).to eq false
+  end
 end

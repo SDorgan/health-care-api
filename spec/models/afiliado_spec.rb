@@ -22,4 +22,21 @@ describe 'Afiliado' do
 
     expect(afiliado.id_telegram).to be_nil
   end
+
+  xit 'afiliado nuevo deberia ser no sospechoso covid' do
+    nombre = 'Juan'
+    plan_id = 10
+    afiliado = Afiliado.new(nombre, plan_id)
+
+    expect(afiliado.sospechoso_covid).to eq false
+  end
+
+  xit 'afiliado debería poder ser sospechoso covid' do
+    nombre = 'Juan'
+    plan_id = 10
+    afiliado = Afiliado.new(nombre, plan_id)
+    afiliado.sospechoso_covid = true
+
+    expect(afiliado.sospechoso_covid).to eq true
+  end
 end
