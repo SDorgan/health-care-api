@@ -7,6 +7,7 @@ HealthAPI::App.controllers :reset do
     PrestacionDePlanRepository.new.delete_all
     AfiliadoRepository.new.delete_all
     PlanRepository.new.delete_all
+    CentroRepository.new.delete_all
     PrestacionRepository.new.delete_all
 
     'ok'

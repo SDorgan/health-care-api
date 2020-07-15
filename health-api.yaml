@@ -47,6 +47,35 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
+
+  /centros:
+    get:
+      description: "Obtener todos los centros médicos disponibles"
+      responses:
+        200:
+          description: "Todos los centros"
+          schema:
+            properties:
+              centros:
+                items:
+                  $ref: '#/definitions/Centro'
+    post:
+      description: "Dar de alta un nuevo centro médico"
+      parameters:
+        - description: "Datos para generar un nuevo centro"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/CentrosCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              centro:
+                $ref: '#/definitions/Centro'
+
   /planes/{plan_id}/prestaciones:
     parameters:
     - name: plan_id
@@ -72,14 +101,14 @@ paths:
           name: body
           required: true
           schema:
-            prestacion:
-              type: string
-              description: "nombre de la prestacion a agregar al plan"
+            $ref: '#/definitions/PrestacionCreate'
       responses:
         201:
           description: "Correctamente agregado"
           schema:
             properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
               
   /prestaciones:
     get:
@@ -135,13 +164,13 @@ paths:
             properties:
               id:
                 $ref: '#/definitions/Id'
-                
+
 definitions:
   Id:
     type: integer
   PlanesCreate:
     properties:
-      name:
+      nombre:
         type: string
       costo:
         type: integer
@@ -150,7 +179,20 @@ definitions:
     properties:
       id:
         $ref: '#/definitions/Id'
-      name:
+      nombre:
+        type: string
+      costo:
+        type: integer
+  CentrosCreate:
+    properties:
+      nombre:
+        type: string
+  Centro:
+    description: Centro médico
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      nombre:
         type: string
   AfiliadosCreate:
     properties:
@@ -165,12 +207,12 @@ definitions:
     properties:
       id:
         $ref: '#/definitions/Id'
-      name:
+      nombre:
         type: string
-      plan_id:
-        type: integer
+      nombre_plan:
+        type: string
       id_telegram:
-        type: string  
+        type: string
   PrestacionCreate:
     properties:
       nombre:
@@ -182,7 +224,7 @@ definitions:
     properties:
       id:
         $ref: '#/definitions/Id'
-      name:
+      nombre:
         type: string
-      costo: integer
-
+      costo:
+        type: integer

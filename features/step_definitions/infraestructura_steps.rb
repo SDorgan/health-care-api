@@ -18,6 +18,14 @@ Dado('que existe una prestacion') do
   @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json')
 end
 
+Dado('que existe un centro') do
+  @request = {
+    'nombre': 'Centro Test'
+  }
+
+  @response = Faraday.post(CENTROS_URL, @request.to_json, 'Content-Type' => 'application/json')
+end
+
 Cuando("se ejecuta POST \/reset") do
   @response = Faraday.post(RESET_URL)
 end
@@ -31,7 +39,12 @@ Entonces('se eliminan los datos') do
   json_response = JSON.parse(response.body)
   prestaciones = json_response['prestaciones']
 
+  response = Faraday.get(CENTROS_URL, 'Content-Type' => 'application/json')
+  json_response = JSON.parse(response.body)
+  centros = json_response['centros']
+
   expect(planes.empty?).to be true
+  expect(centros.empty?).to be true
   expect(prestaciones.empty?).to be true
 end
 
