@@ -11,6 +11,10 @@ class PrestacionDeCentroRepository
     prestacion_de_centro
   end
 
+  def all
+    load_collection(dataset)
+  end
+
   def find_by_centro(centro)
     collection = load_collection dataset.where(centro_id: centro.id)
 
