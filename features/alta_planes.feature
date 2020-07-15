@@ -17,7 +17,6 @@ Característica: CRUD Planes
     Entonces obtengo el plan con nombre "Neo"
     Y obtengo el plan con nombre "Familiar"
 
-  @wip
   @mvp
   Escenario: APLA1.1 - Alta exitosa de PlanJuventud con nombre y precio
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
