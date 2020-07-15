@@ -15,6 +15,10 @@ class PlanRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def find_by_name(nombre)
+    load_object(dataset.first!(name: nombre))
+  end
+
   def all
     load_collection(dataset)
   end
