@@ -34,16 +34,15 @@ describe 'PrestacionDePlanRepository' do
     @prestacion_de_jubilados = @repo.save(prestacion_de_jubilados)
   end
 
-  xit 'debería devolver la prestacion del plan' do
-    prestaciones_de_plan = @repo.find_by_plan(@plan.id)
+  it 'debería devolver la prestacion del plan' do
+    prestaciones_de_plan = @repo.find_by_plan(@plan)
 
     expect(prestaciones_de_plan.length).to be 1
-    expect(prestaciones_de_plan.first.plan_id).to eq @plan.id
-    expect(prestaciones_de_plan.first.prestacion_id).to eq @prestacion.id
+    expect(prestaciones_de_plan.first.id).to eq @prestacion.id
   end
 
   xit 'al crear una prestacion para otro plan, debería devolver solo las prestacion del plan' do
-    prestaciones_de_plan = @repo.find_by_plan(@plan.id)
+    prestaciones_de_plan = @repo.find_by_plan(@plan)
 
     expect(prestaciones_de_plan.length).to be 1
     expect(@repo.all.length).to eq 2
@@ -54,7 +53,7 @@ describe 'PrestacionDePlanRepository' do
     otra_prestacion_de_neo = PrestacionDePlan.new(@plan, @otra_prestacion)
     @repo.save(otra_prestacion_de_neo)
 
-    prestaciones_de_plan = @repo.find_by_plan(@plan.id)
+    prestaciones_de_plan = @repo.find_by_plan(@plan)
 
     expect(prestaciones_de_plan.length).to be 2
   end
