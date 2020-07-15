@@ -21,7 +21,7 @@ describe 'DiagnosticoCovidController' do
     expect(response['sospechoso']).to be false
   end
 
-  xit 'diagnostico negativo debería dar sospechoso con 40 grados' do
+  it 'diagnostico negativo debería dar sospechoso con 40 grados' do
     data = { 'temperatura': 40, 'afiliado': @afiliado.id }.to_json
     post '/covid', data
     response = JSON.parse(last_response.body)

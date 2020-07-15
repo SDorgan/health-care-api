@@ -2,8 +2,11 @@ HealthAPI::App.controllers :covid do
   post :index do
     params = JSON.parse(request.body.read)
 
-    _temperatura = params['temperatura'].to_i
+    temperatura = params['temperatura'].to_i
 
-    CovidResponseBuilder.create_from(false)
+    sospechoso = true
+    sospechoso = false unless temperatura > 37
+
+    CovidResponseBuilder.create_from(sospechoso)
   end
 end
