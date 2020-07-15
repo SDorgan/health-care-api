@@ -41,7 +41,7 @@ describe 'DiagnosticoCovidController' do
     expect(response['sospechoso']).to be false
   end
 
-  xit 'Ver si un afiliado es sospechoso cuando si lo es' do
+  it 'Ver si un afiliado es sospechoso cuando si lo es' do
     data = { 'temperatura': 37, 'afiliado': @afiliado.id }.to_json
     post '/covid', data
 
