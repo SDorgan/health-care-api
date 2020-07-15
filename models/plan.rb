@@ -1,8 +1,8 @@
 class Plan
-  attr_accessor :id, :nombre, :precio
+  attr_accessor :id, :nombre, :costo
 
-  def initialize(nombre, precio)
+  def initialize(nombre, costo)
     @nombre = nombre
-    @precio = precio
+    @costo = costo
   end
 end

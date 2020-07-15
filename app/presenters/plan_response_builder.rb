@@ -4,7 +4,7 @@ class PlanResponseBuilder
       'plan': {
         'id': plan.id,
         'nombre': plan.nombre,
-        'precio': plan.precio
+        'costo': plan.costo
       }
     }.to_json
   end
@@ -16,7 +16,7 @@ class PlanResponseBuilder
       output[:planes] << {
         'id': plan.id,
         'nombre': plan.nombre,
-        'precio': plan.precio
+        'costo': plan.costo
       }
     end
 

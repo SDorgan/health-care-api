@@ -1,9 +1,9 @@
 Sequel.migration do
   up do
-    add_column :planes, :precio, Integer, default: 0
+    add_column :planes, :cost, Integer, default: 0
   end
 
   down do
-    drop_column :planes, :precio
+    drop_column :planes, :cost
   end
 end
