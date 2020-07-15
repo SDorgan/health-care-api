@@ -20,9 +20,8 @@ Característica: Infraestructura
     Cuando se ejecuta POST /reset
     Entonces se obtiene un error
 
-  @wip
   @mvp
   Escenario: INFRA2 - Trazabilidad de arfactos: el endpoint /version no requiere api-key
-      Cuando se ejecuta GET "/version"
+      Cuando se ejecuta GET /version
       Entonces obtiene una version semántica de 3 números
 
