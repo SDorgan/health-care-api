@@ -6,6 +6,6 @@ class Resumen
   end
 
   def costo_adicional
-    0
+    @visitas.map { |visita| visita.prestacion.costo }.inject(0, :+)
   end
 end
