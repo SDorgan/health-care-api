@@ -30,7 +30,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $1000
     Y total a pagar es $1500
 
-  @wip
   Escenario: RES3.2 - Consulta de resumen sin ninguna prestación cubierta y dos consultas realizadas
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia"
