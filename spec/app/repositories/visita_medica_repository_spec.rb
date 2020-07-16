@@ -51,6 +51,6 @@ describe 'VisitaMedicaRepository' do
     visita_medica_saved = repo.find(visita_medica.id)
 
     expect(visita_medica_saved.afiliado_id).to eq @afiliado.id
-    expect(visita_medica_saved.prestacion_id).to eq @prestacion.id
+    expect(visita_medica_saved.prestacion.id).to eq @prestacion.id
   end
 end

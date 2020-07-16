@@ -13,6 +13,6 @@ describe 'VisitaMedica' do
     visita_medica = VisitaMedica.new(afiliado_id, prestacion)
 
     expect(visita_medica.afiliado_id).to eql afiliado_id
-    expect(visita_medica.prestacion_id).to eql prestacion.id
+    expect(visita_medica.prestacion.id).to eql prestacion.id
   end
 end

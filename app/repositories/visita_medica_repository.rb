@@ -44,7 +44,7 @@ class VisitaMedicaRepository
   def changeset(visita_medica)
     {
       afiliado_id: visita_medica.afiliado_id,
-      prestacion_id: visita_medica.prestacion_id,
+      prestacion_id: visita_medica.prestacion.id,
       created_on: visita_medica.created_on
     }
   end
