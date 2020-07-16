@@ -247,6 +247,26 @@ paths:
               visita:
                 $ref: '#/definitions/Visita'
   
+  /resumen:
+    get:
+      description: "Obtener el resumen de gastos de un afiliado"
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: El Id para identificar al afiliado. Si es el de Telegram, colocar en from, telegram
+        - in: query
+          name: from
+          type: string
+          description: Desde que fuente se está consultando por el resumen de gastos
+      responses:
+        200:
+          description: "El resumen de gastos"
+          schema:
+            properties:
+              resumen:
+                $ref: '#/definitions/Resumen'
+  
   /version:
     get:
       description: "Obtener version actual"
@@ -261,6 +281,21 @@ paths:
 definitions:
   Id:
     type: integer
+  Resumen:
+    description: Resumen de gastos
+    properties:
+      afiliado:
+        type: string
+      plan:
+        properties:
+          nombre:
+            type: string
+          costo:
+            type: integer
+      adicional:
+        type: integer
+      total:
+        type: integer
   VisitasCreate:
     properties:
       afiliado:
@@ -275,7 +310,7 @@ definitions:
       afiliado:
         type: integer
       prestacion:
-        type: integer
+        type: string
       created_on:
         type: string
   PlanesCreate:
