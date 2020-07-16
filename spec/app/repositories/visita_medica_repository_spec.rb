@@ -31,4 +31,14 @@ describe 'VisitaMedicaRepository' do
 
     expect(visita_medica.id.positive?).to be true
   end
+
+  it 'deberia poder guardar la visita generando una fecha' do
+    repo = VisitaMedicaRepository.new
+
+    visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
+
+    visita_medica = repo.save(visita_medica)
+
+    expect(visita_medica.created_on.nil?).to be false
+  end
 end
