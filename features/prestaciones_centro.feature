@@ -9,11 +9,10 @@ Característica: Prestaciones para un Centro
     Dado el centro con nombre "Hospital Alemán"
     Y se registra el centro
     Y la prestación con nombre "Traumatología"
-    Y el costo unitario de prestación $1200
+    Y costo unitario de prestación $1200
     Y se registra la prestación
 
-  @wip
   Escenario: ACENPRES1 - Alta exitosa traumatología para Hospital Alemán
-    Dado el centro con nombre "Hospital Alemán"
-    Cuando se agrega la prestación "Traumatología"
+    Dado el centro llamado "Hospital Alemán"
+    Cuando se le agrega la prestación "Traumatología" al centro
     Entonces se actualiza el centro exitosamente

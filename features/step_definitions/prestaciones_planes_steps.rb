@@ -1,10 +1,10 @@
-Dado('el plan llamado {string}') do |nombre_plan|
+Dado('el plan llamado {string}') do |nombre|
   # should look up the plan_id here
 end
 
-Cuando('se le agrega la prestación {string}') do |string|
+Cuando('se le agrega la prestación {string} al plan') do |nombre_prestacion|
   request = {
-    'prestacion': string
+    'prestacion': nombre_prestacion
   }
   URL = "#{PLANES_URL}/#{@plan_id}/prestaciones".freeze
 
