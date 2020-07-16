@@ -39,4 +39,16 @@ describe 'ResumenController' do
     expect(resumen['adicional']).to eq 1000
     expect(resumen['total']).to eq 2000
   end
+
+  it 'debería devolver el resumen de un afiliado por ID' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    get "/resumen?id=#{@afiliado.id}&from=api"
+
+    response = JSON.parse(last_response.body)
+
+    resumen = response['resumen']
+
+    expect(resumen['afiliado']).to eq 'Juan Perez'
+    expect(resumen['adicional']).to eq 1000
+    expect(resumen['total']).to eq 2000
+  end
 end
