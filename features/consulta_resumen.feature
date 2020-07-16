@@ -8,10 +8,12 @@ Característica: Consulta resumen
   Antecedentes:
     Dado el centro con nombre "Enfermeria del Castillo Negro"
     Y se registra el centro
-    Y la prestación con nombre "Traumatología"
+    Y la prestación con nombre "Traumatologia"
     Y costo unitario de prestación $1000
+    Y se registra la prestación
     Y la prestación con nombre "Clínica general"
     Y costo unitario de prestación $500
+    Y se registra la prestación
     Y el plan con nombre "PlanCuervo" con costo unitario $500
     Y se registra el plan
 
@@ -21,7 +23,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
 
-  @wip
   Escenario: RES3.1 - Consulta de resumen sin ninguna prestación cubierta y una consulta realizada
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia"
