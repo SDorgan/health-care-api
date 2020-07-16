@@ -1,3 +1,5 @@
+# language: es
+
 Característica: Consulta resumen
   Para poder obtener afiliados
   Como administrador de la prepaga
