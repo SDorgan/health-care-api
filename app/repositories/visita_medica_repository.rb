@@ -7,6 +7,10 @@ class VisitaMedicaRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def find_by_afiliado(id)
+    load_collection dataset.where(afiliado_id: id)
+  end
+
   def save(visita_medica)
     id = insert(visita_medica)
 
@@ -37,6 +41,10 @@ class VisitaMedicaRepository
     visita_medica
   end
 
+  def load_collection(rows)
+    rows.map { |a_record| load_object(a_record) }
+  end
+
   def pk_column
     Sequel[@table_name][:id]
   end
@@ -44,7 +52,7 @@ class VisitaMedicaRepository
   def changeset(visita_medica)
     {
       afiliado_id: visita_medica.afiliado_id,
-      prestacion_id: visita_medica.prestacion_id,
+      prestacion_id: visita_medica.prestacion.id,
       created_on: visita_medica.created_on
     }
   end

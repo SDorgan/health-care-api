@@ -20,37 +20,34 @@ describe 'VisitaMedicaRepository' do
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
+
+    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
+
+    @repo = VisitaMedicaRepository.new
+    @visita_medica = @repo.save(@visita_medica)
   end
 
   it 'deberia poder guardar la visita generando un id positivo' do
-    repo = VisitaMedicaRepository.new
-
-    visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
-
-    visita_medica = repo.save(visita_medica)
-
-    expect(visita_medica.id.positive?).to be true
+    expect(@visita_medica.id.positive?).to be true
   end
 
   it 'deberia poder guardar la visita generando una fecha' do
-    repo = VisitaMedicaRepository.new
-
-    visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
-
-    visita_medica = repo.save(visita_medica)
-
-    expect(visita_medica.created_on.nil?).to be false
+    expect(@visita_medica.created_on.nil?).to be false
   end
 
-  it 'deberia poder obtener la visita que se guardo' do # rubocop:disable RSpec/ExampleLength
-    repo = VisitaMedicaRepository.new
-
-    visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
-
-    visita_medica = repo.save(visita_medica)
-    visita_medica_saved = repo.find(visita_medica.id)
+  it 'deberia poder obtener la visita que se guardo' do
+    visita_medica_saved = @repo.find(@visita_medica.id)
 
     expect(visita_medica_saved.afiliado_id).to eq @afiliado.id
-    expect(visita_medica_saved.prestacion_id).to eq @prestacion.id
+    expect(visita_medica_saved.prestacion.id).to eq @prestacion.id
+  end
+
+  it 'deberia poder obtener las visitas correspondientes a un afiliado' do
+    otra_visita = VisitaMedica.new(@afiliado.id, @prestacion)
+    @repo.save(otra_visita)
+
+    visitas = @repo.find_by_afiliado(@afiliado.id)
+
+    expect(visitas.length).to eq 2
   end
 end

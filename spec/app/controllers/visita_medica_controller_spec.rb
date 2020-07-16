@@ -29,7 +29,7 @@ describe 'VisitaMedicaController' do
     visita = response['visita']
 
     expect(visita['afiliado']).to eq @afiliado.id
-    expect(visita['prestacion']).to eq @prestacion.id
+    expect(visita['prestacion']).to eq @prestacion.nombre
     expect(visita['created_on'].nil?).to be false
   end
 end
