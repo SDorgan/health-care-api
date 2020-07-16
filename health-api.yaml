@@ -250,6 +250,15 @@ paths:
   /resumen:
     get:
       description: "Obtener el resumen de gastos de un afiliado"
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: El Id para identificar al afiliado. Si es el de Telegram, colocar en from, telegram
+        - in: query
+          name: from
+          type: string
+          description: Desde que fuente se está consultando por el resumen de gastos
       responses:
         200:
           description: "El resumen de gastos"
