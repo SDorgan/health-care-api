@@ -10,6 +10,6 @@ class Resumen
   end
 
   def total
-    @plan.costo
+    @plan.costo + costo_adicional
   end
 end

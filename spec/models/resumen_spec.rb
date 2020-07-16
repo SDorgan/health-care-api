@@ -29,33 +29,65 @@ describe 'Resumen' do
     end
   end
 
-  it 'deberia generar un costo adicional del monto de la prestación cuando hay una visita' do
-    visitas = [VisitaMedica.new(@afiliado.id, @prestacion)]
+  describe 'con visitas medicas' do
+    it 'deberia generar un costo adicional del monto de la prestación cuando hay una visita' do
+      visitas = [VisitaMedica.new(@afiliado.id, @prestacion)]
 
-    resumen = Resumen.new(@afiliado, @plan, visitas)
+      resumen = Resumen.new(@afiliado, @plan, visitas)
 
-    expect(resumen.costo_adicional).to eq 10
-  end
+      expect(resumen.costo_adicional).to eq 10
+    end
 
-  it 'deberia generar un costo adicional del doble del monto de la prestacion cuando hay dos visitas' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    visitas = [
-      VisitaMedica.new(@afiliado.id, @prestacion),
-      VisitaMedica.new(@afiliado.id, @prestacion)
-    ]
+    it 'deberia generar un total igual al monto del plan mas el precio de la prestacion' do
+      visitas = [VisitaMedica.new(@afiliado.id, @prestacion)]
 
-    resumen = Resumen.new(@afiliado, @plan, visitas)
+      resumen = Resumen.new(@afiliado, @plan, visitas)
 
-    expect(resumen.costo_adicional).to eq 20
-  end
+      expect(resumen.total).to eq 1010
+    end
 
-  it 'deberia generar un costo con la suma de las dos distintas prestaciones' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    visitas = [
-      VisitaMedica.new(@afiliado.id, @prestacion),
-      VisitaMedica.new(@afiliado.id, @otra_prestacion)
-    ]
+    it 'deberia generar un costo adicional del doble del monto de la prestacion cuando hay dos visitas' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+      visitas = [
+        VisitaMedica.new(@afiliado.id, @prestacion),
+        VisitaMedica.new(@afiliado.id, @prestacion)
+      ]
 
-    resumen = Resumen.new(@afiliado, @plan, visitas)
+      resumen = Resumen.new(@afiliado, @plan, visitas)
 
-    expect(resumen.costo_adicional).to eq 30
+      expect(resumen.costo_adicional).to eq 20
+    end
+
+    it 'deberia generar un total igual al monto del plan mas el doble del precio de la prestacion' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+      visitas = [
+        VisitaMedica.new(@afiliado.id, @prestacion),
+        VisitaMedica.new(@afiliado.id, @prestacion)
+      ]
+
+      resumen = Resumen.new(@afiliado, @plan, visitas)
+
+      expect(resumen.total).to eq 1020
+    end
+
+    it 'deberia generar un costo con la suma de las dos distintas prestaciones' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+      visitas = [
+        VisitaMedica.new(@afiliado.id, @prestacion),
+        VisitaMedica.new(@afiliado.id, @otra_prestacion)
+      ]
+
+      resumen = Resumen.new(@afiliado, @plan, visitas)
+
+      expect(resumen.costo_adicional).to eq 30
+    end
+
+    it 'deberia generar un total igual al monto del plan mas la suma de las prestaciones' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+      visitas = [
+        VisitaMedica.new(@afiliado.id, @prestacion),
+        VisitaMedica.new(@afiliado.id, @otra_prestacion)
+      ]
+
+      resumen = Resumen.new(@afiliado, @plan, visitas)
+
+      expect(resumen.total).to eq 1030
+    end
   end
 end
