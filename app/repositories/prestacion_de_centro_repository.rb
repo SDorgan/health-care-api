@@ -27,6 +27,15 @@ class PrestacionDeCentroRepository
     prestaciones
   end
 
+  def destroy(a_record)
+    find_dataset_by_id(a_record.id).delete.positive?
+  end
+  alias delete destroy
+
+  def delete_all
+    dataset.delete
+  end
+
   private
 
   def insert(a_record)
