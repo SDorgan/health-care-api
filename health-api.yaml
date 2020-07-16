@@ -19,9 +19,11 @@ paths:
         200:
           description: "Devuelve el resultado del test"
           schema:
-            sospechoso:
-              description: "Resultado del test"
-              type: boolean
+            properties:
+              sospechoso:
+                description: "Resultado del test"
+                type: boolean
+
   /covid/{afiliado_id}:
     parameters:
     - name: afiliado_id
@@ -35,9 +37,10 @@ paths:
         200:
           description: "Devuelve si anteriormente fue sospechoso en un test"
           schema:
-            sospechoso:
-              description: "Resultado del test"
-              type: boolean
+            properties:
+              sospechoso:
+                description: "Resultado del test"
+                type: boolean
   /reset:
     post:
       description: "Elimina todos los datos de las tablas"
@@ -46,6 +49,7 @@ paths:
           description: "Se eliminaron los datos"
         405:
           description: "No se puede eliminar datos en el ambiente de producción"
+
   /planes:
     get:
       description: "Obtener todos los planes médicos disponibles"
@@ -73,6 +77,40 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
+
+  /planes/{plan_id}/prestaciones:
+    parameters:
+    - name: plan_id
+      in: path
+      type: string
+      description: "id del Plan"
+      required: true
+    get:
+      description: "Obtener todas las prestaciones del plan"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Agrega la prestacion al plan"
+      parameters:
+        - description: "La prestacion a Agregar"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PrestacionCreate'
+      responses:
+        201:
+          description: "Correctamente agregado"
+          schema:
+            properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
 
   /centros:
     get:
@@ -102,15 +140,15 @@ paths:
               centro:
                 $ref: '#/definitions/Centro'
 
-  /planes/{plan_id}/prestaciones:
+  /centros/{centro_id}/prestaciones:
     parameters:
-    - name: plan_id
+    - name: centro_id
       in: path
       type: string
-      description: "id del Plan"
+      description: "id del Centro"
       required: true
     get:
-      description: "Obtener todas las prestaciones del plan"
+      description: "Obtener todas las prestaciones del centro"
       responses:
         200:
           description: "Todas las prestaciones"
@@ -120,9 +158,9 @@ paths:
                 items:
                   $ref: '#/definitions/Prestacion'
     post:
-      description: "Agrega la prestacion al plan"
+      description: "Agrega la prestacion al centro"
       parameters:
-        - description: "La prestacion a Agregar"
+        - description: "La prestacion a agregar"
           in: body
           name: body
           required: true
@@ -190,6 +228,25 @@ paths:
             properties:
               id:
                 $ref: '#/definitions/Id'
+                
+  /visitas:
+    post:
+      description: "Dat de alta una visita médica de un afiliado que realizó una prestación"
+      parameters:
+        - description: "Datos para generar una visita"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/VisitasCreate'
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              visita:
+                $ref: '#/definitions/Visita'
+  
   /version:
     get:
       description: "Obtener version actual"
@@ -204,6 +261,23 @@ paths:
 definitions:
   Id:
     type: integer
+  VisitasCreate:
+    properties:
+      afiliado:
+        type: integer
+      prestacion:
+        type: string
+  Visita:
+    description: Visita médica
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      afiliado:
+        type: integer
+      prestacion:
+        type: integer
+      created_on:
+        type: string
   PlanesCreate:
     properties:
       nombre:
