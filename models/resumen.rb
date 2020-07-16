@@ -8,4 +8,8 @@ class Resumen
   def costo_adicional
     @visitas.map { |visita| visita.prestacion.costo }.inject(0, :+)
   end
+
+  def total
+    @plan.costo
+  end
 end

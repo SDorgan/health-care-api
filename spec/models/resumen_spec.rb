@@ -11,12 +11,22 @@ describe 'Resumen' do
     @otra_prestacion = Prestacion.new('Odontología', 20)
   end
 
-  it 'deberia generar un costo adicional de cero cuando no se realizaron visitas' do
-    visitas = []
+  describe 'sin visitas medicas' do
+    it 'deberia generar un costo adicional de cero' do
+      visitas = []
 
-    resumen = Resumen.new(@afiliado, @plan, visitas)
+      resumen = Resumen.new(@afiliado, @plan, visitas)
 
-    expect(resumen.costo_adicional).to eq 0
+      expect(resumen.costo_adicional).to eq 0
+    end
+
+    it 'deberia generar un total igual al monto del plan' do
+      visitas = []
+
+      resumen = Resumen.new(@afiliado, @plan, visitas)
+
+      expect(resumen.total).to eq 1000
+    end
   end
 
   it 'deberia generar un costo adicional del monto de la prestación cuando hay una visita' do
