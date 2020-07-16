@@ -1,4 +1,5 @@
 class Resumen
+  attr_accessor :afiliado, :plan
   def initialize(afiliado, plan, visitas)
     @afiliado = afiliado
     @plan = plan
