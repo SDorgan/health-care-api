@@ -6,12 +6,15 @@ Característica: Registrar visita médica
   Quiero poder registrar visitas médicas de los afiliados
 
   Antecedentes:
-    Dado el centro "Enfermeria del Castillo Negro"
-    Y la prestación "Traumatología" y costo $1000
-    Y el plan con "PlanCuervo" con costo unitario $500
+    Dado el centro con nombre "Enfermeria del Castillo Negro"
+    Y se registra el centro
+    Y la prestación con nombre "Traumatologia"
+    Y costo unitario de prestación $1200
+    Y se registra la prestación
+    Y el plan con nombre "PlanCuervo" con costo unitario $500
+    Y se registra el plan
 
-  @wip
   Escenario: REGAM1 - Registro exitoso
-    Dado el afiliado "JonSnow" al plan "PlanCuervo"
+    Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Cuando se atiende por "Traumatologia" en el centro "Enfermeria del Castillo Negro"
     Entonces se registra la prestación con un identificador único
