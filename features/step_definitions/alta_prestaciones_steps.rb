@@ -1,9 +1,9 @@
-Dado('la prestación con nombre {string}') do |string|
-  @nombre_prestacion = string
+Dado('la prestación con nombre {string}') do |nombre|
+  @nombre_prestacion = nombre
 end
 
-Dado('costo unitario de prestación ${int}') do |int|
-  @costo_prestacion = int
+Dado('costo unitario de prestación ${int}') do |costo|
+  @costo_prestacion = costo
 end
 
 Cuando('se registra la prestación') do

@@ -9,11 +9,11 @@ Cuando('se registra al plan {string}') do |plan|
     'nombre' => @request['nombre'],
     'nombre_plan' => plan
   }
-  @response = Faraday.post(AFILIADOS_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response_afiliado = Faraday.post(AFILIADOS_URL, @request.to_json, 'Content-Type' => 'application/json')
 end
 
 Entonces('obtiene un numero unico de afiliado') do
-  json_response = JSON.parse(@response.body)
+  json_response = JSON.parse(@response_afiliado.body)
 
   id = json_response['id']
   expect(@response.status).to eq 201

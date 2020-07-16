@@ -55,3 +55,13 @@ end
 Entonces('se obtiene un error') do
   expect(@response.status).to eq 405
 end
+
+Cuando("se ejecuta GET \/version") do
+  @response = Faraday.get(VERSION_URL)
+end
+
+Entonces('obtiene una version semántica de {int} números') do |numeros|
+  response = JSON.parse(@response.body)
+  version_split = response['version'].split('.')
+  expect(version_split.length).to eq numeros
+end

@@ -12,6 +12,32 @@ produces:
   - application/json
 
 paths:
+  /covid:
+    post:
+      description: "Corre el test para saber si un afiliado es o no sospechoso de Covid-19"
+      responses:
+        200:
+          description: "Devuelve el resultado del test"
+          schema:
+            sospechoso:
+              description: "Resultado del test"
+              type: boolean
+  /covid/{afiliado_id}:
+    parameters:
+    - name: afiliado_id
+      in: path
+      type: string
+      description: "id del Afiliado"
+      required: true
+    get:
+      description: "Devuelve si el afiliado dio sospechoso en un test ya hecho anteriormente"
+      responses:
+        200:
+          description: "Devuelve si anteriormente fue sospechoso en un test"
+          schema:
+            sospechoso:
+              description: "Resultado del test"
+              type: boolean
   /reset:
     post:
       description: "Elimina todos los datos de las tablas"
@@ -164,6 +190,16 @@ paths:
             properties:
               id:
                 $ref: '#/definitions/Id'
+  /version:
+    get:
+      description: "Obtener version actual"
+      responses:
+        200:
+          description: "Version"
+          schema:
+            properties:
+                version: 
+                  $ref: '#/definitions/Version'                
 
 definitions:
   Id:
@@ -228,3 +264,5 @@ definitions:
         type: string
       costo:
         type: integer
+  Version:
+        type: string

@@ -4,15 +4,31 @@ class AfiliadoRepository
   end
 
   def save(afiliado)
-    id = insert(afiliado)
-
-    afiliado.id = id
+    if find_dataset_by_id(afiliado.id).first
+      update(afiliado)
+    else
+      id = insert(afiliado)
+      afiliado.id = id
+    end
 
     afiliado
   end
 
   def find(id)
     load_object(dataset.first!(pk_column => id))
+  end
+
+  def find_by_telegram_id(tele_id)
+    load_object(dataset.first!(id_telegram: tele_id))
+  end
+
+  def find_sospechosos
+    load_collection dataset.where(covid_suspect: true)
+  end
+
+  def es_sospechoso(id)
+    afiliado = load_object(dataset.first!(pk_column => id))
+    afiliado.covid_sospechoso
   end
 
   def destroy(a_record)
@@ -30,8 +46,16 @@ class AfiliadoRepository
 
   private
 
+  def find_dataset_by_id(id)
+    dataset.where(pk_column => id)
+  end
+
   def insert(a_record)
     dataset.insert(changeset(a_record))
+  end
+
+  def update(a_record)
+    find_dataset_by_id(a_record.id).update(changeset(a_record))
   end
 
   def dataset
@@ -46,6 +70,7 @@ class AfiliadoRepository
     afiliado = Afiliado.new(a_record[:name], a_record[:plan_id])
     afiliado.id = a_record[:id]
     afiliado.id_telegram = a_record[:id_telegram]
+    afiliado.covid_sospechoso = a_record[:covid_suspect]
     afiliado
   end
 
@@ -57,7 +82,8 @@ class AfiliadoRepository
     {
       name: afiliado.nombre,
       id_telegram: afiliado.id_telegram.to_s,
-      plan_id: afiliado.plan_id
+      plan_id: afiliado.plan_id,
+      covid_suspect: afiliado.covid_sospechoso
     }
   end
 end
