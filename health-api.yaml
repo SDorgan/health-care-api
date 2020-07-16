@@ -247,6 +247,17 @@ paths:
               visita:
                 $ref: '#/definitions/Visita'
   
+  /resumen:
+    get:
+      description: "Obtener el resumen de gastos de un afiliado"
+      responses:
+        200:
+          description: "El resumen de gastos"
+          schema:
+            properties:
+              resumen:
+                $ref: '#/definitions/Resumen'
+  
   /version:
     get:
       description: "Obtener version actual"
@@ -261,6 +272,21 @@ paths:
 definitions:
   Id:
     type: integer
+  Resumen:
+    description: Resumen de gastos
+    properties:
+      afiliado:
+        type: string
+      plan:
+        properties:
+          nombre:
+            type: string
+          costo:
+            type: integer
+      adicional:
+        type: integer
+      total:
+        type: integer
   VisitasCreate:
     properties:
       afiliado:
@@ -275,7 +301,7 @@ definitions:
       afiliado:
         type: integer
       prestacion:
-        type: integer
+        type: string
       created_on:
         type: string
   PlanesCreate:
