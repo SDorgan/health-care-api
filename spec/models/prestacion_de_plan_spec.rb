@@ -2,11 +2,17 @@ require 'spec_helper'
 
 describe 'PrestacionDePlan' do
   let(:plan) do
-    Plan.new('Neo', 400)
+    plan = Plan.new('Neo', 400)
+    plan.id = 1
+
+    plan
   end
 
   let(:prestacion) do
-    Prestacion.new('Traumatología', 1200)
+    prestacion = Prestacion.new('Traumatología', 1200)
+    prestacion.id = 1
+
+    prestacion
   end
 
   it 'deberia poder devolver los datos con los que fue creado' do
