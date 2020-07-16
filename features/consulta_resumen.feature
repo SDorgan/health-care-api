@@ -15,11 +15,11 @@ Característica: Consulta resumen
     Y el plan con nombre "PlanCuervo" con costo unitario $500
     Y se registra el plan
 
-  @wip
   Escenario: RES1 - Consulta de resumen vacío
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Cuando consulta el resumen
-    Entonces el resumen no regista consumos
+    Entonces su saldo adicional es $0
+    Y total a pagar es $500
 
   @wip
   Escenario: RES3.1 - Consulta de resumen sin ninguna prestación cubierta y una consulta realizada
