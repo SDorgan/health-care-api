@@ -12,6 +12,44 @@ produces:
   - application/json
 
 paths:
+  /covid:
+    post:
+      description: "Corre el test para saber si un afiliado es o no sospechoso de Covid-19"
+      responses:
+        200:
+          description: "Devuelve el resultado del test"
+          schema:
+            properties:
+              sospechoso:
+                description: "Resultado del test"
+                type: boolean
+
+  /covid/{afiliado_id}:
+    parameters:
+    - name: afiliado_id
+      in: path
+      type: string
+      description: "id del Afiliado"
+      required: true
+    get:
+      description: "Devuelve si el afiliado dio sospechoso en un test ya hecho anteriormente"
+      responses:
+        200:
+          description: "Devuelve si anteriormente fue sospechoso en un test"
+          schema:
+            properties:
+              sospechoso:
+                description: "Resultado del test"
+                type: boolean
+  /reset:
+    post:
+      description: "Elimina todos los datos de las tablas"
+      responses:
+        200:
+          description: "Se eliminaron los datos"
+        405:
+          description: "No se puede eliminar datos en el ambiente de producción"
+
   /planes:
     get:
       description: "Obtener todos los planes médicos disponibles"
@@ -39,19 +77,301 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
+
+  /planes/{plan_id}/prestaciones:
+    parameters:
+    - name: plan_id
+      in: path
+      type: string
+      description: "id del Plan"
+      required: true
+    get:
+      description: "Obtener todas las prestaciones del plan"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Agrega la prestacion al plan"
+      parameters:
+        - description: "La prestacion a Agregar"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PrestacionCreate'
+      responses:
+        201:
+          description: "Correctamente agregado"
+          schema:
+            properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
+
+  /centros:
+    get:
+      description: "Obtener todos los centros médicos disponibles"
+      responses:
+        200:
+          description: "Todos los centros"
+          schema:
+            properties:
+              centros:
+                items:
+                  $ref: '#/definitions/Centro'
+    post:
+      description: "Dar de alta un nuevo centro médico"
+      parameters:
+        - description: "Datos para generar un nuevo centro"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/CentrosCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              centro:
+                $ref: '#/definitions/Centro'
+
+  /centros/{centro_id}/prestaciones:
+    parameters:
+    - name: centro_id
+      in: path
+      type: string
+      description: "id del Centro"
+      required: true
+    get:
+      description: "Obtener todas las prestaciones del centro"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Agrega la prestacion al centro"
+      parameters:
+        - description: "La prestacion a agregar"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/PrestacionCreate'
+      responses:
+        201:
+          description: "Correctamente agregado"
+          schema:
+            properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
+              
+  /prestaciones:
+    get:
+      description: "Obtener todas las prestaciones"
+      responses:
+        200:
+          description: "Todas las prestaciones"
+          schema:
+            properties:
+              prestaciones:
+                items:
+                  $ref: '#/definitions/Prestacion'
+    post:
+      description: "Dar de alta una nueva prestación"
+      parameters:
+        - description: "Datos para generar ua prestación nueva"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/PrestacionCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              prestacion:
+                $ref: '#/definitions/Prestacion'
+  /afiliados:
+    get:
+      description: "Obtener todos los afiliados"
+      responses:
+        200:
+          description: "Todos los afiliados"
+          schema:
+            properties:
+              planes:
+                items:
+                  $ref: '#/definitions/Afiliado'
+    post:
+      description: "Dar de alta un nuevo afiliado"
+      parameters:
+        - description: "Datos para generar un nuevo afiliado"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/AfiliadosCreate"
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              id:
+                $ref: '#/definitions/Id'
                 
+  /visitas:
+    post:
+      description: "Dat de alta una visita médica de un afiliado que realizó una prestación"
+      parameters:
+        - description: "Datos para generar una visita"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/VisitasCreate'
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              visita:
+                $ref: '#/definitions/Visita'
+  
+  /resumen:
+    get:
+      description: "Obtener el resumen de gastos de un afiliado"
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          description: El Id para identificar al afiliado. Si es el de Telegram, colocar en from, telegram
+        - in: query
+          name: from
+          type: string
+          description: Desde que fuente se está consultando por el resumen de gastos
+      responses:
+        200:
+          description: "El resumen de gastos"
+          schema:
+            properties:
+              resumen:
+                $ref: '#/definitions/Resumen'
+  
+  /version:
+    get:
+      description: "Obtener version actual"
+      responses:
+        200:
+          description: "Version"
+          schema:
+            properties:
+                version: 
+                  $ref: '#/definitions/Version'                
+
 definitions:
   Id:
     type: integer
+  Resumen:
+    description: Resumen de gastos
+    properties:
+      afiliado:
+        type: string
+      plan:
+        properties:
+          nombre:
+            type: string
+          costo:
+            type: integer
+      adicional:
+        type: integer
+      total:
+        type: integer
+  VisitasCreate:
+    properties:
+      afiliado:
+        type: integer
+      prestacion:
+        type: string
+  Visita:
+    description: Visita médica
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      afiliado:
+        type: integer
+      prestacion:
+        type: string
+      created_on:
+        type: string
   PlanesCreate:
     properties:
-      name:
+      nombre:
         type: string
+      costo:
+        type: integer
   Plan:
     description: Plan médico
     properties:
       id:
         $ref: '#/definitions/Id'
-      name:
+      nombre:
         type: string
-  
+      costo:
+        type: integer
+  CentrosCreate:
+    properties:
+      nombre:
+        type: string
+  Centro:
+    description: Centro médico
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      nombre:
+        type: string
+  AfiliadosCreate:
+    properties:
+      nombre:
+        type: string
+      nombre_plan:
+        type: string
+      id_telegram:
+        type: string
+  Afiliado:
+    description: Afiliado
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      nombre:
+        type: string
+      nombre_plan:
+        type: string
+      id_telegram:
+        type: string
+  PrestacionCreate:
+    properties:
+      nombre:
+        type: string
+      costo:
+        type: integer
+  Prestacion:
+    description: Prestacion médica
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      nombre:
+        type: string
+      costo:
+        type: integer
+  Version:
+        type: string

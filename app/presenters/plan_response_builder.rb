@@ -3,9 +3,10 @@ class PlanResponseBuilder
     {
       'plan': {
         'id': plan.id,
-        'nombre': plan.nombre
+        'nombre': plan.nombre,
+        'costo': plan.costo
       }
-    }
+    }.to_json
   end
 
   def self.create_from_all(planes)
@@ -14,10 +15,11 @@ class PlanResponseBuilder
     planes.each do |plan|
       output[:planes] << {
         'id': plan.id,
-        'nombre': plan.nombre
+        'nombre': plan.nombre,
+        'costo': plan.costo
       }
     end
 
-    output
+    output.to_json
   end
 end

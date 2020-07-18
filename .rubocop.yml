@@ -31,3 +31,7 @@ RSpec/InstanceVariable:
 AllCops:
  Exclude:
    - 'features/support/env.rb'
+Layout/EndOfLine:
+  Enabled: false
+Lint/Debugger:
+  Enabled: false

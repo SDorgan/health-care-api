@@ -4,15 +4,32 @@ class PlanRepository
   end
 
   def save(plan)
-    insert(plan)
+    id = insert(plan)
+
+    plan.id = id
+
+    plan
   end
 
   def find(id)
     load_object(dataset.first!(pk_column => id))
   end
 
+  def find_by_name(nombre)
+    load_object(dataset.first!(name: nombre))
+  end
+
   def all
     load_collection(dataset)
+  end
+
+  def destroy(a_record)
+    find_dataset_by_id(a_record.id).delete.positive?
+  end
+  alias delete destroy
+
+  def delete_all
+    dataset.delete
   end
 
   private
@@ -30,7 +47,7 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name])
+    plan = Plan.new(a_record[:name], a_record[:cost])
     plan.id = a_record[:id]
 
     plan
@@ -42,7 +59,8 @@ class PlanRepository
 
   def changeset(plan)
     {
-      name: plan.nombre
+      name: plan.nombre,
+      cost: plan.costo
     }
   end
 end

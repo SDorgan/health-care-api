@@ -1,0 +1,2 @@
+class NotAvailableInProductionError < StandardError
+end
