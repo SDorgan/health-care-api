@@ -77,41 +77,6 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
-
-  /planes/{plan_id}/prestaciones:
-    parameters:
-    - name: plan_id
-      in: path
-      type: string
-      description: "id del Plan"
-      required: true
-    get:
-      description: "Obtener todas las prestaciones del plan"
-      responses:
-        200:
-          description: "Todas las prestaciones"
-          schema:
-            properties:
-              prestaciones:
-                items:
-                  $ref: '#/definitions/Prestacion'
-    post:
-      description: "Agrega la prestacion al plan"
-      parameters:
-        - description: "La prestacion a Agregar"
-          in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/PrestacionCreate'
-      responses:
-        201:
-          description: "Correctamente agregado"
-          schema:
-            properties:
-              prestacion:
-                $ref: '#/definitions/Prestacion'
-
   /centros:
     get:
       description: "Obtener todos los centros médicos disponibles"
