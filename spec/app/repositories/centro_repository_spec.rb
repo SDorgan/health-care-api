@@ -1,11 +1,22 @@
 require 'integration_spec_helper'
 
 describe 'CentroRepository' do
+  let(:prestacion) do
+    Prestacion.new('Traumatología', 1200)
+  end
+
   before(:each) do
     @centro = Centro.new('Hospital Italiano')
     @repo = CentroRepository.new
-
     @centro = @repo.save(@centro)
+
+    @prestacion = Prestacion.new('Traumatología', 1200)
+    @prestacion_repo = PrestacionRepository.new
+    @prestacion = @prestacion_repo.save(@prestacion)
+
+    @prestacion_de_centro = PrestacionDeCentro.new(@centro, @prestacion)
+    @prestacion_de_centro_repo = PrestacionDeCentroRepository.new
+    @prestacion_de_centro = @prestacion_de_centro_repo.save(@prestacion_de_centro)
   end
 
   it 'deberia guardar el centro generando un id positivo' do
@@ -34,10 +45,17 @@ describe 'CentroRepository' do
   end
 
   it 'deberia devolver cero centros cuando se eliminan todos' do
+    @prestacion_de_centro_repo.delete_all
     @repo.delete_all
 
     centros = @repo.all
 
     expect(centros.length).to be 0
+  end
+
+  it 'debería devolver la prestacion del centro' do
+    centro = @repo.full_load(@centro.id)
+    expect(centro.prestaciones.length).to be 1
+    expect(centro.prestaciones.first.id).to eq @prestacion.id
   end
 end

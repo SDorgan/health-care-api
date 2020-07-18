@@ -15,6 +15,13 @@ class CentroRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def full_load(id)
+    centro = find(id)
+    centro.prestaciones = PrestacionRepository.new.find_by_centro(id)
+
+    centro
+  end
+
   def all
     load_collection(dataset)
   end
@@ -32,6 +39,10 @@ class CentroRepository
 
   def insert(a_record)
     dataset.insert(changeset(a_record))
+  end
+
+  def dataset_with_prestaciones
+    DB[@table_name].join(:prestaciones_de_centros, centro_id: :id)
   end
 
   def dataset

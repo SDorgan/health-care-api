@@ -1,9 +1,8 @@
 HealthAPI::App.controllers :prestaciones, parent: :centros do
   get :index do
-    centro = CentroRepository.new.find(params[:centro_id])
-    prestaciones = PrestacionDeCentroRepository.new.find_by_centro(centro)
+    centro = CentroRepository.new.full_load(params[:centro_id])
 
-    PrestacionResponseBuilder.create_from_all(prestaciones)
+    PrestacionResponseBuilder.create_from_all(centro.prestaciones)
   end
 
   post :index do

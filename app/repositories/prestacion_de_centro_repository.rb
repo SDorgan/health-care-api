@@ -19,7 +19,6 @@ class PrestacionDeCentroRepository
     collection = load_collection dataset.where(centro_id: centro.id)
 
     prestaciones = []
-
     collection.each do |prestacion_de_centro|
       prestaciones << PrestacionRepository.new.find(prestacion_de_centro.prestacion_id)
     end
