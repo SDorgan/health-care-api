@@ -50,7 +50,7 @@ class PrestacionDeCentroRepository
     centro = CentroRepository.new.find(a_record[:centro_id])
     prestacion = PrestacionRepository.new.find(a_record[:prestacion_id])
 
-    prestacion_de_centro = PrestacionDePlan.new(centro, prestacion)
+    prestacion_de_centro = PrestacionDeCentro.new(centro, prestacion)
     prestacion_de_centro.id = a_record[:id]
 
     prestacion_de_centro

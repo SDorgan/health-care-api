@@ -5,8 +5,8 @@ HealthAPI::App.controllers :reset do
   post :index do
     raise NotAvailableInProductionError if ENV['RACK_ENV'] == 'production'
 
+    VisitaMedicaRepository.new.delete_all
     PrestacionDeCentroRepository.new.delete_all
-    PrestacionDePlanRepository.new.delete_all
     AfiliadoRepository.new.delete_all
     PlanRepository.new.delete_all
     CentroRepository.new.delete_all
