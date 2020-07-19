@@ -47,7 +47,7 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name], a_record[:cost])
+    plan = Plan.new(a_record[:name], a_record[:cost], 0)
     plan.id = a_record[:id]
 
     plan

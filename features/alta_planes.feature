@@ -22,3 +22,17 @@ Característica: CRUD Planes
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
     Cuando se registra el plan
     Entonces se registra exitosamente
+  @wip
+  @mvp
+    Escenario: APLA1.2 - Alta exitosa de plan310 con nombre, precio y limite de visitas
+        Dado el plan con nombre "Plan310" con costo unitario $1000
+        Y cobertura de visitas con límite 4
+        Cuando se registra el plan
+        Entonces se registra exitosamente
+  @wip
+    Escenario: APLA1.3 - Alta exitosa de plan310 con nombre, precio y limite de visitas infinito
+        Dado el plan con nombre "Plan310" con costo unitario $1000
+        Y cobertura de visitas con límite infinito
+        Cuando se registra el plan
+        Entonces se registra exitosamente
+
