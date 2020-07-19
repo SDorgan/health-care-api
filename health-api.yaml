@@ -64,7 +64,7 @@ paths:
     post:
       description: "Dar de alta un nuevo plan médico"
       parameters:
-        - description: "Datos para generar un nuevo plan"
+        - description: "Datos para generar un nuevo plan, limite de cobertura de visitas infinito se pasa 0"
           in: body
           name: body
           required: true
@@ -284,6 +284,8 @@ definitions:
         type: string
       costo:
         type: integer
+      limite_cobertura_visitas:
+        type: integer
   Plan:
     description: Plan médico
     properties:
@@ -292,6 +294,8 @@ definitions:
       nombre:
         type: string
       costo:
+        type: integer
+      limite_cobertura_visitas:
         type: integer
   CentrosCreate:
     properties:

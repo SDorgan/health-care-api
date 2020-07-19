@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'Resumen' do
   before(:each) do
-    @plan = Plan.new('Juventud', 1000)
+    @plan = Plan.new('Juventud', 1000, 0)
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
 

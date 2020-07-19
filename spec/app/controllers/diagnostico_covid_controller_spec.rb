@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'DiagnosticoCovidController' do
   let(:plan) do
-    Plan.new('Neo', 500)
+    Plan.new('Neo', 500, 0)
   end
 
   let(:fake_id_telegram) do
