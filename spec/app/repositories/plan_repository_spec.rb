@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'PlanRepository' do
   before(:each) do
-    @plan = Plan.new('neo', 100, 0)
+    @plan = Plan.new('neo', 100, 4)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -51,5 +51,11 @@ describe 'PlanRepository' do
     planes = @repo.all
 
     expect(planes.length).to be 0
+  end
+
+  it 'deberia devolver el limite de visitas del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.limite_cobertura_visitas).to eql @plan.limite_cobertura_visitas
   end
 end
