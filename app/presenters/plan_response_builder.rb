@@ -17,7 +17,8 @@ class PlanResponseBuilder
       output[:planes] << {
         'id': plan.id,
         'nombre': plan.nombre,
-        'costo': plan.costo
+        'costo': plan.costo,
+        'limite_cobertura_visitas': plan.limite_cobertura_visitas
       }
     end
 
