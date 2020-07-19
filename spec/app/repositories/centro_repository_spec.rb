@@ -14,9 +14,7 @@ describe 'CentroRepository' do
     @prestacion_repo = PrestacionRepository.new
     @prestacion = @prestacion_repo.save(@prestacion)
 
-    @prestacion_de_centro = PrestacionDeCentro.new(@centro, @prestacion)
-    @prestacion_de_centro_repo = PrestacionDeCentroRepository.new
-    @prestacion_de_centro = @prestacion_de_centro_repo.save(@prestacion_de_centro)
+    @repo.add_prestacion_to_centro(@centro, @prestacion.id)
   end
 
   it 'deberia guardar el centro generando un id positivo' do
@@ -45,7 +43,6 @@ describe 'CentroRepository' do
   end
 
   it 'deberia devolver cero centros cuando se eliminan todos' do
-    @prestacion_de_centro_repo.delete_all
     @repo.delete_all
 
     centros = @repo.all

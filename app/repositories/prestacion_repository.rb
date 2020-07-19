@@ -1,6 +1,7 @@
 class PrestacionRepository
   def initialize
     @table_name = :prestaciones
+    @table_join_centros = :prestaciones_de_centros
   end
 
   def save(prestacion)
@@ -33,6 +34,7 @@ class PrestacionRepository
   alias delete destroy
 
   def delete_all
+    dataset_prestaciones_de_centros.delete
     dataset.delete
   end
 
@@ -48,6 +50,10 @@ class PrestacionRepository
 
   def dataset_with_centros
     DB[@table_name].join(:prestaciones_de_centros, prestacion_id: :id)
+  end
+
+  def dataset_prestaciones_de_centros
+    DB[@table_join_centros]
   end
 
   def pk_column
