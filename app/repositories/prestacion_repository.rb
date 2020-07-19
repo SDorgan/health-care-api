@@ -1,6 +1,7 @@
 class PrestacionRepository
   def initialize
     @table_name = :prestaciones
+    @table_join_centros = :prestaciones_de_centros
   end
 
   def save(prestacion)
@@ -23,12 +24,17 @@ class PrestacionRepository
     load_collection(dataset)
   end
 
+  def find_by_centro(centro_id)
+    load_collection dataset_with_centros.where(centro_id: centro_id)
+  end
+
   def destroy(a_record)
     find_dataset_by_id(a_record.id).delete.positive?
   end
   alias delete destroy
 
   def delete_all
+    dataset_prestaciones_de_centros.delete
     dataset.delete
   end
 
@@ -42,13 +48,21 @@ class PrestacionRepository
     DB[@table_name]
   end
 
+  def dataset_with_centros
+    DB[@table_name].join(:prestaciones_de_centros, prestacion_id: :id)
+  end
+
+  def dataset_prestaciones_de_centros
+    DB[@table_join_centros]
+  end
+
   def pk_column
     Sequel[@table_name][:id]
   end
 
   def load_object(a_record)
     prestacion = Prestacion.new(a_record[:name], a_record[:cost])
-    prestacion.id = a_record[:id]
+    prestacion.id = a_record[:prestacion_id] ||= a_record[:id]
 
     prestacion
   end

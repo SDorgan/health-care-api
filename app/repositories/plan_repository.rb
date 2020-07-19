@@ -47,7 +47,7 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name], a_record[:cost])
+    plan = Plan.new(a_record[:name], a_record[:cost], a_record[:visit_limit])
     plan.id = a_record[:id]
 
     plan
@@ -60,7 +60,8 @@ class PlanRepository
   def changeset(plan)
     {
       name: plan.nombre,
-      cost: plan.costo
+      cost: plan.costo,
+      visit_limit: plan.limite_cobertura_visitas
     }
   end
 end
