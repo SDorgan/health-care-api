@@ -130,7 +130,10 @@ paths:
           name: body
           required: true
           schema:
-            $ref: '#/definitions/PrestacionCreate'
+            prestacion:
+              description: "id de la prestacion a vincular"
+              type: Integer
+              required: true
       responses:
         201:
           description: "Correctamente agregado"

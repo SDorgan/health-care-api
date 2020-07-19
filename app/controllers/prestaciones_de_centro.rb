@@ -9,7 +9,7 @@ HealthAPI::App.controllers :prestaciones, parent: :centros do
     json_params = JSON.parse(request.body.read)
     repo = CentroRepository.new
     centro = repo.find(params[:centro_id])
-    prestacion = PrestacionRepository.new.find_by_name(json_params['prestacion'])
+    prestacion = PrestacionRepository.new.find(json_params['prestacion'])
 
     repo.add_prestacion_to_centro(centro, prestacion.id)
 
