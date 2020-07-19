@@ -44,3 +44,11 @@ Dado('cobertura de visitas con límite {int}') do |limite_visitas|
     'limite_cobertura_visitas' => limite_visitas
   }
 end
+
+Dado('cobertura de visitas con límite infinito') do
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => 0
+  }
+end
