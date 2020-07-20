@@ -5,7 +5,8 @@ class PlanResponseBuilder
         'id': plan.id,
         'nombre': plan.nombre,
         'costo': plan.costo,
-        'limite_cobertura_visitas': plan.limite_cobertura_visitas
+        'limite_cobertura_visitas': plan.limite_cobertura_visitas,
+        'copago': plan.copago
       }
     }.to_json
   end
@@ -18,7 +19,8 @@ class PlanResponseBuilder
         'id': plan.id,
         'nombre': plan.nombre,
         'costo': plan.costo,
-        'limite_cobertura_visitas': plan.limite_cobertura_visitas
+        'limite_cobertura_visitas': plan.limite_cobertura_visitas,
+        'copago': plan.copago
       }
     end
 
