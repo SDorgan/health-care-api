@@ -130,10 +130,7 @@ paths:
           name: body
           required: true
           schema:
-            prestacion:
-              description: "id de la prestacion a vincular"
-              type: Integer
-              required: true
+            $ref: '#/definitions/PrestacionCreate'
       responses:
         201:
           description: "Correctamente agregado"
@@ -289,6 +286,8 @@ definitions:
         type: integer
       limite_cobertura_visitas:
         type: integer
+      copago:
+        type: integer
   Plan:
     description: Plan médico
     properties:
@@ -299,6 +298,8 @@ definitions:
       costo:
         type: integer
       limite_cobertura_visitas:
+        type: integer
+      copago:
         type: integer
   CentrosCreate:
     properties:
