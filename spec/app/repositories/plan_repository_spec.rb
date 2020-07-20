@@ -62,6 +62,6 @@ describe 'PlanRepository' do
   it 'deberia devolver la cantidad de copa del plan guardado' do
     saved_plan = @repo.find(@plan.id)
 
-    expect(saved_plan.cantidad_copago).to eql @plan.cantidad_copago
+    expect(saved_plan.copago).to eql @plan.copago
   end
 end

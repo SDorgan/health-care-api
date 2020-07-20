@@ -62,7 +62,7 @@ class PlanRepository
       name: plan.nombre,
       cost: plan.costo,
       visit_limit: plan.limite_cobertura_visitas,
-      copay: plan.cantidad_copago
+      copay: plan.copago
     }
   end
 end
