@@ -8,14 +8,14 @@ Característica: Diagnóstico COVID-19
     Antecedentes:
       Dado el plan con nombre "PlanJuventud" con costo unitario $500
       Y se registra el plan
-
+    @wip
     Escenario: DIAG1.1 - Diagnóstico por temperatura sin COVID
         Dado el afiliado "Lionel Messi" afiliado a "PlanJuventud"
-        Cuando se realiza la consulta por COVID con temperatura 37
+        Cuando no se registra caso sospechoso de COVID
         Entonces se obtiene que no es sospechoso
-
+    @wip
     Escenario: DIAG2.1 - Diagnóstico por temperatura con COVID
         Dado el afiliado "Lionel Messi" afiliado a "PlanJuventud"
-        Cuando se realiza la consulta por COVID con temperatura 40
+        Cuando se registra caso sospechoso de COVID
         Entonces se obtiene que es sospechoso
         Y queda registrado que el afiliado es sospechoso
