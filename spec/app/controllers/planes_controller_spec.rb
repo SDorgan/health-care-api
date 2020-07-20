@@ -17,11 +17,16 @@ describe 'PlanesController' do
     100
   end
 
+  let(:cobertura_medicamentos) do
+    30
+  end
+
   let(:body) do
     { 'nombre' => nombre,
       'costo' => costo,
       'limite_cobertura_visitas' => limite_cobertura_visitas,
-      'copago' => copago }.to_json
+      'copago' => copago,
+      'cobertura_medicamentos' => cobertura_medicamentos }.to_json
   end
 
   it 'deberia devoler los planes' do
@@ -51,5 +56,11 @@ describe 'PlanesController' do
     post '/planes', body
     response = JSON.parse(last_response.body)
     expect(response['plan']['copago']).to eq copago
+  end
+
+  xit 'deberia devolver la cobertura de medicamentos con la que se hizo POST' do
+    post '/planes', body
+    response = JSON.parse(last_response.body)
+    expect(response['plan']['cobertura_medicamentos']).to eq copago
   end
 end

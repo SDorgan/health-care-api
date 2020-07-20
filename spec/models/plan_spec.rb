@@ -17,6 +17,10 @@ describe 'Plan' do
     100
   end
 
+  let(:cobertura_medicamentos) do
+    30
+  end
+
   it 'deberia poder devolver el nombre con el que fue creado' do
     plan = Plan.new(nombre, costo, limite_cobertura_visitas, copago)
 
@@ -39,5 +43,11 @@ describe 'Plan' do
     plan = Plan.new(nombre, costo, limite_cobertura_visitas, copago)
 
     expect(plan.copago).to eql copago
+  end
+
+  xit 'deberia poder devolver la cobertura a medicamentos con la que fue creado' do
+    plan = Plan.new(nombre, costo, limite_cobertura_visitas, copago, cobertura_medicamentos)
+
+    expect(plan.cobertura_medicamentos).to eql cobertura_medicamentos
   end
 end
