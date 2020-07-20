@@ -7,6 +7,10 @@ class CompraMedicamentosRepository
     load_object(dataset.first!(pk_column => id))
   end
 
+  def find_by_afiliado(id)
+    load_collection dataset.where(afiliado_id: id)
+  end
+
   def save(compra_medicamentos)
     id = insert(compra_medicamentos)
 

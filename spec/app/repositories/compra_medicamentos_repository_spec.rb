@@ -35,8 +35,8 @@ describe 'CompraMedicamentosRepository' do
     expect(compra_medicamentos_guardada.monto).to eq @monto_de_compra
   end
 
-  xit 'deberia poder obtener las compras correspondientes a un afiliado' do
-    otra_compra = VisitaMedica.new(@afiliado.id, @monto_de_compra)
+  it 'deberia poder obtener las compras correspondientes a un afiliado' do
+    otra_compra = CompraMedicamentos.new(@afiliado.id, @monto_de_compra)
     @repo.save(otra_compra)
 
     compras = @repo.find_by_afiliado(@afiliado.id)
