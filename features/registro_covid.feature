@@ -9,7 +9,6 @@ Característica: Registro afiliado sospechoso de COVID-19
       Dado el plan con nombre "PlanJuventud" con costo unitario $500
       Y se registra el plan
 
-    @wip
     Escenario: REGCOVID1 - Registro afiliado sospechoso de COVID
         Dado el afiliado "Lionel Messi" afiliado a "PlanJuventud"
         Cuando se registra caso sospechoso de COVID
