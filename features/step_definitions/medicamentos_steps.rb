@@ -1,7 +1,7 @@
-Cuando('realiza una compra de medicamentos por ${int}') do |costo|
+Cuando('realiza una compra de medicamentos por ${int}') do |monto|
   request = {
     'afiliado' => @id_afiliado,
-    'costo' => costo
+    'monto' => monto
   }
   @response = Faraday.post(MEDICAMENTOS_URL, request.to_json, 'Content-Type' => 'application/json')
 end
