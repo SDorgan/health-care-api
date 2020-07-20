@@ -28,7 +28,7 @@ describe 'CompraMedicamentosRepository' do
     expect(@compra_medicamentos.created_on.nil?).to be false
   end
 
-  xit 'deberia poder obtener la compra que se guardo' do
+  it 'deberia poder obtener la compra que se guardo' do
     compra_medicamentos_guardada = @repo.find(@compra_medicamentos.id)
 
     expect(compra_medicamentos_guardada.afiliado_id).to eq @afiliado.id
