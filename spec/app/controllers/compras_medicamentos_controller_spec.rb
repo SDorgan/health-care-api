@@ -14,7 +14,7 @@ describe 'ComprasMedicamentosController' do
     @afiliado = AfiliadoRepository.new.save(@afiliado)
   end
 
-  xit 'deberia devolver la compra medica con la que se hizo POST' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+  it 'deberia devolver la compra medica con la que se hizo POST' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     monto_de_compra = 500
     post '/medicamentos', { 'afiliado': @afiliado.id, 'monto': monto_de_compra }.to_json
     response = JSON.parse(last_response.body)
