@@ -24,7 +24,7 @@ describe 'CompraMedicamentosRepository' do
     expect(@compra_medicamentos.id.positive?).to be true
   end
 
-  xit 'deberia poder guardar la compra generando una fecha' do
+  it 'deberia poder guardar la compra generando una fecha' do
     expect(@compra_medicamentos.created_on.nil?).to be false
   end
 
