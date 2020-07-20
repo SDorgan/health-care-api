@@ -125,12 +125,17 @@ paths:
     post:
       description: "Agrega la prestacion al centro"
       parameters:
-        - description: "La prestacion a agregar"
+        - name: centro_id
+          in: path
+          type: string
+          description: "id del Centro"
+          required: true
+        - description: "El id de la prestacion a agregar"
           in: body
           name: body
           required: true
           schema:
-            $ref: '#/definitions/PrestacionCreate'
+            $ref: '#/definitions/PrestacionCentroCreate'
       responses:
         201:
           description: "Correctamente agregado"
@@ -337,6 +342,10 @@ definitions:
         type: string
       costo:
         type: integer
+  PrestacionCentroCreate:
+    properties:
+      prestacion:
+        type: integer        
   Prestacion:
     description: Prestacion médica
     properties:
