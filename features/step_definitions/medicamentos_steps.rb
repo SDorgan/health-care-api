@@ -7,7 +7,10 @@ Cuando('realiza una compra de medicamentos por ${int}') do |monto|
 end
 
 Entonces('se registra la compra con un identificador único') do
+  json_response = JSON.parse(@response.body)
+  compra = json_response['compra']
   status = @response.status
 
   expect(status).to eq 201
+  expect(compra['id'].positive?).to eq true
 end
