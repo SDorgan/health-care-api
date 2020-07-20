@@ -59,7 +59,7 @@ describe 'PlanRepository' do
     expect(saved_plan.limite_cobertura_visitas).to eql @plan.limite_cobertura_visitas
   end
 
-  it 'deberia devolver la cantidad de copa del plan guardado' do
+  it 'deberia devolver la cantidad de copago del plan guardado' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.copago).to eql @plan.copago
