@@ -5,9 +5,11 @@ describe 'App' do
     @nombre_plan = 'PlanJuventud'
     @costo_plan = 100
     @limite_visita_plan = 3
+    @copago = 3
     data = { 'nombre' => @nombre_plan,
              'costo' => @costo_plan,
-             'limite_cobertura_visitas' => @limite_visita_plan }.to_json
+             'limite_cobertura_visitas' => @limite_visita_plan,
+             'copago' => @copago }.to_json
     post '/planes', data
     @plan_repository = PlanRepository.new
   end
@@ -39,13 +41,14 @@ describe 'App' do
     expect(afiliados.first.id_telegram).to eql id_telegram
   end
 
-  it 'deberia devolver el plan guardado' do
+  it 'deberia devolver el plan guardado' do # rubocop:disable RSpec/MultipleExpectations
     get 'planes'
     response = JSON.parse(last_response.body)
     plan = response['planes'].first
     expect(plan['nombre']).to eql @nombre_plan
     expect(plan['costo']).to eql @costo_plan
     expect(plan['limite_cobertura_visitas']).to eql @limite_visita_plan
+    expect(plan['copago']).to eql @copago
   end
   # rubocop:enable RSpec/ExampleLength
 end
