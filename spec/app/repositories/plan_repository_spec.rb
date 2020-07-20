@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'PlanRepository' do
   before(:each) do
-    @plan = Plan.new('neo', 100, 4, 0)
+    @plan = Plan.new('neo', 100, 4, 100)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -57,5 +57,11 @@ describe 'PlanRepository' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.limite_cobertura_visitas).to eql @plan.limite_cobertura_visitas
+  end
+
+  it 'deberia devolver la cantidad de copa del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.cantidad_copago).to eql @plan.cantidad_copago
   end
 end
