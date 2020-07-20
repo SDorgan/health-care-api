@@ -208,7 +208,7 @@ paths:
                 
   /visitas:
     post:
-      description: "Dat de alta una visita médica de un afiliado que realizó una prestación"
+      description: "Dar de alta una visita médica de un afiliado que realizó una prestación"
       parameters:
         - description: "Datos para generar una visita"
           in: body
@@ -223,7 +223,25 @@ paths:
             properties:
               visita:
                 $ref: '#/definitions/Visita'
-  
+
+  /medicamentos:
+    post:
+      description: "Registrar la compra de medicamentos por parte de un afiliado"
+      parameters:
+        - description: "Datos para generar la compra de medicamentos"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/CompraMedicamentosCreate'
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              visita:
+                $ref: '#/definitions/CompraMedicamentos'                
+
   /resumen:
     get:
       description: "Obtener el resumen de gastos de un afiliado"
@@ -367,4 +385,21 @@ definitions:
   AfiliadoSospechosoCovid:
     properties:
       id_telegram:
-        type: string    
+        type: string
+  CompraMedicamentosCreate:
+    properties:
+      afiliado:
+        type: integer
+      monto:
+        type: integer
+  CompraMedicamentos:
+    description: Compra de Medicamentos
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      afiliado:
+        type: integer
+      monto:
+        type: integer
+      created_on:
+        type: string
