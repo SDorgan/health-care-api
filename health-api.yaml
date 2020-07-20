@@ -14,7 +14,14 @@ produces:
 paths:
   /covid:
     post:
-      description: "Corre el test para saber si un afiliado es o no sospechoso de Covid-19"
+      description: "Registra afiliado sospechoso de Covid-19"
+      parameters:
+        - description: "ID de telegram del afiliado que se registra como sospechoso"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/AfiliadoSospechosoCovid"
       responses:
         200:
           description: "Devuelve el resultado del test"
@@ -345,7 +352,7 @@ definitions:
   PrestacionCentroCreate:
     properties:
       prestacion:
-        type: integer        
+        type: integer
   Prestacion:
     description: Prestacion médica
     properties:
@@ -357,3 +364,7 @@ definitions:
         type: integer
   Version:
         type: string
+  AfiliadoSospechosoCovid:
+    properties:
+      id_telegram:
+        type: string    
