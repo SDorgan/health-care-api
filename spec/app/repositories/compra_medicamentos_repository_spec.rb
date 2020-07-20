@@ -20,7 +20,7 @@ describe 'CompraMedicamentosRepository' do
     @compra_medicamentos = @repo.save(@compra_medicamentos)
   end
 
-  xit 'deberia poder guardar la compra generando un id positivo' do
+  it 'deberia poder guardar la compra generando un id positivo' do
     expect(@compra_medicamentos.id.positive?).to be true
   end
 
