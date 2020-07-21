@@ -44,7 +44,6 @@ Característica: CRUD Planes
         Entonces se registra exitosamente
 
   @mvp
-  @wip
     Escenario: APLA1.5 - Alta exitosa de plan 310 con nombre, precio, limite de vistas y copago y cobertura de medicamentos
         Dado el plan con nombre "Plan310" con costo unitario $1000
         Y cobertura de visitas con copago $100 y con límite 4
