@@ -84,10 +84,9 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $1000
     Y total a pagar es $1500
 
-  @wip
   Escenario: RES5 - Consulta de resumen con todas las prestaciones cubiertas con copago
       Dado el plan con nombre "PlanOso" con costo unitario $700
-      Y cobertura de visitas con copago 10 y con límite 2
+      Y cobertura de visitas con copago $10 y con límite 2
       Y se registra el plan
       Dado el afiliado "Jorah" afiliado a "PlanOso"
       Y que registró una atención por la prestación "Traumatologia"
@@ -99,7 +98,7 @@ Característica: Consulta resumen
   @wip
   Escenario: RES6 - Consulta de resumen con dos prestaciones cubiertas con copago y una extra
       Dado el plan con nombre "PlanOso" con costo unitario $700
-      Y cobertura de visitas con copago 10 y con límite 2
+      Y cobertura de visitas con copago $10 y con límite 2
       Y se registra el plan
       Dado el afiliado "Jorah" afiliado a "PlanOso"
       Y que registró una atención por la prestación "Traumatologia"
