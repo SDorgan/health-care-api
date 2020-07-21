@@ -9,11 +9,11 @@ HealthAPI::App.controllers :resumen do
                        BuscadorAfiliadoApiExterna.new(AfiliadoRepository.new)
                      end
 
-    consulta = ConsultaResumen.new(repo_afiliados,
-                                   PlanRepository.new,
-                                   VisitaMedicaRepository.new)
+    resumen = Resumen.new(repo_afiliados.find(id),
+                          PlanRepository.new,
+                          VisitaMedicaRepository.new)
 
-    resumen = consulta.generar_resumen(id)
+    resumen.generar
 
     ResumenResponseBuilder.create_from(resumen)
   end

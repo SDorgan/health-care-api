@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'PlanRepository' do
   before(:each) do
-    @plan = Plan.new('neo', 100, 4, 100, 0)
+    @plan = Plan.new('neo', 1000, 100, 0, CoberturaVisita.new(0))
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -26,7 +26,7 @@ describe 'PlanRepository' do
   end
 
   it 'deberia devolver todos los planes disponibles' do
-    @repo.save(Plan.new('familiar', 100, 0, 0, 0))
+    @repo.save(Plan.new('familiar', 100, 0, 0, CoberturaVisita.new(0)))
 
     planes = @repo.all
 
@@ -40,7 +40,7 @@ describe 'PlanRepository' do
   end
 
   it 'deberia poder filtrar por nombre plan' do
-    @repo.save(Plan.new('familiar', 200, 0, 0, 0))
+    @repo.save(Plan.new('familiar', 200, 0, 0, CoberturaVisita.new(0)))
     plan_encontrado = @repo.find_by_name(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
@@ -56,7 +56,7 @@ describe 'PlanRepository' do
   it 'deberia devolver el limite de visitas del plan guardado' do
     saved_plan = @repo.find(@plan.id)
 
-    expect(saved_plan.limite_cobertura_visitas).to eql @plan.limite_cobertura_visitas
+    expect(saved_plan.cobertura_visitas.cantidad).to eql @plan.cobertura_visitas.cantidad
   end
 
   it 'deberia devolver la cantidad de copago del plan guardado' do

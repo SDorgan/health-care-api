@@ -5,7 +5,7 @@ class PlanResponseBuilder
         'id': plan.id,
         'nombre': plan.nombre,
         'costo': plan.costo,
-        'limite_cobertura_visitas': plan.limite_cobertura_visitas,
+        'limite_cobertura_visitas': plan.cobertura_visitas.cantidad,
         'copago': plan.copago,
         'cobertura_medicamentos': plan.cobertura_medicamentos
       }
@@ -20,7 +20,7 @@ class PlanResponseBuilder
         'id': plan.id,
         'nombre': plan.nombre,
         'costo': plan.costo,
-        'limite_cobertura_visitas': plan.limite_cobertura_visitas,
+        'limite_cobertura_visitas': plan.cobertura_visitas.cantidad,
         'copago': plan.copago,
         'cobertura_medicamentos': plan.cobertura_medicamentos
       }

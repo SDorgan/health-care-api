@@ -71,12 +71,27 @@ paths:
     post:
       description: "Dar de alta un nuevo plan médico"
       parameters:
-        - description: "Datos para generar un nuevo plan, limite de cobertura de visitas infinito se pasa 0"
+        - description: "Datos para generar un nuevo plan. Limite de cobertura de visitas infinito, no se coloca nada"
           in: body
           name: body
           required: true
           schema:
-            $ref: "#/definitions/PlanesCreate"
+            properties:
+              nombre:
+                type: string
+              costo:
+                type: integer
+              limite_cobertura_visitas:
+                type: integer
+              copago:
+                type: integer
+              cobertura_medicamentos:
+                type: integer
+            required:
+              - nombre
+              - costo
+              - copago
+              - cobertura_medicamentos
       responses:
         201:
           description: "Alta correcta"

@@ -17,6 +17,7 @@ Característica: Consulta resumen
 
   Escenario: RES1 - Consulta de resumen vacío
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
+    Y cobertura de visitas con límite 0
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Cuando consulta el resumen
@@ -25,6 +26,7 @@ Característica: Consulta resumen
 
   Escenario: RES3.1 - Consulta de resumen sin ninguna prestación cubierta y una consulta realizada
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
+    Y cobertura de visitas con límite 0
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia"
@@ -34,6 +36,7 @@ Característica: Consulta resumen
 
   Escenario: RES3.2 - Consulta de resumen sin ninguna prestación cubierta y dos consultas realizadas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
+    Y cobertura de visitas con límite 0
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia"
@@ -42,7 +45,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $1500
     Y total a pagar es $2000
 
-  @wip
   Escenario: RES3.3 - Consulta de resumen con todas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con límite 2
@@ -54,7 +56,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
 
-  @wip
   Escenario: RES3.4 - Consulta de resumen con todas las prestaciones cubiertas por infinito
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con límite infinito
@@ -71,7 +72,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
 
-  @wip
   Escenario: RES4 - Consulta de resumen con algunas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con límite 2
@@ -80,5 +80,6 @@ Característica: Consulta resumen
     Y que registró una atención por la prestación "Traumatologia"
     Y que registró una atención por la prestación "Clínica general"
     Y que registró una atención por la prestación "Traumatologia"
+    Cuando consulta el resumen
     Entonces su saldo adicional es $1000
     Y total a pagar es $1500
