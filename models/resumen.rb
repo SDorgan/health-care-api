@@ -1,9 +1,16 @@
 class Resumen
   attr_accessor :afiliado, :plan
-  def initialize(afiliado, plan, visitas)
+
+  def initialize(afiliado, repo_planes, repo_visitas)
     @afiliado = afiliado
-    @plan = plan
-    @visitas = visitas
+    @repo_planes = repo_planes
+    @repo_visitas = repo_visitas
+  end
+
+  def generar
+    @plan = @repo_planes.find(@afiliado.plan_id)
+
+    @visitas = @repo_visitas.find_by_afiliado(@afiliado.id)
   end
 
   def costo_adicional
