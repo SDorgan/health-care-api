@@ -41,4 +41,20 @@ describe 'CoberturaVisita' do
 
     expect(visitas_filtradas.length).to eq 1
   end
+
+  it 'deberia filtrar dos visitas cuando la cobertura es dos' do
+    cobertura_visita = CoberturaVisita.new(2)
+
+    visitas_filtradas = cobertura_visita.filtrar(visitas)
+
+    expect(visitas_filtradas.length).to eq 0
+  end
+
+  it 'deberia devolver cero visitas si la cobertura supera la cantidad de visitas' do
+    cobertura_visita = CoberturaVisita.new(3)
+
+    visitas_filtradas = cobertura_visita.filtrar(visitas)
+
+    expect(visitas_filtradas.length).to eq 0
+  end
 end
