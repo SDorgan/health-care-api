@@ -35,13 +35,24 @@ describe 'CoberturaVisita' do
     expect(visitas_modificadas[1].costo).to eq prestacion.costo
   end
 
-  it 'deberia cubri una visita y asignar a la restante el costo de la prestacion cuando la cobertura es uno' do # rubocop:disable Metrics/LineLength
+  it 'deberia cubrir una visita y asignar a la restante el costo de la prestacion cuando la cobertura es uno y copago es cero' do # rubocop:disable Metrics/LineLength
     cantidad = 1
     cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
     visitas_modificadas = cobertura_visita.aplicar(visitas)
 
     expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq prestacion.costo
+  end
+
+  it 'deberia cubrir una visita asignando el copago y a la restante el costo de la prestacion cuando la cobertura es uno' do # rubocop:disable Metrics/LineLength, RSpec/ExampleLength
+    cantidad = 1
+    copago = 10
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
+
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
+
+    expect(visitas_modificadas[0].costo).to eq copago
     expect(visitas_modificadas[1].costo).to eq prestacion.costo
   end
 
