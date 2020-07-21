@@ -6,11 +6,15 @@ describe 'Resumen' do
     @plan.id = 1
     @plan_con_cobertura = Plan.new('Premium', 2000, 0, 0, CoberturaVisita.new(2))
     @plan_con_cobertura.id = 2
+    @plan_infinito = Plan.new('Infinito', 5000, 0, 0, CoberturaVisitaInfinita.new)
+    @plan_con_cobertura.id = 3
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
     @afiliado.id = 1
     @afiliado_premium = Afiliado.new('Pedro Gonzalez', @plan_con_cobertura.id)
     @afiliado_premium.id = 2
+    @afiliado_infinito = Afiliado.new('Pedro Perez', @plan_infinito.id)
+    @afiliado_infinito.id = 2
 
     @prestacion = Prestacion.new('Traumatologia', 10)
     @otra_prestacion = Prestacion.new('Odontología', 20)
@@ -18,6 +22,7 @@ describe 'Resumen' do
     @repo_planes = instance_double('PlanRepository')
     allow(@repo_planes).to receive(:find).with(@afiliado.plan_id).and_return(@plan)
     allow(@repo_planes).to receive(:find).with(@afiliado_premium.plan_id).and_return(@plan_con_cobertura) # rubocop:disable Metrics/LineLength
+    allow(@repo_planes).to receive(:find).with(@afiliado_infinito.plan_id).and_return(@plan_infinito) # rubocop:disable Metrics/LineLength
   end
 
   describe 'sin visitas medicas' do
@@ -106,6 +111,22 @@ describe 'Resumen' do
         resumen.generar
 
         expect(resumen.total).to eq 1020
+      end
+
+      it 'deberia generar un costo adicional de cero cuando el plan es infinito' do
+        resumen = Resumen.new(@afiliado_infinito, @repo_planes, @repo_visitas)
+
+        resumen.generar
+
+        expect(resumen.costo_adicional).to eq 0
+      end
+
+      it 'deberia generar un total igual al monto del plan cuando tiene cobertura infinito' do # rubocop:disable Metrics/LineLength
+        resumen = Resumen.new(@afiliado_infinito, @repo_planes, @repo_visitas)
+
+        resumen.generar
+
+        expect(resumen.total).to eq 5000
       end
     end
 
