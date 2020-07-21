@@ -33,4 +33,12 @@ describe 'CoberturaVisita' do
 
     expect(visitas_filtradas.length).to eq visitas.length
   end
+
+  it 'deberia filtrar una visita cuando la cobertura es uno' do
+    cobertura_visita = CoberturaVisita.new(1)
+
+    visitas_filtradas = cobertura_visita.filtrar(visitas)
+
+    expect(visitas_filtradas.length).to eq 1
+  end
 end

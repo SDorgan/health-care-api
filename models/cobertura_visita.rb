@@ -6,6 +6,6 @@ class CoberturaVisita
   end
 
   def filtrar(visitas)
-    visitas
+    visitas.drop(@cantidad)
   end
 end
