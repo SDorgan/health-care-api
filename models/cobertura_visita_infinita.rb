@@ -7,7 +7,11 @@ class CoberturaVisitaInfinita
     @cantidad = LIMITE
   end
 
-  def filtrar(_visitas)
-    []
+  def aplicar(visitas)
+    visitas.map do |visita|
+      visita.costo = 0
+
+      visita
+    end
   end
 end

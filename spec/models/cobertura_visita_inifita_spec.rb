@@ -26,11 +26,12 @@ describe 'CoberturaVisitaInfinita' do
     expect(cobertura.cantidad).to eq CoberturaVisitaInfinita::LIMITE
   end
 
-  it 'deberia filtrar todas las visitas medicas realizadas' do
+  it 'deberia asignar un costo de cero a todas las visitas medicas realizadas' do
     cobertura = CoberturaVisitaInfinita.new
 
-    visitas_filtradas = cobertura.filtrar(visitas)
+    visitas_modificadas = cobertura.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq 0
+    expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq 0
   end
 end

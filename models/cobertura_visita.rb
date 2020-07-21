@@ -5,7 +5,12 @@ class CoberturaVisita
     @cantidad = cantidad
   end
 
-  def filtrar(visitas)
-    visitas.drop(@cantidad)
+  def aplicar(visitas)
+    visitas.each_with_index.map do |visita, num|
+      visita.costo = 0
+      visita.costo = visita.prestacion.costo if num >= @cantidad
+
+      visita
+    end
   end
 end

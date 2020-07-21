@@ -26,35 +26,39 @@ describe 'CoberturaVisita' do
     expect(cobertura_visita.cantidad).to eq 0
   end
 
-  it 'deberia devolver todas las visitas cuando la cantidad de cobertura es cero' do
+  it 'deberia devolver todas las visitas con costo igual al monto de la prestacion cuando la cobertura es cero' do # rubocop:disable Metrics/LineLength
     cobertura_visita = CoberturaVisita.new(0)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq visitas.length
+    expect(visitas_modificadas[0].costo).to eq prestacion.costo
+    expect(visitas_modificadas[1].costo).to eq prestacion.costo
   end
 
-  it 'deberia filtrar una visita cuando la cobertura es uno' do
+  it 'deberia cubri una visita y asignar a la restante el costo de la prestacion cuando la cobertura es uno' do # rubocop:disable Metrics/LineLength
     cobertura_visita = CoberturaVisita.new(1)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq 1
+    expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq prestacion.costo
   end
 
-  it 'deberia filtrar dos visitas cuando la cobertura es dos' do
+  it 'deberia cubrir ambas visitas cuando la cobertura es dos' do
     cobertura_visita = CoberturaVisita.new(2)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq 0
+    expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq 0
   end
 
-  it 'deberia devolver cero visitas si la cobertura supera la cantidad de visitas' do
+  it 'deberia cubrir todas las visitas si la cobertura supera la cantidad de visitas' do
     cobertura_visita = CoberturaVisita.new(3)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq 0
+    expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq 0
   end
 end
