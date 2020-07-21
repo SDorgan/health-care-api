@@ -4,4 +4,8 @@ class CoberturaVisita
   def initialize(cantidad)
     @cantidad = cantidad
   end
+
+  def filtrar(visitas)
+    visitas
+  end
 end
