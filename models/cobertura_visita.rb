@@ -8,8 +8,11 @@ class CoberturaVisita
 
   def aplicar(visitas)
     visitas.each_with_index.map do |visita, num|
-      visita.costo = @copago
-      visita.costo = visita.prestacion.costo if num >= @cantidad
+      visita.costo = if num >= @cantidad
+                       visita.prestacion.costo
+                     else
+                       @copago
+                     end
 
       visita
     end
