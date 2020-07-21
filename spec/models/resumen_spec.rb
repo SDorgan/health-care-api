@@ -2,17 +2,22 @@ require 'spec_helper'
 
 describe 'Resumen' do
   before(:each) do
-    @plan = Plan.new('Juventud', 1000, 0, 0, 0)
+    @plan = Plan.new('Juventud', 1000, 0, 0, CoberturaVisita.new(0))
+    @plan.id = 1
+    @plan_con_cobertura = Plan.new('Premium', 2000, 0, 0, CoberturaVisita.new(2))
+    @plan_con_cobertura.id = 2
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado.id = 1
+    @afiliado_premium = Afiliado.new('Pedro Gonzalez', @plan_con_cobertura.id)
+    @afiliado_premium.id = 2
 
     @prestacion = Prestacion.new('Traumatologia', 10)
     @otra_prestacion = Prestacion.new('Odontología', 20)
 
     @repo_planes = instance_double('PlanRepository')
-    allow(@repo_planes).to receive(:find) do
-      @plan
-    end
+    allow(@repo_planes).to receive(:find).with(@afiliado.plan_id).and_return(@plan)
+    allow(@repo_planes).to receive(:find).with(@afiliado_premium.plan_id).and_return(@plan_con_cobertura) # rubocop:disable Metrics/LineLength
   end
 
   describe 'sin visitas medicas' do
@@ -40,10 +45,14 @@ describe 'Resumen' do
 
   describe 'con una visita medica' do
     before(:each) do
-      visitas = [VisitaMedica.new(@afiliado.id, @prestacion)]
+      visitas = [
+        VisitaMedica.new(@afiliado.id, @prestacion),
+        VisitaMedica.new(@afiliado_premium.id, @prestacion)
+      ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).and_return(visitas)
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return([visitas[0]])
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([visitas[1]]) # rubocop:disable Metrics/LineLength
     end
 
     it 'deberia generar un costo adicional del monto de la prestación cuando hay una visita' do
@@ -60,6 +69,14 @@ describe 'Resumen' do
       resumen.generar
 
       expect(resumen.total).to eq 1010
+    end
+
+    it 'deberia cubrir la visita medica generando un costo adicional de cero' do
+      resumen = Resumen.new(@afiliado_premium, @repo_planes, @repo_visitas)
+
+      resumen.generar
+
+      expect(resumen.costo_adicional).to eq 0
     end
   end
 
@@ -103,7 +120,7 @@ describe 'Resumen' do
         allow(@repo_visitas).to receive(:find_by_afiliado).and_return(visitas)
       end
 
-      it 'deberia generar un costo con la suma de las dos distintas prestaciones' do # rubocop:disable Metrics/LineLength
+      it 'deberia generar un costo con la suma de las dos distintas prestaciones' do
         resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas)
 
         resumen.generar
@@ -111,7 +128,7 @@ describe 'Resumen' do
         expect(resumen.costo_adicional).to eq 30
       end
 
-      it 'deberia generar un total igual al monto del plan mas la suma de las prestaciones' do # rubocop:disable Metrics/LineLength
+      it 'deberia generar un total igual al monto del plan mas la suma de las prestaciones' do
         resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas)
 
         resumen.generar

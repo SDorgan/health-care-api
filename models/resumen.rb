@@ -14,7 +14,9 @@ class Resumen
   end
 
   def costo_adicional
-    @visitas.map { |visita| visita.prestacion.costo }.inject(0, :+)
+    visitas_filtradas = @plan.cobertura_visitas.filtrar(@visitas)
+
+    visitas_filtradas.map { |visita| visita.prestacion.costo }.inject(0, :+)
   end
 
   def total
