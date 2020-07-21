@@ -32,4 +32,14 @@ describe 'CoberturaVisitaInfinita' do
     expect(visitas_modificadas[0].costo).to eq 0
     expect(visitas_modificadas[1].costo).to eq 0
   end
+
+  it 'deberia asignar un costo igual al copago a todas las visitas medicas realizadas' do
+    copago = 10
+    cobertura = CoberturaVisitaInfinita.new(copago)
+
+    visitas_modificadas = cobertura.aplicar(visitas)
+
+    expect(visitas_modificadas[0].costo).to eq copago
+    expect(visitas_modificadas[1].costo).to eq copago
+  end
 end

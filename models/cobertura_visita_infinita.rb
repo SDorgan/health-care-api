@@ -10,7 +10,7 @@ class CoberturaVisitaInfinita
 
   def aplicar(visitas)
     visitas.map do |visita|
-      visita.costo = 0
+      visita.costo = @copago
 
       visita
     end
