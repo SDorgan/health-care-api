@@ -47,7 +47,8 @@ class PlanRepository
   end
 
   def load_object(a_record)
-    plan = Plan.new(a_record[:name], a_record[:cost], a_record[:visit_limit], a_record[:copay])
+    plan = Plan.new(a_record[:name], a_record[:cost], a_record[:visit_limit],
+                    a_record[:copay], a_record[:medicine_coverage])
     plan.id = a_record[:id]
 
     plan
@@ -62,7 +63,8 @@ class PlanRepository
       name: plan.nombre,
       cost: plan.costo,
       visit_limit: plan.limite_cobertura_visitas,
-      copay: plan.copago
+      copay: plan.copago,
+      medicine_coverage: plan.cobertura_medicamentos
     }
   end
 end

@@ -65,7 +65,7 @@ describe 'PlanRepository' do
     expect(saved_plan.copago).to eql @plan.copago
   end
 
-  xit 'deberia devolver la cobertura a medicamentos del plan guardado' do
+  it 'deberia devolver la cobertura a medicamentos del plan guardado' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.cobertura_medicamentos).to eql @plan.cobertura_medicamentos
