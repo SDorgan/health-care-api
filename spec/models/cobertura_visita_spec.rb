@@ -66,6 +66,17 @@ describe 'CoberturaVisita' do
     expect(visitas_modificadas[1].costo).to eq 0
   end
 
+  it 'deberia cubrir ambas visitas cuando la cobertura es dos asignando el copago' do # rubocop:disable Metrics/LineLength, RSpec/ExampleLength
+    cantidad = 2
+    copago = 10
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
+
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
+
+    expect(visitas_modificadas[0].costo).to eq copago
+    expect(visitas_modificadas[1].costo).to eq copago
+  end
+
   it 'deberia cubrir todas las visitas si la cobertura supera la cantidad de visitas' do
     cantidad = 3
     cobertura_visita = CoberturaVisita.new(cantidad, copago)
@@ -74,5 +85,16 @@ describe 'CoberturaVisita' do
 
     expect(visitas_modificadas[0].costo).to eq 0
     expect(visitas_modificadas[1].costo).to eq 0
+  end
+
+  it 'deberia cubrir todas las visitas si la cobertura supera la cantidad de visitas asignando el copago' do # rubocop:disable Metrics/LineLength, RSpec/ExampleLength
+    cantidad = 3
+    copago = 10
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
+
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
+
+    expect(visitas_modificadas[0].costo).to eq copago
+    expect(visitas_modificadas[1].costo).to eq copago
   end
 end
