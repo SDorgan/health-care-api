@@ -61,3 +61,13 @@ Dado('cobertura de visitas con copago ${int} y con límite {int}') do |copago, l
     'copago' => copago
   }
 end
+
+Dado('cobertura de medicamentos {int}%') do |cobertura|
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
+    'copago' => @request['copago'],
+    'cobertura_medicamentos' => cobertura
+  }
+end
