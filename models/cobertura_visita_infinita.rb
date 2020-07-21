@@ -1,13 +1,18 @@
 class CoberturaVisitaInfinita
   LIMITE = 1000
 
-  attr_accessor :cantidad
+  attr_accessor :cantidad, :copago
 
-  def initialize
+  def initialize(copago)
     @cantidad = LIMITE
+    @copago = copago
   end
 
-  def filtrar(_visitas)
-    []
+  def aplicar(visitas)
+    visitas.map do |visita|
+      visita.costo = @copago
+
+      visita
+    end
   end
 end

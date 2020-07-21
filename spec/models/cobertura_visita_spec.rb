@@ -1,12 +1,8 @@
 require 'spec_helper'
 
 describe 'CoberturaVisita' do
-  let(:plan) do
-    Plan.new('Juventud', 1000, 0, 0, 0)
-  end
-
   let(:afiliado) do
-    Afiliado.new('Juan Perez', plan.id)
+    Afiliado.new('Juan Perez', 1)
   end
 
   let(:prestacion) do
@@ -20,41 +16,85 @@ describe 'CoberturaVisita' do
     ]
   end
 
+  let(:copago) { 0 }
+
   it 'deberia devolver la cantidad con la que fue creada' do
-    cobertura_visita = CoberturaVisita.new(0)
+    cantidad = 0
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
     expect(cobertura_visita.cantidad).to eq 0
   end
 
-  it 'deberia devolver todas las visitas cuando la cantidad de cobertura es cero' do
-    cobertura_visita = CoberturaVisita.new(0)
+  it 'deberia devolver todas las visitas con costo igual al monto de la prestacion cuando la cobertura es cero' do # rubocop:disable Metrics/LineLength
+    cantidad = 0
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq visitas.length
+    expect(visitas_modificadas[0].costo).to eq prestacion.costo
+    expect(visitas_modificadas[1].costo).to eq prestacion.costo
   end
 
-  it 'deberia filtrar una visita cuando la cobertura es uno' do
-    cobertura_visita = CoberturaVisita.new(1)
+  it 'deberia cubrir una visita y asignar a la restante el costo de la prestacion cuando la cobertura es uno y copago es cero' do # rubocop:disable Metrics/LineLength
+    cantidad = 1
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq 1
+    expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq prestacion.costo
   end
 
-  it 'deberia filtrar dos visitas cuando la cobertura es dos' do
-    cobertura_visita = CoberturaVisita.new(2)
+  it 'deberia cubrir una visita asignando el copago y a la restante el costo de la prestacion cuando la cobertura es uno' do # rubocop:disable Metrics/LineLength, RSpec/ExampleLength
+    cantidad = 1
+    copago = 10
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq 0
+    expect(visitas_modificadas[0].costo).to eq copago
+    expect(visitas_modificadas[1].costo).to eq prestacion.costo
   end
 
-  it 'deberia devolver cero visitas si la cobertura supera la cantidad de visitas' do
-    cobertura_visita = CoberturaVisita.new(3)
+  it 'deberia cubrir ambas visitas cuando la cobertura es dos' do
+    cantidad = 2
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
-    visitas_filtradas = cobertura_visita.filtrar(visitas)
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
 
-    expect(visitas_filtradas.length).to eq 0
+    expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq 0
+  end
+
+  it 'deberia cubrir ambas visitas cuando la cobertura es dos asignando el copago' do # rubocop:disable Metrics/LineLength, RSpec/ExampleLength
+    cantidad = 2
+    copago = 10
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
+
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
+
+    expect(visitas_modificadas[0].costo).to eq copago
+    expect(visitas_modificadas[1].costo).to eq copago
+  end
+
+  it 'deberia cubrir todas las visitas si la cobertura supera la cantidad de visitas' do
+    cantidad = 3
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
+
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
+
+    expect(visitas_modificadas[0].costo).to eq 0
+    expect(visitas_modificadas[1].costo).to eq 0
+  end
+
+  it 'deberia cubrir todas las visitas si la cobertura supera la cantidad de visitas asignando el copago' do # rubocop:disable Metrics/LineLength, RSpec/ExampleLength
+    cantidad = 3
+    copago = 10
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
+
+    visitas_modificadas = cobertura_visita.aplicar(visitas)
+
+    expect(visitas_modificadas[0].costo).to eq copago
+    expect(visitas_modificadas[1].costo).to eq copago
   end
 end

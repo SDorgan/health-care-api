@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'BuscadorAfiliadoApiExterna' do
   before(:each) do
-    @plan = Plan.new('neo', 100, 0, 0, CoberturaVisita.new(0))
+    @plan = Plan.new('neo', 100, 0, CoberturaVisita.new(0, 0))
 
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
