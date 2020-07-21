@@ -58,9 +58,9 @@ describe 'PlanesController' do
     expect(response['plan']['copago']).to eq copago
   end
 
-  xit 'deberia devolver la cobertura de medicamentos con la que se hizo POST' do
+  it 'deberia devolver la cobertura de medicamentos con la que se hizo POST' do
     post '/planes', body
     response = JSON.parse(last_response.body)
-    expect(response['plan']['cobertura_medicamentos']).to eq copago
+    expect(response['plan']['cobertura_medicamentos']).to eq cobertura_medicamentos
   end
 end

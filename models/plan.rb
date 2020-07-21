@@ -3,7 +3,7 @@ class Plan
                 :limite_cobertura_visitas, :copago, :cobertura_medicamentos
 
   def initialize(nombre, costo, limite_cobertura_visitas,
-                 copago, cobertura_medicamentos = 0)
+                 copago, cobertura_medicamentos)
     @nombre = nombre
     @costo = costo
     @limite_cobertura_visitas = limite_cobertura_visitas

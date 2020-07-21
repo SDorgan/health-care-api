@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'VisitaMedicaRepository' do
   let(:plan) do
-    plan = Plan.new('Neo', 1000, 0, 0)
+    plan = Plan.new('Neo', 1000, 0, 0, 0)
 
     plan
   end

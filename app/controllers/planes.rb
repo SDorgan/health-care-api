@@ -7,14 +7,13 @@ HealthAPI::App.controllers :planes do
 
   post :index do
     params = JSON.parse(request.body.read)
-
     plan = Plan.new(params['nombre'],
                     params['costo'],
                     params['limite_cobertura_visitas'],
-                    params['copago'])
+                    params['copago'],
+                    params['cobertura_medicamentos'])
 
     plan = PlanRepository.new.save(plan)
-
     status 201
 
     PlanResponseBuilder.create_from(plan)
