@@ -318,6 +318,8 @@ definitions:
         type: integer
       copago:
         type: integer
+      cobertura_medicamentos:
+        type: integer
   Plan:
     description: Plan médico
     properties:
@@ -330,6 +332,8 @@ definitions:
       limite_cobertura_visitas:
         type: integer
       copago:
+        type: integer
+      cobertura_medicamentos:
         type: integer
   CentrosCreate:
     properties:
