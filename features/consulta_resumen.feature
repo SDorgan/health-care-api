@@ -56,7 +56,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
 
-  @wip
   Escenario: RES3.4 - Consulta de resumen con todas las prestaciones cubiertas por infinito
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con límite infinito
