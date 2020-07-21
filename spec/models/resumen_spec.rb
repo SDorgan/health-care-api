@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe 'Resumen' do
   before(:each) do
-    @plan = Plan.new('Juventud', 1000, 0, 0, CoberturaVisita.new(0))
+    @plan = Plan.new('Juventud', 1000, 0, CoberturaVisita.new(0, 0))
     @plan.id = 1
-    @plan_con_cobertura = Plan.new('Premium', 2000, 0, 0, CoberturaVisita.new(2))
+    @plan_con_cobertura = Plan.new('Premium', 2000, 0, CoberturaVisita.new(2, 0))
     @plan_con_cobertura.id = 2
-    @plan_infinito = Plan.new('Infinito', 5000, 0, 0, CoberturaVisitaInfinita.new)
+    @plan_infinito = Plan.new('Infinito', 5000, 0, CoberturaVisitaInfinita.new(0))
     @plan_con_cobertura.id = 3
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)

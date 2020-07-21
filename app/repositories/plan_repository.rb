@@ -48,13 +48,13 @@ class PlanRepository
 
   def load_object(a_record)
     cobertura_visitas = if a_record[:visit_limit].eql?(CoberturaVisitaInfinita::LIMITE)
-                          CoberturaVisitaInfinita.new
+                          CoberturaVisitaInfinita.new(a_record[:copay])
                         else
-                          CoberturaVisita.new(a_record[:visit_limit])
+                          CoberturaVisita.new(a_record[:visit_limit], a_record[:copay])
                         end
 
     plan = Plan.new(a_record[:name], a_record[:cost],
-                    a_record[:copay], a_record[:medicine_coverage],
+                    a_record[:medicine_coverage],
                     cobertura_visitas)
 
     plan.id = a_record[:id]
@@ -71,7 +71,7 @@ class PlanRepository
       name: plan.nombre,
       cost: plan.costo,
       visit_limit: plan.cobertura_visitas.cantidad,
-      copay: plan.copago,
+      copay: plan.cobertura_visitas.copago,
       medicine_coverage: plan.cobertura_medicamentos
     }
   end

@@ -1,12 +1,8 @@
 require 'spec_helper'
 
 describe 'CoberturaVisita' do
-  let(:plan) do
-    Plan.new('Juventud', 1000, 0, 0, 0)
-  end
-
   let(:afiliado) do
-    Afiliado.new('Juan Perez', plan.id)
+    Afiliado.new('Juan Perez', 1)
   end
 
   let(:prestacion) do
@@ -20,14 +16,18 @@ describe 'CoberturaVisita' do
     ]
   end
 
+  let(:copago) { 0 }
+
   it 'deberia devolver la cantidad con la que fue creada' do
-    cobertura_visita = CoberturaVisita.new(0)
+    cantidad = 0
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
     expect(cobertura_visita.cantidad).to eq 0
   end
 
   it 'deberia devolver todas las visitas con costo igual al monto de la prestacion cuando la cobertura es cero' do # rubocop:disable Metrics/LineLength
-    cobertura_visita = CoberturaVisita.new(0)
+    cantidad = 0
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
     visitas_modificadas = cobertura_visita.aplicar(visitas)
 
@@ -36,7 +36,8 @@ describe 'CoberturaVisita' do
   end
 
   it 'deberia cubri una visita y asignar a la restante el costo de la prestacion cuando la cobertura es uno' do # rubocop:disable Metrics/LineLength
-    cobertura_visita = CoberturaVisita.new(1)
+    cantidad = 1
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
     visitas_modificadas = cobertura_visita.aplicar(visitas)
 
@@ -45,7 +46,8 @@ describe 'CoberturaVisita' do
   end
 
   it 'deberia cubrir ambas visitas cuando la cobertura es dos' do
-    cobertura_visita = CoberturaVisita.new(2)
+    cantidad = 2
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
     visitas_modificadas = cobertura_visita.aplicar(visitas)
 
@@ -54,7 +56,8 @@ describe 'CoberturaVisita' do
   end
 
   it 'deberia cubrir todas las visitas si la cobertura supera la cantidad de visitas' do
-    cobertura_visita = CoberturaVisita.new(3)
+    cantidad = 3
+    cobertura_visita = CoberturaVisita.new(cantidad, copago)
 
     visitas_modificadas = cobertura_visita.aplicar(visitas)
 

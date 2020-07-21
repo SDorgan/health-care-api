@@ -1,12 +1,8 @@
 require 'spec_helper'
 
 describe 'CoberturaVisitaInfinita' do
-  let(:plan) do
-    Plan.new('Juventud', 1000, 0, 0, 0)
-  end
-
   let(:afiliado) do
-    Afiliado.new('Juan Perez', plan.id)
+    Afiliado.new('Juan Perez', 1)
   end
 
   let(:prestacion) do
@@ -21,13 +17,15 @@ describe 'CoberturaVisitaInfinita' do
   end
 
   it 'deberia devolver el valor que simboliza el infinito' do
-    cobertura = CoberturaVisitaInfinita.new
+    copago = 0
+    cobertura = CoberturaVisitaInfinita.new(copago)
 
     expect(cobertura.cantidad).to eq CoberturaVisitaInfinita::LIMITE
   end
 
   it 'deberia asignar un costo de cero a todas las visitas medicas realizadas' do
-    cobertura = CoberturaVisitaInfinita.new
+    copago = 0
+    cobertura = CoberturaVisitaInfinita.new(copago)
 
     visitas_modificadas = cobertura.aplicar(visitas)
 

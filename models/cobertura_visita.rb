@@ -1,8 +1,9 @@
 class CoberturaVisita
-  attr_accessor :cantidad
+  attr_accessor :cantidad, :copago
 
-  def initialize(cantidad)
+  def initialize(cantidad, copago)
     @cantidad = cantidad
+    @copago = copago
   end
 
   def aplicar(visitas)
