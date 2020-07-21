@@ -72,7 +72,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
 
-  @wip
   Escenario: RES4 - Consulta de resumen con algunas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con límite 2
@@ -81,5 +80,6 @@ Característica: Consulta resumen
     Y que registró una atención por la prestación "Traumatologia"
     Y que registró una atención por la prestación "Clínica general"
     Y que registró una atención por la prestación "Traumatologia"
+    Cuando consulta el resumen
     Entonces su saldo adicional es $1000
     Y total a pagar es $1500
