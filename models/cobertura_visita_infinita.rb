@@ -6,4 +6,8 @@ class CoberturaVisitaInfinita
   def initialize
     @cantidad = LIMITE
   end
+
+  def filtrar(_visitas)
+    []
+  end
 end
