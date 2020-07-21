@@ -45,7 +45,6 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $1500
     Y total a pagar es $2000
 
-  @wip
   Escenario: RES3.3 - Consulta de resumen con todas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con límite 2
