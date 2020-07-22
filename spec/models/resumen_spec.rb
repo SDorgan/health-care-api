@@ -240,8 +240,8 @@ describe 'Resumen' do
       expect(resumen.costo_adicional).to eq 500
     end
 
-    xit 'deberia generar un total igual al monto del plan mas el precio de la compra con el descuento' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+    it 'deberia generar un total igual al monto del plan mas el precio de la compra con el descuento' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 
@@ -249,7 +249,7 @@ describe 'Resumen' do
     end
 
     xit 'deberia generar un costo adicional del monto de la compras con el descuento cuando hay múltiples compras' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -257,7 +257,7 @@ describe 'Resumen' do
     end
 
     xit 'deberia generar un total igual al monto del plan mas el precio de las compras con sus descuentos' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
 
       resumen.generar
 
