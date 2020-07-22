@@ -23,9 +23,10 @@ class PlanRepository < BaseRepository
                         else
                           CoberturaVisita.new(a_record[:visit_limit], a_record[:copay])
                         end
+    cobertura_medicamentos = CoberturaMedicamentos.new(a_record[:medicine_coverage])
 
     plan = Plan.new(a_record[:name], a_record[:cost],
-                    a_record[:medicine_coverage],
+                    cobertura_medicamentos,
                     cobertura_visitas)
 
     plan.id = a_record[:id]
@@ -39,7 +40,7 @@ class PlanRepository < BaseRepository
       cost: plan.costo,
       visit_limit: plan.cobertura_visitas.cantidad,
       copay: plan.cobertura_visitas.copago,
-      medicine_coverage: plan.cobertura_medicamentos
+      medicine_coverage: plan.cobertura_medicamentos.porcentaje
     }
   end
 end

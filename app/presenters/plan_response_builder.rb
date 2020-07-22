@@ -7,7 +7,7 @@ class PlanResponseBuilder
         'costo': plan.costo,
         'limite_cobertura_visitas': plan.cobertura_visitas.cantidad,
         'copago': plan.cobertura_visitas.copago,
-        'cobertura_medicamentos': plan.cobertura_medicamentos
+        'cobertura_medicamentos': plan.cobertura_medicamentos.porcentaje
       }
     }.to_json
   end
@@ -22,7 +22,7 @@ class PlanResponseBuilder
         'costo': plan.costo,
         'limite_cobertura_visitas': plan.cobertura_visitas.cantidad,
         'copago': plan.cobertura_visitas.copago,
-        'cobertura_medicamentos': plan.cobertura_medicamentos
+        'cobertura_medicamentos': plan.cobertura_medicamentos.porcentaje
       }
     end
 

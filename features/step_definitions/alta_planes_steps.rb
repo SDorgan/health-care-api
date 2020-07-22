@@ -42,7 +42,8 @@ Dado('cobertura de visitas con límite {int}') do |limite_visitas|
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
     'copago' => 0,
-    'limite_cobertura_visitas' => limite_visitas
+    'limite_cobertura_visitas' => limite_visitas,
+    'cobertura_medicamentos' => 0
   }
 end
 
@@ -50,7 +51,8 @@ Dado('cobertura de visitas con límite infinito') do
   @request = {
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
-    'copago' => 0
+    'copago' => 0,
+    'cobertura_medicamentos' => 0
   }
 end
 
@@ -59,7 +61,18 @@ Dado('cobertura de visitas con copago ${int} y con límite {int}') do |copago, l
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
     'limite_cobertura_visitas' => limite_visitas,
-    'copago' => copago
+    'copago' => copago,
+    'cobertura_medicamentos' => 0
+  }
+end
+
+Dado('cobertura de visitas con copago ${int} y con límite {int} y medicamentos {int}%') do |copago, limite_visitas, cobertura_medicamentos| # rubocop:disable Metrics/LineLength
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => limite_visitas,
+    'copago' => copago,
+    'cobertura_medicamentos' => cobertura_medicamentos
   }
 end
 

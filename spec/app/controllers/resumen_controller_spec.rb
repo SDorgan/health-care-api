@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'ResumenController' do
   let(:plan) do
-    plan = Plan.new('Neo', 1000, 0, CoberturaVisita.new(0, 0))
+    plan = Plan.new('Neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
 
     plan
   end
@@ -24,8 +24,13 @@ describe 'ResumenController' do
 
     @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
 
-    @repo = VisitaMedicaRepository.new
-    @visita_medica = @repo.save(@visita_medica)
+    @repo_visitas = VisitaMedicaRepository.new
+    @visita_medica = @repo_visitas.save(@visita_medica)
+
+    @compra_medicamentos = CompraMedicamentos.new(@afiliado.id, 500)
+
+    @repo_compras = CompraMedicamentosRepository.new
+    @compra_medicamentos = @repo_compras.save(@compra_medicamentos)
   end
 
   it 'deberia devolver el resumen de un afiliado por Telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
@@ -36,8 +41,8 @@ describe 'ResumenController' do
     resumen = response['resumen']
 
     expect(resumen['afiliado']).to eq 'Juan Perez'
-    expect(resumen['adicional']).to eq 1000
-    expect(resumen['total']).to eq 2000
+    expect(resumen['adicional']).to eq 1500
+    expect(resumen['total']).to eq 2500
   end
 
   it 'debería devolver el resumen de un afiliado por ID' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
@@ -48,7 +53,7 @@ describe 'ResumenController' do
     resumen = response['resumen']
 
     expect(resumen['afiliado']).to eq 'Juan Perez'
-    expect(resumen['adicional']).to eq 1000
-    expect(resumen['total']).to eq 2000
+    expect(resumen['adicional']).to eq 1500
+    expect(resumen['total']).to eq 2500
   end
 end

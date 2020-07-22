@@ -14,6 +14,10 @@ Característica: Consulta resumen
     Y la prestación con nombre "Clínica general"
     Y costo unitario de prestación $500
     Y se registra la prestación
+    Y el plan con nombre "PlanOso" con costo unitario $700
+    Y cobertura de visitas con copago $10 y con límite 2 y medicamentos 80%
+    Y se registra el plan
+
 
   Escenario: RES1 - Consulta de resumen vacío
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
@@ -106,3 +110,20 @@ Característica: Consulta resumen
     Cuando consulta el resumen
     Entonces su saldo adicional es $520
     Y total a pagar es $1220
+
+  @mvp
+  Escenario: RES7 - Consulta de resumen con compra de medicamentos
+      Dado el afiliado "Jorah" afiliado a "PlanOso"
+      Y realiza una compra de medicamentos por $1000
+      Cuando consulta el resumen
+      Entonces su saldo adicional es $200
+      Y total a pagar es $900
+
+  @mvp
+  Escenario: RES8 - Consulta de resumen con compra de medicamentos y atenciones
+      Dado el afiliado "Jorah" afiliado a "PlanOso"
+      Y realiza una compra de medicamentos por $1000
+      Y que registró una atención por la prestación "Traumatologia"
+      Cuando consulta el resumen
+      Entonces su saldo adicional es $210
+      Y total a pagar es $910
