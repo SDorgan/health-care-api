@@ -1,6 +1,6 @@
-class PlanRepository
+class PlanRepository < BaseRepository
   def initialize
-    @table_name = :planes
+    super(:planes)
   end
 
   def save(plan)
@@ -11,40 +11,11 @@ class PlanRepository
     plan
   end
 
-  def find(id)
-    load_object(dataset.first!(pk_column => id))
-  end
-
   def find_by_name(nombre)
     load_object(dataset.first!(name: nombre))
   end
 
-  def all
-    load_collection(dataset)
-  end
-
-  def destroy(a_record)
-    find_dataset_by_id(a_record.id).delete.positive?
-  end
-  alias delete destroy
-
-  def delete_all
-    dataset.delete
-  end
-
   private
-
-  def insert(a_record)
-    dataset.insert(changeset(a_record))
-  end
-
-  def dataset
-    DB[@table_name]
-  end
-
-  def pk_column
-    Sequel[@table_name][:id]
-  end
 
   def load_object(a_record)
     cobertura_visitas = if a_record[:visit_limit].eql?(CoberturaVisitaInfinita::LIMITE)
@@ -60,10 +31,6 @@ class PlanRepository
     plan.id = a_record[:id]
 
     plan
-  end
-
-  def load_collection(rows)
-    rows.map { |a_record| load_object(a_record) }
   end
 
   def changeset(plan)
