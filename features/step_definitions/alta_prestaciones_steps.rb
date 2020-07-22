@@ -13,6 +13,12 @@ Cuando('se registra la prestación') do
   }
 
   @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json')
+
+  json_response = JSON.parse(@response.body)
+  mi_prestacion = json_response['prestacion']
+
+  @prestaciones = {} if @prestaciones.nil?
+  @prestaciones[@nombre_prestacion] = mi_prestacion['id']
 end
 
 Entonces('la prestación se registra exitosamente') do

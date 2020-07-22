@@ -311,7 +311,7 @@ definitions:
       afiliado:
         type: integer
       prestacion:
-        type: string
+        type: integer
   Visita:
     description: Visita médica
     properties:

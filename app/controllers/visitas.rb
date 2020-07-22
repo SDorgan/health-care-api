@@ -4,7 +4,7 @@ HealthAPI::App.controllers :visitas do
 
     afiliado_id = params['afiliado']
 
-    prestacion = PrestacionRepository.new.find_by_name(params['prestacion'])
+    prestacion = PrestacionRepository.new.find(params['prestacion'])
 
     visita_medica = VisitaMedica.new(afiliado_id, prestacion)
 

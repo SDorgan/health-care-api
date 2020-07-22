@@ -16,7 +16,7 @@ end
 Dado('que registró una atención por la prestación {string}') do |prestacion_nombre|
   request = {
     'afiliado' => @id_afiliado,
-    'prestacion' => prestacion_nombre
+    'prestacion' => @prestaciones[prestacion_nombre]
   }
   @response = Faraday.post(VISITAS_URL, request.to_json, 'Content-Type' => 'application/json')
 end
