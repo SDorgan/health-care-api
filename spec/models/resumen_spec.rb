@@ -293,7 +293,7 @@ describe 'Resumen' do
       expect(resumen.costo_adicional).to eq 770
     end
 
-    xit 'deberia generar un total con las compras, las visitas y el costo del plan' do # rubocop:disable Metrics/LineLength
+    it 'deberia generar un total con las compras, las visitas y el costo del plan' do # rubocop:disable Metrics/LineLength
       resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
