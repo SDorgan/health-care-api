@@ -15,9 +15,11 @@ HealthAPI::App.controllers :planes do
                           CoberturaVisitaInfinita.new(params['copago'])
                         end
 
+    cobertura_medicamentos = CoberturaMedicamentos.new(params['cobertura_medicamentos'])
+
     plan = Plan.new(params['nombre'],
                     params['costo'],
-                    params['cobertura_medicamentos'],
+                    cobertura_medicamentos,
                     cobertura_visitas)
 
     plan = PlanRepository.new.save(plan)

@@ -11,7 +11,8 @@ HealthAPI::App.controllers :resumen do
 
     resumen = Resumen.new(repo_afiliados.find(id),
                           PlanRepository.new,
-                          VisitaMedicaRepository.new)
+                          VisitaMedicaRepository.new,
+                          CompraMedicamentosRepository.new)
 
     resumen.generar
 
