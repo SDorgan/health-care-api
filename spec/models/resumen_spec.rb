@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Resumen' do
-  before(:each) do
+  before(:each) do # rubocop:disable Metrics/BlockLength
     @plan = Plan.new('Juventud', 1000, 0, CoberturaVisita.new(0, 0))
     @plan.id = 1
     @plan_con_cobertura = Plan.new('Premium', 2000, 0, CoberturaVisita.new(2, 0))
@@ -10,6 +10,10 @@ describe 'Resumen' do
     @plan_con_cobertura.id = 3
     @plan_con_copago = Plan.new('Familiar', 3000, 0, CoberturaVisita.new(2, 10))
     @plan_con_copago.id = 4
+    @plan_con_medicamentos = Plan.new('Farmacia', 1000, 80, CoberturaVisitaInfinita.new(0))
+    @plan_con_medicamentos.id = 5
+    @plan_con_cobertura_y_medicamentos = Plan.new('Completo', 1000, 50, CoberturaVisita.new(2, 5)) # rubocop:disable Metrics/LineLength
+    @plan_con_cobertura_y_medicamentos.id = 6
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
     @afiliado.id = 1
@@ -19,6 +23,10 @@ describe 'Resumen' do
     @afiliado_infinito.id = 3
     @afiliado_copago = Afiliado.new('Juan Gonzalez', @plan_con_copago.id)
     @afiliado_copago.id = 4
+    @afiliado_medicamentos = Afiliado.new('Francisca Ramirez', @plan_con_medicamentos.id)
+    @afiliado_medicamentos.id = 5
+    @afiliado_cobertura_y_medicamentos = Afiliado.new('Mariana Flores', @plan_con_cobertura_y_medicamentos.id) # rubocop:disable Metrics/LineLength
+    @afiliado_cobertura_y_medicamentos.id = 6
 
     @prestacion = Prestacion.new('Traumatologia', 10)
     @otra_prestacion = Prestacion.new('Odontología', 20)
@@ -28,6 +36,8 @@ describe 'Resumen' do
     allow(@repo_planes).to receive(:find).with(@afiliado_premium.plan_id).and_return(@plan_con_cobertura) # rubocop:disable Metrics/LineLength
     allow(@repo_planes).to receive(:find).with(@afiliado_infinito.plan_id).and_return(@plan_infinito) # rubocop:disable Metrics/LineLength
     allow(@repo_planes).to receive(:find).with(@afiliado_copago.plan_id).and_return(@plan_con_copago) # rubocop:disable Metrics/LineLength
+    allow(@repo_planes).to receive(:find).with(@afiliado_medicamentos.plan_id).and_return(@plan_con_medicamentos) # rubocop:disable Metrics/LineLength
+    allow(@repo_planes).to receive(:find).with(@afiliado_cobertura_y_medicamentos.plan_id).and_return(@plan_con_cobertura_y_medicamentos) # rubocop:disable Metrics/LineLength
   end
 
   describe 'sin visitas medicas' do
@@ -191,6 +201,92 @@ describe 'Resumen' do
 
         expect(resumen.total).to eq 1030
       end
+    end
+  end
+
+  describe 'cobertura de medicamentos' do
+    before(:each) do
+      compras = [
+        CompraMedicamentos.new(@afiliado_medicamentos.id, 1000),
+        CompraMedicamentos.new(@afiliado_medicamentos.id, 400),
+        CompraMedicamentos.new(@afiliado_cobertura_y_medicamentos.id, 1000)
+      ]
+
+      @repo_compras = instance_double('CompraMedicamentosRepository')
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[2]]) # rubocop:disable Metrics/LineLength
+
+      @repo_visitas = instance_double('VisitaMedicaRepository')
+      allow(@repo_visitas).to receive(:find_by_afiliado).and_return([])
+    end
+
+    xit 'deberia generar un costo adicional del monto de la compra con el descuento cuando hay una compra' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
+
+      resumen.generar
+
+      expect(resumen.costo_adicional).to eq 500
+    end
+
+    xit 'deberia generar un total igual al monto del plan mas el precio de la compra con el descuento' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+
+      expect(resumen.total).to eq 1500
+    end
+
+    xit 'deberia generar un costo adicional del monto de la compras con el descuento cuando hay múltiples compras' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+
+      expect(resumen.costo_adicional).to eq 280
+    end
+
+    xit 'deberia generar un total igual al monto del plan mas el precio de las compras con sus descuentos' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+
+      expect(resumen.total).to eq 1280
+    end
+  end
+
+  describe 'cobertura de medicamentos y visitas' do
+    before(:each) do
+      compras = [
+        CompraMedicamentos.new(@afiliado_cobertura_y_medicamentos.id, 1000),
+        CompraMedicamentos.new(@afiliado_cobertura_y_medicamentos.id, 500)
+      ]
+
+      @repo_compras = instance_double('CompraMedicamentosRepository')
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
+
+      visitas = [
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion)
+      ]
+
+      @repo_visitas = instance_double('VisitaMedicaRepository')
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return(visitas) # rubocop:disable Metrics/LineLength
+    end
+
+    xit 'deberia generar un costo adicional con las compras y visitas' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+
+      expect(resumen.costo_adicional).to eq 770
+    end
+
+    xit 'deberia generar un total con las compras, las visitas y el costo del plan' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+
+      expect(resumen.total).to eq 1770
     end
   end
 end
