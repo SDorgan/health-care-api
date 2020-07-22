@@ -220,7 +220,7 @@ describe 'Resumen' do
     before(:each) do
       compras = [
         CompraMedicamentos.new(@afiliado_medicamentos.id, 1000),
-        CompraMedicamentos.new(@afiliado_medicamentos.id, 400),
+        CompraMedicamentos.new(@afiliado_medicamentos.id, 100),
         CompraMedicamentos.new(@afiliado_cobertura_y_medicamentos.id, 1000)
       ]
 
@@ -248,12 +248,12 @@ describe 'Resumen' do
       expect(resumen.total).to eq 1500
     end
 
-    xit 'deberia generar un costo adicional del monto de la compras con el descuento cuando hay múltiples compras' do # rubocop:disable Metrics/LineLength
+    it 'deberia generar un costo adicional del monto de la compras con el descuento cuando hay múltiples compras' do # rubocop:disable Metrics/LineLength
       resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
 
       resumen.generar
 
-      expect(resumen.costo_adicional).to eq 280
+      expect(resumen.costo_adicional).to eq 220
     end
 
     xit 'deberia generar un total igual al monto del plan mas el precio de las compras con sus descuentos' do # rubocop:disable Metrics/LineLength
@@ -261,7 +261,7 @@ describe 'Resumen' do
 
       resumen.generar
 
-      expect(resumen.total).to eq 1280
+      expect(resumen.total).to eq 1220
     end
   end
 

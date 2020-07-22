@@ -9,7 +9,7 @@ class CoberturaMedicamentos
 
   def aplicar(compras)
     compras.map do |compra|
-      costo_final = (1 - (@porcentaje / PORCIENTO)) * compra.monto
+      costo_final = ((PORCIENTO - @porcentaje) / PORCIENTO) * compra.monto
       compra.costo_final = costo_final
 
       compra
