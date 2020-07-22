@@ -33,7 +33,7 @@ describe 'ResumenController' do
     @compra_medicamentos = @repo_compras.save(@compra_medicamentos)
   end
 
-  xit 'deberia devolver el resumen de un afiliado por Telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+  it 'deberia devolver el resumen de un afiliado por Telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     get "/resumen?id=#{@afiliado.id_telegram}&from=telegram"
 
     response = JSON.parse(last_response.body)
