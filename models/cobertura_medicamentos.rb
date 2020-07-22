@@ -4,4 +4,8 @@ class CoberturaMedicamentos
   def initialize(porcentaje)
     @porcentaje = porcentaje
   end
+
+  def aplicar(compras)
+    compras
+  end
 end

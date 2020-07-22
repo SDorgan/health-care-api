@@ -23,7 +23,7 @@ describe 'CoberturaMedicamentos' do
     expect(cobertura_medicamentos.porcentaje).to eq 0
   end
 
-  xit 'deberia devolver todas las compras con costo igual al monto de la compra cuando el pordentaje de cobertura es cero' do # rubocop:disable Metrics/LineLength
+  it 'deberia devolver todas las compras con costo igual al monto de la compra cuando el porcentaje de cobertura es cero' do # rubocop:disable Metrics/LineLength
     porcentaje = 0
     cobertura_medicamentos = CoberturaMedicamentos.new(porcentaje)
 
