@@ -45,7 +45,7 @@ describe 'ResumenController' do
     expect(resumen['total']).to eq 2500
   end
 
-  xit 'debería devolver el resumen de un afiliado por ID' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+  it 'debería devolver el resumen de un afiliado por ID' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     get "/resumen?id=#{@afiliado.id}&from=api"
 
     response = JSON.parse(last_response.body)
