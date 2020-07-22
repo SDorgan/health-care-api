@@ -120,11 +120,10 @@ Característica: Consulta resumen
       Y total a pagar es $900
 
   @mvp
-  @wip
   Escenario: RES8 - Consulta de resumen con compra de medicamentos y atenciones
       Dado el afiliado "Jorah" afiliado a "PlanOso"
       Y realiza una compra de medicamentos por $1000
       Y que registró una atención por la prestación "Traumatologia"
       Cuando consulta el resumen
       Entonces su saldo adicional es $210
-      Y total a pagar es $900
+      Y total a pagar es $910
