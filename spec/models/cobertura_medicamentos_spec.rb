@@ -16,7 +16,7 @@ describe 'CoberturaMedicamentos' do
     ]
   end
 
-  xit 'deberia devolver el porcentaje de reembolzo con el que fue creado' do
+  it 'deberia devolver el porcentaje de reembolzo con el que fue creado' do
     porcentaje = 0
     cobertura_medicamentos = CoberturaMedicamentos.new(porcentaje)
 
