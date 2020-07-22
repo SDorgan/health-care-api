@@ -285,8 +285,8 @@ describe 'Resumen' do
       allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return(visitas) # rubocop:disable Metrics/LineLength
     end
 
-    xit 'deberia generar un costo adicional con las compras y visitas' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+    it 'deberia generar un costo adicional con las compras y visitas' do # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 
@@ -294,7 +294,7 @@ describe 'Resumen' do
     end
 
     xit 'deberia generar un total con las compras, las visitas y el costo del plan' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 
