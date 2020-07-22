@@ -112,7 +112,6 @@ Característica: Consulta resumen
     Y total a pagar es $1220
 
   @mvp
-  @wip
   Escenario: RES7 - Consulta de resumen con compra de medicamentos
       Dado el afiliado "Jorah" afiliado a "PlanOso"
       Y realiza una compra de medicamentos por $1000
