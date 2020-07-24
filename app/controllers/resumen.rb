@@ -1,3 +1,5 @@
+require_relative '../errors/id_not_afiliado_error'
+
 HealthAPI::App.controllers :resumen do
   get :index do
     id = request.params['id']
@@ -9,6 +11,8 @@ HealthAPI::App.controllers :resumen do
                        BuscadorAfiliadoApiExterna.new(AfiliadoRepository.new)
                      end
 
+    raise IdNotAfiliadoError unless repo_afiliados.exists_afiliado_with_id(id)
+
     resumen = Resumen.new(repo_afiliados.find(id),
                           PlanRepository.new,
                           VisitaMedicaRepository.new,
@@ -17,5 +21,9 @@ HealthAPI::App.controllers :resumen do
     resumen.generar
 
     ResumenResponseBuilder.create_from(resumen)
+
+  rescue IdNotAfiliadoError
+    status 401
+    'El ID no pertenece a un afiliado'
   end
 end

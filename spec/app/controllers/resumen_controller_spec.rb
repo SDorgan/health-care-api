@@ -57,9 +57,9 @@ describe 'ResumenController' do
     expect(resumen['total']).to eq 2500
   end
 
-  xit 'deberia ser error si el ID no es de afiliado' do
-    get '/resumen?id=FAKE_ID&from=api'
-    response = JSON.parse(last_response.body)
-    expect(response.status).to be 401
+  it 'deberia ser error si el ID no es de afiliado' do
+    get '/resumen?id=-1&from=api'
+
+    expect(last_response.status).to be 401
   end
 end

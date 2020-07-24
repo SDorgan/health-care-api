@@ -1,0 +1,2 @@
+class IdNotAfiliadoError < StandardError
+end
