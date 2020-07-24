@@ -18,6 +18,10 @@ class AfiliadoRepository < BaseRepository
     load_object(dataset.first!(id_telegram: tele_id))
   end
 
+  def exists_afiliado_with_telegram_id(tele_id)
+    !dataset.where(id_telegram: tele_id).blank?
+  end
+
   def find_sospechosos
     load_collection dataset.where(covid_suspect: true)
   end

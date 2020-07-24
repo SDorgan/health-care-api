@@ -64,11 +64,12 @@ describe 'AfiliadoRepository' do
     expect(sospechoso).to eq true
   end
 
-  xit 'deberia saber si un telegramID es de afiliado' do
+  it 'deberia saber si un telegramID es de afiliado' do
+    @afiliado.id_telegram = '1'
     @repo = AfiliadoRepository.new
 
     @afiliado = @repo.save(@afiliado)
-    id_afiliado = @afiliado.id
+    id_afiliado = @afiliado.id_telegram
     expect(@repo.exists_afiliado_with_telegram_id(id_afiliado)).to eq true
   end
 
