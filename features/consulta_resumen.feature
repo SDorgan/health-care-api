@@ -129,7 +129,6 @@ Característica: Consulta resumen
       Y total a pagar es $910
 
   @mvp
-  @wip
   Escenario: RES2 - Consulta de resumen fallido por persona no afiliada
       Dado el usuario "Tirion" que no esta afiliado
       Cuando consulta el resumen

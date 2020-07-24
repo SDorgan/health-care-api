@@ -5,7 +5,7 @@ Dado('el afiliado {string} de {int} años, conyuge {string}, hijos {int}') do |n
 end
 
 Dado('el usuario {string} que no esta afiliado') do |_string|
-  @id_afiliado = 'ID_INVALIDO'
+  @id_afiliado = 9_999_999
 end
 
 Cuando('se registra al plan {string}') do |plan|

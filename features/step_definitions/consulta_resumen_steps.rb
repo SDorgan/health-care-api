@@ -1,9 +1,13 @@
 Cuando('consulta el resumen') do
   response = Faraday.get(RESUMEN_URL + "?id=#{@id_afiliado}&from=api")
-  json_response = JSON.parse(response.body)
-
   @response_status = response.status
-  @resumen = json_response['resumen']
+
+  if response.status == 200
+    json_response = JSON.parse(response.body)
+    @resumen = json_response['resumen']
+  else
+    @resumen = response.body
+  end
 end
 
 Entonces('su saldo adicional es ${int}') do |saldo|
@@ -24,4 +28,5 @@ end
 
 Entonces('obtiene un error') do
   expect(@response_status).to eq 401
+  expect(@resumen).to eq 'El ID no pertenece a un afiliado'
 end

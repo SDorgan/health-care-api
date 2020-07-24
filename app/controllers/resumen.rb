@@ -22,8 +22,8 @@ HealthAPI::App.controllers :resumen do
 
     ResumenResponseBuilder.create_from(resumen)
 
-  rescue IdNotAfiliadoError
+  rescue IdNotAfiliadoError => e
     status 401
-    'El ID no pertenece a un afiliado'
+    body e.message
   end
 end
