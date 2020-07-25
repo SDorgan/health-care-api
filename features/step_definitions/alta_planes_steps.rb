@@ -36,3 +36,52 @@ end
 Entonces('se registra exitosamente') do
   expect(@response.status).to eq 201
 end
+
+Dado('cobertura de visitas con límite {int}') do |limite_visitas|
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'copago' => 0,
+    'limite_cobertura_visitas' => limite_visitas,
+    'cobertura_medicamentos' => 0
+  }
+end
+
+Dado('cobertura de visitas con límite infinito') do
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'copago' => 0,
+    'cobertura_medicamentos' => 0
+  }
+end
+
+Dado('cobertura de visitas con copago ${int} y con límite {int}') do |copago, limite_visitas|
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => limite_visitas,
+    'copago' => copago,
+    'cobertura_medicamentos' => 0
+  }
+end
+
+Dado('cobertura de visitas con copago ${int} y con límite {int} y medicamentos {int}%') do |copago, limite_visitas, cobertura_medicamentos| # rubocop:disable Metrics/LineLength
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => limite_visitas,
+    'copago' => copago,
+    'cobertura_medicamentos' => cobertura_medicamentos
+  }
+end
+
+Dado('cobertura de medicamentos {int}%') do |cobertura|
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
+    'copago' => @request['copago'],
+    'cobertura_medicamentos' => cobertura
+  }
+end

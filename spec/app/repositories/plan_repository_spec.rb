@@ -2,7 +2,9 @@ require 'integration_spec_helper'
 
 describe 'PlanRepository' do
   before(:each) do
-    @plan = Plan.new('neo', 100)
+    @cantidad_visitas = 0
+    @copago = 100
+    @plan = Plan.new('neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, @copago)) # rubocop:disable Metrics/LineLength
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -26,7 +28,7 @@ describe 'PlanRepository' do
   end
 
   it 'deberia devolver todos los planes disponibles' do
-    @repo.save(Plan.new('familiar', 100))
+    @repo.save(Plan.new('familiar', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, @copago))) # rubocop:disable Metrics/LineLength
 
     planes = @repo.all
 
@@ -40,7 +42,7 @@ describe 'PlanRepository' do
   end
 
   it 'deberia poder filtrar por nombre plan' do
-    @repo.save(Plan.new('familiar', 200))
+    @repo.save(Plan.new('familiar', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, 200))) # rubocop:disable Metrics/LineLength
     plan_encontrado = @repo.find_by_name(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
@@ -51,5 +53,23 @@ describe 'PlanRepository' do
     planes = @repo.all
 
     expect(planes.length).to be 0
+  end
+
+  it 'deberia devolver el limite de visitas del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.cobertura_visitas.cantidad).to eql @plan.cobertura_visitas.cantidad
+  end
+
+  it 'deberia devolver la cantidad de copago del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.cobertura_visitas.copago).to eql @plan.cobertura_visitas.copago
+  end
+
+  it 'deberia devolver la cobertura a medicamentos del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.cobertura_medicamentos.porcentaje).to eql @plan.cobertura_medicamentos.porcentaje # rubocop:disable Metrics/LineLength
   end
 end

@@ -1,6 +1,6 @@
-class AfiliadoRepository
+class AfiliadoRepository < BaseRepository
   def initialize
-    @table_name = :afiliados
+    super(:afiliados)
   end
 
   def save(afiliado)
@@ -14,11 +14,15 @@ class AfiliadoRepository
     afiliado
   end
 
-  def find(id)
-    load_object(dataset.first!(pk_column => id))
+  def find(id_)
+    raise IdNotAfiliadoError unless exists_afiliado_with_id(id_)
+
+    super(id_)
   end
 
   def find_by_telegram_id(tele_id)
+    raise IdNotAfiliadoError unless exists_afiliado_with_telegram_id(tele_id)
+
     load_object(dataset.first!(id_telegram: tele_id))
   end
 
@@ -31,39 +35,22 @@ class AfiliadoRepository
     afiliado.covid_sospechoso
   end
 
-  def destroy(a_record)
-    find_dataset_by_id(a_record.id).delete.positive?
-  end
-  alias delete destroy
-
-  def delete_all
-    dataset.delete
-  end
-
-  def all
-    load_collection(dataset)
-  end
-
   private
 
   def find_dataset_by_id(id)
     dataset.where(pk_column => id)
   end
 
-  def insert(a_record)
-    dataset.insert(changeset(a_record))
+  def exists_afiliado_with_telegram_id(tele_id)
+    !dataset.where(id_telegram: tele_id).blank?
+  end
+
+  def exists_afiliado_with_id(id)
+    !dataset.where(id: id).blank?
   end
 
   def update(a_record)
     find_dataset_by_id(a_record.id).update(changeset(a_record))
-  end
-
-  def dataset
-    DB[@table_name]
-  end
-
-  def pk_column
-    Sequel[@table_name][:id]
   end
 
   def load_object(a_record)
@@ -72,10 +59,6 @@ class AfiliadoRepository
     afiliado.id_telegram = a_record[:id_telegram]
     afiliado.covid_sospechoso = a_record[:covid_suspect]
     afiliado
-  end
-
-  def load_collection(rows)
-    rows.map { |a_record| load_object(a_record) }
   end
 
   def changeset(afiliado)

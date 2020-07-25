@@ -4,7 +4,10 @@ class PlanResponseBuilder
       'plan': {
         'id': plan.id,
         'nombre': plan.nombre,
-        'costo': plan.costo
+        'costo': plan.costo,
+        'limite_cobertura_visitas': plan.cobertura_visitas.cantidad,
+        'copago': plan.cobertura_visitas.copago,
+        'cobertura_medicamentos': plan.cobertura_medicamentos.porcentaje
       }
     }.to_json
   end
@@ -16,7 +19,10 @@ class PlanResponseBuilder
       output[:planes] << {
         'id': plan.id,
         'nombre': plan.nombre,
-        'costo': plan.costo
+        'costo': plan.costo,
+        'limite_cobertura_visitas': plan.cobertura_visitas.cantidad,
+        'copago': plan.cobertura_visitas.copago,
+        'cobertura_medicamentos': plan.cobertura_medicamentos.porcentaje
       }
     end
 

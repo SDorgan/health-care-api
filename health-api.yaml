@@ -14,7 +14,14 @@ produces:
 paths:
   /covid:
     post:
-      description: "Corre el test para saber si un afiliado es o no sospechoso de Covid-19"
+      description: "Registra afiliado sospechoso de Covid-19"
+      parameters:
+        - description: "ID de telegram del afiliado que se registra como sospechoso"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/AfiliadoSospechosoCovid"
       responses:
         200:
           description: "Devuelve el resultado del test"
@@ -64,12 +71,27 @@ paths:
     post:
       description: "Dar de alta un nuevo plan médico"
       parameters:
-        - description: "Datos para generar un nuevo plan"
+        - description: "Datos para generar un nuevo plan. Limite de cobertura de visitas infinito, no se coloca nada"
           in: body
           name: body
           required: true
           schema:
-            $ref: "#/definitions/PlanesCreate"
+            properties:
+              nombre:
+                type: string
+              costo:
+                type: integer
+              limite_cobertura_visitas:
+                type: integer
+              copago:
+                type: integer
+              cobertura_medicamentos:
+                type: integer
+            required:
+              - nombre
+              - costo
+              - copago
+              - cobertura_medicamentos
       responses:
         201:
           description: "Alta correcta"
@@ -77,41 +99,6 @@ paths:
             properties:
               plan:
                 $ref: '#/definitions/Plan'
-
-  /planes/{plan_id}/prestaciones:
-    parameters:
-    - name: plan_id
-      in: path
-      type: string
-      description: "id del Plan"
-      required: true
-    get:
-      description: "Obtener todas las prestaciones del plan"
-      responses:
-        200:
-          description: "Todas las prestaciones"
-          schema:
-            properties:
-              prestaciones:
-                items:
-                  $ref: '#/definitions/Prestacion'
-    post:
-      description: "Agrega la prestacion al plan"
-      parameters:
-        - description: "La prestacion a Agregar"
-          in: body
-          name: body
-          required: true
-          schema:
-            $ref: '#/definitions/PrestacionCreate'
-      responses:
-        201:
-          description: "Correctamente agregado"
-          schema:
-            properties:
-              prestacion:
-                $ref: '#/definitions/Prestacion'
-
   /centros:
     get:
       description: "Obtener todos los centros médicos disponibles"
@@ -160,12 +147,17 @@ paths:
     post:
       description: "Agrega la prestacion al centro"
       parameters:
-        - description: "La prestacion a agregar"
+        - name: centro_id
+          in: path
+          type: string
+          description: "id del Centro"
+          required: true
+        - description: "El id de la prestacion a agregar"
           in: body
           name: body
           required: true
           schema:
-            $ref: '#/definitions/PrestacionCreate'
+            $ref: '#/definitions/PrestacionCentroCreate'
       responses:
         201:
           description: "Correctamente agregado"
@@ -231,7 +223,7 @@ paths:
                 
   /visitas:
     post:
-      description: "Dat de alta una visita médica de un afiliado que realizó una prestación"
+      description: "Dar de alta una visita médica de un afiliado que realizó una prestación"
       parameters:
         - description: "Datos para generar una visita"
           in: body
@@ -246,7 +238,25 @@ paths:
             properties:
               visita:
                 $ref: '#/definitions/Visita'
-  
+
+  /medicamentos:
+    post:
+      description: "Registrar la compra de medicamentos por parte de un afiliado"
+      parameters:
+        - description: "Datos para generar la compra de medicamentos"
+          in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/CompraMedicamentosCreate'
+      responses:
+        201:
+          description: "Alta correcta"
+          schema:
+            properties:
+              visita:
+                $ref: '#/definitions/CompraMedicamentos'                
+
   /resumen:
     get:
       description: "Obtener el resumen de gastos de un afiliado"
@@ -301,7 +311,7 @@ definitions:
       afiliado:
         type: integer
       prestacion:
-        type: string
+        type: integer
   Visita:
     description: Visita médica
     properties:
@@ -319,6 +329,12 @@ definitions:
         type: string
       costo:
         type: integer
+      limite_cobertura_visitas:
+        type: integer
+      copago:
+        type: integer
+      cobertura_medicamentos:
+        type: integer
   Plan:
     description: Plan médico
     properties:
@@ -327,6 +343,12 @@ definitions:
       nombre:
         type: string
       costo:
+        type: integer
+      limite_cobertura_visitas:
+        type: integer
+      copago:
+        type: integer
+      cobertura_medicamentos:
         type: integer
   CentrosCreate:
     properties:
@@ -364,6 +386,10 @@ definitions:
         type: string
       costo:
         type: integer
+  PrestacionCentroCreate:
+    properties:
+      prestacion:
+        type: integer
   Prestacion:
     description: Prestacion médica
     properties:
@@ -374,4 +400,25 @@ definitions:
       costo:
         type: integer
   Version:
+        type: string
+  AfiliadoSospechosoCovid:
+    properties:
+      id_telegram:
+        type: string
+  CompraMedicamentosCreate:
+    properties:
+      afiliado:
+        type: integer
+      monto:
+        type: integer
+  CompraMedicamentos:
+    description: Compra de Medicamentos
+    properties:
+      id:
+        $ref: '#/definitions/Id'
+      afiliado:
+        type: integer
+      monto:
+        type: integer
+      created_on:
         type: string

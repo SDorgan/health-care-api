@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'AfiliadoRepository' do
   before(:each) do
-    @plan = Plan.new('neo', 100)
+    @plan = Plan.new('neo', 100, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
     @afiliado = Afiliado.new('Juan', @plan.id)
@@ -62,5 +62,14 @@ describe 'AfiliadoRepository' do
     @afiliado = @repo.save(@afiliado)
     sospechoso = @repo.es_sospechoso(@afiliado.id)
     expect(sospechoso).to eq true
+  end
+
+  it 'deberia ser error si no existe el afiliado que se busca por telegram_id' do
+    expect { @repo.find_by_telegram_id('FAKE_ID') }.to raise_error
+  end
+
+  it 'deberia ser error si no existe el afiliado que se busca por id' do
+    fake_id = 999_999
+    expect { @repo.find(fake_id) }.to raise_error
   end
 end

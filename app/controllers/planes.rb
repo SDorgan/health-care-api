@@ -8,10 +8,21 @@ HealthAPI::App.controllers :planes do
   post :index do
     params = JSON.parse(request.body.read)
 
-    plan = Plan.new(params['nombre'], params['costo'])
+    cobertura_visitas = if params.include?('limite_cobertura_visitas')
+                          CoberturaVisita.new(params['limite_cobertura_visitas'],
+                                              params['copago'])
+                        else
+                          CoberturaVisitaInfinita.new(params['copago'])
+                        end
+
+    cobertura_medicamentos = CoberturaMedicamentos.new(params['cobertura_medicamentos'])
+
+    plan = Plan.new(params['nombre'],
+                    params['costo'],
+                    cobertura_medicamentos,
+                    cobertura_visitas)
 
     plan = PlanRepository.new.save(plan)
-
     status 201
 
     PlanResponseBuilder.create_from(plan)

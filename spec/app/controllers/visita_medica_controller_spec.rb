@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'VisitaMedicaController' do
   let(:plan) do
-    plan = Plan.new('Neo', 1000)
+    plan = Plan.new('Neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
 
     plan
   end
@@ -23,7 +23,7 @@ describe 'VisitaMedicaController' do
   end
 
   it 'deberia devolver la visita medica con la que se hizo POST' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': @prestacion.nombre }.to_json
+    post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': @prestacion.id }.to_json
     response = JSON.parse(last_response.body)
 
     visita = response['visita']

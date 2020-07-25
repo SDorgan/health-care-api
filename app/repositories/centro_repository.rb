@@ -1,6 +1,7 @@
-class CentroRepository
+class CentroRepository < BaseRepository
   def initialize
-    @table_name = :centros
+    super(:centros)
+    @table_join_prestaciones = :prestaciones_de_centros
   end
 
   def save(centro)
@@ -11,35 +12,35 @@ class CentroRepository
     centro
   end
 
-  def find(id)
-    load_object(dataset.first!(pk_column => id))
+  def add_prestacion_to_centro(centro, prestacion_id)
+    changeset = {
+      centro_id: centro.id,
+      prestacion_id: prestacion_id
+    }
+
+    dataset_prestaciones_de_centros.insert(changeset)
   end
 
-  def all
-    load_collection(dataset)
-  end
+  def full_load(id)
+    centro = find(id)
+    centro.prestaciones = PrestacionRepository.new.find_by_centro(id)
 
-  def destroy(a_record)
-    find_dataset_by_id(a_record.id).delete.positive?
+    centro
   end
-  alias delete destroy
 
   def delete_all
+    dataset_prestaciones_de_centros.delete
     dataset.delete
   end
 
   private
 
-  def insert(a_record)
-    dataset.insert(changeset(a_record))
+  def dataset_with_prestaciones
+    DB[@table_name].join(@table_join_prestaciones, centro_id: :id)
   end
 
-  def dataset
-    DB[@table_name]
-  end
-
-  def pk_column
-    Sequel[@table_name][:id]
+  def dataset_prestaciones_de_centros
+    DB[@table_join_prestaciones]
   end
 
   def load_object(a_record)
@@ -47,10 +48,6 @@ class CentroRepository
     centro.id = a_record[:id]
 
     centro
-  end
-
-  def load_collection(rows)
-    rows.map { |a_record| load_object(a_record) }
   end
 
   def changeset(centro)

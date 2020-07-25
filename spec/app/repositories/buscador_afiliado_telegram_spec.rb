@@ -2,7 +2,7 @@ require 'integration_spec_helper'
 
 describe 'BuscadorAfiliadoTelegram' do
   before(:each) do
-    @plan = Plan.new('neo', 100)
+    @plan = Plan.new('neo', 100, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
 
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)

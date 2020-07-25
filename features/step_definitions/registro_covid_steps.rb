@@ -1,27 +1,19 @@
 Dado('el afiliado {string} afiliado a {string}') do |nombre, plan|
   request = {
     'nombre' => nombre,
-    'nombre_plan' => plan
+    'nombre_plan' => plan,
+    'id_telegram' => 'fake_id_telegram'
   }
   response = Faraday.post(AFILIADOS_URL, request.to_json, 'Content-Type' => 'application/json')
   json_response = JSON.parse(response.body)
   @id_afiliado = json_response['id']
 end
 
-Cuando('se realiza la consulta por COVID con temperatura {int}') do |int|
+Cuando('se registra caso sospechoso de COVID') do
   @request = {
-    'afiliado' => @id_afiliado,
-    'temperatura' => int
+    'id_telegram' => 'fake_id_telegram'
   }
   @response = Faraday.post(COVID_URL, @request.to_json, 'Content-Type' => 'application/json')
-end
-
-Entonces('se obtiene que no es sospechoso') do
-  json_response = JSON.parse(@response.body)
-
-  resultado = json_response['sospechoso']
-  expect(@response.status).to eq 200
-  expect(resultado).to be false
 end
 
 Entonces('se obtiene que es sospechoso') do
