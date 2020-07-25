@@ -56,4 +56,10 @@ describe 'ResumenController' do
     expect(resumen['adicional']).to eq 1500
     expect(resumen['total']).to eq 2500
   end
+
+  it 'deberia ser error si el ID no es de afiliado' do
+    get '/resumen?id=9999&from=telegram'
+
+    expect(last_response.status).to be 401
+  end
 end

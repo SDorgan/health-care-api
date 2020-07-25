@@ -63,4 +63,13 @@ describe 'AfiliadoRepository' do
     sospechoso = @repo.es_sospechoso(@afiliado.id)
     expect(sospechoso).to eq true
   end
+
+  it 'deberia ser error si no existe el afiliado que se busca por telegram_id' do
+    expect { @repo.find_by_telegram_id('FAKE_ID') }.to raise_error
+  end
+
+  it 'deberia ser error si no existe el afiliado que se busca por id' do
+    fake_id = 999_999
+    expect { @repo.find(fake_id) }.to raise_error
+  end
 end

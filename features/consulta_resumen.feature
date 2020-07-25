@@ -127,3 +127,10 @@ Característica: Consulta resumen
       Cuando consulta el resumen
       Entonces su saldo adicional es $210
       Y total a pagar es $910
+
+  @mvp
+  Escenario: RES2 - Consulta de resumen fallido por persona no afiliada
+      Dado el usuario "Tirion" que no esta afiliado
+      Cuando consulta el resumen
+      Entonces obtiene un error
+
