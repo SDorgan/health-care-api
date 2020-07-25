@@ -58,7 +58,7 @@ describe 'ResumenController' do
   end
 
   it 'deberia ser error si el ID no es de afiliado' do
-    get '/resumen?id=-1&from=api'
+    get '/resumen?id=9999&from=telegram'
 
     expect(last_response.status).to be 401
   end
