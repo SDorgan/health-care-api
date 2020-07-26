@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe 'ItemResumen' do
-  xit 'deberia devolver sus atributos' do
+  it 'deberia devolver sus atributos' do # rubocop:disable RSpec/ExampleLength
+    nombre = 'Traumatologia - Hospital Aleman'
+    fecha = '01/01/2020'
+    costo = '$500'
     item_resumen = ItemResumen.new(nombre, fecha, costo)
 
     expect(item_resumen.nombre).to eq nombre
