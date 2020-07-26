@@ -135,7 +135,6 @@ Característica: Consulta resumen
       Y total a pagar es $910
 
   @mvp
-  @wip
   Escenario: RES9 - Consulta de resumen tras visitar al traumatólogo lista la visita
       Dado el afiliado "Jorah" afiliado a "PlanOso"
       Y que registró una atención por la prestación "Traumatologia"
