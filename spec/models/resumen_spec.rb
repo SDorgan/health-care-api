@@ -356,7 +356,7 @@ describe 'Resumen' do
       expect(items[0].concepto.include?('Medicamentos')).to eq true
     end
 
-    xit 'resumen tiene muchos items' do
+    it 'resumen tiene muchos items' do
       resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
