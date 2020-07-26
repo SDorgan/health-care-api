@@ -20,7 +20,8 @@ HealthAPI::App.controllers :planes do
     plan = Plan.new(params['nombre'],
                     params['costo'],
                     cobertura_medicamentos,
-                    cobertura_visitas)
+                    cobertura_visitas,
+                    0)
 
     plan = PlanRepository.new.save(plan)
     status 201

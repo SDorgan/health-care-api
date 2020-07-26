@@ -2,17 +2,17 @@ require 'spec_helper'
 
 describe 'Resumen' do
   before(:each) do # rubocop:disable Metrics/BlockLength
-    @plan = Plan.new('Juventud', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0)) # rubocop:disable Metrics/LineLength
+    @plan = Plan.new('Juventud', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0), 0) # rubocop:disable Metrics/LineLength
     @plan.id = 1
-    @plan_con_cobertura = Plan.new('Premium', 2000, CoberturaMedicamentos.new(0), CoberturaVisita.new(2, 0)) # rubocop:disable Metrics/LineLength
+    @plan_con_cobertura = Plan.new('Premium', 2000, CoberturaMedicamentos.new(0), CoberturaVisita.new(2, 0), 0) # rubocop:disable Metrics/LineLength
     @plan_con_cobertura.id = 2
-    @plan_infinito = Plan.new('Infinito', 5000, CoberturaMedicamentos.new(0), CoberturaVisitaInfinita.new(0)) # rubocop:disable Metrics/LineLength
+    @plan_infinito = Plan.new('Infinito', 5000, CoberturaMedicamentos.new(0), CoberturaVisitaInfinita.new(0), 0) # rubocop:disable Metrics/LineLength
     @plan_con_cobertura.id = 3
-    @plan_con_copago = Plan.new('Familiar', 3000, CoberturaMedicamentos.new(0), CoberturaVisita.new(2, 10)) # rubocop:disable Metrics/LineLength
+    @plan_con_copago = Plan.new('Familiar', 3000, CoberturaMedicamentos.new(0), CoberturaVisita.new(2, 10), 0) # rubocop:disable Metrics/LineLength
     @plan_con_copago.id = 4
-    @plan_con_medicamentos = Plan.new('Farmacia', 1000, CoberturaMedicamentos.new(80), CoberturaVisitaInfinita.new(0)) # rubocop:disable Metrics/LineLength
+    @plan_con_medicamentos = Plan.new('Farmacia', 1000, CoberturaMedicamentos.new(80), CoberturaVisitaInfinita.new(0), 0) # rubocop:disable Metrics/LineLength
     @plan_con_medicamentos.id = 5
-    @plan_con_cobertura_y_medicamentos = Plan.new('Completo', 1000, CoberturaMedicamentos.new(50), CoberturaVisita.new(2, 5)) # rubocop:disable Metrics/LineLength
+    @plan_con_cobertura_y_medicamentos = Plan.new('Completo', 1000, CoberturaMedicamentos.new(50), CoberturaVisita.new(2, 5), 0) # rubocop:disable Metrics/LineLength
     @plan_con_cobertura_y_medicamentos.id = 6
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)

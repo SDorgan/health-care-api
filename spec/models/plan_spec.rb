@@ -29,33 +29,43 @@ describe 'Plan' do
     CoberturaMedicamentos.new(porcentaje_cobertura_medicamentos)
   end
 
+  let(:edad_minima) do
+    15
+  end
+
   it 'deberia poder devolver el nombre con el que fue creado' do
-    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas)
+    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas, edad_minima)
 
     expect(plan.nombre).to eql nombre
   end
 
   it 'deberia poder devolver el costo con el que fue creado' do
-    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas)
+    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas, edad_minima)
 
     expect(plan.costo).to eql costo
   end
 
   it 'deberia poder devolver el limite de cobertura de visitas creado' do
-    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas)
+    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas, edad_minima)
 
     expect(plan.cobertura_visitas.cantidad).to eql cantidad_visitas
   end
 
   it 'deberia poder devolver la cantidad de copago creado' do
-    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas)
+    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas, edad_minima)
 
     expect(plan.cobertura_visitas.copago).to eql copago
   end
 
   it 'deberia poder devolver la cobertura a medicamentos con la que fue creado' do
-    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas)
+    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas, edad_minima)
 
     expect(plan.cobertura_medicamentos.porcentaje).to eql porcentaje_cobertura_medicamentos # rubocop:disable Metrics/LineLength
+  end
+
+  it 'deberia poder devolver la edad minima con la que fue creado' do
+    plan = Plan.new(nombre, costo, cobertura_medicamentos, cobertura_visitas, edad_minima)
+
+    expect(plan.edad_minima).to eql edad_minima
   end
 end

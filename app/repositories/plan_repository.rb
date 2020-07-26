@@ -27,7 +27,8 @@ class PlanRepository < BaseRepository
 
     plan = Plan.new(a_record[:name], a_record[:cost],
                     cobertura_medicamentos,
-                    cobertura_visitas)
+                    cobertura_visitas,
+                    0)
 
     plan.id = a_record[:id]
 

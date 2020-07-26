@@ -3,7 +3,7 @@ require 'date'
 
 describe 'ResumenController' do
   let(:plan) do
-    plan = Plan.new('Neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
+    plan = Plan.new('Neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0), 0)
 
     plan
   end
