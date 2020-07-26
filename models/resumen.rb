@@ -1,11 +1,12 @@
 class Resumen
-  attr_accessor :afiliado, :plan
+  attr_accessor :afiliado, :plan, :items
 
   def initialize(afiliado, repo_planes, repo_visitas, repo_medicamentos)
     @afiliado = afiliado
     @repo_planes = repo_planes
     @repo_visitas = repo_visitas
     @repo_medicamentos = repo_medicamentos
+    @items = []
   end
 
   def generar

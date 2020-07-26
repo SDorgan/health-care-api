@@ -311,7 +311,9 @@ describe 'Resumen' do
       ]
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([compras[0]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[1], compras[2]]) # rubocop:disable Metrics/LineLength
 
       visitas = [
         VisitaMedica.new(@afiliado_premium.id, @prestacion),
@@ -321,10 +323,12 @@ describe 'Resumen' do
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return(visitas) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([visitas[0]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([visitas[1], visitas[2], visitas[3]]) # rubocop:disable Metrics/LineLength
     end
 
-    xit 'resumen vacio no deberia tener items' do
+    it 'resumen vacio no deberia tener items' do
       resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
 
       resumen.generar
@@ -339,7 +343,7 @@ describe 'Resumen' do
       items = resumen.items
 
       expect(items.length).to eq 1
-      expect(items[0].titulo.contains?(@prestacion.nombre)).to eq true
+      expect(items[0].concepto.contains?(@prestacion.nombre)).to eq true
     end
 
     xit 'resumen tiene item de medicamentos' do
@@ -349,7 +353,7 @@ describe 'Resumen' do
       items = resumen.items
 
       expect(items.length).to eq 1
-      expect(items[0].titulo.contains?('Medicamentos')).to eq true
+      expect(items[0].concepto.contains?('Medicamentos')).to eq true
     end
 
     xit 'resumen tiene muchos items' do

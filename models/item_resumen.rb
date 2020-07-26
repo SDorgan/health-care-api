@@ -1,8 +1,8 @@
 class ItemResumen
-  attr_accessor :nombre, :fecha, :costo
+  attr_accessor :concepto, :fecha, :costo
 
-  def initialize(nombre, fecha, costo)
-    @nombre = nombre
+  def initialize(concepto, fecha, costo)
+    @concepto = concepto
     @fecha = fecha
     @costo = costo
   end
