@@ -346,7 +346,7 @@ describe 'Resumen' do
       expect(items[0].concepto.include?(@prestacion.nombre)).to eq true
     end
 
-    xit 'resumen tiene item de medicamentos' do
+    it 'resumen tiene item de medicamentos' do
       resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
 
       resumen.generar
