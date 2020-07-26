@@ -286,7 +286,21 @@ paths:
           schema:
             properties:
                 version: 
-                  $ref: '#/definitions/Version'                
+                  $ref: '#/definitions/Version'
+  /fecha:
+    post:
+      description: "Setear la fecha del sistema"
+      parameters:
+        - description: "La fecha debe tener formato dd/mm/YYYY"
+          in: body
+          name: fecha
+          required: true
+          type: string
+      responses:
+        200:
+          description: "Se cambió correctamente la fecha de sitema"
+        405:
+          description: "Este comando no funciona en producción"
 
 definitions:
   Id:
@@ -305,6 +319,19 @@ definitions:
       adicional:
         type: integer
       total:
+        type: integer
+      items:
+        type: object
+        properties:
+          items:
+            $ref: '#/definitions/ItemResumen'
+  ItemResumen:
+    properties:
+      concepto:
+        type: string
+      fecha:
+        type: string
+      costo:
         type: integer
   VisitasCreate:
     properties:

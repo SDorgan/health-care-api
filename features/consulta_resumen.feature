@@ -28,6 +28,12 @@ Característica: Consulta resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
 
+  @mvp
+  Escenario: RES2 - Consulta de resumen fallido por persona no afiliada
+      Dado el usuario "Tirion" que no esta afiliado
+      Cuando consulta el resumen
+      Entonces obtiene un error
+
   Escenario: RES3.1 - Consulta de resumen sin ninguna prestación cubierta y una consulta realizada
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con límite 0
@@ -129,8 +135,16 @@ Característica: Consulta resumen
       Y total a pagar es $910
 
   @mvp
-  Escenario: RES2 - Consulta de resumen fallido por persona no afiliada
-      Dado el usuario "Tirion" que no esta afiliado
+  Escenario: RES9 - Consulta de resumen tras visitar al traumatólogo lista la visita
+      Dado el afiliado "Jorah" afiliado a "PlanOso"
+      Y que registró una atención por la prestación "Traumatologia"
+      Y que registró una atención por la prestación "Clínica general"
+      Y que registró una atención por la prestación "Clínica general"
+      Y realiza una compra de medicamentos por $1000
       Cuando consulta el resumen
-      Entonces obtiene un error
-
+      Entonces su saldo adicional es $720
+      Y total a pagar es $1420
+      Y posee una visita por la prestación "Traumatologia" con costo $10
+      Y posee una visita por la prestación "Clínica general" con costo $10
+      Y posee una visita por la prestación "Clínica general" con costo $500
+      Y posee una compra de medicamentos con costo $200

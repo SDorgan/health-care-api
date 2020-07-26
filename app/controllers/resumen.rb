@@ -16,7 +16,6 @@ HealthAPI::App.controllers :resumen do
                           CompraMedicamentosRepository.new)
 
     resumen.generar
-
     ResumenResponseBuilder.create_from(resumen)
 
   rescue IdNotAfiliadoError => e

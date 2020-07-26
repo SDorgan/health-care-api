@@ -1,10 +1,11 @@
+require_relative '../../lib/date_manager'
 class CompraMedicamentosRepository < BaseRepository
   def initialize
     super(:compras_medicamentos)
   end
 
   def save(compra_medicamentos)
-    compra_medicamentos.created_on = Date.today
+    compra_medicamentos.created_on = DateManager.date
 
     id = insert(compra_medicamentos)
 

@@ -5,6 +5,7 @@ HealthAPI::App.controllers :reset do
   post :index do
     raise NotAvailableInProductionError if ENV['RACK_ENV'] == 'production'
 
+    ENV['TEST_DATE'] = nil
     CompraMedicamentosRepository.new.delete_all
     VisitaMedicaRepository.new.delete_all
     AfiliadoRepository.new.delete_all
@@ -24,5 +25,19 @@ HealthAPI::App.controllers :version do
     {
       'version': Version.current
     }.to_json
+  end
+end
+
+HealthAPI::App.controllers :fecha do
+  post :index do
+    raise NotAvailableInProductionError if ENV['RACK_ENV'] == 'production'
+
+    params = JSON.parse(request.body.read)
+    ENV['TEST_DATE'] = params['fecha']
+
+    'ok'
+  rescue NotAvailableInProductionError
+    status 405
+    'error'
   end
 end

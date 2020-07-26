@@ -30,3 +30,15 @@ Entonces('obtiene un error') do
   expect(@response_status).to eq 401
   expect(@resumen).to eq 'El ID no pertenece a un afiliado'
 end
+
+Entonces('posee una visita por la prestación {string} con costo ${int}') do |nombre, precio|
+  items = @resumen['items']
+  contains_item = items.any? { |item| (item['concepto'].include?(nombre) && item['costo'] == precio) } # rubocop:disable  Metrics/LineLength
+  expect(contains_item).to be true
+end
+
+Entonces('posee una compra de medicamentos con costo ${int}') do |precio|
+  items = @resumen['items']
+  contains_item = items.any? { |item| (item['concepto'].include?('Medicamentos') && item['costo'] == precio) } # rubocop:disable  Metrics/LineLength
+  expect(contains_item).to be true
+end
