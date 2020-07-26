@@ -13,6 +13,7 @@ class Resumen
     @plan = @repo_planes.find(@afiliado.plan_id)
 
     @visitas = @repo_visitas.find_by_afiliado(@afiliado.id)
+    agregar_items_de_visitas
     @compras_medicamentos = @repo_medicamentos.find_by_afiliado(@afiliado.id)
   end
 
@@ -35,5 +36,11 @@ class Resumen
   def adicional_medicamentos
     @compras_medicamentos = @plan.cobertura_medicamentos.aplicar(@compras_medicamentos)
     @compras_medicamentos.map(&:costo_final).inject(0, :+)
+  end
+
+  def agregar_items_de_visitas
+    @visitas.map do |visita|
+      @items << ItemResumen.new(visita.prestacion.nombre, visita.created_on, visita.costo)
+    end
   end
 end

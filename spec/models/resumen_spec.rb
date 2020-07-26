@@ -312,6 +312,7 @@ describe 'Resumen' do
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
       allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([])
       allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([compras[0]]) # rubocop:disable Metrics/LineLength
       allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[1], compras[2]]) # rubocop:disable Metrics/LineLength
 
@@ -324,6 +325,7 @@ describe 'Resumen' do
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
       allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([]) # rubocop:disable Metrics/LineLength
       allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([visitas[0]]) # rubocop:disable Metrics/LineLength
       allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([visitas[1], visitas[2], visitas[3]]) # rubocop:disable Metrics/LineLength
     end
@@ -336,14 +338,12 @@ describe 'Resumen' do
       expect(resumen.items.length).to eq 0
     end
 
-    xit 'resumen tiene item de visita' do
+    it 'resumen tiene item de visita' do
       resumen = Resumen.new(@afiliado_premium, @repo_planes, @repo_visitas, @repo_compras)
-
       resumen.generar
       items = resumen.items
-
       expect(items.length).to eq 1
-      expect(items[0].concepto.contains?(@prestacion.nombre)).to eq true
+      expect(items[0].concepto.include?(@prestacion.nombre)).to eq true
     end
 
     xit 'resumen tiene item de medicamentos' do
@@ -353,7 +353,7 @@ describe 'Resumen' do
       items = resumen.items
 
       expect(items.length).to eq 1
-      expect(items[0].concepto.contains?('Medicamentos')).to eq true
+      expect(items[0].concepto.include?('Medicamentos')).to eq true
     end
 
     xit 'resumen tiene muchos items' do
