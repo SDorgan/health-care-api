@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'date'
 
 describe 'ResumenController' do
   let(:plan) do
@@ -23,13 +24,16 @@ describe 'ResumenController' do
     @afiliado = AfiliadoRepository.new.save(@afiliado)
 
     @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
-
     @repo_visitas = VisitaMedicaRepository.new
+
+    ENV['TEST_DATE'] = '02/01/2020'
     @visita_medica = @repo_visitas.save(@visita_medica)
 
     @compra_medicamentos = CompraMedicamentos.new(@afiliado.id, 500)
 
     @repo_compras = CompraMedicamentosRepository.new
+
+    ENV['TEST_DATE'] = '01/01/2020'
     @compra_medicamentos = @repo_compras.save(@compra_medicamentos)
   end
 
@@ -64,6 +68,18 @@ describe 'ResumenController' do
 
     resumen = response['resumen']
     expect(resumen['items'].length).to eq 2
+  end
+
+  it 'deberia devolver los items en orden' do # rubocop:disable RSpec/ExampleLength
+    get "/resumen?id=#{@afiliado.id}&from=api"
+
+    response = JSON.parse(last_response.body)
+
+    resumen = response['resumen']
+    items = resumen['items']
+    fecha_primero = Date.strptime(items[0]['fecha'], '%d/%m/%Y')
+    fecha_segundo = Date.strptime(items[1]['fecha'], '%d/%m/%Y')
+    expect(fecha_primero < fecha_segundo).to eq true
   end
 
   it 'deberia ser error si el ID no es de afiliado' do

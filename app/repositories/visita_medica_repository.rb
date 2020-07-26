@@ -1,10 +1,11 @@
+require_relative '../../lib/date_manager'
 class VisitaMedicaRepository < BaseRepository
   def initialize
     super(:visitas_medicas)
   end
 
   def save(visita_medica)
-    visita_medica.created_on = Date.today
+    visita_medica.created_on = DateManager.date
 
     id = insert(visita_medica)
 

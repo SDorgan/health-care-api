@@ -45,6 +45,7 @@ class Resumen
   def agregar_items
     agregar_items_de_visitas
     agregar_items_de_medicamentos
+    @items = @items.sort_by(&:fecha)
   end
 
   def agregar_items_de_visitas
