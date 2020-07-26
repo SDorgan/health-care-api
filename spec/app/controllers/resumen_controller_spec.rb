@@ -57,6 +57,15 @@ describe 'ResumenController' do
     expect(resumen['total']).to eq 2500
   end
 
+  xit 'deberia devolver la lista de items del resumen' do
+    get "/resumen?id=#{@afiliado.id}&from=api"
+
+    response = JSON.parse(last_response.body)
+
+    resumen = response['resumen']
+    expect(resumen['items'].length).to eq 2
+  end
+
   it 'deberia ser error si el ID no es de afiliado' do
     get '/resumen?id=9999&from=telegram'
 

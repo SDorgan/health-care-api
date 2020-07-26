@@ -301,4 +301,63 @@ describe 'Resumen' do
       expect(resumen.total).to eq 1770
     end
   end
+
+  describe 'items de resumen' do
+    before(:each) do
+      compras = [
+        CompraMedicamentos.new(@afiliado_medicamentos.id, 1000),
+        CompraMedicamentos.new(@afiliado_cobertura_y_medicamentos.id, 1000),
+        CompraMedicamentos.new(@afiliado_cobertura_y_medicamentos.id, 500)
+      ]
+
+      @repo_compras = instance_double('CompraMedicamentosRepository')
+      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
+
+      visitas = [
+        VisitaMedica.new(@afiliado_premium.id, @prestacion),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion)
+      ]
+
+      @repo_visitas = instance_double('VisitaMedicaRepository')
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return(visitas) # rubocop:disable Metrics/LineLength
+    end
+
+    xit 'resumen vacio no deberia tener items' do
+      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+
+      expect(resumen.items.length).to eq 0
+    end
+
+    xit 'resumen tiene item de visita' do
+      resumen = Resumen.new(@afiliado_premium, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+      items = resumen.items
+
+      expect(items.length).to eq 1
+      expect(items[0].titulo.contains?(@prestacion.nombre)).to eq true
+    end
+
+    xit 'resumen tiene item de medicamentos' do
+      resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
+
+      resumen.generar
+      items = resumen.items
+
+      expect(items.length).to eq 1
+      expect(items[0].titulo.contains?('Medicamentos')).to eq true
+    end
+
+    xit 'resumen tiene muchos items' do
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
+
+      resumen.generar
+
+      expect(resumen.items.length).to eq 5
+    end
+  end
 end
