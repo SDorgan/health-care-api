@@ -39,6 +39,10 @@ class CentroRepository < BaseRepository
     dataset.delete
   end
 
+  def centro_contains_prestacion(centro_id, prestacion)
+    !dataset_prestaciones_de_centros.where(centro_id: centro_id, prestacion_id: prestacion.id).blank? # rubocop:disable Metrics/LineLength
+  end
+
   private
 
   def dataset_with_prestaciones

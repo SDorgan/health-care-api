@@ -11,9 +11,11 @@ Característica: Consulta resumen
     Y la prestación con nombre "Traumatologia"
     Y costo unitario de prestación $1000
     Y se registra la prestación
+    Y se le agrega la prestación "Traumatologia" al centro "Enfermeria del Castillo Negro"
     Y la prestación con nombre "Clínica general"
     Y costo unitario de prestación $500
     Y se registra la prestación
+    Y se le agrega la prestación "Clínica general" al centro "Enfermeria del Castillo Negro"
     Y el plan con nombre "PlanOso" con costo unitario $700
     Y cobertura de visitas con copago $10 y con límite 2 y medicamentos 80%
     Y se registra el plan
