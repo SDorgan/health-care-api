@@ -68,7 +68,7 @@ Característica: CRUD Planes
         Y restricciones edad min 21, edad max 99, hijos max 0, admite conyuge "no"
         Cuando se registra el plan
         Entonces se registra exitosamente
-  @wip
+  
   @mvp
     Escenario: APLA3 - Alta exitosa de plan familiar
         Dado el plan con nombre "PlanFamiliar" con costo unitario $2000
