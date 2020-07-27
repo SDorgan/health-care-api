@@ -51,5 +51,6 @@ class Plan
 
   def validar_conyuge(tiene_conyuge)
     raise NoSeAdmiteConyugeError if @conyuge.eql?(NO_ADMITE_CONYUGE) && tiene_conyuge
+    raise SeRequiereConyugeError if @conyuge.eql?(REQUIERE_CONYUGE) && !tiene_conyuge
   end
 end

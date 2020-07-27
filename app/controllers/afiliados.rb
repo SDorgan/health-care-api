@@ -1,6 +1,8 @@
 require_relative '../errors/plan_inexistente_error'
 require_relative '../errors/edad_maxima_supera_limite_error'
 require_relative '../errors/edad_minima_no_alcanza_limite_error'
+require_relative '../errors/no_se_admite_conyuge_error'
+require_relative '../errors/se_requiere_conyuge_error'
 
 HealthAPI::App.controllers :afiliados do
   get :index do
@@ -29,6 +31,12 @@ HealthAPI::App.controllers :afiliados do
     status 400
     body e.message
   rescue EdadMinimaNoAlcanzaLimiteError => e
+    status 400
+    body e.message
+  rescue NoSeAdmiteConyugeError => e
+    status 400
+    body e.message
+  rescue SeRequiereConyugeError => e
     status 400
     body e.message
   end

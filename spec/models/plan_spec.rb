@@ -2,6 +2,7 @@ require 'spec_helper'
 require_relative '../../app/errors/edad_maxima_supera_limite_error'
 require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
 require_relative '../../app/errors/no_se_admite_conyuge_error'
+require_relative '../../app/errors/se_requiere_conyuge_error'
 
 describe 'Plan' do
   let(:nombre) do
@@ -46,6 +47,10 @@ describe 'Plan' do
 
   let(:conyuge) do
     Plan.no_admite_conyuge
+  end
+
+  let(:requiere_conyuge) do
+    Plan.requiere_conyuge
   end
 
   it 'deberia poder devolver el nombre con el que fue creado' do
@@ -149,5 +154,14 @@ describe 'Plan' do
                     conyuge: conyuge)
 
     expect { plan.validar_plan_con(20, 0, true) }.to raise_error(NoSeAdmiteConyugeError)
+  end
+
+  it 'deberia poder devolver error por requerir conyuge cuando el plan requiere conyuge' do
+    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+                    conyuge: requiere_conyuge)
+
+    expect { plan.validar_plan_con(20, 0, false) }.to raise_error(SeRequiereConyugeError)
   end
 end

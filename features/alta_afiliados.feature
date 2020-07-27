@@ -34,7 +34,7 @@ Característica: CRUD Alifiados
         Dado el afiliado "hansolo" de 14 años, conyuge "no", hijos 0
         Cuando se registra al plan "PlanJuventud"
         Entonces obtiene un mensaje de error no alcanza el limite minimo de edad
-    @wip
+    
     @mvp
     Escenario: RA3 - Registracion fallida por tener conyuge
         Dado el afiliado "hansolo" de 19 años, conyuge "si", hijos 0
