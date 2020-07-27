@@ -1,5 +1,7 @@
 require 'spec_helper'
 require_relative '../../app/errors/edad_maxima_supera_limite_error'
+require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
+
 describe 'Plan' do
   let(:nombre) do
     'neo'
@@ -128,5 +130,14 @@ describe 'Plan' do
                     conyuge: conyuge)
 
     expect { plan.validar_plan_con(120, 0, false) }.to raise_error(EdadMaximaSuperaLimiteError)
+  end
+
+  it 'deberia poder devolver error por no alzancar limite de edad del plan' do
+    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+                    conyuge: conyuge)
+
+    expect { plan.validar_plan_con(8, 0, false) }.to raise_error(EdadMinimaNoAlcanzaLimiteError)
   end
 end

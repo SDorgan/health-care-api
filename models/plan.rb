@@ -40,6 +40,9 @@ class Plan
     unless @edad_maxima.nil?
       raise EdadMaximaSuperaLimiteError if edad > @edad_maxima
     end
+    unless @edad_minima.nil?
+      raise EdadMinimaNoAlcanzaLimiteError if @edad_minima > edad
+    end
     true
   end
 end
