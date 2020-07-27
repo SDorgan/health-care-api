@@ -36,7 +36,9 @@ class Plan
       REQUIERE_CONYUGE => 2 }
   end
 
-  def validar_plan_con(_edad, _cantidad_hijos, _conyuge)
+  def validar_plan_con(edad, _cantidad_hijos, _conyuge)
+    raise EdadMaximaSuperaLimiteError if edad > @edad_maxima
+
     true
   end
 end
