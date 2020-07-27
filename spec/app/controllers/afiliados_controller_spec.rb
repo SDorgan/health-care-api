@@ -7,7 +7,7 @@ describe 'AfiliadosController' do
                     cobertura_visitas: CoberturaVisita.new(0, 0),
                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
                     edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 0,
-                    conyuge: Plan.admite_conyuge)
+                    conyuge: Plan.no_admite_conyuge)
 
     plan
   end
@@ -40,6 +40,11 @@ describe 'AfiliadosController' do
 
   it 'deberia devolver error por no alcanzar minimo de edad' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 0, 'conyuge': false }.to_json
+    expect(last_response.status).to be 400
+  end
+
+  it 'deberia devolver error por no admitir conyuge' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': true }.to_json
     expect(last_response.status).to be 400
   end
 end
