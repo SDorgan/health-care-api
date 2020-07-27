@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe 'VisitaMedicaController' do
   let(:plan) do
-    plan = Plan.new('Neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
+    plan = Plan.new(nombre: 'Neo',
+                    costo: 1000,
+                    cobertura_visitas: CoberturaVisita.new(0, 0),
+                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                    edad_minima: 0)
 
     plan
   end
@@ -31,5 +35,19 @@ describe 'VisitaMedicaController' do
     expect(visita['afiliado']).to eq @afiliado.id
     expect(visita['prestacion']).to eq @prestacion.nombre
     expect(visita['created_on'].nil?).to be false
+  end
+
+  it 'deberia devolver error si no se encuentra al afiliado' do
+    post '/visitas', { 'afiliado': @afiliado.id + 1, 'prestacion': @prestacion.id }.to_json
+
+    expect(last_response.status).to be 401
+    expect(last_response.body).to eq 'El ID no pertenece a un afiliado'
+  end
+
+  it 'deberia devolver error si no se encuentra la prestacion' do
+    post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': @prestacion.id + 1 }.to_json
+
+    expect(last_response.status).to be 404
+    expect(last_response.body).to eq 'La prestación pedida no existe'
   end
 end

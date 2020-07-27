@@ -4,7 +4,12 @@ describe 'PlanRepository' do
   before(:each) do
     @cantidad_visitas = 0
     @copago = 100
-    @plan = Plan.new('neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, @copago)) # rubocop:disable Metrics/LineLength
+    @plan = Plan.new(nombre: 'neo',
+                     costo: 1000,
+                     cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
+                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                     edad_minima: 15, edad_maxima: 60, cantidad_hijos_maxima: 3,
+                     conyuge: Plan.admite_conyuge)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -27,8 +32,12 @@ describe 'PlanRepository' do
     expect(planes.first.id).to eq @plan.id
   end
 
-  it 'deberia devolver todos los planes disponibles' do
-    @repo.save(Plan.new('familiar', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, @copago))) # rubocop:disable Metrics/LineLength
+  it 'deberia devolver todos los planes disponibles' do # rubocop:disable RSpec/ExampleLength
+    @repo.save(Plan.new(nombre: 'familiar',
+                        costo: 1000,
+                        cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
+                        cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        edad_minima: 0))
 
     planes = @repo.all
 
@@ -41,8 +50,12 @@ describe 'PlanRepository' do
     expect(saved_plan.costo).to eql @plan.costo
   end
 
-  it 'deberia poder filtrar por nombre plan' do
-    @repo.save(Plan.new('familiar', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, 200))) # rubocop:disable Metrics/LineLength
+  it 'deberia poder filtrar por nombre plan' do # rubocop:disable RSpec/ExampleLength
+    @repo.save(Plan.new(nombre: 'familiar',
+                        costo: 1000,
+                        cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
+                        cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        edad_minima: 0))
     plan_encontrado = @repo.find_by_name(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
@@ -71,5 +84,29 @@ describe 'PlanRepository' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.cobertura_medicamentos.porcentaje).to eql @plan.cobertura_medicamentos.porcentaje # rubocop:disable Metrics/LineLength
+  end
+
+  it 'deberia devolver la edad minima del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.edad_minima).to eql @plan.edad_minima
+  end
+
+  it 'deberia devolver la edad maxima del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.edad_maxima).to eql @plan.edad_maxima
+  end
+
+  it 'deberia devolver la cantidad de hijos maxima del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.cantidad_hijos_maxima).to eql @plan.cantidad_hijos_maxima
+  end
+
+  it 'deberia devolver conyuge del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.conyuge).to eql @plan.conyuge
   end
 end

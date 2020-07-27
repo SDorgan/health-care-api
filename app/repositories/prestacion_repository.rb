@@ -12,7 +12,15 @@ class PrestacionRepository < BaseRepository
     prestacion
   end
 
+  def find(id_)
+    raise PrestacionNotExistsError unless exists_prestacion_with_id(id_)
+
+    super(id_)
+  end
+
   def find_by_name(nombre)
+    raise PrestacionNotExistsError unless exists_prestacion_with_name(nombre)
+
     load_object(dataset.first!(name: nombre))
   end
 
@@ -26,6 +34,14 @@ class PrestacionRepository < BaseRepository
   end
 
   private
+
+  def exists_prestacion_with_id(id)
+    !dataset.where(id: id).blank?
+  end
+
+  def exists_prestacion_with_name(nombre)
+    !dataset.where(name: nombre).blank?
+  end
 
   def dataset_with_centros
     DB[@table_name].join(:prestaciones_de_centros, prestacion_id: :id)

@@ -76,22 +76,7 @@ paths:
           name: body
           required: true
           schema:
-            properties:
-              nombre:
-                type: string
-              costo:
-                type: integer
-              limite_cobertura_visitas:
-                type: integer
-              copago:
-                type: integer
-              cobertura_medicamentos:
-                type: integer
-            required:
-              - nombre
-              - costo
-              - copago
-              - cobertura_medicamentos
+            $ref: '#/definitions/PlanesCreate'
       responses:
         201:
           description: "Alta correcta"
@@ -293,9 +278,12 @@ paths:
       parameters:
         - description: "La fecha debe tener formato dd/mm/YYYY"
           in: body
-          name: fecha
+          name: body
           required: true
-          type: string
+          schema:
+            properties:
+              fecha:
+                type: string
       responses:
         200:
           description: "Se cambió correctamente la fecha de sitema"
@@ -362,6 +350,23 @@ definitions:
         type: integer
       cobertura_medicamentos:
         type: integer
+      edad_minima:
+        type: integer
+      edad_maxima:
+        type: integer
+      cantidad_hijos_maxima:
+        type: integer
+      conyuge:
+        $ref: '#/definitions/TipoConyuge' 
+    required:
+      - nombre
+      - costo
+      - copago
+      - cobertura_medicamentos
+      - edad_minima
+      - edad_maxima
+      - cantidad_hijos_maxima
+      - conyuge
   Plan:
     description: Plan médico
     properties:
@@ -377,6 +382,14 @@ definitions:
         type: integer
       cobertura_medicamentos:
         type: integer
+      edad_minima:
+        type: integer
+      edad_maxima:
+        type: integer
+      cantidad_hijos_maxima:
+        type: integer
+      conyuge:
+        $ref: '#/definitions/TipoConyuge' 
   CentrosCreate:
     properties:
       nombre:
@@ -449,3 +462,6 @@ definitions:
         type: integer
       created_on:
         type: string
+  TipoConyuge:
+      type: string
+      enum: ["NO_ADMITE_CONYUGE", "ADMITE_CONYUGE", "REQUIERE_CONYUGE"]

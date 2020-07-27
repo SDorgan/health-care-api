@@ -2,7 +2,11 @@ require 'integration_spec_helper'
 
 describe 'VisitaMedicaRepository' do
   let(:plan) do
-    plan = Plan.new('Neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
+    plan = Plan.new(nombre: 'Neo',
+                    costo: 1000,
+                    cobertura_visitas: CoberturaVisita.new(0, 0),
+                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                    edad_minima: 0)
 
     plan
   end

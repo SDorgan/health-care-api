@@ -1,8 +1,12 @@
+require_relative '../errors/id_not_afiliado_error'
+require_relative '../errors/prestacion_not_exists_error'
 HealthAPI::App.controllers :visitas do
   post :index do
     params = JSON.parse(request.body.read)
 
     afiliado_id = params['afiliado']
+
+    raise IdNotAfiliadoError unless AfiliadoRepository.new.exists_afiliado_with_id(afiliado_id)
 
     prestacion = PrestacionRepository.new.find(params['prestacion'])
 
@@ -13,5 +17,13 @@ HealthAPI::App.controllers :visitas do
     status 201
 
     VisitaMedicaResponseBuilder.create_from(visita_medica)
+
+  rescue IdNotAfiliadoError => e
+    status 401
+    body e.message
+
+  rescue PrestacionNotExistsError => e
+    status 404
+    body e.message
   end
 end

@@ -2,7 +2,11 @@ require 'integration_spec_helper'
 
 describe 'AfiliadoRepository' do
   before(:each) do
-    @plan = Plan.new('neo', 100, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
+    @plan = Plan.new(nombre: 'Neo',
+                     costo: 1000,
+                     cobertura_visitas: CoberturaVisita.new(0, 0),
+                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                     edad_minima: 0)
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
     @afiliado = Afiliado.new('Juan', @plan.id)
