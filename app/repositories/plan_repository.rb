@@ -17,7 +17,7 @@ class PlanRepository < BaseRepository
 
   private
 
-  def load_object(a_record)
+  def load_object(a_record) # rubocop:disable Metrics/AbcSize
     cobertura_visitas = if a_record[:visit_limit].eql?(CoberturaVisitaInfinita::LIMITE)
                           CoberturaVisitaInfinita.new(a_record[:copay])
                         else
@@ -28,7 +28,7 @@ class PlanRepository < BaseRepository
     plan = Plan.new(nombre: a_record[:name], costo: a_record[:cost],
                     cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
-                    edad_minima: a_record[:minimum_age])
+                    edad_minima: a_record[:minimum_age], edad_maxima: a_record[:maximum_age])
 
     plan.id = a_record[:id]
 
@@ -42,7 +42,8 @@ class PlanRepository < BaseRepository
       visit_limit: plan.cobertura_visitas.cantidad,
       copay: plan.cobertura_visitas.copago,
       medicine_coverage: plan.cobertura_medicamentos.porcentaje,
-      minimum_age: plan.edad_minima
+      minimum_age: plan.edad_minima,
+      maximum_age: plan.edad_maxima
     }
   end
 end

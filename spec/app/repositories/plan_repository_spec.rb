@@ -8,7 +8,7 @@ describe 'PlanRepository' do
                      costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                     edad_minima: 15)
+                     edad_minima: 15, edad_maxima: 60)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -91,7 +91,7 @@ describe 'PlanRepository' do
     expect(saved_plan.edad_minima).to eql @plan.edad_minima
   end
 
-  xit 'deberia devolver la edad maxima del plan guardado' do
+  it 'deberia devolver la edad maxima del plan guardado' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.edad_maxima).to eql @plan.edad_maxima
