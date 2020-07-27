@@ -8,7 +8,8 @@ describe 'PlanRepository' do
                      costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                     edad_minima: 15, edad_maxima: 60, cantidad_hijos_maxima: 3)
+                     edad_minima: 15, edad_maxima: 60, cantidad_hijos_maxima: 3,
+                     conyuge: Plan.admite_conyuge)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -101,5 +102,11 @@ describe 'PlanRepository' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.cantidad_hijos_maxima).to eql @plan.cantidad_hijos_maxima
+  end
+
+  it 'deberia devolver conyuge del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.conyuge).to eql @plan.conyuge
   end
 end

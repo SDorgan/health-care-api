@@ -29,7 +29,8 @@ class PlanRepository < BaseRepository
                     cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
                     edad_minima: a_record[:minimum_age], edad_maxima: a_record[:maximum_age],
-                    cantidad_hijos_maxima: a_record[:children])
+                    cantidad_hijos_maxima: a_record[:children],
+                    conyuge: Plan.mapeo_conyuge.key(a_record[:spouse]))
 
     plan.id = a_record[:id]
 
@@ -45,7 +46,8 @@ class PlanRepository < BaseRepository
       medicine_coverage: plan.cobertura_medicamentos.porcentaje,
       minimum_age: plan.edad_minima,
       maximum_age: plan.edad_maxima,
-      children: plan.cantidad_hijos_maxima
+      children: plan.cantidad_hijos_maxima,
+      spouse: Plan.mapeo_conyuge[plan.conyuge] || 0
     }
   end
 end

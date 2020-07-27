@@ -29,4 +29,10 @@ class Plan
   def self.requiere_conyuge
     REQUIERE_CONYUGE
   end
+
+  def self.mapeo_conyuge
+    { NO_ADMITE_CONYUGE => 0,
+      ADMITE_CONYUGE => 1,
+      REQUIERE_CONYUGE => 2 }
+  end
 end
