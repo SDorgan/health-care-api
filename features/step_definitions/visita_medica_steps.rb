@@ -14,21 +14,21 @@ Entonces('se registra la prestación con un identificador único') do
 end
 
 Entonces('obtiene un error por no estar afiliado') do
-  pending # Write code here that turns the phrase above into concrete actions
-end
-
-Dado('el afiliado {string}') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(@response_status).to eq 401
+  expect(@resumen).to eq 'El ID no pertenece a un afiliado'
 end
 
 Entonces('obtiene un error por prestación no existente') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(@response_status).to eq 404
+  expect(@resumen).to eq 'La prestación pedida no existe'
 end
 
 Entonces('obtiene un error por centro no existen') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(@response_status).to eq 404
+  expect(@resumen).to eq 'El centro pedido no existe'
 end
 
 Entonces('obtiene un error por prestacion no ofrecida en el centro') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(@response_status).to eq 404
+  expect(@resumen).to eq 'La prestación pedida no se ofrece en el centro'
 end
