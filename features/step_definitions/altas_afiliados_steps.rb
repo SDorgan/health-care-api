@@ -23,3 +23,8 @@ Entonces('obtiene un numero unico de afiliado') do
   expect(@response.status).to eq 201
   expect(id).not_to be_nil
 end
+
+Entonces('obtiene un mensaje de error por plan inexistente') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'El plan es inexistente'
+end

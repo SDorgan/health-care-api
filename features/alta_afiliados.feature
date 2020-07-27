@@ -17,3 +17,8 @@ Característica: CRUD Alifiados
         Dado el afiliado "hansolo" de 18 años, conyuge "no", hijos 0
         Cuando se registra al plan "PlanJuventud"
         Entonces obtiene un numero unico de afiliado
+    @mvp
+    Escenario: RA1.2 - Registracion fallida por plan inexistente
+        Dado el afiliado "hansolo" de 18 años, conyuge "no", hijos 0
+        Cuando se registra al plan "Familiar"
+        Entonces obtiene un mensaje de error por plan inexistente

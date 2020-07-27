@@ -24,12 +24,12 @@ describe 'AfiliadosController' do
   end
 
   it 'deberia devolver un id al crearse con un plan' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud' }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'edad': 18, 'conyuge': false }.to_json
     last_response.body.include?('id')
   end
 
   it 'deberia devolver un id al crearse con un plan y id telegram' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10' }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'edad': 18, 'conyuge': false }.to_json
     last_response.body.include?('id')
   end
 end
