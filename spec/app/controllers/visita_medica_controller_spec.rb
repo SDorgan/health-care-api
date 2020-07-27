@@ -41,5 +41,13 @@ describe 'VisitaMedicaController' do
     post '/visitas', { 'afiliado': @afiliado.id + 1, 'prestacion': @prestacion.id }.to_json
 
     expect(last_response.status).to be 401
+    expect(last_response.body).to eq 'El ID no pertenece a un afiliado'
+  end
+
+  xit 'deberia devolver error si no se encuentra la prestacion' do
+    post '/visitas', { 'afiliado': @afiliado.id + 1, 'prestacion': @prestacion.id }.to_json
+
+    expect(last_response.status).to be 403
+    expect(last_response.body).to eq 'La prestación pedida no existe'
   end
 end
