@@ -46,7 +46,7 @@ describe 'PrestacionRepository' do
     expect { @repo.find(fake_id) }.to raise_error
   end
 
-  xit 'deberia ser error si no existe la prestacion que se busca por nombre' do
+  it 'deberia ser error si no existe la prestacion que se busca por nombre' do
     fake_id = 999_999
     expect { @repo.find_by_name(fake_id) }.to raise_error
   end
