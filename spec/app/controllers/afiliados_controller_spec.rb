@@ -12,7 +12,19 @@ describe 'AfiliadosController' do
     plan
   end
 
+  let(:plan_requiere_conyuge) do
+    plan_requiere_conyuge = Plan.new(nombre: 'PlanFamiliar',
+                                     costo: 100,
+                                     cobertura_visitas: CoberturaVisita.new(0, 0),
+                                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                                     edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 0,
+                                     conyuge: Plan.requiere_conyuge)
+
+    plan_requiere_conyuge
+  end
+
   before(:each) do
+    PlanRepository.new.save(plan_requiere_conyuge)
     @plan = PlanRepository.new.save(plan)
     @afiliado = Afiliado.new('Juan', @plan.id)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
@@ -45,6 +57,11 @@ describe 'AfiliadosController' do
 
   it 'deberia devolver error por no admitir conyuge' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': true }.to_json
+    expect(last_response.status).to be 400
+  end
+
+  it 'deberia devolver error por no tener conyuge cuando es requerido' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliar', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
     expect(last_response.status).to be 400
   end
 end
