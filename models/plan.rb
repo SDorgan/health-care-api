@@ -36,13 +36,20 @@ class Plan
       REQUIERE_CONYUGE => 2 }
   end
 
-  def validar_plan_con(edad, _cantidad_hijos, _conyuge)
+  def validar_plan_con(edad, _cantidad_hijos, tiene_conyuge)
     unless @edad_maxima.nil?
       raise EdadMaximaSuperaLimiteError if edad > @edad_maxima
     end
     unless @edad_minima.nil?
       raise EdadMinimaNoAlcanzaLimiteError if @edad_minima > edad
     end
+    validar_conyuge(tiene_conyuge) unless @conyuge.nil?
     true
+  end
+
+  private
+
+  def validar_conyuge(tiene_conyuge)
+    raise NoSeAdmiteConyugeError if @conyuge.eql?(NO_ADMITE_CONYUGE) && tiene_conyuge
   end
 end
