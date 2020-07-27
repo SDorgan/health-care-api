@@ -22,8 +22,9 @@ class VisitaMedicaRepository < BaseRepository
 
   def load_object(a_record)
     prestacion = PrestacionRepository.new.find(a_record[:prestacion_id])
+    centro = CentroRepository.new.find(a_record[:centro_id])
 
-    visita_medica = VisitaMedica.new(a_record[:afiliado_id], prestacion)
+    visita_medica = VisitaMedica.new(a_record[:afiliado_id], prestacion, centro)
     visita_medica.id = a_record[:id]
     visita_medica.created_on = a_record[:created_on]
 
@@ -34,6 +35,7 @@ class VisitaMedicaRepository < BaseRepository
     {
       afiliado_id: visita_medica.afiliado_id,
       prestacion_id: visita_medica.prestacion.id,
+      centro_id: visita_medica.centro.id,
       created_on: visita_medica.created_on
     }
   end

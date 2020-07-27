@@ -11,9 +11,9 @@ HealthAPI::App.controllers :visitas do
 
     prestacion = PrestacionRepository.new.find(params['prestacion'])
 
-    _centro = CentroRepository.new.find(params['centro'])
+    centro = CentroRepository.new.find(params['centro'])
 
-    visita_medica = VisitaMedica.new(afiliado_id, prestacion)
+    visita_medica = VisitaMedica.new(afiliado_id, prestacion, centro)
 
     visita_medica = VisitaMedicaRepository.new.save(visita_medica)
 

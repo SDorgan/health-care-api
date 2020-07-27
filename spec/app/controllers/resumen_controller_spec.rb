@@ -18,16 +18,23 @@ describe 'ResumenController' do
     prestacion
   end
 
+  let(:centro) do
+    centro = Centro.new('Hospital Suizo')
+
+    centro
+  end
+
   before(:each) do
     @plan = PlanRepository.new.save(plan)
     @prestacion = PrestacionRepository.new.save(prestacion)
+    @centro = CentroRepository.new.save(centro)
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
     @afiliado.id_telegram = '1'
 
     @afiliado = AfiliadoRepository.new.save(@afiliado)
 
-    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
+    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
     @repo_visitas = VisitaMedicaRepository.new
 
     ENV['TEST_DATE'] = '02/01/2020'

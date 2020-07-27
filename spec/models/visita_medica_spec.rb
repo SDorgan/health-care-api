@@ -15,7 +15,7 @@ describe 'VisitaMedica' do
     centro
   end
 
-  xit 'deberia devolver los datos con los que fue creada' do
+  it 'deberia devolver los datos con los que fue creada' do
     afiliado_id = 1
     visita_medica = VisitaMedica.new(afiliado_id, prestacion, centro)
 

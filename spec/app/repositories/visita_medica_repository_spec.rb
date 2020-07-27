@@ -32,7 +32,7 @@ describe 'VisitaMedicaRepository' do
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
 
-    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion)
+    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
 
     @repo = VisitaMedicaRepository.new
     @visita_medica = @repo.save(@visita_medica)
@@ -55,7 +55,7 @@ describe 'VisitaMedicaRepository' do
   end
 
   it 'deberia poder obtener las visitas correspondientes a un afiliado' do
-    otra_visita = VisitaMedica.new(@afiliado.id, @prestacion)
+    otra_visita = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
     @repo.save(otra_visita)
 
     visitas = @repo.find_by_afiliado(@afiliado.id)

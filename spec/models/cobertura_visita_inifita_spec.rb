@@ -9,10 +9,14 @@ describe 'CoberturaVisitaInfinita' do
     Prestacion.new('Traumatologia', 10)
   end
 
+  let(:centro) do
+    Centro.new('Hospital')
+  end
+
   let(:visitas) do
     [
-      VisitaMedica.new(afiliado.id, prestacion),
-      VisitaMedica.new(afiliado.id, prestacion)
+      VisitaMedica.new(afiliado.id, prestacion, centro),
+      VisitaMedica.new(afiliado.id, prestacion, centro)
     ]
   end
 
