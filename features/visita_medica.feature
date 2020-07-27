@@ -11,11 +11,11 @@ Característica: Registrar visita médica
     Y la prestación con nombre "Traumatologia"
     Y costo unitario de prestación $1200
     Y se registra la prestación
-    Y se le agrega la prestación "Traumatologia" al centro
+    Y se le agrega la prestación "Traumatologia" al centro "Enfermeria del Castillo Negro"
     Y la prestación con nombre "Odontologia"
     Y costo unitario de prestación $1000
     Y se registra la prestación
-    Y se le agrega la prestación "Odontologia" al centro
+    Y se le agrega la prestación "Odontologia" al centro "Enfermeria del Castillo Negro"
     Y el plan con nombre "PlanCuervo" con costo unitario $500
     Y se registra el plan
 

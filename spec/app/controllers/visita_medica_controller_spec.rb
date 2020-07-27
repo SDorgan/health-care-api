@@ -30,6 +30,8 @@ describe 'VisitaMedicaController' do
 
     @centro = CentroRepository.new.save(centro)
 
+    CentroRepository.new.add_prestacion_to_centro(@centro, @prestacion.id)
+
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
   end
@@ -66,11 +68,11 @@ describe 'VisitaMedicaController' do
     expect(last_response.body).to eq 'El centro pedido no existe'
   end
 
-  xit 'deberia devolver error si la prestación no se da en el centro' do
+  it 'deberia devolver error si la prestación no se da en el centro' do
     otra_prestacion = Prestacion.new('Odontología', 600)
     otra_prestacion = PrestacionRepository.new.save(otra_prestacion)
 
-    post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': otra_prestacion, 'centro': @centro.id }.to_json
+    post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': otra_prestacion.id, 'centro': @centro.id }.to_json
 
     expect(last_response.status).to be 404
     expect(last_response.body).to eq 'La prestación pedida no se ofrece en el centro'
