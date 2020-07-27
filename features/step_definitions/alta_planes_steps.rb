@@ -56,6 +56,15 @@ Dado('cobertura de visitas con límite infinito') do
   }
 end
 
+Dado('cobertura de visitas con copago ${int} y con límite infinito') do |copago|
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'copago' => copago,
+    'cobertura_medicamentos' => 0
+  }
+end
+
 Dado('cobertura de visitas con copago ${int} y con límite {int}') do |copago, limite_visitas|
   @request = {
     'nombre' => @request['nombre'],
@@ -83,5 +92,24 @@ Dado('cobertura de medicamentos {int}%') do |cobertura|
     'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
     'copago' => @request['copago'],
     'cobertura_medicamentos' => cobertura
+  }
+end
+
+Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, admite conyuge {string}') do |edad_minima, edad_maxima, cantidad_hijos_maxima, conyuge| # rubocop:disable  Metrics/LineLength
+  conyuge = if conyuge.eql? 'si'
+              'ADMITE_CONYUGE'
+            else
+              'NO_ADMITE_CONYUGE'
+            end
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
+    'copago' => @request['copago'],
+    'cobertura_medicamentos' => @request['cobertura'],
+    'edad_minima' => edad_minima,
+    'edad_maxima' => edad_maxima,
+    'cantidad_hijos_maxima' => cantidad_hijos_maxima,
+    'conyuge' => conyuge
   }
 end
