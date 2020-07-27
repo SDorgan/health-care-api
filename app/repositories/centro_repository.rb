@@ -21,6 +21,12 @@ class CentroRepository < BaseRepository
     dataset_prestaciones_de_centros.insert(changeset)
   end
 
+  def find(id_)
+    raise CentroInexistenteError unless exists_centro_with_id(id_)
+
+    super(id_)
+  end
+
   def full_load(id)
     centro = find(id)
     centro.prestaciones = PrestacionRepository.new.find_by_centro(id)
@@ -37,6 +43,10 @@ class CentroRepository < BaseRepository
 
   def dataset_with_prestaciones
     DB[@table_name].join(@table_join_prestaciones, centro_id: :id)
+  end
+
+  def exists_centro_with_id(id)
+    !dataset.where(id: id).blank?
   end
 
   def dataset_prestaciones_de_centros
