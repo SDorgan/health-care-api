@@ -31,7 +31,6 @@ Característica: Registrar visita médica
     Entonces obtiene un error por no estar afiliado
 
   @mvp
-  @wip
   Escenario: REGAM3 - Registro fallido por prestación no existente
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Cuando se atiende por "Pediatria" en el centro "Enfermeria del Castillo Negro"
