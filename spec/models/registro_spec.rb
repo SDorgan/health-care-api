@@ -4,6 +4,7 @@ require_relative '../../app/errors/edad_maxima_supera_limite_error'
 require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
 require_relative '../../app/errors/no_se_admite_conyuge_error'
 require_relative '../../app/errors/se_requiere_conyuge_error'
+require_relative '../../app/errors/no_se_admite_hijos_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do
@@ -19,13 +20,14 @@ describe 'Registro' do
                      costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(0, 0),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                     edad_minima: 10, edad_maxima: 40, conyuge: Plan.no_admite_conyuge)
+                     edad_minima: 10, edad_maxima: 40,
+                     cantidad_hijos_maxima: 0, conyuge: Plan.no_admite_conyuge)
     @plan_require_conyuge = Plan.new(nombre: 'PlanFamiliar',
                                      costo: 1000,
                                      cobertura_visitas: CoberturaVisita.new(0, 0),
                                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
                                      edad_minima: 10, edad_maxima: 40,
-                                     conyuge: Plan.requiere_conyuge)
+                                     cantidad_hijos_maxima: 0, conyuge: Plan.requiere_conyuge)
     plan_repository.save(@plan_require_conyuge)
     @plan = plan_repository.save(@plan)
     @registro = Registro.new(afiliado_repository, plan_repository)
@@ -76,5 +78,13 @@ describe 'Registro' do
                                    id_telegram: 'fake_id', edad: 18,
                                    cantidad_hijos: 0, conyuge: false)
     end.to raise_error(SeRequiereConyugeError)
+  end
+
+  it 'deberia poder devolver error por tener hijos cuando el plan no admite' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'Neo',
+                                   id_telegram: 'fake_id', edad: 18,
+                                   cantidad_hijos: 1, conyuge: false)
+    end.to raise_error(NoSeAdmiteHijosError)
   end
 end
