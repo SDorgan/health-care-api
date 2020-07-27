@@ -41,6 +41,10 @@ describe 'Plan' do
     3
   end
 
+  let(:conyuge) do
+    Plan.requiere_conyuge
+  end
+
   it 'deberia poder devolver el nombre con el que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
@@ -97,5 +101,14 @@ describe 'Plan' do
                     edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima)
 
     expect(plan.cantidad_hijos_maxima).to eql cantidad_hijos_maxima
+  end
+
+  it 'deberia poder devolver el metodo de conyuge que fue creado' do
+    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+                    conyuge: conyuge)
+
+    expect(plan.conyuge).to eql conyuge
   end
 end
