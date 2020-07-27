@@ -49,3 +49,8 @@ Entonces('obtiene un mensaje de error no alcanza el limite minimo de edad') do
   expect(@response_afiliado.status).to eq 400
   expect(@response_afiliado.body).to eq 'no alcanza el límite mínimo de edad'
 end
+
+Entonces('obtiene un mensaje de error por tener conyuge') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'este plan no admite conyuge'
+end
