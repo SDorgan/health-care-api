@@ -1,12 +1,21 @@
 require 'spec_helper'
 
 describe 'AfiliadosController' do
-  before(:each) do
-    data = { 'nombre' => 'PlanJuventud', 'precio' => 100 }.to_json
-    post '/planes', data
+  let(:plan) do
+    plan = Plan.new(nombre: 'PlanJuventud',
+                    costo: 100,
+                    cobertura_visitas: CoberturaVisita.new(0, 0),
+                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                    edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 0,
+                    conyuge: Plan.admite_conyuge)
 
-    data_afiliado = { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud' }.to_json
-    post '/afiliados', data_afiliado
+    plan
+  end
+
+  before(:each) do
+    @plan = PlanRepository.new.save(plan)
+    @afiliado = Afiliado.new('Juan', @plan.id)
+    @afiliado = AfiliadoRepository.new.save(@afiliado)
   end
 
   it 'deberia devoler los afiliados' do
@@ -15,12 +24,12 @@ describe 'AfiliadosController' do
   end
 
   it 'deberia devolver un id al crearse con un plan' do
-    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud' }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud' }.to_json
     last_response.body.include?('id')
   end
 
   it 'deberia devolver un id al crearse con un plan y id telegram' do
-    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10' }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10' }.to_json
     last_response.body.include?('id')
   end
 end
