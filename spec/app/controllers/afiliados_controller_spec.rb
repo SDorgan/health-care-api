@@ -32,4 +32,9 @@ describe 'AfiliadosController' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
     last_response.body.include?('id')
   end
+
+  it 'deberia devolver error por superar limite edad' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 60, 'conyuge': false }.to_json
+    expect(last_response.status).to be 400
+  end
 end

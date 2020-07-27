@@ -1,4 +1,5 @@
 require_relative '../errors/plan_inexistente_error'
+require_relative '../errors/edad_maxima_supera_limite_error'
 
 HealthAPI::App.controllers :afiliados do
   get :index do
@@ -21,6 +22,9 @@ HealthAPI::App.controllers :afiliados do
     AfiliadoResponseBuilder.create_from(afiliado)
 
   rescue PlanInexistenteError => e
+    status 400
+    body e.message
+  rescue EdadMaximaSuperaLimiteError => e
     status 400
     body e.message
   end

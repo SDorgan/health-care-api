@@ -6,10 +6,18 @@ describe 'App' do
     @costo_plan = 100
     @limite_visita_plan = 3
     @copago = 3
+    @edad_minima = 10
+    @edad_maxima = 60
+    @cantidad_hijos = 0
+    @conyuge = false
     data = { 'nombre' => @nombre_plan,
              'costo' => @costo_plan,
              'limite_cobertura_visitas' => @limite_visita_plan,
-             'copago' => @copago }.to_json
+             'copago' => @copago,
+             'cantidad_hijos' => @cantidad_hijos,
+             'edad_minima' => @edad_minima,
+             'edad_maxima' => @edad_maxima,
+             'conyuge' => @conyuge }.to_json
     post '/planes', data
     @plan_repository = PlanRepository.new
   end
@@ -23,7 +31,8 @@ describe 'App' do
     plan = @plan_repository.all.first
     plan_id = plan.id
     afiliado_repository = AfiliadoRepository.new
-    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud' }.to_json
+    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
     expect(afiliados.first.plan_id).to eql plan_id
@@ -34,7 +43,9 @@ describe 'App' do
     plan_id = plan.id
     id_telegram = '24'
     afiliado_repository = AfiliadoRepository.new
-    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud', 'id_telegram': id_telegram }.to_json
+    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false,
+                         'id_telegram': id_telegram }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
     expect(afiliados.first.plan_id).to eql plan_id

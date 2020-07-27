@@ -39,3 +39,8 @@ Entonces('obtiene un mensaje de error por plan inexistente') do
   expect(@response_afiliado.status).to eq 400
   expect(@response_afiliado.body).to eq 'El plan es inexistente'
 end
+
+Entonces('obtiene un mensaje de error supera limite de edad') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'supera el límite máximo de edad'
+end
