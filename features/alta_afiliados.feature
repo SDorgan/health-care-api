@@ -30,7 +30,7 @@ Característica: CRUD Alifiados
         Entonces obtiene un mensaje de error supera limite de edad
     
     @mvp
-    Escenario: RA2.1 - Registracion fallida por edad no alcanza el minimo
+    Escenario: RA2.2 - Registracion fallida por edad no alcanza el minimo
         Dado el afiliado "hansolo" de 14 años, conyuge "no", hijos 0
         Cuando se registra al plan "PlanJuventud"
         Entonces obtiene un mensaje de error no alcanza el limite minimo de edad
