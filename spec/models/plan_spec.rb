@@ -111,4 +111,13 @@ describe 'Plan' do
 
     expect(plan.conyuge).to eql conyuge
   end
+
+  it 'deberia poder devolver el validar el plan con edad y conyuge' do
+    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+                    conyuge: conyuge)
+
+    expect(plan.validar_plan_con(20, 0, false)).to be true
+  end
 end

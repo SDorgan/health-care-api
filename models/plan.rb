@@ -35,4 +35,8 @@ class Plan
       ADMITE_CONYUGE => 1,
       REQUIERE_CONYUGE => 2 }
   end
+
+  def validar_plan_con(_edad, _cantidad_hijos, _conyuge)
+    true
+  end
 end
