@@ -114,7 +114,12 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, admite cony
   }
 end
 
-Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, requiere conyuge {string}') do |edad_minima, edad_maxima, cantidad_hijos_maxima, _conyuge| # rubocop:disable  Metrics/LineLength
+Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, requiere conyuge {string}') do |edad_minima, edad_maxima, cantidad_hijos_maxima, conyuge| # rubocop:disable  Metrics/LineLength
+  conyuge = if conyuge.eql? 'si'
+              'REQUIERE_CONYUGE'
+            else
+              'ADMITE_CONYUGE'
+            end
   @request = {
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
@@ -124,6 +129,6 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, requiere co
     'edad_minima' => edad_minima,
     'edad_maxima' => edad_maxima,
     'cantidad_hijos_maxima' => cantidad_hijos_maxima,
-    'conyuge' => 'REQUIERE_CONYUGE'
+    'conyuge' => conyuge
   }
 end
