@@ -46,7 +46,7 @@ describe 'VisitaMedicaRepository' do
     expect(@visita_medica.created_on.nil?).to be false
   end
 
-  xit 'deberia poder obtener la visita que se guardo' do
+  it 'deberia poder obtener la visita que se guardo' do
     visita_medica_saved = @repo.find(@visita_medica.id)
 
     expect(visita_medica_saved.afiliado_id).to eq @afiliado.id
