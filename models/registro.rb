@@ -4,10 +4,10 @@ class Registro
     @repo_planes = repo_planes
   end
 
-  def registrar_afiliado(nombre_afiliado, nombre_plan, id_telegram, _edad, _conyuge)
-    plan = @repo_planes.find_by_name(nombre_plan.to_s)
-    afiliado = Afiliado.new(nombre_afiliado, plan.id)
-    afiliado.id_telegram = id_telegram unless id_telegram.nil?
+  def registrar_afiliado(data = {})
+    plan = @repo_planes.find_by_name(data[:nombre_plan].to_s)
+    afiliado = Afiliado.new(data[:nombre_afiliado], plan.id)
+    afiliado.id_telegram = data[:id_telegram] unless data[:id_telegram].nil?
     @repo_afiliados.save(afiliado)
   end
 end

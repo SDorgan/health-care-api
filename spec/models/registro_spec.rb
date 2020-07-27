@@ -21,13 +21,17 @@ describe 'Registro' do
   end
 
   it 'deberia poder registrar el afiliado' do
-    afiliado = @registro.registrar_afiliado('Juan', 'Neo', 'fake_id', 20, false)
+    afiliado = @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'Neo',
+                                            id_telegram: 'fake_id', edad: 20,
+                                            cantidad_hijos: 0, conyuge: false)
     expect(afiliado.nombre).to eql 'Juan'
   end
 
   it 'deberia poder devolver error plan no existente cuando es inexistente' do
     expect do
-      @registro.registrar_afiliado('Juan', 'noExiste', 'fake_id', 20, false)
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'noExiste',
+                                   id_telegram: 'fake_id', edad: 20,
+                                   cantidad_hijos: 0, conyuge: false)
     end.to raise_error(PlanInexistenteError)
   end
 end

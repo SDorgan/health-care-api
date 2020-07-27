@@ -22,3 +22,22 @@ Característica: CRUD Alifiados
         Dado el afiliado "hansolo" de 18 años, conyuge "no", hijos 0
         Cuando se registra al plan "Familiar"
         Entonces obtiene un mensaje de error por plan inexistente
+    @wip
+    @mvp
+    Escenario: RA2 - Registracion fallida por edad incorrecta
+        Dado el afiliado "hansolo" de 25 años, conyuge "no", hijos 0
+        Cuando se registra al plan "PlanJuventud"
+        Entonces obtiene un mensaje de error por edad incorrecta
+    @wip
+    @mvp
+    Escenario: RA3 - Registracion fallida por tener conyuge
+        Dado el afiliado "hansolo" de 19 años, conyuge "si", hijos 0
+        Cuando se registra al plan "PlanJuventud"
+        Entonces obtiene un mensaje de error por tener conyuge
+    @wip
+    @mvp
+    Escenario: RA4 - Registracion fallida por tener hijos
+        Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 1
+        Cuando se registra al plan "PlanJuventud"
+        Entonces obtiene un mensaje de error por tener hijos
+
