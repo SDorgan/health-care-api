@@ -35,7 +35,7 @@ describe 'VisitaMedicaController' do
   end
 
   it 'deberia devolver la visita medica con la que se hizo POST' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': @prestacion.id }.to_json
+    post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': @prestacion.id, 'centro': @centro.id }.to_json
     response = JSON.parse(last_response.body)
 
     visita = response['visita']
@@ -59,7 +59,7 @@ describe 'VisitaMedicaController' do
     expect(last_response.body).to eq 'La prestación pedida no existe'
   end
 
-  xit 'deberia devolver error si no se encuentra el centro' do
+  it 'deberia devolver error si no se encuentra el centro' do
     post '/visitas', { 'afiliado': @afiliado.id, 'prestacion': @prestacion.id, 'centro': @centro.id + 1 }.to_json
 
     expect(last_response.status).to be 404

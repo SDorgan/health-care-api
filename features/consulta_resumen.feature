@@ -39,7 +39,7 @@ Característica: Consulta resumen
     Y cobertura de visitas con límite 0
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
-    Y que registró una atención por la prestación "Traumatologia"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
     Cuando consulta el resumen
     Entonces su saldo adicional es $1000
     Y total a pagar es $1500
@@ -49,8 +49,8 @@ Característica: Consulta resumen
     Y cobertura de visitas con límite 0
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
-    Y que registró una atención por la prestación "Traumatologia"
-    Y que registró una atención por la prestación "Clínica general"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
     Cuando consulta el resumen
     Entonces su saldo adicional es $1500
     Y total a pagar es $2000
@@ -60,8 +60,8 @@ Característica: Consulta resumen
     Y cobertura de visitas con límite 2
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
-    Y que registró una atención por la prestación "Traumatologia"
-    Y que registró una atención por la prestación "Clínica general"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
     Cuando consulta el resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
@@ -71,13 +71,13 @@ Característica: Consulta resumen
     Y cobertura de visitas con límite infinito
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
-    Y que registró una atención por la prestación "Traumatologia"
-    Y que registró una atención por la prestación "Clínica general"
-    Y que registró una atención por la prestación "Clínica general"
-    Y que registró una atención por la prestación "Clínica general"
-    Y que registró una atención por la prestación "Clínica general"
-    Y que registró una atención por la prestación "Traumatologia"
-    Y que registró una atención por la prestación "Traumatologia"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
     Cuando consulta el resumen
     Entonces su saldo adicional es $0
     Y total a pagar es $500
@@ -87,9 +87,9 @@ Característica: Consulta resumen
     Y cobertura de visitas con límite 2
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
-    Y que registró una atención por la prestación "Traumatologia"
-    Y que registró una atención por la prestación "Clínica general"
-    Y que registró una atención por la prestación "Traumatologia"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
     Cuando consulta el resumen
     Entonces su saldo adicional es $1000
     Y total a pagar es $1500
@@ -99,8 +99,8 @@ Característica: Consulta resumen
     Y cobertura de visitas con copago $10 y con límite 2
     Y se registra el plan
     Dado el afiliado "Jorah" afiliado a "PlanOso"
-    Y que registró una atención por la prestación "Traumatologia"
-    Y que registró una atención por la prestación "Clínica general"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
     Cuando consulta el resumen
     Entonces su saldo adicional es $20
     Y total a pagar es $720
@@ -110,9 +110,9 @@ Característica: Consulta resumen
     Y cobertura de visitas con copago $10 y con límite 2
     Y se registra el plan
     Dado el afiliado "Jorah" afiliado a "PlanOso"
-    Y que registró una atención por la prestación "Traumatologia"
-    Y que registró una atención por la prestación "Clínica general"
-    Y que registró una atención por la prestación "Clínica general"
+    Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
+    Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
     Cuando consulta el resumen
     Entonces su saldo adicional es $520
     Y total a pagar es $1220
@@ -129,7 +129,7 @@ Característica: Consulta resumen
   Escenario: RES8 - Consulta de resumen con compra de medicamentos y atenciones
       Dado el afiliado "Jorah" afiliado a "PlanOso"
       Y realiza una compra de medicamentos por $1000
-      Y que registró una atención por la prestación "Traumatologia"
+      Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
       Cuando consulta el resumen
       Entonces su saldo adicional es $210
       Y total a pagar es $910
@@ -137,9 +137,9 @@ Característica: Consulta resumen
   @mvp
   Escenario: RES9 - Consulta de resumen tras visitar al traumatólogo lista la visita
       Dado el afiliado "Jorah" afiliado a "PlanOso"
-      Y que registró una atención por la prestación "Traumatologia"
-      Y que registró una atención por la prestación "Clínica general"
-      Y que registró una atención por la prestación "Clínica general"
+      Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
+      Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
+      Y que registró una atención por la prestación "Clínica general" en el centro "Enfermeria del Castillo Negro"
       Y realiza una compra de medicamentos por $1000
       Cuando consulta el resumen
       Entonces su saldo adicional es $720
