@@ -50,7 +50,8 @@ class Resumen
 
   def agregar_items_de_visitas
     @visitas.map do |visita|
-      @items << ItemResumen.new(visita.prestacion.nombre, visita.created_on, visita.costo)
+      concepto = "#{visita.prestacion.nombre} - #{visita.centro.nombre}"
+      @items << ItemResumen.new(concepto, visita.created_on, visita.costo)
     end
   end
 
