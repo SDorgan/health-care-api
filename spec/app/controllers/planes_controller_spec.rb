@@ -33,6 +33,10 @@ describe 'PlanesController' do
     1
   end
 
+  let(:conyuge) do
+    Plan.no_admite_conyuge
+  end
+
   let(:body) do
     { 'nombre' => nombre,
       'costo' => costo,
@@ -41,7 +45,8 @@ describe 'PlanesController' do
       'cobertura_medicamentos' => cobertura_medicamentos,
       'edad_minima' => edad_minima,
       'edad_maxima' => edad_maxima,
-      'cantidad_hijos_maxima' => cantidad_hijos_maxima }.to_json
+      'cantidad_hijos_maxima' => cantidad_hijos_maxima,
+      'conyuge' => conyuge }.to_json
   end
 
   it 'deberia devoler los planes' do
@@ -90,5 +95,11 @@ describe 'PlanesController' do
     post '/planes', body
     response = JSON.parse(last_response.body)
     expect(response['plan']['cantidad_hijos_maxima']).to eq cantidad_hijos_maxima
+  end
+
+  it 'deberia devolver estado civil con la que se hizo POST' do
+    post '/planes', body
+    response = JSON.parse(last_response.body)
+    expect(response['plan']['conyuge']).to eq conyuge
   end
 end

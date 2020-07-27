@@ -10,7 +10,8 @@ class PlanResponseBuilder
         'cobertura_medicamentos': plan.cobertura_medicamentos.porcentaje,
         'edad_minima': plan.edad_minima,
         'edad_maxima': plan.edad_maxima,
-        'cantidad_hijos_maxima': plan.cantidad_hijos_maxima
+        'cantidad_hijos_maxima': plan.cantidad_hijos_maxima,
+        'conyuge': plan.conyuge
       }
     }.to_json
   end
@@ -28,7 +29,8 @@ class PlanResponseBuilder
         'cobertura_medicamentos': plan.cobertura_medicamentos.porcentaje,
         'edad_minima': plan.edad_minima,
         'edad_maxima': plan.edad_maxima,
-        'cantidad_hijos_maxima': plan.cantidad_hijos_maxima
+        'cantidad_hijos_maxima': plan.cantidad_hijos_maxima,
+        'conyuge': plan.conyuge
       }
     end
 

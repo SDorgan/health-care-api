@@ -23,7 +23,8 @@ HealthAPI::App.controllers :planes do
                     cobertura_medicamentos: cobertura_medicamentos,
                     edad_minima: params['edad_minima'],
                     edad_maxima: params['edad_maxima'],
-                    cantidad_hijos_maxima: params['cantidad_hijos_maxima'])
+                    cantidad_hijos_maxima: params['cantidad_hijos_maxima'],
+                    conyuge: params['conyuge'])
 
     plan = PlanRepository.new.save(plan)
     status 201
