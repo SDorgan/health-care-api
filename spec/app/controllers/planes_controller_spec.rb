@@ -21,12 +21,22 @@ describe 'PlanesController' do
     30
   end
 
+  let(:edad_minima) do
+    10
+  end
+
+  let(:edad_maxima) do
+    10
+  end
+
   let(:body) do
     { 'nombre' => nombre,
       'costo' => costo,
       'limite_cobertura_visitas' => limite_cobertura_visitas,
       'copago' => copago,
-      'cobertura_medicamentos' => cobertura_medicamentos }.to_json
+      'cobertura_medicamentos' => cobertura_medicamentos,
+      'edad_minima' => edad_minima,
+      'edad_maxima' => edad_maxima }.to_json
   end
 
   it 'deberia devoler los planes' do
@@ -62,5 +72,12 @@ describe 'PlanesController' do
     post '/planes', body
     response = JSON.parse(last_response.body)
     expect(response['plan']['cobertura_medicamentos']).to eq cobertura_medicamentos
+  end
+
+  it 'deberia devolver la edad minima y maxima con la que se hizo POST' do
+    post '/planes', body
+    response = JSON.parse(last_response.body)
+    expect(response['plan']['edad_minima']).to eq edad_minima
+    expect(response['plan']['edad_maxima']).to eq edad_maxima
   end
 end
