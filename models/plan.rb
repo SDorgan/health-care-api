@@ -2,11 +2,11 @@ class Plan
   attr_accessor :id, :nombre, :costo,
                 :cobertura_visitas, :cobertura_medicamentos, :edad_minima
 
-  def initialize(nombre, costo, cobertura_medicamentos, cobertura_visitas, edad_minima)
-    @nombre = nombre
-    @costo = costo
-    @cobertura_visitas = cobertura_visitas
-    @cobertura_medicamentos = cobertura_medicamentos
-    @edad_minima = edad_minima
+  def initialize(data = {})
+    @nombre = data[:nombre]
+    @costo = data[:costo]
+    @cobertura_visitas = data[:cobertura_visitas]
+    @cobertura_medicamentos = data[:cobertura_medicamentos]
+    @edad_minima = data[:edad_minima]
   end
 end

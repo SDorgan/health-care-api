@@ -4,7 +4,11 @@ describe 'PlanRepository' do
   before(:each) do
     @cantidad_visitas = 0
     @copago = 100
-    @plan = Plan.new('neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, @copago), 0) # rubocop:disable Metrics/LineLength
+    @plan = Plan.new(nombre: 'neo',
+                     costo: 1000,
+                     cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
+                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                     edad_minima: 0)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -27,8 +31,12 @@ describe 'PlanRepository' do
     expect(planes.first.id).to eq @plan.id
   end
 
-  it 'deberia devolver todos los planes disponibles' do
-    @repo.save(Plan.new('familiar', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, @copago), 0)) # rubocop:disable Metrics/LineLength
+  it 'deberia devolver todos los planes disponibles' do # rubocop:disable RSpec/ExampleLength
+    @repo.save(Plan.new(nombre: 'familiar',
+                        costo: 1000,
+                        cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
+                        cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        edad_minima: 0))
 
     planes = @repo.all
 
@@ -41,8 +49,12 @@ describe 'PlanRepository' do
     expect(saved_plan.costo).to eql @plan.costo
   end
 
-  it 'deberia poder filtrar por nombre plan' do
-    @repo.save(Plan.new('familiar', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(@cantidad_visitas, 200), 0)) # rubocop:disable Metrics/LineLength
+  it 'deberia poder filtrar por nombre plan' do # rubocop:disable RSpec/ExampleLength
+    @repo.save(Plan.new(nombre: 'familiar',
+                        costo: 1000,
+                        cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
+                        cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        edad_minima: 0))
     plan_encontrado = @repo.find_by_name(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end

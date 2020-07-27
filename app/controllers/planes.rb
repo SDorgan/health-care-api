@@ -17,11 +17,11 @@ HealthAPI::App.controllers :planes do
 
     cobertura_medicamentos = CoberturaMedicamentos.new(params['cobertura_medicamentos'])
 
-    plan = Plan.new(params['nombre'],
-                    params['costo'],
-                    cobertura_medicamentos,
-                    cobertura_visitas,
-                    0)
+    plan = Plan.new(nombre: params['nombre'],
+                    costo: params['costo'],
+                    cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: 0)
 
     plan = PlanRepository.new.save(plan)
     status 201

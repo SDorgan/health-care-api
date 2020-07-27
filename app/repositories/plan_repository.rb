@@ -25,10 +25,10 @@ class PlanRepository < BaseRepository
                         end
     cobertura_medicamentos = CoberturaMedicamentos.new(a_record[:medicine_coverage])
 
-    plan = Plan.new(a_record[:name], a_record[:cost],
-                    cobertura_medicamentos,
-                    cobertura_visitas,
-                    0)
+    plan = Plan.new(nombre: a_record[:name], costo: a_record[:cost],
+                    cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: 0)
 
     plan.id = a_record[:id]
 
