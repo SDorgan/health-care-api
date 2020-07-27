@@ -11,7 +11,7 @@ Característica: CRUD Alifiados
         Y cobertura de visitas con copago $0 y con límite 2
         Y cobertura de medicamentos 20%
         Y se registra el plan
-    @wip
+    
     @mvp
     Escenario: RA1 - Registracion exitosa
         Dado el afiliado "hansolo" de 18 años, conyuge "no", hijos 0

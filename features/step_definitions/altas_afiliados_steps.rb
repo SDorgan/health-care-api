@@ -1,6 +1,14 @@
-Dado('el afiliado {string} de {int} años, conyuge {string}, hijos {int}') do |nombre, _anio, _conyuge, _hijos| # rubocop:disable LineLength
+Dado('el afiliado {string} de {int} años, conyuge {string}, hijos {int}') do |nombre, edad, conyuge, hijos| # rubocop:disable LineLength
+  conyuge = if conyuge.eql? 'si'
+              true
+            else
+              false
+            end
   @request = {
-    'nombre' => nombre
+    'nombre' => nombre,
+    'cantidad_hijos' => hijos,
+    'edad' => edad,
+    'conyuge' => conyuge
   }
 end
 
@@ -11,7 +19,10 @@ end
 Cuando('se registra al plan {string}') do |plan|
   @request = {
     'nombre' => @request['nombre'],
-    'nombre_plan' => plan
+    'nombre_plan' => plan,
+    'cantidad_hijos' => @request['cantidad_hijos'],
+    'edad' => @request['edad'],
+    'conyuge' => @request['conyuge']
   }
   @response_afiliado = Faraday.post(AFILIADOS_URL, @request.to_json, 'Content-Type' => 'application/json')
 end
