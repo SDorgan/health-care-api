@@ -37,7 +37,7 @@ describe 'VisitaMedicaController' do
     expect(visita['created_on'].nil?).to be false
   end
 
-  xit 'deberia devolver error si no se encuentra al afiliado' do
+  it 'deberia devolver error si no se encuentra al afiliado' do
     post '/visitas', { 'afiliado': @afiliado.id + 1, 'prestacion': @prestacion.id }.to_json
 
     expect(last_response.status).to be 401

@@ -20,6 +20,10 @@ class AfiliadoRepository < BaseRepository
     super(id_)
   end
 
+  def exists_afiliado_with_id(id)
+    !dataset.where(id: id).blank?
+  end
+
   def find_by_telegram_id(tele_id)
     raise IdNotAfiliadoError unless exists_afiliado_with_telegram_id(tele_id)
 
@@ -43,10 +47,6 @@ class AfiliadoRepository < BaseRepository
 
   def exists_afiliado_with_telegram_id(tele_id)
     !dataset.where(id_telegram: tele_id).blank?
-  end
-
-  def exists_afiliado_with_id(id)
-    !dataset.where(id: id).blank?
   end
 
   def update(a_record)
