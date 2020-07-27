@@ -59,7 +59,7 @@ Característica: CRUD Planes
         Y restricciones edad min 15, edad max 20, hijos max 0, admite conyuge "no"
         Cuando se registra el plan
         Entonces se registra exitosamente
-  @wip
+  
   @mvp
     Escenario: APLA2 - Alta exitosa de plan 310
         Dado el plan con nombre "Plan310" con costo unitario $1000
