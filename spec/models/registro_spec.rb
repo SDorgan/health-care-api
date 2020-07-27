@@ -3,6 +3,7 @@ require_relative '../../app/errors/plan_inexistente_error'
 require_relative '../../app/errors/edad_maxima_supera_limite_error'
 require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
 require_relative '../../app/errors/no_se_admite_conyuge_error'
+require_relative '../../app/errors/se_requiere_conyuge_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do
@@ -19,6 +20,13 @@ describe 'Registro' do
                      cobertura_visitas: CoberturaVisita.new(0, 0),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
                      edad_minima: 10, edad_maxima: 40, conyuge: Plan.no_admite_conyuge)
+    @plan_require_conyuge = Plan.new(nombre: 'PlanFamiliar',
+                                     costo: 1000,
+                                     cobertura_visitas: CoberturaVisita.new(0, 0),
+                                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                                     edad_minima: 10, edad_maxima: 40,
+                                     conyuge: Plan.requiere_conyuge)
+    plan_repository.save(@plan_require_conyuge)
     @plan = plan_repository.save(@plan)
     @registro = Registro.new(afiliado_repository, plan_repository)
   end
@@ -60,5 +68,13 @@ describe 'Registro' do
                                    id_telegram: 'fake_id', edad: 18,
                                    cantidad_hijos: 0, conyuge: true)
     end.to raise_error(NoSeAdmiteConyugeError)
+  end
+
+  it 'deberia poder devolver error por no tener conyuge cuando el plan lo requiere' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'PlanFamiliar',
+                                   id_telegram: 'fake_id', edad: 18,
+                                   cantidad_hijos: 0, conyuge: false)
+    end.to raise_error(SeRequiereConyugeError)
   end
 end
