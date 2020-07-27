@@ -1,5 +1,5 @@
 require_relative '../errors/id_not_afiliado_error'
-
+require_relative '../errors/prestacion_not_exists_error'
 HealthAPI::App.controllers :visitas do
   post :index do
     params = JSON.parse(request.body.read)
@@ -20,6 +20,10 @@ HealthAPI::App.controllers :visitas do
 
   rescue IdNotAfiliadoError => e
     status 401
+    body e.message
+
+  rescue PrestacionNotExistsError => e
+    status 404
     body e.message
   end
 end
