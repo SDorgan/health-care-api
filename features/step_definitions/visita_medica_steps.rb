@@ -12,3 +12,23 @@ Entonces('se registra la prestación con un identificador único') do
 
   expect(visita['id'].positive?).to eq true
 end
+
+Entonces('obtiene un error por no estar afiliado') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Dado('el afiliado {string}') do |_string|
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Entonces('obtiene un error por prestación no existente') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Entonces('obtiene un error por centro no existen') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Entonces('obtiene un error por prestacion no ofrecida en el centro') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
