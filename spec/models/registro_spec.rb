@@ -5,6 +5,7 @@ require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
 require_relative '../../app/errors/no_se_admite_conyuge_error'
 require_relative '../../app/errors/se_requiere_conyuge_error'
 require_relative '../../app/errors/no_se_admite_hijos_error'
+require_relative '../../app/errors/se_requiere_hijos_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do
@@ -22,13 +23,20 @@ describe 'Registro' do
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
                      edad_minima: 10, edad_maxima: 40,
                      cantidad_hijos_maxima: 0, conyuge: Plan.no_admite_conyuge)
-    @plan_require_conyuge = Plan.new(nombre: 'PlanFamiliar',
-                                     costo: 1000,
-                                     cobertura_visitas: CoberturaVisita.new(0, 0),
-                                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                                     edad_minima: 10, edad_maxima: 40,
-                                     cantidad_hijos_maxima: 0, conyuge: Plan.requiere_conyuge)
-    plan_repository.save(@plan_require_conyuge)
+    @plan_requiere_conyuge = Plan.new(nombre: 'PlanFamiliar',
+                                      costo: 1000,
+                                      cobertura_visitas: CoberturaVisita.new(0, 0),
+                                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                                      edad_minima: 10, edad_maxima: 40,
+                                      cantidad_hijos_maxima: 0, conyuge: Plan.requiere_conyuge)
+    @plan_requiere_hijos = Plan.new(nombre: 'PlanFamiliarConHijos',
+                                    costo: 1000,
+                                    cobertura_visitas: CoberturaVisita.new(0, 0),
+                                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                                    edad_minima: 10, edad_maxima: 40,
+                                    cantidad_hijos_maxima: 2, conyuge: Plan.requiere_conyuge)
+    plan_repository.save(@plan_requiere_conyuge)
+    plan_repository.save(@plan_requiere_hijos)
     @plan = plan_repository.save(@plan)
     @registro = Registro.new(afiliado_repository, plan_repository)
   end
@@ -86,5 +94,13 @@ describe 'Registro' do
                                    id_telegram: 'fake_id', edad: 18,
                                    cantidad_hijos: 1, conyuge: false)
     end.to raise_error(NoSeAdmiteHijosError)
+  end
+
+  it 'deberia poder devolver error por no tener hijos cuando el plan lo requiere' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'PlanFamiliarConHijos',
+                                   id_telegram: 'fake_id', edad: 18,
+                                   cantidad_hijos: 0, conyuge: true)
+    end.to raise_error(SeRequiereHijosError)
   end
 end
