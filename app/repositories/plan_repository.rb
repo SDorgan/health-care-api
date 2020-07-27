@@ -13,6 +13,8 @@ class PlanRepository < BaseRepository
 
   def find_by_name(nombre)
     load_object(dataset.first!(name: nombre))
+  rescue Sequel::NoMatchingRow
+    raise PlanInexistenteError
   end
 
   private

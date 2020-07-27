@@ -1,6 +1,14 @@
-Dado('el afiliado {string} de {int} años, conyuge {string}, hijos {int}') do |nombre, _anio, _conyuge, _hijos| # rubocop:disable LineLength
+Dado('el afiliado {string} de {int} años, conyuge {string}, hijos {int}') do |nombre, edad, conyuge, hijos| # rubocop:disable LineLength
+  conyuge = if conyuge.eql? 'si'
+              true
+            else
+              false
+            end
   @request = {
-    'nombre' => nombre
+    'nombre' => nombre,
+    'cantidad_hijos' => hijos,
+    'edad' => edad,
+    'conyuge' => conyuge
   }
 end
 
@@ -11,7 +19,10 @@ end
 Cuando('se registra al plan {string}') do |plan|
   @request = {
     'nombre' => @request['nombre'],
-    'nombre_plan' => plan
+    'nombre_plan' => plan,
+    'cantidad_hijos' => @request['cantidad_hijos'],
+    'edad' => @request['edad'],
+    'conyuge' => @request['conyuge']
   }
   @response_afiliado = Faraday.post(AFILIADOS_URL, @request.to_json, 'Content-Type' => 'application/json')
 end
@@ -22,4 +33,29 @@ Entonces('obtiene un numero unico de afiliado') do
   id = json_response['id']
   expect(@response.status).to eq 201
   expect(id).not_to be_nil
+end
+
+Entonces('obtiene un mensaje de error por plan inexistente') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'El plan es inexistente'
+end
+
+Entonces('obtiene un mensaje de error supera limite de edad') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'supera el límite máximo de edad'
+end
+
+Entonces('obtiene un mensaje de error no alcanza el limite minimo de edad') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'no alcanza el límite mínimo de edad'
+end
+
+Entonces('obtiene un mensaje de error por tener conyuge') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'este plan no admite conyuge'
+end
+
+Entonces('obtiene un mensaje de error por tener hijos') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'este plan no admite hijos'
 end

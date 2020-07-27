@@ -1,4 +1,5 @@
 require 'integration_spec_helper'
+require_relative '../../../app/errors/plan_inexistente_error'
 
 describe 'PlanRepository' do
   before(:each) do
@@ -108,5 +109,14 @@ describe 'PlanRepository' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.conyuge).to eql @plan.conyuge
+  end
+
+  it 'deberia poder arrojar error por buscar nombre plan inexistente' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    @repo.save(Plan.new(nombre: 'familiar',
+                        costo: 1000,
+                        cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
+                        cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        edad_minima: 0))
+    expect { @repo.find_by_name('noExiste') }.to raise_error(PlanInexistenteError)
   end
 end

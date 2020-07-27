@@ -409,6 +409,18 @@ definitions:
         type: string
       id_telegram:
         type: string
+      cantidad_hijos:
+        type: integer
+      edad:
+        type: integer
+      conyuge:
+        type: boolean
+    required:
+      - nombre
+      - nombre_plan
+      - cantidad_hijos
+      - edad
+      - conyuge
   Afiliado:
     description: Afiliado
     properties:

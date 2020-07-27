@@ -44,6 +44,8 @@ describe 'Resumen' do
     @afiliado_cobertura_y_medicamentos = Afiliado.new('Mariana Flores', @plan_con_cobertura_y_medicamentos.id) # rubocop:disable Metrics/LineLength
     @afiliado_cobertura_y_medicamentos.id = 6
 
+    @centro = Centro.new('Hospital')
+
     @prestacion = Prestacion.new('Traumatologia', 10)
     @otra_prestacion = Prestacion.new('Odontología', 20)
 
@@ -85,9 +87,9 @@ describe 'Resumen' do
   describe 'con una visita medica' do
     before(:each) do
       visitas = [
-        VisitaMedica.new(@afiliado.id, @prestacion),
-        VisitaMedica.new(@afiliado_premium.id, @prestacion),
-        VisitaMedica.new(@afiliado_copago.id, @prestacion)
+        VisitaMedica.new(@afiliado.id, @prestacion, @centro),
+        VisitaMedica.new(@afiliado_premium.id, @prestacion, @centro),
+        VisitaMedica.new(@afiliado_copago.id, @prestacion, @centro)
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
@@ -136,18 +138,18 @@ describe 'Resumen' do
     describe 'iguales' do
       before(:each) do
         visitas = [
-          VisitaMedica.new(@afiliado.id, @prestacion),
-          VisitaMedica.new(@afiliado.id, @prestacion)
+          VisitaMedica.new(@afiliado.id, @prestacion, @centro),
+          VisitaMedica.new(@afiliado.id, @prestacion, @centro)
         ]
 
         visitas_infinito = [
-          VisitaMedica.new(@afiliado_infinito.id, @prestacion),
-          VisitaMedica.new(@afiliado_infinito.id, @prestacion)
+          VisitaMedica.new(@afiliado_infinito.id, @prestacion, @centro),
+          VisitaMedica.new(@afiliado_infinito.id, @prestacion, @centro)
         ]
 
         visitas_copago = [
-          VisitaMedica.new(@afiliado_copago.id, @prestacion),
-          VisitaMedica.new(@afiliado_copago.id, @prestacion)
+          VisitaMedica.new(@afiliado_copago.id, @prestacion, @centro),
+          VisitaMedica.new(@afiliado_copago.id, @prestacion, @centro)
         ]
 
         @repo_visitas = instance_double('VisitaMedicaRepository')
@@ -203,8 +205,8 @@ describe 'Resumen' do
     describe 'distintas' do
       before(:each) do
         visitas = [
-          VisitaMedica.new(@afiliado.id, @prestacion),
-          VisitaMedica.new(@afiliado.id, @otra_prestacion)
+          VisitaMedica.new(@afiliado.id, @prestacion, @centro),
+          VisitaMedica.new(@afiliado.id, @otra_prestacion, @centro)
         ]
 
         @repo_visitas = instance_double('VisitaMedicaRepository')
@@ -292,9 +294,9 @@ describe 'Resumen' do
       allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
 
       visitas = [
-        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
-        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
-        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion)
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro)
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
@@ -333,10 +335,10 @@ describe 'Resumen' do
       allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[1], compras[2]]) # rubocop:disable Metrics/LineLength
 
       visitas = [
-        VisitaMedica.new(@afiliado_premium.id, @prestacion),
-        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
-        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion),
-        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion)
+        VisitaMedica.new(@afiliado_premium.id, @prestacion, @centro),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro),
+        VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro)
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
@@ -354,12 +356,13 @@ describe 'Resumen' do
       expect(resumen.items.length).to eq 0
     end
 
-    it 'resumen tiene item de visita' do
+    it 'resumen tiene item de visita' do # rubocop:disable RSpec/ExampleLength
       resumen = Resumen.new(@afiliado_premium, @repo_planes, @repo_visitas, @repo_compras)
       resumen.generar
       items = resumen.items
       expect(items.length).to eq 1
       expect(items[0].concepto.include?(@prestacion.nombre)).to eq true
+      expect(items[0].concepto.include?(@centro.nombre)).to eq true
     end
 
     it 'resumen tiene item de medicamentos' do

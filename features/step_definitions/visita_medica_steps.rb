@@ -1,7 +1,8 @@
-Cuando('se atiende por {string} en el centro {string}') do |prestacion_nombre, _centro_nombre|
+Cuando('se atiende por {string} en el centro {string}') do |prestacion_nombre, centro_nombre|
   request = {
     'afiliado' => @id_afiliado,
-    'prestacion' => @prestaciones[prestacion_nombre]
+    'prestacion' => @prestaciones[prestacion_nombre],
+    'centro' => @centros[centro_nombre]
   }
   @response = Faraday.post(VISITAS_URL, request.to_json, 'Content-Type' => 'application/json')
 end
@@ -27,7 +28,7 @@ Entonces('obtiene un error por prestación no existente') do
   expect(@response.body).to eq 'La prestación pedida no existe'
 end
 
-Entonces('obtiene un error por centro no existen') do
+Entonces('obtiene un error por centro no existente') do
   response_status = @response.status
 
   expect(response_status).to eq 404

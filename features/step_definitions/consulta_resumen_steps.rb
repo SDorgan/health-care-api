@@ -18,10 +18,11 @@ Dado('total a pagar es ${int}') do |total|
   expect(@resumen['total']).to eq total
 end
 
-Dado('que registró una atención por la prestación {string}') do |prestacion_nombre|
+Dado('que registró una atención por la prestación {string} en el centro {string}') do |prestacion_nombre, centro_nombre| # rubocop:disable Metrics/LineLength
   request = {
     'afiliado' => @id_afiliado,
-    'prestacion' => @prestaciones[prestacion_nombre]
+    'prestacion' => @prestaciones[prestacion_nombre],
+    'centro' => @centros[centro_nombre]
   }
   @response = Faraday.post(VISITAS_URL, request.to_json, 'Content-Type' => 'application/json')
 end

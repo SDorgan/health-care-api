@@ -91,7 +91,11 @@ Dado('cobertura de medicamentos {int}%') do |cobertura|
     'costo' => @request['costo'],
     'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
     'copago' => @request['copago'],
-    'cobertura_medicamentos' => cobertura
+    'cobertura_medicamentos' => cobertura,
+    'edad_minima' => @edad_minima,
+    'edad_maxima' => @edad_maxima,
+    'cantidad_hijos_maxima' => @cantidad_hijos_maxima,
+    'conyuge' => @conyuge
   }
 end
 
@@ -101,16 +105,20 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, admite cony
             else
               'NO_ADMITE_CONYUGE'
             end
+  @edad_minima = edad_minima
+  @edad_maxima = edad_maxima
+  @cantidad_hijos_maxima = cantidad_hijos_maxima
+  @conyuge = conyuge
   @request = {
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
     'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
     'copago' => @request['copago'],
     'cobertura_medicamentos' => @request['cobertura'],
-    'edad_minima' => edad_minima,
-    'edad_maxima' => edad_maxima,
-    'cantidad_hijos_maxima' => cantidad_hijos_maxima,
-    'conyuge' => conyuge
+    'edad_minima' => @edad_minima,
+    'edad_maxima' => @edad_maxima,
+    'cantidad_hijos_maxima' => @cantidad_hijos_maxima,
+    'conyuge' => @conyuge
   }
 end
 
@@ -120,15 +128,19 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, requiere co
             else
               'ADMITE_CONYUGE'
             end
+  @edad_minima = edad_minima
+  @edad_maxima = edad_maxima
+  @cantidad_hijos_maxima = cantidad_hijos_maxima
+  @conyuge = conyuge
   @request = {
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
     'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
     'copago' => @request['copago'],
     'cobertura_medicamentos' => @request['cobertura'],
-    'edad_minima' => edad_minima,
-    'edad_maxima' => edad_maxima,
-    'cantidad_hijos_maxima' => cantidad_hijos_maxima,
-    'conyuge' => conyuge
+    'edad_minima' => @edad_minima,
+    'edad_maxima' => @edad_maxima,
+    'cantidad_hijos_maxima' => @cantidad_hijos_maxima,
+    'conyuge' => @conyuge
   }
 end

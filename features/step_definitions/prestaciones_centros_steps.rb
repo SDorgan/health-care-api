@@ -8,11 +8,13 @@ Dado('el centro llamado {string}') do |nombre|
   @centro_id = centro['id']
 end
 
-Cuando('se le agrega la prestación {string} al centro') do |nombre_prestacion|
+Cuando('se le agrega la prestación {string} al centro {string}') do |nombre_prestacion, nombre_centro| # rubocop:disable Metrics/LineLength
   prestacion = PrestacionRepository.new.find_by_name(nombre_prestacion)
   request = {
     'prestacion': prestacion.id
   }
+  @centro_id = @centros[nombre_centro]
+
   URL = "#{CENTROS_URL}/#{@centro_id}/prestaciones".freeze
 
   @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json')

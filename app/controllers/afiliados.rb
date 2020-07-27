@@ -1,3 +1,5 @@
+require_relative '../errors/registracion_error'
+
 HealthAPI::App.controllers :afiliados do
   get :index do
     afiliados = AfiliadoRepository.new.all
@@ -7,17 +9,19 @@ HealthAPI::App.controllers :afiliados do
 
   post :index do
     params = JSON.parse(request.body.read)
-    plan_repository = PlanRepository.new
-    plan = plan_repository.find_by_name(params['nombre_plan'].to_s)
-
-    afiliado = Afiliado.new(params['nombre'], plan.id)
-
-    afiliado.id_telegram = params['id_telegram'] unless params['id_telegram'].nil?
-
-    afiliado = AfiliadoRepository.new.save(afiliado)
-
+    registro = Registro.new(AfiliadoRepository.new, PlanRepository.new)
+    afiliado = registro.registrar_afiliado(nombre_afiliado: params['nombre'],
+                                           nombre_plan: params['nombre_plan'],
+                                           id_telegram: params['id_telegram'],
+                                           cantidad_hijos: params['cantidad_hijos'],
+                                           edad: params['edad'],
+                                           conyuge: params['conyuge'] || false)
     status 201
 
     AfiliadoResponseBuilder.create_from(afiliado)
+
+  rescue RegistracionError => e
+    status 400
+    body e.message
   end
 end
