@@ -15,7 +15,6 @@ Característica: Registrar visita médica
     Y la prestación con nombre "Odontologia"
     Y costo unitario de prestación $1000
     Y se registra la prestación
-    Y se le agrega la prestación "Odontologia" al centro "Enfermeria del Castillo Negro"
     Y el plan con nombre "PlanCuervo" con costo unitario $500
     Y se registra el plan
 
@@ -43,9 +42,8 @@ Característica: Registrar visita médica
     Entonces obtiene un error por centro no existente
 
   @mvp
-  @wip
   Escenario: REGAM5 - Registro fallido por prestación no ofrecida en el centro
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
-    Cuando se atiende por "Pediatria" en el centro "Enfermeria del Castillo Negro"
+    Cuando se atiende por "Odontologia" en el centro "Enfermeria del Castillo Negro"
     Entonces obtiene un error por prestacion no ofrecida en el centro
 
