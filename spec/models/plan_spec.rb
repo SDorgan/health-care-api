@@ -3,6 +3,7 @@ require_relative '../../app/errors/edad_maxima_supera_limite_error'
 require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
 require_relative '../../app/errors/no_se_admite_conyuge_error'
 require_relative '../../app/errors/se_requiere_conyuge_error'
+require_relative '../../app/errors/no_se_admite_hijos_error'
 
 describe 'Plan' do
   let(:nombre) do
@@ -42,7 +43,7 @@ describe 'Plan' do
   end
 
   let(:cantidad_hijos_maxima) do
-    3
+    0
   end
 
   let(:conyuge) do
@@ -163,5 +164,14 @@ describe 'Plan' do
                     conyuge: requiere_conyuge)
 
     expect { plan.validar_plan_con(20, 0, false) }.to raise_error(SeRequiereConyugeError)
+  end
+
+  it 'deberia poder devolver error por tener hijos cuando el plan no admite hijos' do
+    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+                    conyuge: conyuge)
+
+    expect { plan.validar_plan_con(20, 1, false) }.to raise_error(NoSeAdmiteHijosError)
   end
 end
