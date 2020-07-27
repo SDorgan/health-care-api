@@ -356,12 +356,13 @@ describe 'Resumen' do
       expect(resumen.items.length).to eq 0
     end
 
-    it 'resumen tiene item de visita' do
+    it 'resumen tiene item de visita' do # rubocop:disable RSpec/ExampleLength
       resumen = Resumen.new(@afiliado_premium, @repo_planes, @repo_visitas, @repo_compras)
       resumen.generar
       items = resumen.items
       expect(items.length).to eq 1
       expect(items[0].concepto.include?(@prestacion.nombre)).to eq true
+      expect(items[0].concepto.include?(@centro.nombre)).to eq true
     end
 
     it 'resumen tiene item de medicamentos' do
