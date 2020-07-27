@@ -33,6 +33,10 @@ describe 'Plan' do
     15
   end
 
+  let(:edad_maxima) do
+    100
+  end
+
   it 'deberia poder devolver el nombre con el que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
@@ -73,5 +77,13 @@ describe 'Plan' do
                     cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
 
     expect(plan.edad_minima).to eql edad_minima
+  end
+
+  it 'deberia poder devolver la edad maxima con la que fue creado' do
+    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+                    edad_maxima: edad_maxima)
+
+    expect(plan.edad_maxima).to eql edad_maxima
   end
 end

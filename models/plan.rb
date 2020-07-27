@@ -1,6 +1,7 @@
 class Plan
   attr_accessor :id, :nombre, :costo,
-                :cobertura_visitas, :cobertura_medicamentos, :edad_minima
+                :cobertura_visitas, :cobertura_medicamentos, :edad_minima,
+                :edad_maxima
 
   def initialize(data = {})
     @nombre = data[:nombre]
@@ -8,5 +9,6 @@ class Plan
     @cobertura_visitas = data[:cobertura_visitas]
     @cobertura_medicamentos = data[:cobertura_medicamentos]
     @edad_minima = data[:edad_minima]
+    @edad_maxima = data[:edad_maxima]
   end
 end
