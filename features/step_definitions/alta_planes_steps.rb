@@ -113,3 +113,17 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, admite cony
     'conyuge' => conyuge
   }
 end
+
+Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, requiere conyuge {string}') do |edad_minima, edad_maxima, cantidad_hijos_maxima, _conyuge| # rubocop:disable  Metrics/LineLength
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
+    'copago' => @request['copago'],
+    'cobertura_medicamentos' => @request['cobertura'],
+    'edad_minima' => edad_minima,
+    'edad_maxima' => edad_maxima,
+    'cantidad_hijos_maxima' => cantidad_hijos_maxima,
+    'conyuge' => 'REQUIERE_CONYUGE'
+  }
+end

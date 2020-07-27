@@ -77,7 +77,7 @@ Característica: CRUD Planes
         Y restricciones edad min 15, edad max 99, hijos max 6, admite conyuge "si"
         Cuando se registra el plan
         Entonces se registra exitosamente
-  @wip
+  
   @mvp
     Escenario: APLA4 - Alta exitosa de plan pareja
         Dado el plan con nombre "PlanPareja" con costo unitario $1700
