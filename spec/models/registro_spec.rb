@@ -1,5 +1,6 @@
 require 'spec_helper'
 require_relative '../../app/errors/plan_inexistente_error'
+require_relative '../../app/errors/edad_maxima_supera_limite_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do
@@ -33,5 +34,13 @@ describe 'Registro' do
                                    id_telegram: 'fake_id', edad: 20,
                                    cantidad_hijos: 0, conyuge: false)
     end.to raise_error(PlanInexistenteError)
+  end
+
+  it 'deberia poder devolver error limite edad cuando supera el limite' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'Neo',
+                                   id_telegram: 'fake_id', edad: 60,
+                                   cantidad_hijos: 0, conyuge: false)
+    end.to raise_error(EdadMaximaSuperaLimiteError)
   end
 end

@@ -37,8 +37,9 @@ class Plan
   end
 
   def validar_plan_con(edad, _cantidad_hijos, _conyuge)
-    raise EdadMaximaSuperaLimiteError if edad > @edad_maxima
-
+    unless @edad_maxima.nil?
+      raise EdadMaximaSuperaLimiteError if edad > @edad_maxima
+    end
     true
   end
 end
