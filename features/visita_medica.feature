@@ -25,7 +25,6 @@ Característica: Registrar visita médica
     Entonces se registra la prestación con un identificador único
 
   @mvp
-  @wip
   Escenario: REGAM2 - Registro fallido por usuario no afiliado
     Dado el usuario "Tirion" que no esta afiliado
     Cuando se atiende por "Traumatologia" en el centro "Enfermeria del Castillo Negro"
