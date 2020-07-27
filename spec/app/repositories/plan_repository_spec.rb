@@ -8,7 +8,7 @@ describe 'PlanRepository' do
                      costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                     edad_minima: 0)
+                     edad_minima: 15)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -83,5 +83,17 @@ describe 'PlanRepository' do
     saved_plan = @repo.find(@plan.id)
 
     expect(saved_plan.cobertura_medicamentos.porcentaje).to eql @plan.cobertura_medicamentos.porcentaje # rubocop:disable Metrics/LineLength
+  end
+
+  it 'deberia devolver la edad minima del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.edad_minima).to eql @plan.edad_minima
+  end
+
+  xit 'deberia devolver la edad maxima del plan guardado' do
+    saved_plan = @repo.find(@plan.id)
+
+    expect(saved_plan.edad_maxima).to eql @plan.edad_maxima
   end
 end

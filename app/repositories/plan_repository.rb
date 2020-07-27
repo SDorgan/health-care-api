@@ -28,7 +28,7 @@ class PlanRepository < BaseRepository
     plan = Plan.new(nombre: a_record[:name], costo: a_record[:cost],
                     cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
-                    edad_minima: 0)
+                    edad_minima: a_record[:minimum_age])
 
     plan.id = a_record[:id]
 
@@ -41,7 +41,8 @@ class PlanRepository < BaseRepository
       cost: plan.costo,
       visit_limit: plan.cobertura_visitas.cantidad,
       copay: plan.cobertura_visitas.copago,
-      medicine_coverage: plan.cobertura_medicamentos.porcentaje
+      medicine_coverage: plan.cobertura_medicamentos.porcentaje,
+      minimum_age: plan.edad_minima
     }
   end
 end
