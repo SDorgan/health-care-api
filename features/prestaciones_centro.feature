@@ -14,5 +14,5 @@ Característica: Prestaciones para un Centro
 
   Escenario: ACENPRES1 - Alta exitosa traumatología para Hospital Alemán
     Dado el centro llamado "Hospital Alemán"
-    Cuando se le agrega la prestación "Traumatología" al "Hospital Alemán"
+    Cuando se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
     Entonces se actualiza el centro exitosamente
