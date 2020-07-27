@@ -37,7 +37,6 @@ Característica: Registrar visita médica
     Entonces obtiene un error por prestación no existente
 
   @mvp
-  @wip
   Escenario: REGAM4 - Registro fallido por centro no existente
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Cuando se atiende por "Traumatologia" en el centro "Enfermeria de La Roca"
