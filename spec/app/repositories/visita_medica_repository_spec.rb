@@ -17,10 +17,17 @@ describe 'VisitaMedicaRepository' do
     prestacion
   end
 
+  let(:centro) do
+    centro = Centro.new('Hospital')
+
+    centro
+  end
+
   before(:each) do
     @plan = PlanRepository.new.save(plan)
 
     @prestacion = PrestacionRepository.new.save(prestacion)
+    @centro = CentroRepository.new.save(centro)
 
     @afiliado = Afiliado.new('Juan Perez', @plan.id)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
@@ -39,11 +46,12 @@ describe 'VisitaMedicaRepository' do
     expect(@visita_medica.created_on.nil?).to be false
   end
 
-  it 'deberia poder obtener la visita que se guardo' do
+  xit 'deberia poder obtener la visita que se guardo' do
     visita_medica_saved = @repo.find(@visita_medica.id)
 
     expect(visita_medica_saved.afiliado_id).to eq @afiliado.id
     expect(visita_medica_saved.prestacion.id).to eq @prestacion.id
+    expect(visita_medica_saved.centro.id).to eq @centro.id
   end
 
   it 'deberia poder obtener las visitas correspondientes a un afiliado' do
