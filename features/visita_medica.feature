@@ -41,7 +41,7 @@ Característica: Registrar visita médica
   Escenario: REGAM4 - Registro fallido por centro no existente
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Cuando se atiende por "Traumatologia" en el centro "Enfermeria de La Roca"
-    Entonces obtiene un error por centro no existen
+    Entonces obtiene un error por centro no existente
 
   @mvp
   @wip

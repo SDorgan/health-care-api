@@ -27,7 +27,7 @@ Entonces('obtiene un error por prestación no existente') do
   expect(@response.body).to eq 'La prestación pedida no existe'
 end
 
-Entonces('obtiene un error por centro no existen') do
+Entonces('obtiene un error por centro no existente') do
   response_status = @response.status
 
   expect(response_status).to eq 404
