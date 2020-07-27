@@ -1,3 +1,10 @@
+require_relative '../app/errors/edad_maxima_supera_limite_error'
+require_relative '../app/errors/edad_minima_no_alcanza_limite_error'
+require_relative '../app/errors/no_se_admite_conyuge_error'
+require_relative '../app/errors/se_requiere_conyuge_error'
+require_relative '../app/errors/no_se_admite_hijos_error'
+require_relative '../app/errors/plan_inexistente_error'
+
 class Plan
   NO_ADMITE_CONYUGE = 'NO_ADMITE_CONYUGE'.freeze
   ADMITE_CONYUGE = 'ADMITE_CONYUGE'.freeze

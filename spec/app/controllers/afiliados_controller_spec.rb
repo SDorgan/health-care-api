@@ -64,4 +64,9 @@ describe 'AfiliadosController' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliar', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
     expect(last_response.status).to be 400
   end
+
+  it 'deberia devolver error por tener hijos cuando el plan no admite hijos' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 1, 'edad': 18, 'conyuge': false }.to_json
+    expect(last_response.status).to be 400
+  end
 end
