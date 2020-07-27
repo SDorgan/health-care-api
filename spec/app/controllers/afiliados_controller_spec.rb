@@ -37,4 +37,9 @@ describe 'AfiliadosController' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 60, 'conyuge': false }.to_json
     expect(last_response.status).to be 400
   end
+
+  it 'deberia devolver error por no alcanzar minimo de edad' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 0, 'conyuge': false }.to_json
+    expect(last_response.status).to be 400
+  end
 end
