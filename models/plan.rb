@@ -4,6 +4,7 @@ require_relative '../app/errors/no_se_admite_conyuge_error'
 require_relative '../app/errors/se_requiere_conyuge_error'
 require_relative '../app/errors/no_se_admite_hijos_error'
 require_relative '../app/errors/plan_inexistente_error'
+require_relative '../app/errors/se_requiere_hijos_error'
 
 class Plan
   NO_ADMITE_CONYUGE = 'NO_ADMITE_CONYUGE'.freeze
@@ -68,5 +69,6 @@ class Plan
 
   def validar_hijos(cantidad_hijos)
     raise NoSeAdmiteHijosError if @cantidad_hijos_maxima.zero? && cantidad_hijos.positive?
+    raise SeRequiereHijosError if @cantidad_hijos_maxima.positive? && cantidad_hijos.zero?
   end
 end
