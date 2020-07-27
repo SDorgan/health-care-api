@@ -40,7 +40,7 @@ Característica: CRUD Alifiados
         Dado el afiliado "hansolo" de 19 años, conyuge "si", hijos 0
         Cuando se registra al plan "PlanJuventud"
         Entonces obtiene un mensaje de error por tener conyuge
-    @wip
+    
     @mvp
     Escenario: RA4 - Registracion fallida por tener hijos
         Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 1
