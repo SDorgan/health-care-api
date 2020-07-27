@@ -56,7 +56,7 @@ describe 'CentroRepository' do
     expect(centro.prestaciones.first.id).to eq @prestacion.id
   end
 
-  xit 'debería devolver error si no existe el centro' do
+  it 'debería devolver error si no existe el centro' do
     fake_id = 999_999
     expect { @repo.find(fake_id) }.to raise_error
   end
