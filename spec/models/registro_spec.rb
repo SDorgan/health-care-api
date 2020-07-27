@@ -2,6 +2,7 @@ require 'spec_helper'
 require_relative '../../app/errors/plan_inexistente_error'
 require_relative '../../app/errors/edad_maxima_supera_limite_error'
 require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
+require_relative '../../app/errors/no_se_admite_conyuge_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do
@@ -17,7 +18,7 @@ describe 'Registro' do
                      costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(0, 0),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                     edad_minima: 10, edad_maxima: 40, conyuge: Plan.admite_conyuge)
+                     edad_minima: 10, edad_maxima: 40, conyuge: Plan.no_admite_conyuge)
     @plan = plan_repository.save(@plan)
     @registro = Registro.new(afiliado_repository, plan_repository)
   end
@@ -51,5 +52,13 @@ describe 'Registro' do
                                    id_telegram: 'fake_id', edad: 8,
                                    cantidad_hijos: 0, conyuge: false)
     end.to raise_error(EdadMinimaNoAlcanzaLimiteError)
+  end
+
+  it 'deberia poder devolver error por tener conyuge cuando el plan no lo admite' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'Neo',
+                                   id_telegram: 'fake_id', edad: 18,
+                                   cantidad_hijos: 0, conyuge: true)
+    end.to raise_error(NoSeAdmiteConyugeError)
   end
 end
