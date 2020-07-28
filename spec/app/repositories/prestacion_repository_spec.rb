@@ -55,7 +55,7 @@ describe 'PrestacionRepository' do
     expect { @repo.find_by_name(fake_id) }.to raise_error
   end
 
-  xit 'debería devolver los centros de la prestacion' do
+  it 'debería devolver los centros de la prestacion' do
     prestacion = @repo.full_load(@prestacion.id)
     expect(prestacion.centros.length).to be 1
     expect(prestacion.centros.first.id).to eq @centro.id

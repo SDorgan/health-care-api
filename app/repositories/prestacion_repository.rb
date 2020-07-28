@@ -18,6 +18,13 @@ class PrestacionRepository < BaseRepository
     super(id_)
   end
 
+  def full_load(id)
+    prestacion = find(id)
+    prestacion.centros = CentroRepository.new.find_by_prestacion(id)
+
+    prestacion
+  end
+
   def find_by_name(nombre)
     raise PrestacionNotExistsError unless exists_prestacion_with_name(nombre)
 
@@ -44,7 +51,7 @@ class PrestacionRepository < BaseRepository
   end
 
   def dataset_with_centros
-    DB[@table_name].join(:prestaciones_de_centros, prestacion_id: :id)
+    DB[@table_name].join(@table_join_centros, prestacion_id: :id)
   end
 
   def dataset_prestaciones_de_centros
