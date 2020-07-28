@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'erb'
 
 describe 'CentrosController' do
   let(:centro_nombre) do
@@ -10,7 +11,7 @@ describe 'CentrosController' do
   end
 
   let(:prestacion) do
-    { 'nombre' => 'Traumatologia', 'costo' => 500 }
+    { 'nombre' => 'Traumatología', 'costo' => 500 }
   end
 
   it 'deberia devolver un JSON con centros como clave' do
@@ -35,7 +36,7 @@ describe 'CentrosController' do
   it 'deberia devolver un JSON con centros como clave al pedir centros de una prestacion' do
     post '/prestaciones', { 'nombre': prestacion['nombre'], 'costo': prestacion['costo'] }.to_json
 
-    get "/centros?prestacion=#{prestacion['nombre']}"
+    get "/centros?prestacion=#{ERB::Util.url_encode(prestacion['nombre'])}"
     last_response.body.include?('centros')
   end
 
@@ -49,7 +50,7 @@ describe 'CentrosController' do
 
     centro_repo.add_prestacion_to_centro(@centro, @prestacion.id)
 
-    get "/centros?prestacion=#{@prestacion.nombre}"
+    get "/centros?prestacion=#{ERB::Util.url_encode(@prestacion.nombre)}"
     response = JSON.parse(last_response.body)
 
     expect(response['centros'].length).to eq 1
