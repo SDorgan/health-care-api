@@ -38,7 +38,7 @@ describe 'AfiliadosController' do
     PlanRepository.new.save(plan_requiere_conyuge)
     PlanRepository.new.save(plan_requiere_hijos)
     @plan = PlanRepository.new.save(plan)
-    @afiliado = Afiliado.new('Juan', @plan.id)
+    @afiliado = Afiliado.new('Juan', @plan)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
   end
 

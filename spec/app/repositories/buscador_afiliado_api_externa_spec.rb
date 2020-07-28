@@ -11,7 +11,7 @@ describe 'BuscadorAfiliadoApiExterna' do
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
 
-    @afiliado = Afiliado.new('Juan', @plan.id)
+    @afiliado = Afiliado.new('Juan', @plan)
 
     @repo = AfiliadoRepository.new
     @afiliado = @repo.save(@afiliado)

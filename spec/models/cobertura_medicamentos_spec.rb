@@ -1,8 +1,19 @@
 require 'spec_helper'
 
 describe 'CoberturaMedicamentos' do
+  let(:plan) do
+    plan = Plan.new(nombre: 'PlanJuventud',
+                    costo: 100,
+                    cobertura_visitas: CoberturaVisita.new(0, 0),
+                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                    edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 0,
+                    conyuge: Plan::NO_ADMITE_CONYUGE)
+
+    plan
+  end
+
   let(:afiliado) do
-    Afiliado.new('Juan Perez', 1)
+    Afiliado.new('Juan Perez', plan)
   end
 
   let(:prestacion) do

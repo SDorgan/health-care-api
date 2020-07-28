@@ -35,7 +35,7 @@ describe 'App' do
                          'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
-    expect(afiliados.first.plan_id).to eql plan_id
+    expect(afiliados.first.plan.id).to eql plan_id
   end
 
   it 'deberia guardarse el afiliado con plan y id telegram' do
@@ -48,7 +48,7 @@ describe 'App' do
                          'id_telegram': id_telegram }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
-    expect(afiliados.first.plan_id).to eql plan_id
+    expect(afiliados.first.plan.id).to eql plan_id
     expect(afiliados.first.id_telegram).to eql id_telegram
   end
 

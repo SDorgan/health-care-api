@@ -9,7 +9,7 @@ describe 'AfiliadoRepository' do
                      edad_minima: 0)
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
-    @afiliado = Afiliado.new('Juan', @plan.id)
+    @afiliado = Afiliado.new('Juan', @plan)
     @repo = AfiliadoRepository.new
   end
 
@@ -21,7 +21,7 @@ describe 'AfiliadoRepository' do
     afiliado_obtenido = @repo.all
     expect(afiliado_obtenido.first.nombre).to eq @afiliado.nombre
     expect(afiliado_obtenido.first.id_telegram).to eq @afiliado.id_telegram
-    expect(afiliado_obtenido.first.plan_id).to eq @afiliado.plan_id
+    expect(afiliado_obtenido.first.plan.id).to eq @afiliado.plan.id
   end
 
   it 'deberia poder guardar afiliado sin id telegram' do

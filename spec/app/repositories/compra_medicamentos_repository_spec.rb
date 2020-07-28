@@ -14,7 +14,7 @@ describe 'CompraMedicamentosRepository' do
   before(:each) do
     @plan = PlanRepository.new.save(plan)
 
-    @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
 
     @monto_de_compra = 500
