@@ -1,9 +1,10 @@
+require 'erb'
 Dada('la prestación {string}') do |prestacion|
   @nombre_prestacion = prestacion
 end
 
 Cuando('realizo la consulta de centro médico') do
-  URL = "#{CENTROS_URL}?prestacion=#{@nombre_prestacion}".freeze
+  URL = "#{CENTROS_URL}?prestacion=#{ERB::Util.url_encode(@nombre_prestacion)}".freeze
   @response = Faraday.get(URL)
 end
 
