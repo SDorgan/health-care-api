@@ -11,7 +11,6 @@ Característica: CRUD Centros
     Entonces se registra exitosamente
 
   @mvp
-  @wip
   Escenario: ACEN1.2 - Alta exitosa de centro con coordenadas
     Dado el centro con nombre "Hospital Alemán"
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
