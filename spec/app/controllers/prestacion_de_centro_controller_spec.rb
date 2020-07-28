@@ -52,7 +52,7 @@ describe 'PrestacionDeCentroController' do
     last_response.body.include?('centros')
   end
 
-  xit 'deberia devolver los centros en los que se da una prestacion' do
+  it 'deberia devolver los centros en los que se da una prestacion' do
     post "/centros/#{@otro_centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
     get "/prestaciones/#{@prestacion.id}/centros"
     response = JSON.parse(last_response.body)
