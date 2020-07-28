@@ -25,6 +25,13 @@ class PrestacionRepository < BaseRepository
     prestacion
   end
 
+  def full_load_by_name(nombre)
+    prestacion = find_by_name(nombre)
+    prestacion.centros = CentroRepository.new.find_by_prestacion(prestacion.id)
+
+    prestacion
+  end
+
   def find_by_name(nombre)
     raise PrestacionNotExistsError unless exists_prestacion_with_name(nombre)
 

@@ -86,6 +86,12 @@ paths:
                 $ref: '#/definitions/Plan'
   /centros:
     get:
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          required: false
+          description: "Si se pasa, indica que se deben traer solo los centros de esa prestación"
       description: "Obtener todos los centros médicos disponibles"
       responses:
         200:
@@ -178,24 +184,6 @@ paths:
             properties:
               prestacion:
                 $ref: '#/definitions/Prestacion'
-
-  /prestaciones/{prestacion_id}/centros:
-    parameters:
-    - name: prestacion_id
-      in: path
-      type: string
-      description: "id de la Prestacion"
-      required: true
-    get:
-      description: "Obtener todos los centros donde se atiende la prestaciones"
-      responses:
-        200:
-          description: "Todos los centros"
-          schema:
-            properties:
-              prestaciones:
-                items:
-                  $ref: '#/definitions/Centro'
 
   /afiliados:
     get:

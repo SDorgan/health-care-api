@@ -1,13 +1,9 @@
 Dada('la prestación {string}') do |prestacion|
-  @prestacion_id = @prestaciones[prestacion]
-end
-
-Dada('la prestación {string} que no existe') do |_prestacion|
-  @prestacion_id = 9_999_999
+  @nombre_prestacion = prestacion
 end
 
 Cuando('realizo la consulta de centro médico') do
-  URL = "#{PRESTACIONES_URL}/#{@prestacion_id}/centros".freeze
+  URL = "#{CENTROS_URL}?prestacion=#{@nombre_prestacion}".freeze
   @response = Faraday.get(URL)
 end
 

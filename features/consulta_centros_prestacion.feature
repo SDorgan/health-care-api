@@ -6,13 +6,13 @@ Característica: Centros de Prestaciones
   Quiero poder pedir los centros que dan una cierta prestacion
 
     Antecedentes:
-        Dado el centro con nombre "Hospital Alemán"
+        Dado el centro con nombre "Hospital Aleman"
         Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
         Y se registra el centro
         Y la prestación con nombre "Traumatologia"
         Y costo unitario de prestación $1200
         Y se registra la prestación
-        Y se le agrega la prestación "Traumatologia" al centro "Hospital Alemán"
+        Y se le agrega la prestación "Traumatologia" al centro "Hospital Aleman"
         Y se actualiza el centro exitosamente
         Y la prestación con nombre "Odontologia"
         Y costo unitario de prestación $2000
@@ -22,7 +22,7 @@ Característica: Centros de Prestaciones
     Escenario: CCP1 - Consulta por centro que tiene traumatología, cuando existe uno
         Dada la prestación "Traumatologia"
         Cuando realizo la consulta de centro médico
-        Entonces obtengo "Hospital Alemán" como resultado
+        Entonces obtengo "Hospital Aleman" como resultado
 
     @mvp
     Escenario: CCP2 - Consulta por centro que tiene odontología con respuesta vacía
@@ -32,6 +32,6 @@ Característica: Centros de Prestaciones
 
     @mvp
     Escenario: CCP3 - Consulta por centro que tiene cirujía con error por prestación inexistente
-        Dada la prestación "Cirujía" que no existe
+        Dada la prestación "Cirujia"
         Cuando realizo la consulta de centro médico
         Entonces obtiene un error por prestación no existente
