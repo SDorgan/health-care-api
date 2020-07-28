@@ -73,7 +73,7 @@ describe 'CentrosController' do
     expect(last_response.body).to eq 'La prestación pedida no existe'
   end
 
-  xit 'si no se pasan las coordenadas, devuelve error' do
+  it 'si no se pasan las coordenadas, devuelve error' do
     post '/centros', { 'nombre': centro_nombre }.to_json
 
     expect(last_response.status).to be 400
