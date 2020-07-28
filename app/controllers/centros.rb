@@ -27,7 +27,7 @@ HealthAPI::App.controllers :centros do
     status 201
 
     CentroResponseBuilder.create_from(centro)
-  rescue CoordenadasInvalidasError => e
+  rescue CoordenadasInvalidasError, CentroYaExistenteError => e
     status 400
     body e.message
   end
