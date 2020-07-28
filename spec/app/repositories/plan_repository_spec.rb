@@ -1,5 +1,6 @@
 require 'integration_spec_helper'
-require_relative '../../../app/errors/plan_inexistente_error'
+
+require_relative '../../../models/errors/plan_inexistente_error'
 
 describe 'PlanRepository' do
   before(:each) do
@@ -10,7 +11,7 @@ describe 'PlanRepository' do
                      cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
                      edad_minima: 15, edad_maxima: 60, cantidad_hijos_maxima: 3,
-                     conyuge: Plan.admite_conyuge)
+                     conyuge: Plan::ADMITE_CONYUGE)
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)

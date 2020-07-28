@@ -7,7 +7,7 @@ describe 'AfiliadosController' do
                     cobertura_visitas: CoberturaVisita.new(0, 0),
                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
                     edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 0,
-                    conyuge: Plan.no_admite_conyuge)
+                    conyuge: Plan::NO_ADMITE_CONYUGE)
 
     plan
   end
@@ -18,7 +18,7 @@ describe 'AfiliadosController' do
                                      cobertura_visitas: CoberturaVisita.new(0, 0),
                                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
                                      edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 0,
-                                     conyuge: Plan.requiere_conyuge)
+                                     conyuge: Plan::REQUIERE_CONYUGE)
 
     plan_requiere_conyuge
   end
@@ -29,7 +29,7 @@ describe 'AfiliadosController' do
                                    cobertura_visitas: CoberturaVisita.new(0, 0),
                                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
                                    edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 2,
-                                   conyuge: Plan.requiere_conyuge)
+                                   conyuge: Plan::REQUIERE_CONYUGE)
 
     plan_requiere_hijos
   end
