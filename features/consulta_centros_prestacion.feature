@@ -31,7 +31,6 @@ Característica: Centros de Prestaciones
         Entonces se obtiene una respuesta vacía
 
     @mvp
-    @wip
     Escenario: CCP3 - Consulta por centro que tiene cirujía con error por prestación inexistente
         Dada la prestación "Cirujía" que no existe
         Cuando realizo la consulta de centro médico
