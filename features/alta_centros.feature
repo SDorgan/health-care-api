@@ -19,13 +19,13 @@ Característica: CRUD Centros
     Entonces se obtiene un mensaje de error por falta de coordenadas
 
   @mvp
-  @wip
   Escenario: ACEN3 - Alta fallida por centro ya existente
     Dado el centro con nombre "Hospital Alemán"
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
     Y se registra el centro
     Cuando el centro con nombre "Hospital Alemán"
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
+    Y se registra el centro
     Entonces se obtiene un mensaje de error centro ya existente
 
   @mvp
