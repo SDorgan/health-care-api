@@ -47,7 +47,7 @@ describe 'PrestacionDeCentroController' do
     last_response.body.include?('ok')
   end
 
-  xit 'deberia devolver un JSON con centros como clave al pedir centros de una prestacion' do
+  it 'deberia devolver un JSON con centros como clave al pedir centros de una prestacion' do
     get "/prestaciones/#{@prestacion.id}/centros"
     last_response.body.include?('centros')
   end
