@@ -25,7 +25,6 @@ Característica: Centros de Prestaciones
         Entonces obtengo "Hospital Alemán" como resultado
 
     @mvp
-    @wip
     Escenario: CCP2 - Consulta por centro que tiene odontología con respuesta vacía
         Dada la prestación "Odontologia"
         Cuando realizo la consulta de centro médico
