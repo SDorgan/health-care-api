@@ -11,7 +11,7 @@ describe 'BuscadorAfiliadoTelegram' do
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
 
-    @afiliado = Afiliado.new('Juan', @plan.id)
+    @afiliado = Afiliado.new('Juan', @plan)
     @afiliado.id_telegram = '1'
 
     @repo = AfiliadoRepository.new

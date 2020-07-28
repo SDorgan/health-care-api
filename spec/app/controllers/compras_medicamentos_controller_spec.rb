@@ -14,7 +14,7 @@ describe 'ComprasMedicamentosController' do
   before(:each) do
     @plan = PlanRepository.new.save(plan)
 
-    @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
   end
 

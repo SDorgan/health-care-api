@@ -17,7 +17,7 @@ describe 'DiagnosticoCovidController' do
     plan_repo = PlanRepository.new
     @plan = plan_repo.save(plan)
 
-    afiliado = Afiliado.new('Juan', @plan.id)
+    afiliado = Afiliado.new('Juan', @plan)
     afiliado.id_telegram = fake_id_telegram
     afiliado_repo = AfiliadoRepository.new
     @afiliado = afiliado_repo.save(afiliado)

@@ -29,7 +29,7 @@ describe 'ResumenController' do
     @prestacion = PrestacionRepository.new.save(prestacion)
     @centro = CentroRepository.new.save(centro)
 
-    @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado.id_telegram = '1'
 
     @afiliado = AfiliadoRepository.new.save(@afiliado)

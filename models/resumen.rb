@@ -1,16 +1,15 @@
 class Resumen
   attr_accessor :afiliado, :plan, :items
 
-  def initialize(afiliado, repo_planes, repo_visitas, repo_medicamentos)
+  def initialize(afiliado, repo_visitas, repo_medicamentos)
     @afiliado = afiliado
-    @repo_planes = repo_planes
     @repo_visitas = repo_visitas
     @repo_medicamentos = repo_medicamentos
     @items = []
   end
 
   def generar
-    @plan = @repo_planes.find(@afiliado.plan_id)
+    @plan = @afiliado.plan
 
     @visitas = @repo_visitas.find_by_afiliado(@afiliado.id)
     @compras_medicamentos = @repo_medicamentos.find_by_afiliado(@afiliado.id)

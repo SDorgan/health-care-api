@@ -20,7 +20,7 @@ class Registro
                      data[:conyuge],
                      plan)
 
-    afiliado = Afiliado.new(data[:nombre_afiliado], plan.id)
+    afiliado = Afiliado.new(data[:nombre_afiliado], plan)
     afiliado.id_telegram = data[:id_telegram] unless data[:id_telegram].nil?
 
     @repo_afiliados.save(afiliado)
