@@ -5,7 +5,7 @@ class CentroRepository < BaseRepository
   end
 
   def save(centro)
-    if centro.valid?
+    if validate(centro)
       id = insert(centro)
       centro.id = id
       centro
@@ -67,14 +67,29 @@ class CentroRepository < BaseRepository
 
   def load_object(a_record)
     centro = Centro.new(a_record[:name], a_record[:latitude], a_record[:longitude])
+    centro.slug = a_record[:slug]
     centro.id = a_record[:centro_id] ||= a_record[:id]
 
     centro
   end
 
+  def find_by_slug(slug)
+    load_object(dataset.first!(slug: slug))
+  rescue Sequel::NoMatchingRow
+    nil
+  end
+
+  def validate(centro)
+    existing = find_by_slug(centro.slug)
+    raise CentroYaExistenteError unless existing.nil? || existing.id == centro.id
+
+    centro.valid?
+  end
+
   def changeset(centro)
     {
       name: centro.nombre,
+      slug: centro.slug,
       longitude: centro.longitud,
       latitude: centro.latitud
     }

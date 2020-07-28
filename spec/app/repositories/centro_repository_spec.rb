@@ -80,8 +80,8 @@ describe 'CentroRepository' do
     expect { @repo.save(centro_error) }.to raise_error
   end
 
-  xit 'debería devolver error si se intenta cargar un hospital con nombre repetido' do
-    centro_error = Centro.new(@centro.name, @centro.latitud + 1, @centro.longitud + 1)
+  it 'debería devolver error si se intenta cargar un hospital con nombre repetido' do
+    centro_error = Centro.new(@centro.nombre, @centro.latitud + 1, @centro.longitud + 1)
 
     expect { @repo.save(centro_error) }.to raise_error
   end
