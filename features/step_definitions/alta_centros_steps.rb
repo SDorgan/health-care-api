@@ -30,5 +30,6 @@ Entonces('se obtiene un mensaje de error por falta de coordenadas') do
 end
 
 Entonces('se obtiene un mensaje de error centro ya existente') do
-  pending # Write code here that turns the phrase above into concrete actions
+  expect(@response.status).to eq 400
+  expect(@response.body).to eq 'El centro ingresado ya existe'
 end
