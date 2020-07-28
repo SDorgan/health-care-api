@@ -19,7 +19,6 @@ Característica: Centros de Prestaciones
         Y se registra la prestación
 
     @mvp
-    @wip
     Escenario: CCP1 - Consulta por centro que tiene traumatología, cuando existe uno
         Dada la prestación "Traumatologia"
         Cuando realizo la consulta de centro médico

@@ -1,15 +1,24 @@
-Dada('la prestación {string}') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Dada('la prestación {string}') do |prestacion|
+  @prestacion_id = @prestaciones[prestacion]
 end
 
 Cuando('realizo la consulta de centro médico') do
-  pending # Write code here that turns the phrase above into concrete actions
+  URL = "#{PRESTACIONES_URL}/#{@prestacion_id}/centros".freeze
+  @response = Faraday.get(URL)
 end
 
-Entonces('obtengo {string} como resultado') do |_string|
-  pending # Write code here that turns the phrase above into concrete actions
+Entonces('obtengo {string} como resultado') do |nombre_centro|
+  json_response = JSON.parse(@response.body)
+  centros = json_response['centros']
+
+  nombres = centros.map { |centro| centro['nombre'] }
+
+  expect(nombres.include?(nombre_centro)).to eq true
 end
 
 Entonces('se obtiene una respuesta vacía') do
-  pending # Write code here that turns the phrase above into concrete actions
+  json_response = JSON.parse(@response.body)
+  centros = json_response['centros']
+
+  expect(centros.empty?).to eq true
 end
