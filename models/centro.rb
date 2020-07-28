@@ -1,7 +1,13 @@
 class Centro
-  attr_accessor :id, :nombre, :prestaciones
+  include ActiveModel::Validations
 
-  def initialize(nombre)
+  attr_accessor :id, :nombre, :latitud, :longitud, :prestaciones
+
+  validates :latitud, :longitud, presence: true
+
+  def initialize(nombre, latitud = nil, longitud = nil)
     @nombre = nombre
+    @latitud = latitud
+    @longitud = longitud
   end
 end

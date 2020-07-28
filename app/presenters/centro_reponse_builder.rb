@@ -3,7 +3,9 @@ class CentroResponseBuilder
     {
       'centro': {
         'id': centro.id,
-        'nombre': centro.nombre
+        'nombre': centro.nombre,
+        'latitud': centro.latitud,
+        'longitud': centro.longitud
       }
     }.to_json
   end
@@ -14,7 +16,9 @@ class CentroResponseBuilder
     centros.each do |centro|
       output[:centros] << {
         'id': centro.id,
-        'nombre': centro.nombre
+        'nombre': centro.nombre,
+        'latitud': centro.latitud,
+        'longitud': centro.longitud
       }
     end
 

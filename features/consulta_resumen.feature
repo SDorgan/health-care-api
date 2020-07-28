@@ -7,6 +7,7 @@ Característica: Consulta resumen
 
   Antecedentes:
     Dado el centro con nombre "Enfermeria del Castillo Negro"
+    Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
     Y se registra el centro
     Y la prestación con nombre "Traumatologia"
     Y costo unitario de prestación $1000

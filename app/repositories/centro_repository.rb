@@ -5,11 +5,15 @@ class CentroRepository < BaseRepository
   end
 
   def save(centro)
-    id = insert(centro)
+    if centro.valid?
+      id = insert(centro)
+      centro.id = id
+      centro
 
-    centro.id = id
-
-    centro
+    else
+      cause = centro.errors.keys[0]
+      raise CoordenadasInvalidasError if %i[longitud latitud].include? cause
+    end
   end
 
   def add_prestacion_to_centro(centro, prestacion_id)
@@ -62,7 +66,7 @@ class CentroRepository < BaseRepository
   end
 
   def load_object(a_record)
-    centro = Centro.new(a_record[:name])
+    centro = Centro.new(a_record[:name], a_record[:latitude], a_record[:longitude])
     centro.id = a_record[:centro_id] ||= a_record[:id]
 
     centro
@@ -70,7 +74,9 @@ class CentroRepository < BaseRepository
 
   def changeset(centro)
     {
-      name: centro.nombre
+      name: centro.nombre,
+      longitude: centro.longitud,
+      latitude: centro.latitud
     }
   end
 end

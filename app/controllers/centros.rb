@@ -1,4 +1,5 @@
 require_relative '../errors/prestacion_not_exists_error'
+require_relative '../errors/coordenadas_invalidas_error'
 HealthAPI::App.controllers :centros do
   get :index do
     param_prestacion = request.params['prestacion']
@@ -18,12 +19,15 @@ HealthAPI::App.controllers :centros do
   post :index do
     params = JSON.parse(request.body.read)
 
-    centro = Centro.new(params['nombre'])
+    centro = Centro.new(params['nombre'], params['latitud'], params['longitud'])
 
     centro = CentroRepository.new.save(centro)
 
     status 201
 
     CentroResponseBuilder.create_from(centro)
+  rescue CoordenadasInvalidasError => e
+    status 400
+    body e.message
   end
 end

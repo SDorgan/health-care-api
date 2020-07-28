@@ -19,7 +19,7 @@ describe 'ResumenController' do
   end
 
   let(:centro) do
-    centro = Centro.new('Hospital Suizo')
+    centro = Centro.new('Hospital Suizo', 10.0, 12.0)
 
     centro
   end

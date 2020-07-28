@@ -44,7 +44,7 @@ describe 'Resumen' do
     @afiliado_cobertura_y_medicamentos = Afiliado.new('Mariana Flores', @plan_con_cobertura_y_medicamentos.id) # rubocop:disable Metrics/LineLength
     @afiliado_cobertura_y_medicamentos.id = 6
 
-    @centro = Centro.new('Hospital')
+    @centro = Centro.new('Hospital', 10.0, 12.0)
 
     @prestacion = Prestacion.new('Traumatologia', 10)
     @otra_prestacion = Prestacion.new('Odontología', 20)
