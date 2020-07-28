@@ -86,4 +86,9 @@ describe 'AfiliadosController' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': true }.to_json
     expect(last_response.status).to be 400
   end
+
+  it 'deberia devolver error por superar cantidad de hijos del plan' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos', 'id_telegram': '10', 'cantidad_hijos': 3, 'edad': 18, 'conyuge': true }.to_json
+    expect(last_response.status).to be 400
+  end
 end

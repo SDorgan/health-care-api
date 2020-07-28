@@ -11,6 +11,11 @@ Característica: CRUD Alifiados
         Y cobertura de visitas con copago $0 y con límite 2
         Y cobertura de medicamentos 20%
         Y se registra el plan
+        Y el plan con nombre "PlanFamiliar" con costo unitario $500
+        Y restricciones edad min 15, edad max 20, hijos max 2, admite conyuge "si"
+        Y cobertura de visitas con copago $0 y con límite 2
+        Y cobertura de medicamentos 20%
+        Y se registra el plan
     
     @mvp
     Escenario: RA1 - Registracion exitosa
@@ -46,4 +51,8 @@ Característica: CRUD Alifiados
         Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 1
         Cuando se registra al plan "PlanJuventud"
         Entonces obtiene un mensaje de error por tener hijos
-
+        
+    Escenario: RA5 - Registracion fallida por tener mas el maximo de hijos
+        Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 3
+        Cuando se registra al plan "PlanFamiliar"
+        Entonces obtiene un mensaje de error por superar la cantidad de hijos maxima

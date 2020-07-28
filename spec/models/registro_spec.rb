@@ -6,6 +6,7 @@ require_relative '../../app/errors/no_se_admite_conyuge_error'
 require_relative '../../app/errors/se_requiere_conyuge_error'
 require_relative '../../app/errors/no_se_admite_hijos_error'
 require_relative '../../app/errors/se_requiere_hijos_error'
+require_relative '../../app/errors/supera_limite_de_hijos_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do
@@ -102,5 +103,13 @@ describe 'Registro' do
                                    id_telegram: 'fake_id', edad: 18,
                                    cantidad_hijos: 0, conyuge: true)
     end.to raise_error(SeRequiereHijosError)
+  end
+
+  it 'deberia poder devolver error superar la cantidad maxima de hijos del plan' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'PlanFamiliarConHijos',
+                                   id_telegram: 'fake_id', edad: 18,
+                                   cantidad_hijos: 3, conyuge: true)
+    end.to raise_error(SuperaLimiteDeHijosError)
   end
 end
