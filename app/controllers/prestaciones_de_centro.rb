@@ -18,3 +18,11 @@ HealthAPI::App.controllers :prestaciones, parent: :centros do
     'ok'
   end
 end
+
+HealthAPI::App.controllers :centros, parent: :prestaciones do
+  get :index do
+    prestacion = PrestacionRepository.new.full_load(params[:prestacione_id])
+
+    CentroResponseBuilder.create_from_all(prestacion.centros)
+  end
+end

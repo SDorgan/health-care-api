@@ -34,6 +34,10 @@ class CentroRepository < BaseRepository
     centro
   end
 
+  def find_by_prestacion(prestacion_id)
+    load_collection dataset_with_prestaciones.where(prestacion_id: prestacion_id)
+  end
+
   def delete_all
     dataset_prestaciones_de_centros.delete
     dataset.delete
@@ -59,7 +63,7 @@ class CentroRepository < BaseRepository
 
   def load_object(a_record)
     centro = Centro.new(a_record[:name])
-    centro.id = a_record[:id]
+    centro.id = a_record[:centro_id] ||= a_record[:id]
 
     centro
   end
