@@ -60,7 +60,7 @@ describe 'PrestacionDeCentroController' do
     expect(response['centros'].length).to eq 2
   end
 
-  xit 'deberia devolver error si la prestacion no existe' do
+  it 'deberia devolver error si la prestacion no existe' do
     get "/prestaciones/#{@prestacion.id + @otra_prestacion.id + 1}/centros"
 
     expect(last_response.status).to be 404

@@ -1,3 +1,4 @@
+require_relative '../errors/prestacion_not_exists_error'
 HealthAPI::App.controllers :prestaciones, parent: :centros do
   get :index do
     centro = CentroRepository.new.full_load(params[:centro_id])
@@ -24,5 +25,9 @@ HealthAPI::App.controllers :centros, parent: :prestaciones do
     prestacion = PrestacionRepository.new.full_load(params[:prestacione_id])
 
     CentroResponseBuilder.create_from_all(prestacion.centros)
+
+  rescue PrestacionNotExistsError => e
+    status 404
+    body e.message
   end
 end
