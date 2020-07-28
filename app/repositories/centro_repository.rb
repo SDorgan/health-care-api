@@ -70,7 +70,9 @@ class CentroRepository < BaseRepository
 
   def changeset(centro)
     {
-      name: centro.nombre
+      name: centro.nombre,
+      longitude: centro.longitud,
+      latitude: centro.latitud
     }
   end
 end

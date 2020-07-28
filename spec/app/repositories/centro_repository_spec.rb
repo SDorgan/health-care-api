@@ -14,7 +14,7 @@ describe 'CentroRepository' do
   end
 
   before(:each) do
-    @centro = Centro.new('Hospital Italiano')
+    @centro = Centro.new('Hospital Italiano', latitud, longitud)
     @repo = CentroRepository.new
     @centro = @repo.save(@centro)
 
@@ -29,9 +29,9 @@ describe 'CentroRepository' do
     expect(@centro.id).to be_positive
   end
 
-  xit 'deberia devolver las coordenadas del centro' do
-    expect(@prestacion.latitud).to be latitud
-    expect(@prestacion.longitud).to be longitud
+  it 'deberia devolver las coordenadas del centro' do
+    expect(@centro.latitud).to be latitud
+    expect(@centro.longitud).to be longitud
   end
 
   it 'deberia encontrar el centro luego de haberse guardado' do
