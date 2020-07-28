@@ -62,7 +62,7 @@ class CentroRepository < BaseRepository
   end
 
   def load_object(a_record)
-    centro = Centro.new(a_record[:name])
+    centro = Centro.new(a_record[:name], a_record[:latitude], a_record[:longitude])
     centro.id = a_record[:centro_id] ||= a_record[:id]
 
     centro

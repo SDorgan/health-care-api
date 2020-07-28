@@ -27,7 +27,7 @@ describe 'CentrosController' do
     last_response.body.include?('centros')
   end
 
-  xit 'deberia devolver un JSON con el centro cargado' do # rubocop:disable RSpec/ExampleLength,  RSpec/MultipleExpectations, Metrics/LineLength
+  it 'deberia devolver un JSON con el centro cargado' do # rubocop:disable RSpec/ExampleLength,  RSpec/MultipleExpectations, Metrics/LineLength
     post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
     get '/centros'
     response = JSON.parse(last_response.body)

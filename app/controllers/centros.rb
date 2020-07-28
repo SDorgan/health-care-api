@@ -18,7 +18,7 @@ HealthAPI::App.controllers :centros do
   post :index do
     params = JSON.parse(request.body.read)
 
-    centro = Centro.new(params['nombre'])
+    centro = Centro.new(params['nombre'], params['latitud'], params['longitud'])
 
     centro = CentroRepository.new.save(centro)
 
