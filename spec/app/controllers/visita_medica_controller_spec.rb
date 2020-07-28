@@ -18,7 +18,7 @@ describe 'VisitaMedicaController' do
   end
 
   let(:centro) do
-    centro = Centro.new('Hospital Alemán')
+    centro = Centro.new('Hospital Alemán', 10.0, 12.0)
 
     centro
   end

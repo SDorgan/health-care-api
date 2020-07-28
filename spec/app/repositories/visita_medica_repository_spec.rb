@@ -18,7 +18,7 @@ describe 'VisitaMedicaRepository' do
   end
 
   let(:centro) do
-    centro = Centro.new('Hospital')
+    centro = Centro.new('Hospital', 10.0, 12.0)
 
     centro
   end

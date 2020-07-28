@@ -10,7 +10,7 @@ describe 'CoberturaVisita' do
   end
 
   let(:centro) do
-    Centro.new('Hospital')
+    Centro.new('Hospital', 10.0, 12.0)
   end
 
   let(:visitas) do

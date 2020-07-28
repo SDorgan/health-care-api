@@ -5,11 +5,15 @@ class CentroRepository < BaseRepository
   end
 
   def save(centro)
-    id = insert(centro)
+    if centro.valid?
+      id = insert(centro)
+      centro.id = id
+      centro
 
-    centro.id = id
-
-    centro
+    else
+      cause = centro.errors.keys[0]
+      raise CoordenadasInvalidasError if %i[longitud latitud].include? cause
+    end
   end
 
   def add_prestacion_to_centro(centro, prestacion_id)

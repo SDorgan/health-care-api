@@ -38,7 +38,7 @@ describe 'CentrosController' do
   end
 
   it 'deberia devolver el centro con el que se hizo POST' do
-    post '/centros', { 'nombre': centro_nombre }.to_json
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
     response = JSON.parse(last_response.body)
     expect(response['centro']['nombre']).to eq centro_nombre
   end
@@ -52,8 +52,8 @@ describe 'CentrosController' do
 
   it 'si se le pasa una prestacion, deberia devolver los centros en los que se da una prestacion' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     centro_repo = CentroRepository.new
-    @centro = centro_repo.save(Centro.new(centro_nombre))
-    @otro_centro = centro_repo.save(Centro.new(otro_centro))
+    @centro = centro_repo.save(Centro.new(centro_nombre, latitud, longitud))
+    @otro_centro = centro_repo.save(Centro.new(otro_centro, latitud + 1, longitud + 1))
 
     prestacion_repo = PrestacionRepository.new
     @prestacion = prestacion_repo.save(Prestacion.new(prestacion['nombre'], prestacion['costo']))

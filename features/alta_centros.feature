@@ -5,13 +5,8 @@ Característica: CRUD Centros
   Como administrador de la prepaga
   Quiero poder manejar los centros medicos
 
-  Escenario: ACEN1.1 - Alta exitosa de centro con nombre
-    Dado el centro con nombre "Hospital Alemán"
-    Cuando se registra el centro
-    Entonces se registra exitosamente
-
   @mvp
-  Escenario: ACEN1.2 - Alta exitosa de centro con coordenadas
+  Escenario: ACEN1 - Alta exitosa de centro con coordenadas
     Dado el centro con nombre "Hospital Alemán"
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
     Cuando se registra el centro

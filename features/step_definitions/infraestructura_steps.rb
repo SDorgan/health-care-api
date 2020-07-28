@@ -20,7 +20,9 @@ end
 
 Dado('que existe un centro') do
   @request = {
-    'nombre': 'Centro Test'
+    'nombre': 'Centro Test',
+    'longitud': 10.0,
+    'latitud': 10.0
   }
 
   @response = Faraday.post(CENTROS_URL, @request.to_json, 'Content-Type' => 'application/json')

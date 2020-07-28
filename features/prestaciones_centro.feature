@@ -7,6 +7,7 @@ Característica: Prestaciones para un Centro
 
   Antecedentes:
     Dado el centro con nombre "Hospital Alemán"
+    Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
     Y se registra el centro
     Y la prestación con nombre "Traumatología"
     Y costo unitario de prestación $1200

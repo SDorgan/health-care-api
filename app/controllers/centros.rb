@@ -1,4 +1,5 @@
 require_relative '../errors/prestacion_not_exists_error'
+require_relative '../errors/coordenadas_invalidas_error'
 HealthAPI::App.controllers :centros do
   get :index do
     param_prestacion = request.params['prestacion']

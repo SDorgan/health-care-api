@@ -48,7 +48,7 @@ describe 'CentroRepository' do
   end
 
   it 'deberia devolver todos los centros disponibles' do
-    @repo.save(Centro.new('Hospital Aleman'))
+    @repo.save(Centro.new('Hospital Aleman', 10.0, 12.0))
 
     centros = @repo.all
 
@@ -74,7 +74,7 @@ describe 'CentroRepository' do
     expect { @repo.find(fake_id) }.to raise_error
   end
 
-  xit 'debería devolver error si no se mandan las coordenadas' do
+  it 'debería devolver error si no se mandan las coordenadas' do
     centro_error = Centro.new('Hospital', nil, nil)
 
     expect { @repo.save(centro_error) }.to raise_error
