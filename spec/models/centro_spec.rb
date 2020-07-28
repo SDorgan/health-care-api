@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Centro' do
-  xit 'deberia poder devolver el nombre con el que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+  it 'deberia poder devolver el nombre con el que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     nombre = 'Hospital Italiano'
     latitud = -35.45
     longitud = -36.7
