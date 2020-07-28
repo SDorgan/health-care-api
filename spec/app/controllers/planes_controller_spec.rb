@@ -34,7 +34,7 @@ describe 'PlanesController' do
   end
 
   let(:conyuge) do
-    Plan.no_admite_conyuge
+    Plan::NO_ADMITE_CONYUGE
   end
 
   let(:body) do
