@@ -29,3 +29,9 @@ Característica: Centros de Prestaciones
         Dada la prestación "Odontologia"
         Cuando realizo la consulta de centro médico
         Entonces se obtiene una respuesta vacía
+
+    @mvp
+    Escenario: CCP3 - Consulta por centro que tiene cirujía con error por prestación inexistente
+        Dada la prestación "Cirujía" que no existe
+        Cuando realizo la consulta de centro médico
+        Entonces obtiene un error por prestación no existente
