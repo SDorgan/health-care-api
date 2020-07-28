@@ -13,7 +13,6 @@ Característica: CRUD Centros
     Entonces se registra exitosamente
 
   @mvp
-  @wip
   Escenario: ACEN2 - Alta fallida de centro
     Dado el centro con nombre "Hospital Alemán"
     Cuando se registra el centro

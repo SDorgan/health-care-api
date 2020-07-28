@@ -5,7 +5,7 @@ class Centro
 
   validates :latitud, :longitud, presence: true
 
-  def initialize(nombre, latitud = nil, longitud = nil)
+  def initialize(nombre, latitud, longitud)
     @nombre = nombre
     @latitud = latitud
     @longitud = longitud
