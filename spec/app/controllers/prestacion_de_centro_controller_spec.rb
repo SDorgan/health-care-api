@@ -5,6 +5,10 @@ describe 'PrestacionDeCentroController' do
     Centro.new('Hospital Alemán')
   end
 
+  let(:otro_centro) do
+    Centro.new('Hospital Suizo')
+  end
+
   let(:prestacion) do
     Prestacion.new('Traumatología', 1200)
   end
@@ -16,6 +20,7 @@ describe 'PrestacionDeCentroController' do
   before(:each) do
     centro_repo = CentroRepository.new
     @centro = centro_repo.save(centro)
+    @otro_centro = centro_repo.save(otro_centro)
 
     prestacion_repo = PrestacionRepository.new
     @prestacion = prestacion_repo.save(prestacion)
@@ -40,5 +45,18 @@ describe 'PrestacionDeCentroController' do
   it 'deberia devolver ok al hacer el POST' do
     post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
     last_response.body.include?('ok')
+  end
+
+  xit 'deberia devolver un JSON con centros como clave al pedir centros de una prestacion' do
+    get "/prestaciones/#{@prestacion.id}/centros"
+    last_response.body.include?('centros')
+  end
+
+  xit 'deberia devolver los centros en los que se da una prestacion' do
+    post "/centros/#{@otro_centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
+    get "/prestaciones/#{@prestacion.id}/centros"
+    response = JSON.parse(last_response.body)
+
+    expect(response['centros'].length).to eq 2
   end
 end
