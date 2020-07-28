@@ -10,6 +10,14 @@ describe 'CentrosController' do
     'Hospital Suizo'
   end
 
+  let(:latitud) do
+    -34.555
+  end
+
+  let(:longitud) do
+    39.501
+  end
+
   let(:prestacion) do
     { 'nombre' => 'Traumatología', 'costo' => 500 }
   end
@@ -19,12 +27,14 @@ describe 'CentrosController' do
     last_response.body.include?('centros')
   end
 
-  it 'deberia devolver un JSON con el centro cargado' do
-    post '/centros', { 'nombre': centro_nombre }.to_json
+  xit 'deberia devolver un JSON con el centro cargado' do # rubocop:disable RSpec/ExampleLength,  RSpec/MultipleExpectations, Metrics/LineLength
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
     get '/centros'
     response = JSON.parse(last_response.body)
     expect(response['centros'].length).to eq 1
     expect(response['centros'][0]['nombre']).to eq centro_nombre
+    expect(response['centros'][0]['latitud']).to eq latitud
+    expect(response['centros'][0]['longitud']).to eq longitud
   end
 
   it 'deberia devolver el centro con el que se hizo POST' do
