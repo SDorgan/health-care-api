@@ -17,7 +17,7 @@ Característica: Registrar visita médica
     Y costo unitario de prestación $1000
     Y se registra la prestación
     Y el plan con nombre "PlanCuervo" con costo unitario $500
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y cobertura de visitas con copago $0 y con límite 2
     Y cobertura de medicamentos 20%
     Y se registra el plan

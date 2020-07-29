@@ -64,3 +64,8 @@ Entonces('obtiene un mensaje de error por superar la cantidad de hijos maxima') 
   expect(@response_afiliado.status).to eq 400
   expect(@response_afiliado.body).to eq 'supera la cantidad de hijos requeridos para el plan'
 end
+
+Entonces('obtiene un mensaje de error porque requiere hijos') do
+  expect(@response_afiliado.status).to eq 400
+  expect(@response_afiliado.body).to eq 'este plan requiere tener hijos'
+end

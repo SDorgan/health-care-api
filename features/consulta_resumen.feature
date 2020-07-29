@@ -21,7 +21,7 @@ Característica: Consulta resumen
   Escenario: RES1 - Consulta de resumen vacío
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con copago $0 y con límite 0
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Cuando consulta el resumen
@@ -37,7 +37,7 @@ Característica: Consulta resumen
   Escenario: RES3.1 - Consulta de resumen sin ninguna prestación cubierta y una consulta realizada
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con copago $0 y con límite 0
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
@@ -48,7 +48,7 @@ Característica: Consulta resumen
   Escenario: RES3.2 - Consulta de resumen sin ninguna prestación cubierta y dos consultas realizadas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con copago $0 y con límite 0
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
@@ -60,7 +60,7 @@ Característica: Consulta resumen
   Escenario: RES3.3 - Consulta de resumen con todas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con copago $0 y con límite 2
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
@@ -88,7 +88,7 @@ Característica: Consulta resumen
   Escenario: RES4 - Consulta de resumen con algunas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
     Y cobertura de visitas con copago $0 y con límite 2
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
@@ -101,7 +101,7 @@ Característica: Consulta resumen
   Escenario: RES5 - Consulta de resumen con todas las prestaciones cubiertas con copago
     Dado el plan con nombre "PlanOso" con costo unitario $700
     Y cobertura de visitas con copago $10 y con límite 2
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "Jorah" afiliado a "PlanOso"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
@@ -113,7 +113,7 @@ Característica: Consulta resumen
   Escenario: RES6 - Consulta de resumen con dos prestaciones cubiertas con copago y una extra
     Dado el plan con nombre "PlanOso" con costo unitario $700
     Y cobertura de visitas con copago $10 y con límite 2
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "Jorah" afiliado a "PlanOso"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
@@ -127,7 +127,7 @@ Característica: Consulta resumen
   Escenario: RES7 - Consulta de resumen con compra de medicamentos
     Dado el plan con nombre "PlanOso" con costo unitario $700
     Y cobertura de visitas con copago $10 y con límite 2 y medicamentos 80%
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "Jorah" afiliado a "PlanOso"
     Y realiza una compra de medicamentos por $1000
@@ -139,7 +139,7 @@ Característica: Consulta resumen
   Escenario: RES8 - Consulta de resumen con compra de medicamentos y atenciones
     Dado el plan con nombre "PlanOso" con costo unitario $700
     Y cobertura de visitas con copago $10 y con límite 2 y medicamentos 80%
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "Jorah" afiliado a "PlanOso"
     Y realiza una compra de medicamentos por $1000
@@ -152,7 +152,7 @@ Característica: Consulta resumen
   Escenario: RES9 - Consulta de resumen tras visitar al traumatólogo lista la visita
     Dado el plan con nombre "PlanOso" con costo unitario $700
     Y cobertura de visitas con copago $10 y con límite 2 y medicamentos 80%
-    Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
+    Y restricciones edad min 15, edad max 30, hijos max 0, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "Jorah" afiliado a "PlanOso"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
