@@ -163,10 +163,31 @@ Dado('el plan con costo unitario ${int}') do |costo|
   }
 end
 
+Dado('restricciones hijos max {int}, admite conyuge {string}') do |cantidad_hijos_maxima, conyuge|
+  conyuge = if conyuge.eql? 'si'
+              'REQUIERE_CONYUGE'
+            else
+              'ADMITE_CONYUGE'
+            end
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
+    'copago' => @request['copago'],
+    'cobertura_medicamentos' => @request['cobertura'],
+    'cantidad_hijos_maxima' => cantidad_hijos_maxima,
+    'conyuge' => conyuge
+  }
+end
+
 Entonces('se obtiene un error de plan sin nombre') do
   expect(@response.status).to eq 400
 end
 
 Entonces('se obtiene un error de plan sin costo') do
+  expect(@response.status).to eq 400
+end
+
+Entonces('se obtiene un error de plan sin rango de edades') do
   expect(@response.status).to eq 400
 end
