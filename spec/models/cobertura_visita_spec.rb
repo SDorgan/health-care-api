@@ -22,6 +22,10 @@ describe 'CoberturaVisita' do
     expect { CoberturaVisita.new(2, nil) }.to raise_error(PlanSinCopagoError)
   end
 
+  it 'deberia lanzar error si el valor del copago es negativo' do
+    expect { CoberturaVisita.new(2, -10) }.to raise_error(PlanCopagoInvalido)
+  end
+
   it 'deberia devolver la cantidad con la que fue creada' do
     cantidad = 0
     cobertura_visita = CoberturaVisita.new(cantidad, copago)
