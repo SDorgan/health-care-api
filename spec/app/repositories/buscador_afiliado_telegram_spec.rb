@@ -7,6 +7,7 @@ describe 'BuscadorAfiliadoTelegram' do
                      cobertura_visitas: CoberturaVisita.new(0, 0),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
                      cantidad_hijos_maxima: 1,
+                     conyuge: Plan::ADMITE_CONYUGE,
                      edad_minima: 0,
                      edad_maxima: 10)
 
