@@ -31,3 +31,8 @@ Entonces('se actualiza el centro exitosamente') do
 
   expect(nombres.include?(@nombre_prestacion)).to eq true
 end
+
+Entonces('se obtiene un error por prestación repetida') do
+  expect(@response.status).to eq 400
+  expect(@response.body).to eq 'El centro ya presenta esa prestación'
+end

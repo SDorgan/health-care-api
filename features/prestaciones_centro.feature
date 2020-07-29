@@ -17,3 +17,26 @@ Característica: Prestaciones para un Centro
     Dado el centro llamado "Hospital Alemán"
     Cuando se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
     Entonces se actualiza el centro exitosamente
+
+  @mvp
+  @wip
+  Escenario: ACENPRES2 - Alta fallida por prestación inexistente
+    Dado el centro llamado "Hospital Alemán"
+    Cuando se le agrega la prestación "Cirugía" al centro "Hospital Alemán"
+    Entonces obtiene un error por prestación no existente
+
+  @mvp
+  @wip
+  Escenario: ACENPRES3 - Alta fallida por prestación repetida
+    Dado el centro llamado "Hospital Alemán"
+    Y se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
+    Y se actualiza el centro exitosamente
+    Cuando se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
+    Entonces se obtiene un error por prestación repetida
+
+  @mvp
+  @wip
+  Escenario: ACENPRES4 - Alta fallida por centro inexistente
+    Dado el centro llamado "Hospital Italiano"
+    Y se le agrega la prestación "Traumatología" al centro "Hospital Italiano"
+    Entonces obtiene un error por centro no existente
