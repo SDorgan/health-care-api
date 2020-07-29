@@ -12,6 +12,8 @@ class CentroRepository < BaseRepository
   end
 
   def add_prestacion_to_centro(centro, prestacion_id)
+    raise CentroYaContienePrestacionError if centro_has_prestacion(centro.id, prestacion_id) # rubocop:disable Metrics/LineLength
+
     changeset = {
       centro_id: centro.id,
       prestacion_id: prestacion_id
@@ -96,6 +98,10 @@ class CentroRepository < BaseRepository
   def validate_unique_coordinates(centro)
     existent = find_by_similar_coordinates(centro.latitud, centro.longitud)
     existent.nil? || existent.id == centro.id
+  end
+
+  def centro_has_prestacion(centro_id, prestacion_id)
+    !dataset_prestaciones_de_centros.where(centro_id: centro_id, prestacion_id: prestacion_id).blank? # rubocop:disable Metrics/LineLength
   end
 
   def changeset(centro)

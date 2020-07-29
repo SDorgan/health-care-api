@@ -43,7 +43,7 @@ describe 'PrestacionDeCentroController' do
   end
 
   it 'deberia devolver ok al hacer el POST' do
-    post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
+    post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @otra_prestacion.id }.to_json
     last_response.body.include?('ok')
   end
 
@@ -65,6 +65,6 @@ describe 'PrestacionDeCentroController' do
     post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
 
     expect(last_response.status).to be 400
-    expect(last_response.body).to eq 'El centro ya contiene esa prestación'
+    expect(last_response.body).to eq 'El centro ya presenta esa prestación'
   end
 end
