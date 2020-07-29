@@ -17,5 +17,9 @@ HealthAPI::App.controllers :prestaciones, parent: :centros do
     status 201
 
     'ok'
+
+  rescue PrestacionNotExistsError => e
+    status 404
+    body e.message
   end
 end
