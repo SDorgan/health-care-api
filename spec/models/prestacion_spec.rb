@@ -1,6 +1,11 @@
 require 'spec_helper'
 
 describe 'Prestacion' do
+  it 'deberia lanzar error cuando no se especifica el costo' do
+    nombre = 'Traumatología'
+    expect { Prestacion.new(nombre, nil) }.to raise_error(PrestacionSinCostoError)
+  end
+
   it 'deberia poder devolver los datos con los que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     nombre = 'Traumatología'
     slug = 'traumatologia'
