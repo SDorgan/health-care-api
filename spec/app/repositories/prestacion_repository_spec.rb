@@ -51,7 +51,7 @@ describe 'PrestacionRepository' do
     expect { @repo.find_by_name(fake_id) }.to raise_error
   end
 
-  xit 'deberia poder buscar por slug' do
+  it 'deberia poder buscar por slug' do
     prest_guardada = @repo.find_by_slug(@prestacion.slug)
 
     expect(prest_guardada.nombre).to eql @prestacion.nombre

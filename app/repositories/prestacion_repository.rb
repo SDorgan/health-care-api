@@ -38,6 +38,13 @@ class PrestacionRepository < BaseRepository
     load_object(dataset.first!(name: nombre))
   end
 
+  def find_by_slug(nombre)
+    slug = nombre.downcase.tr('àáäâãèéëẽêìíïîĩòóöôõùúüûũñç ', 'aaaaaeeeeeiiiiiooooouuuuunc_')
+    raise PrestacionNotExistsError unless exists_prestacion_with_slug(slug)
+
+    load_object(dataset.first!(slug: slug))
+  end
+
   def find_by_centro(centro_id)
     load_collection dataset_with_centros.where(centro_id: centro_id)
   end
@@ -57,6 +64,10 @@ class PrestacionRepository < BaseRepository
     !dataset.where(name: nombre).blank?
   end
 
+  def exists_prestacion_with_slug(slug)
+    !dataset.where(slug: slug).blank?
+  end
+
   def dataset_with_centros
     DB[@table_name].join(@table_join_centros, prestacion_id: :id)
   end
@@ -68,6 +79,7 @@ class PrestacionRepository < BaseRepository
   def load_object(a_record)
     prestacion = Prestacion.new(a_record[:name], a_record[:cost])
     prestacion.id = a_record[:prestacion_id] ||= a_record[:id]
+    prestacion.slug = a_record[:slug]
 
     prestacion
   end
@@ -75,6 +87,7 @@ class PrestacionRepository < BaseRepository
   def changeset(prestacion)
     {
       name: prestacion.nombre,
+      slug: prestacion.slug,
       cost: prestacion.costo
     }
   end
