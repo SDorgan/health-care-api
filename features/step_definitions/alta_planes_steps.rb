@@ -158,3 +158,7 @@ end
 Entonces('se obtiene un error de plan sin nombre') do
   expect(@response.status).to eq 400
 end
+
+Entonces('se obtiene un error de plan sin costo') do
+  expect(@response.status).to eq 400
+end
