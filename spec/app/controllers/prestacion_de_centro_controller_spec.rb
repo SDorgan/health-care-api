@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe 'PrestacionDeCentroController' do
   let(:centro) do
-    Centro.new('Hospital Alemán')
+    Centro.new('Hospital Alemán', 10.0, 15.0)
   end
 
   let(:otro_centro) do
-    Centro.new('Hospital Suizo')
+    Centro.new('Hospital Suizo', 12.0, 13.0)
   end
 
   let(:prestacion) do

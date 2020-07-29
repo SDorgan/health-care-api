@@ -1,10 +1,4 @@
 require 'spec_helper'
-require_relative '../../app/errors/edad_maxima_supera_limite_error'
-require_relative '../../app/errors/edad_minima_no_alcanza_limite_error'
-require_relative '../../app/errors/no_se_admite_conyuge_error'
-require_relative '../../app/errors/se_requiere_conyuge_error'
-require_relative '../../app/errors/no_se_admite_hijos_error'
-require_relative '../../app/errors/supera_limite_de_hijos_error'
 
 describe 'Plan' do
   let(:nombre) do
@@ -52,59 +46,65 @@ describe 'Plan' do
   end
 
   let(:conyuge) do
-    Plan.no_admite_conyuge
+    Plan::NO_ADMITE_CONYUGE
   end
 
   let(:requiere_conyuge) do
-    Plan.requiere_conyuge
+    Plan::REQUIERE_CONYUGE
   end
 
   it 'deberia poder devolver el nombre con el que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.nombre).to eql nombre
   end
 
   it 'deberia poder devolver el costo con el que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.costo).to eql costo
   end
 
   it 'deberia poder devolver el limite de cobertura de visitas creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.cobertura_visitas.cantidad).to eql cantidad_visitas
   end
 
   it 'deberia poder devolver la cantidad de copago creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.cobertura_visitas.copago).to eql copago
   end
 
   it 'deberia poder devolver la cobertura a medicamentos con la que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.cobertura_medicamentos.porcentaje).to eql porcentaje_cobertura_medicamentos # rubocop:disable Metrics/LineLength
   end
 
   it 'deberia poder devolver la edad minima con la que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima)
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.edad_minima).to eql edad_minima
   end
 
   it 'deberia poder devolver la edad maxima con la que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima)
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.edad_maxima).to eql edad_maxima
   end
@@ -126,66 +126,43 @@ describe 'Plan' do
     expect(plan.conyuge).to eql conyuge
   end
 
-  it 'deberia poder devolver el validar el plan con edad y conyuge' do
-    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
-                    conyuge: conyuge)
-
-    expect(plan.validar_plan_con(20, 0, false)).to be true
+  it 'deberia lanzar un error cuando no especifico un nombre' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(costo: costo, cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+               edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+               conyuge: conyuge)
+    end.to raise_error(PlanSinNombreError)
   end
 
-  it 'deberia poder devolver error por superar limite de edad del plan' do
-    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
-                    conyuge: conyuge)
-
-    expect { plan.validar_plan_con(120, 0, false) }.to raise_error(EdadMaximaSuperaLimiteError)
+  it 'deberia lanzar un error cuando no especifico el costo' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+               edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+               conyuge: conyuge)
+    end.to raise_error(PlanSinCostoError)
   end
 
-  it 'deberia poder devolver error por no alzancar limite de edad del plan' do
-    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
-                    conyuge: conyuge)
-
-    expect { plan.validar_plan_con(8, 0, false) }.to raise_error(EdadMinimaNoAlcanzaLimiteError)
+  it 'deberia lanzar un error cuando no especifico el limite maximo de edad' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, costo: costo,
+               cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos,
+               edad_minima: edad_minima,
+               cantidad_hijos_maxima: cantidad_hijos_maxima,
+               conyuge: conyuge)
+    end.to raise_error(PlanSinRangoDeEdadesError)
   end
 
-  it 'deberia poder devolver error por tener conyuge cuando el plan no lo admite' do
-    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
-                    conyuge: conyuge)
-
-    expect { plan.validar_plan_con(20, 0, true) }.to raise_error(NoSeAdmiteConyugeError)
-  end
-
-  it 'deberia poder devolver error por requerir conyuge cuando el plan requiere conyuge' do
-    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
-                    conyuge: requiere_conyuge)
-
-    expect { plan.validar_plan_con(20, 0, false) }.to raise_error(SeRequiereConyugeError)
-  end
-
-  it 'deberia poder devolver error por tener hijos cuando el plan no admite hijos' do
-    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
-                    conyuge: conyuge)
-
-    expect { plan.validar_plan_con(20, 1, false) }.to raise_error(NoSeAdmiteHijosError)
-  end
-
-  it 'deberia poder devolver error superar la cantidad maxima de hijos de un plan' do
-    plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
-                    cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
-                    edad_maxima: edad_maxima, cantidad_hijos_maxima: requiere_cantidad_hijos_maxima,
-                    conyuge: conyuge)
-
-    expect { plan.validar_plan_con(20, 3, false) }.to raise_error(SuperaLimiteDeHijosError)
+  it 'deberia lanzar un error cuando no especifico el limite minimo de edad' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, costo: costo,
+               cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos,
+               edad_maxima: edad_maxima,
+               cantidad_hijos_maxima: cantidad_hijos_maxima,
+               conyuge: conyuge)
+    end.to raise_error(PlanSinRangoDeEdadesError)
   end
 end

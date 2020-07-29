@@ -5,6 +5,7 @@ describe 'App' do
     @nombre_plan = 'PlanJuventud'
     @costo_plan = 100
     @limite_visita_plan = 3
+    @cobertura_medicamentos = 80
     @copago = 3
     @edad_minima = 10
     @edad_maxima = 60
@@ -13,6 +14,7 @@ describe 'App' do
     data = { 'nombre' => @nombre_plan,
              'costo' => @costo_plan,
              'limite_cobertura_visitas' => @limite_visita_plan,
+             'cobertura_medicamentos' => @cobertura_medicamentos,
              'copago' => @copago,
              'cantidad_hijos' => @cantidad_hijos,
              'edad_minima' => @edad_minima,
@@ -35,7 +37,7 @@ describe 'App' do
                          'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
-    expect(afiliados.first.plan_id).to eql plan_id
+    expect(afiliados.first.plan.id).to eql plan_id
   end
 
   it 'deberia guardarse el afiliado con plan y id telegram' do
@@ -48,7 +50,7 @@ describe 'App' do
                          'id_telegram': id_telegram }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
-    expect(afiliados.first.plan_id).to eql plan_id
+    expect(afiliados.first.plan.id).to eql plan_id
     expect(afiliados.first.id_telegram).to eql id_telegram
   end
 

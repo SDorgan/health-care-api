@@ -7,7 +7,8 @@ describe 'ResumenController' do
                     costo: 1000,
                     cobertura_visitas: CoberturaVisita.new(0, 0),
                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                    edad_minima: 0)
+                    edad_minima: 0,
+                    edad_maxima: 10)
 
     plan
   end
@@ -19,7 +20,7 @@ describe 'ResumenController' do
   end
 
   let(:centro) do
-    centro = Centro.new('Hospital Suizo')
+    centro = Centro.new('Hospital Suizo', 10.0, 12.0)
 
     centro
   end
@@ -29,7 +30,7 @@ describe 'ResumenController' do
     @prestacion = PrestacionRepository.new.save(prestacion)
     @centro = CentroRepository.new.save(centro)
 
-    @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado.id_telegram = '1'
 
     @afiliado = AfiliadoRepository.new.save(@afiliado)

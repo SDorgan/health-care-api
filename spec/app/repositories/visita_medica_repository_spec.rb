@@ -6,7 +6,8 @@ describe 'VisitaMedicaRepository' do
                     costo: 1000,
                     cobertura_visitas: CoberturaVisita.new(0, 0),
                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                    edad_minima: 0)
+                    edad_minima: 0,
+                    edad_maxima: 10)
 
     plan
   end
@@ -18,7 +19,7 @@ describe 'VisitaMedicaRepository' do
   end
 
   let(:centro) do
-    centro = Centro.new('Hospital')
+    centro = Centro.new('Hospital', 10.0, 12.0)
 
     centro
   end
@@ -29,7 +30,7 @@ describe 'VisitaMedicaRepository' do
     @prestacion = PrestacionRepository.new.save(prestacion)
     @centro = CentroRepository.new.save(centro)
 
-    @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
 
     @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion, @centro)

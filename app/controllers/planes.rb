@@ -30,5 +30,9 @@ HealthAPI::App.controllers :planes do
     status 201
 
     PlanResponseBuilder.create_from(plan)
+
+  rescue PlanArgumentosInvalidosError => e
+    status 400
+    body e.message
   end
 end

@@ -11,11 +11,11 @@ HealthAPI::App.controllers :resumen do
                      end
 
     resumen = Resumen.new(repo_afiliados.find(id),
-                          PlanRepository.new,
                           VisitaMedicaRepository.new,
                           CompraMedicamentosRepository.new)
 
     resumen.generar
+
     ResumenResponseBuilder.create_from(resumen)
 
   rescue IdNotAfiliadoError => e

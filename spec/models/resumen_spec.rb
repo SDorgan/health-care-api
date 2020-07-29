@@ -2,60 +2,54 @@ require 'spec_helper'
 
 describe 'Resumen' do
   before(:each) do # rubocop:disable Metrics/BlockLength
-    @plan = Plan.new(nombre: 'Juventud', costo: 1000, cobertura_visitas: CoberturaVisita.new(0, 0),
-                     cobertura_medicamentos: CoberturaMedicamentos.new(0), edad_minima: 0) # rubocop:disable Metrics/LineLength
+    @plan = Plan.new(nombre: 'Juventud', costo: 1000,
+                     cobertura_visitas: CoberturaVisita.new(0, 0),
+                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                     edad_minima: 0, edad_maxima: 10)
     @plan.id = 1
     @plan_con_cobertura = Plan.new(nombre: 'Premium', costo: 2000,
                                    cobertura_visitas: CoberturaVisita.new(2, 0),
                                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                                   edad_minima: 0)
+                                   edad_minima: 0, edad_maxima: 10)
     @plan_con_cobertura.id = 2
     @plan_infinito = Plan.new(nombre: 'Infinito', costo: 5000,
                               cobertura_visitas: CoberturaVisitaInfinita.new(0),
                               cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                              edad_minima: 0)
+                              edad_minima: 0, edad_maxima: 10)
     @plan_con_cobertura.id = 3
     @plan_con_copago = Plan.new(nombre: 'Familiar', costo: 3000,
                                 cobertura_visitas: CoberturaVisita.new(2, 10),
                                 cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                                edad_minima: 0)
+                                edad_minima: 0, edad_maxima: 10)
     @plan_con_copago.id = 4
     @plan_con_medicamentos = Plan.new(nombre: 'Farmacia', costo: 1000,
                                       cobertura_visitas: CoberturaVisitaInfinita.new(0),
                                       cobertura_medicamentos: CoberturaMedicamentos.new(80),
-                                      edad_minima: 0)
+                                      edad_minima: 0, edad_maxima: 10)
     @plan_con_medicamentos.id = 5
     @plan_con_cobertura_y_medicamentos = Plan.new(nombre: 'Completo', costo: 1000,
                                                   cobertura_visitas: CoberturaVisita.new(2, 5),
                                                   cobertura_medicamentos: CoberturaMedicamentos.new(50), # rubocop:disable Metrics/LineLength
-                                                  edad_minima: 0)
+                                                  edad_minima: 0, edad_maxima: 10)
     @plan_con_cobertura_y_medicamentos.id = 6
 
-    @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado.id = 1
-    @afiliado_premium = Afiliado.new('Pedro Gonzalez', @plan_con_cobertura.id)
+    @afiliado_premium = Afiliado.new('Pedro Gonzalez', @plan_con_cobertura)
     @afiliado_premium.id = 2
-    @afiliado_infinito = Afiliado.new('Pedro Perez', @plan_infinito.id)
+    @afiliado_infinito = Afiliado.new('Pedro Perez', @plan_infinito)
     @afiliado_infinito.id = 3
-    @afiliado_copago = Afiliado.new('Juan Gonzalez', @plan_con_copago.id)
+    @afiliado_copago = Afiliado.new('Juan Gonzalez', @plan_con_copago)
     @afiliado_copago.id = 4
-    @afiliado_medicamentos = Afiliado.new('Francisca Ramirez', @plan_con_medicamentos.id)
+    @afiliado_medicamentos = Afiliado.new('Francisca Ramirez', @plan_con_medicamentos)
     @afiliado_medicamentos.id = 5
-    @afiliado_cobertura_y_medicamentos = Afiliado.new('Mariana Flores', @plan_con_cobertura_y_medicamentos.id) # rubocop:disable Metrics/LineLength
+    @afiliado_cobertura_y_medicamentos = Afiliado.new('Mariana Flores', @plan_con_cobertura_y_medicamentos) # rubocop:disable Metrics/LineLength
     @afiliado_cobertura_y_medicamentos.id = 6
 
-    @centro = Centro.new('Hospital')
+    @centro = Centro.new('Hospital', 10.0, 12.0)
 
     @prestacion = Prestacion.new('Traumatologia', 10)
     @otra_prestacion = Prestacion.new('Odontología', 20)
-
-    @repo_planes = instance_double('PlanRepository')
-    allow(@repo_planes).to receive(:find).with(@afiliado.plan_id).and_return(@plan)
-    allow(@repo_planes).to receive(:find).with(@afiliado_premium.plan_id).and_return(@plan_con_cobertura) # rubocop:disable Metrics/LineLength
-    allow(@repo_planes).to receive(:find).with(@afiliado_infinito.plan_id).and_return(@plan_infinito) # rubocop:disable Metrics/LineLength
-    allow(@repo_planes).to receive(:find).with(@afiliado_copago.plan_id).and_return(@plan_con_copago) # rubocop:disable Metrics/LineLength
-    allow(@repo_planes).to receive(:find).with(@afiliado_medicamentos.plan_id).and_return(@plan_con_medicamentos) # rubocop:disable Metrics/LineLength
-    allow(@repo_planes).to receive(:find).with(@afiliado_cobertura_y_medicamentos.plan_id).and_return(@plan_con_cobertura_y_medicamentos) # rubocop:disable Metrics/LineLength
   end
 
   describe 'sin visitas medicas' do
@@ -68,7 +62,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un costo adicional de cero' do
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -76,7 +70,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un total igual al monto del plan' do
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -102,7 +96,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un costo adicional del monto de la prestación cuando hay una visita' do
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -110,7 +104,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un total igual al monto del plan mas el precio de la prestacion' do
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -118,7 +112,7 @@ describe 'Resumen' do
     end
 
     it 'deberia cubrir la visita medica generando un costo adicional de cero' do
-      resumen = Resumen.new(@afiliado_premium, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_premium, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -126,7 +120,7 @@ describe 'Resumen' do
     end
 
     it 'deberia cubrir la visita medica generando un costo adicional igual al copago' do
-      resumen = Resumen.new(@afiliado_copago, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_copago, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -162,7 +156,7 @@ describe 'Resumen' do
       end
 
       it 'deberia generar un costo adicional del doble del monto de la prestacion cuando hay dos visitas' do # rubocop:disable Metrics/LineLength
-        resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+        resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
         resumen.generar
 
@@ -170,7 +164,7 @@ describe 'Resumen' do
       end
 
       it 'deberia generar un total igual al monto del plan mas el doble del precio de la prestacion' do # rubocop:disable Metrics/LineLength
-        resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+        resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
         resumen.generar
 
@@ -178,7 +172,7 @@ describe 'Resumen' do
       end
 
       it 'deberia generar un costo adicional de cero cuando el plan es infinito' do
-        resumen = Resumen.new(@afiliado_infinito, @repo_planes, @repo_visitas, @repo_compras)
+        resumen = Resumen.new(@afiliado_infinito, @repo_visitas, @repo_compras)
 
         resumen.generar
 
@@ -186,7 +180,7 @@ describe 'Resumen' do
       end
 
       it 'deberia generar un total igual al monto del plan cuando tiene cobertura infinito' do # rubocop:disable Metrics/LineLength
-        resumen = Resumen.new(@afiliado_infinito, @repo_planes, @repo_visitas, @repo_compras)
+        resumen = Resumen.new(@afiliado_infinito, @repo_visitas, @repo_compras)
 
         resumen.generar
 
@@ -194,7 +188,7 @@ describe 'Resumen' do
       end
 
       it 'deberia generar un costo adicional de dos copagos por cubrir cada visita' do
-        resumen = Resumen.new(@afiliado_copago, @repo_planes, @repo_visitas, @repo_compras)
+        resumen = Resumen.new(@afiliado_copago, @repo_visitas, @repo_compras)
 
         resumen.generar
 
@@ -217,7 +211,7 @@ describe 'Resumen' do
       end
 
       it 'deberia generar un costo con la suma de las dos distintas prestaciones' do
-        resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+        resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
         resumen.generar
 
@@ -225,7 +219,7 @@ describe 'Resumen' do
       end
 
       it 'deberia generar un total igual al monto del plan mas la suma de las prestaciones' do
-        resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+        resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
         resumen.generar
 
@@ -251,7 +245,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un costo adicional del monto de la compra con el descuento cuando hay una compra' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 
@@ -259,7 +253,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un total igual al monto del plan mas el precio de la compra con el descuento' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 
@@ -267,7 +261,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un costo adicional del monto de la compras con el descuento cuando hay múltiples compras' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_medicamentos, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -275,7 +269,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un total igual al monto del plan mas el precio de las compras con sus descuentos' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_medicamentos, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -304,7 +298,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un costo adicional con las compras y visitas' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 
@@ -312,7 +306,7 @@ describe 'Resumen' do
     end
 
     it 'deberia generar un total con las compras, las visitas y el costo del plan' do # rubocop:disable Metrics/LineLength
-      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 
@@ -349,7 +343,7 @@ describe 'Resumen' do
     end
 
     it 'resumen vacio no deberia tener items' do
-      resumen = Resumen.new(@afiliado, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado, @repo_visitas, @repo_compras)
 
       resumen.generar
 
@@ -357,7 +351,7 @@ describe 'Resumen' do
     end
 
     it 'resumen tiene item de visita' do # rubocop:disable RSpec/ExampleLength
-      resumen = Resumen.new(@afiliado_premium, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_premium, @repo_visitas, @repo_compras)
       resumen.generar
       items = resumen.items
       expect(items.length).to eq 1
@@ -366,7 +360,7 @@ describe 'Resumen' do
     end
 
     it 'resumen tiene item de medicamentos' do
-      resumen = Resumen.new(@afiliado_medicamentos, @repo_planes, @repo_visitas, @repo_compras)
+      resumen = Resumen.new(@afiliado_medicamentos, @repo_visitas, @repo_compras)
 
       resumen.generar
       items = resumen.items
@@ -376,7 +370,7 @@ describe 'Resumen' do
     end
 
     it 'resumen tiene muchos items' do
-      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_planes, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
+      resumen = Resumen.new(@afiliado_cobertura_y_medicamentos, @repo_visitas, @repo_compras) # rubocop:disable Metrics/LineLength
 
       resumen.generar
 

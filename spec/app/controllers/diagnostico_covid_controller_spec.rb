@@ -6,7 +6,8 @@ describe 'DiagnosticoCovidController' do
              costo: 1000,
              cobertura_visitas: CoberturaVisita.new(0, 0),
              cobertura_medicamentos: CoberturaMedicamentos.new(0),
-             edad_minima: 0)
+             edad_minima: 0,
+             edad_maxima: 10)
   end
 
   let(:fake_id_telegram) do
@@ -17,7 +18,7 @@ describe 'DiagnosticoCovidController' do
     plan_repo = PlanRepository.new
     @plan = plan_repo.save(plan)
 
-    afiliado = Afiliado.new('Juan', @plan.id)
+    afiliado = Afiliado.new('Juan', @plan)
     afiliado.id_telegram = fake_id_telegram
     afiliado_repo = AfiliadoRepository.new
     @afiliado = afiliado_repo.save(afiliado)
