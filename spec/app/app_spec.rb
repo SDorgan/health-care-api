@@ -5,6 +5,7 @@ describe 'App' do
     @nombre_plan = 'PlanJuventud'
     @costo_plan = 100
     @limite_visita_plan = 3
+    @cobertura_medicamentos = 80
     @copago = 3
     @edad_minima = 10
     @edad_maxima = 60
@@ -13,6 +14,7 @@ describe 'App' do
     data = { 'nombre' => @nombre_plan,
              'costo' => @costo_plan,
              'limite_cobertura_visitas' => @limite_visita_plan,
+             'cobertura_medicamentos' => @cobertura_medicamentos,
              'copago' => @copago,
              'cantidad_hijos' => @cantidad_hijos,
              'edad_minima' => @edad_minima,

@@ -8,6 +8,10 @@ describe 'CoberturaMedicamentos' do
     ]
   end
 
+  it 'deberia lanzar error si no se especifica el valor de descuento' do
+    expect { CoberturaMedicamentos.new(nil) }.to raise_error(PlanSinCoberturaMedicamentosError)
+  end
+
   it 'deberia devolver el porcentaje de reembolzo con el que fue creado' do
     porcentaje = 0
     cobertura_medicamentos = CoberturaMedicamentos.new(porcentaje)

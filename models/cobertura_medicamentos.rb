@@ -4,6 +4,8 @@ class CoberturaMedicamentos
   attr_accessor :porcentaje
 
   def initialize(porcentaje)
+    raise PlanSinCoberturaMedicamentosError if porcentaje.nil?
+
     @porcentaje = porcentaje
   end
 
