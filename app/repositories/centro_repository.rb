@@ -80,10 +80,13 @@ class CentroRepository < BaseRepository
   end
 
   def validate(centro)
-    existing = find_by_slug(centro.slug)
-    raise CentroYaExistenteError unless existing.nil? || existing.id == centro.id
+    raise CentroYaExistenteError unless validate_unique_slug(centro)
 
     centro.valid?
+  end
+
+  def validate_unique_slug(centro)
+    find_by_slug(centro.slug).nil? || find_by_slug(centro.slug).id == centro.id
   end
 
   def changeset(centro)

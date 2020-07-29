@@ -87,4 +87,12 @@ describe 'CentrosController' do
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'El centro ingresado ya existe'
   end
+
+  xit 'si cargo un centro con coordenadas repetidas, devuelve error' do
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
+    post '/centros', { 'nombre': otro_centro, 'latitud': latitud, 'longitud': longitud }.to_json
+
+    expect(last_response.status).to be 400
+    expect(last_response.body).to eq 'El centro ingresado ya existe'
+  end
 end
