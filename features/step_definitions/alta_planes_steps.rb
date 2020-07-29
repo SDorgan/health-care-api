@@ -144,3 +144,17 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, requiere co
     'conyuge' => @conyuge
   }
 end
+
+Cuando('se registra el plan invalido') do
+  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json')
+end
+
+Dado('el plan con costo unitario ${int}') do |costo|
+  @request = {
+    'costo' => costo
+  }
+end
+
+Entonces('se obtiene un error de plan sin nombre') do
+  expect(@response.status).to eq 400
+end

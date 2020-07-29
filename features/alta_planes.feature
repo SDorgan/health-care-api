@@ -55,14 +55,13 @@ Característica: CRUD Planes
     Cuando se registra el plan
     Entonces se registra exitosamente
 
-  @wip
   Escenario: APLA1.6 - Nombre no especificado
     Dado el plan con costo unitario $500
-    Y restricciones edad min 15, edad max 20, hijos max 0, conyuge "no"
+    Y restricciones edad min 15, edad max 20, hijos max 0, admite conyuge "no"
     Y cobertura de visitas con copago $0 y con límite 2
     Y cobertura de medicamentos 20%
-    Cuando se registra el plan
-    Entonces se obtiene un error
+    Cuando se registra el plan invalido
+    Entonces se obtiene un error de plan sin nombre
 
   @wip
   Escenario: APLA1.7 - Costo no especificado
