@@ -20,6 +20,18 @@ Cuando('se le agrega la prestación {string} al centro {string}') do |nombre_pre
   @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json')
 end
 
+Cuando('se le agrega la prestación inexistente {string} al centro {string}') do |_nombre_prestacion, nombre_centro| # rubocop:disable Metrics/LineLength
+  fake_id = 999_999_999
+  request = {
+    'prestacion': fake_id
+  }
+  @centro_id = @centros[nombre_centro]
+
+  URL = "#{CENTROS_URL}/#{@centro_id}/prestaciones".freeze
+
+  @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json')
+end
+
 Entonces('se actualiza el centro exitosamente') do
   URL = "#{CENTROS_URL}/#{@centro_id}/prestaciones".freeze
   @response = Faraday.get(URL)

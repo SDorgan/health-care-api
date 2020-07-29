@@ -19,10 +19,9 @@ Característica: Prestaciones para un Centro
     Entonces se actualiza el centro exitosamente
 
   @mvp
-  @wip
   Escenario: ACENPRES2 - Alta fallida por prestación inexistente
     Dado el centro llamado "Hospital Alemán"
-    Cuando se le agrega la prestación "Cirugía" al centro "Hospital Alemán"
+    Cuando se le agrega la prestación inexistente "Cirugía" al centro "Hospital Alemán"
     Entonces obtiene un error por prestación no existente
 
   @mvp
