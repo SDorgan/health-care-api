@@ -193,4 +193,14 @@ describe 'Plan' do
                cantidad_hijos_maxima: cantidad_hijos_maxima)
     end.to raise_error(PlanSinEstadoCivilError)
   end
+
+  it 'deberia lanzar un error cuando la edad minima supera a la maxima' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos,
+               cantidad_hijos_maxima: cantidad_hijos_maxima,
+               edad_minima: 20, edad_maxima: 10,
+               conyuge: conyuge)
+    end.to raise_error(PlanRangoDeEdadesInvalido)
+  end
 end

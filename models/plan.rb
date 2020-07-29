@@ -28,11 +28,12 @@ class Plan
 
   private
 
-  def validate(data) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
+  def validate(data) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/LineLength
     raise PlanSinNombreError if data[:nombre].nil?
     raise PlanSinCostoError if data[:costo].nil?
     raise PlanSinRangoDeEdadesError if data[:edad_maxima].nil? || data[:edad_minima].nil?
     raise PlanSinCantidadMaximaHijosError if data[:cantidad_hijos_maxima].nil?
     raise PlanSinEstadoCivilError if data[:conyuge].nil?
+    raise PlanRangoDeEdadesInvalido if data[:edad_minima] > data[:edad_maxima]
   end
 end
