@@ -249,3 +249,7 @@ end
 Entonces('se obtiene un error de plan con cobertura de medicamentos invalido') do
   expect(@response.status).to eq 400
 end
+
+Entonces('se obtiene un error de plan con copago invalido') do
+  expect(@response.status).to eq 400
+end
