@@ -1,3 +1,4 @@
+require_relative '../lib/string_helper'
 class Plan
   NO_ADMITE_CONYUGE = 'NO_ADMITE_CONYUGE'.freeze
   ADMITE_CONYUGE = 'ADMITE_CONYUGE'.freeze
@@ -18,7 +19,7 @@ class Plan
     @edad_maxima = data[:edad_maxima]
     @cantidad_hijos_maxima = data[:cantidad_hijos_maxima]
     @conyuge = data[:conyuge]
-    @slug = sluggify(nombre)
+    @slug = StringHelper.sluggify(nombre)
   end
 
   def self.mapeo_conyuge
@@ -28,10 +29,6 @@ class Plan
   end
 
   private
-
-  def sluggify(string)
-    string.downcase.tr('àáäâãèéëẽêìíïîĩòóöôõùúüûũñç ', 'aaaaaeeeeeiiiiiooooouuuuunc_')
-  end
 
   def validate(data) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/LineLength
     raise PlanSinNombreError if data[:nombre].nil?

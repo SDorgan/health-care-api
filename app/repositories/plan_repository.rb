@@ -1,3 +1,4 @@
+require_relative '../../lib/string_helper'
 class PlanRepository < BaseRepository
   def initialize
     super(:planes)
@@ -12,7 +13,7 @@ class PlanRepository < BaseRepository
   end
 
   def find_by_slug(nombre)
-    slug = nombre.downcase.tr('àáäâãèéëẽêìíïîĩòóöôõùúüûũñç ', 'aaaaaeeeeeiiiiiooooouuuuunc_')
+    slug = StringHelper.sluggify(nombre)
     load_object(dataset.first!(slug: slug))
   rescue Sequel::NoMatchingRow
     raise PlanInexistenteError

@@ -1,3 +1,4 @@
+require_relative '../../lib/string_helper'
 class PrestacionRepository < BaseRepository
   def initialize
     super(:prestaciones)
@@ -33,7 +34,7 @@ class PrestacionRepository < BaseRepository
   end
 
   def find_by_slug(nombre)
-    slug = nombre.downcase.tr('àáäâãèéëẽêìíïîĩòóöôõùúüûũñç ', 'aaaaaeeeeeiiiiiooooouuuuunc_')
+    slug = StringHelper.sluggify(nombre)
     raise PrestacionNotExistsError unless exists_prestacion_with_slug(slug)
 
     load_object(dataset.first!(slug: slug))
@@ -52,10 +53,6 @@ class PrestacionRepository < BaseRepository
 
   def exists_prestacion_with_id(id)
     !dataset.where(id: id).blank?
-  end
-
-  def exists_prestacion_with_name(nombre)
-    !dataset.where(name: nombre).blank?
   end
 
   def exists_prestacion_with_slug(slug)
