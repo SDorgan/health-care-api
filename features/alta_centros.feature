@@ -34,11 +34,11 @@ Característica: CRUD Centros
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
     Y se registra el centro
     Y el centro con nombre "hospital aleman"
+    Y coordenadas geográficas latitud "-39.617670" y longitud "-54.368360"
     Cuando se registra el centro
     Entonces se obtiene un mensaje de error centro ya existente
 
   @mvp
-  @wip
   Escenario: ACEN5 - Alta fallida por colision de coodeandas
     Dado el centro con nombre "Hospital Alemán"
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"

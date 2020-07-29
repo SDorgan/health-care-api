@@ -5,15 +5,10 @@ class CentroRepository < BaseRepository
   end
 
   def save(centro)
-    if validate(centro)
-      id = insert(centro)
-      centro.id = id
-      centro
-
-    else
-      cause = centro.errors.keys[0]
-      raise CoordenadasInvalidasError if %i[longitud latitud].include? cause
-    end
+    validate(centro)
+    id = insert(centro)
+    centro.id = id
+    centro
   end
 
   def add_prestacion_to_centro(centro, prestacion_id)
@@ -79,14 +74,28 @@ class CentroRepository < BaseRepository
     nil
   end
 
-  def validate(centro)
-    raise CentroYaExistenteError unless validate_unique_slug(centro)
+  def find_by_similar_coordinates(lat, lon)
+    load_object(dataset.first!(latitude: lat.floor..lat.ceil, longitude: lon.floor..lon.ceil)) # rubocop:disable Metrics/LineLength
+  rescue Sequel::NoMatchingRow
+    nil
+  end
 
-    centro.valid?
+  def validate(centro)
+    unless centro.valid?
+      cause = centro.errors.keys[0]
+      raise CoordenadasInvalidasError if %i[longitud latitud].include? cause
+    end
+
+    raise CentroYaExistenteError unless validate_unique_slug(centro) && validate_unique_coordinates(centro) # rubocop:disable Metrics/LineLength
   end
 
   def validate_unique_slug(centro)
     find_by_slug(centro.slug).nil? || find_by_slug(centro.slug).id == centro.id
+  end
+
+  def validate_unique_coordinates(centro)
+    existent = find_by_similar_coordinates(centro.latitud, centro.longitud)
+    existent.nil? || existent.id == centro.id
   end
 
   def changeset(centro)
