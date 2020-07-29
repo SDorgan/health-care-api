@@ -2,7 +2,11 @@ require 'spec_helper'
 
 describe 'Plan' do
   let(:nombre) do
-    'neo'
+    'Plan Neo'
+  end
+
+  let(:slug) do
+    'plan_neo'
   end
 
   let(:costo) do
@@ -53,13 +57,14 @@ describe 'Plan' do
     Plan::REQUIERE_CONYUGE
   end
 
-  it 'deberia poder devolver el nombre con el que fue creado' do
+  it 'deberia poder devolver el nombre con el que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
                     cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima, conyuge: conyuge)
 
     expect(plan.nombre).to eql nombre
+    expect(plan.slug).to eql slug
   end
 
   it 'deberia poder devolver el costo con el que fue creado' do

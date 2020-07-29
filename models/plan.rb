@@ -3,7 +3,7 @@ class Plan
   ADMITE_CONYUGE = 'ADMITE_CONYUGE'.freeze
   REQUIERE_CONYUGE = 'REQUIERE_CONYUGE'.freeze
 
-  attr_accessor :id, :nombre, :costo,
+  attr_accessor :id, :nombre, :slug, :costo,
                 :cobertura_visitas, :cobertura_medicamentos,
                 :edad_minima, :edad_maxima,
                 :cantidad_hijos_maxima, :conyuge
@@ -18,6 +18,7 @@ class Plan
     @edad_maxima = data[:edad_maxima]
     @cantidad_hijos_maxima = data[:cantidad_hijos_maxima]
     @conyuge = data[:conyuge]
+    @slug = sluggify(nombre)
   end
 
   def self.mapeo_conyuge
@@ -27,6 +28,10 @@ class Plan
   end
 
   private
+
+  def sluggify(string)
+    string.downcase.tr('àáäâãèéëẽêìíïîĩòóöôõùúüûũñç ', 'aaaaaeeeeeiiiiiooooouuuuunc_')
+  end
 
   def validate(data) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/LineLength
     raise PlanSinNombreError if data[:nombre].nil?

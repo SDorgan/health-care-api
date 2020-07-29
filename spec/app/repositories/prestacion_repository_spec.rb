@@ -50,4 +50,10 @@ describe 'PrestacionRepository' do
     fake_id = 999_999
     expect { @repo.find_by_name(fake_id) }.to raise_error
   end
+
+  xit 'deberia poder buscar por slug' do
+    prest_guardada = @repo.find_by_slug(@prestacion.slug)
+
+    expect(prest_guardada.nombre).to eql @prestacion.nombre
+  end
 end
