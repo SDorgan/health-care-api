@@ -56,3 +56,9 @@ Característica: CRUD Alifiados
         Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 3
         Cuando se registra al plan "PlanFamiliar"
         Entonces obtiene un mensaje de error por superar la cantidad de hijos maxima
+    
+    @wip
+    Escenario: RA6 - Registracion fallida por tener no tener hijos cuando necesita al menos uno
+        Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 0
+        Cuando se registra al plan "PlanFamiliar"
+        Entonces obtiene un mensaje de error por requerir hijos

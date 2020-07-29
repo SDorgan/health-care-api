@@ -5,6 +5,7 @@ require_relative './errors/se_requiere_conyuge_error'
 require_relative './errors/no_se_admite_hijos_error'
 require_relative './errors/plan_inexistente_error'
 require_relative './errors/supera_limite_de_hijos_error'
+require_relative './errors/se_requiere_hijos_error'
 
 class Registro
   def initialize(repo_afiliados, repo_planes)
@@ -51,6 +52,7 @@ class Registro
 
   def validar_hijos(cantidad_hijos, plan)
     raise NoSeAdmiteHijosError if plan.cantidad_hijos_maxima.zero? && cantidad_hijos.positive?
+    raise SeRequiereHijosError if plan.cantidad_hijos_maxima.positive? && cantidad_hijos.zero?
     raise SuperaLimiteDeHijosError if cantidad_hijos > plan.cantidad_hijos_maxima
   end
 end

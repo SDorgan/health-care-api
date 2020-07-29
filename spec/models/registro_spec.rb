@@ -7,6 +7,7 @@ require_relative '../../models/errors/no_se_admite_conyuge_error'
 require_relative '../../models/errors/se_requiere_conyuge_error'
 require_relative '../../models/errors/no_se_admite_hijos_error'
 require_relative '../../models/errors/supera_limite_de_hijos_error'
+require_relative '../../models/errors/se_requiere_hijos_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do
@@ -40,7 +41,7 @@ describe 'Registro' do
                                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
                                     edad_minima: 10, edad_maxima: 40,
                                     cantidad_hijos_maxima: 2,
-                                    conyuge: Plan::REQUIERE_CONYUGE)
+                                    conyuge: Plan::ADMITE_CONYUGE)
 
     plan_repository.save(@plan_requiere_conyuge)
     plan_repository.save(@plan_requiere_hijos)
@@ -101,6 +102,14 @@ describe 'Registro' do
                                    id_telegram: 'fake_id', edad: 18,
                                    cantidad_hijos: 1, conyuge: false)
     end.to raise_error(NoSeAdmiteHijosError)
+  end
+
+  it 'deberia poder devolver error por no tener hijos cuando el plan lo requiere' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'PlanFamiliarConHijos',
+                                   id_telegram: 'fake_id', edad: 18,
+                                   cantidad_hijos: 0, conyuge: true)
+    end.to raise_error(SeRequiereHijosError)
   end
 
   it 'deberia poder devolver error superar la cantidad maxima de hijos del plan' do
