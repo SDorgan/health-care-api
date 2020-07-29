@@ -76,7 +76,6 @@ Característica: CRUD Planes
     Cuando se registra el plan invalido
     Entonces se obtiene un error de plan con rango de edades invalido
 
-  @wip
   Escenario: APLA1.14 - Cobertura de medicamentos fuera de rango
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
     Y restricciones edad min 15, edad max 20, hijos max 0, admite conyuge "no"
