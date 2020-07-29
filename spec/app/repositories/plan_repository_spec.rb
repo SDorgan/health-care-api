@@ -39,7 +39,8 @@ describe 'PlanRepository' do
                         costo: 1000,
                         cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
                         cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                        edad_minima: 0))
+                        edad_minima: 0,
+                        edad_maxima: 60))
 
     planes = @repo.all
 
@@ -57,7 +58,9 @@ describe 'PlanRepository' do
                         costo: 1000,
                         cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
                         cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                        edad_minima: 0))
+                        edad_minima: 0,
+                        edad_maxima: 60))
+
     plan_encontrado = @repo.find_by_name(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
@@ -117,7 +120,9 @@ describe 'PlanRepository' do
                         costo: 1000,
                         cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
                         cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                        edad_minima: 0))
+                        edad_minima: 0,
+                        edad_maxima: 60))
+
     expect { @repo.find_by_name('noExiste') }.to raise_error(PlanInexistenteError)
   end
 end

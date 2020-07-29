@@ -2,7 +2,14 @@ Dado('que existe un plan') do
   precio_que_no_importa = 10
   @request = {
     'nombre': 'Plan Test',
-    'costo': precio_que_no_importa
+    'costo': precio_que_no_importa,
+    'limite_cobertura_visitas': 2,
+    'copago': 10,
+    'cobertura_medicamentos': 20,
+    'edad_minima': 10,
+    'edad_maxima': 30,
+    'cantidad_hijos_maxima': 1,
+    'conyuge' => 'ADMITE_CONYUGE'
   }
 
   @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json')

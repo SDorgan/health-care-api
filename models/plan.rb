@@ -31,5 +31,6 @@ class Plan
   def validate(data)
     raise PlanSinNombreError if data[:nombre].nil?
     raise PlanSinCostoError if data[:costo].nil?
+    raise PlanSinRangoDeEdadesError if data[:edad_maxima].nil?
   end
 end

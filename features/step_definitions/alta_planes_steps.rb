@@ -52,7 +52,11 @@ Dado('cobertura de visitas con límite infinito') do
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
     'copago' => 0,
-    'cobertura_medicamentos' => 0
+    'cobertura_medicamentos' => 0,
+    'edad_minima' => 15,
+    'edad_maxima' => 30,
+    'cantidad_hijos_maxima' => 1,
+    'conyuge' => 'NO_ADMITE_CONYUGE'
   }
 end
 
@@ -61,7 +65,11 @@ Dado('cobertura de visitas con copago ${int} y con límite infinito') do |copago
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
     'copago' => copago,
-    'cobertura_medicamentos' => 0
+    'cobertura_medicamentos' => 0,
+    'edad_minima' => 15,
+    'edad_maxima' => 30,
+    'cantidad_hijos_maxima' => 1,
+    'conyuge' => 'NO_ADMITE_CONYUGE'
   }
 end
 
@@ -114,7 +122,7 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, admite cony
     'costo' => @request['costo'],
     'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
     'copago' => @request['copago'],
-    'cobertura_medicamentos' => @request['cobertura'],
+    'cobertura_medicamentos' => @request['cobertura_medicamentos'],
     'edad_minima' => @edad_minima,
     'edad_maxima' => @edad_maxima,
     'cantidad_hijos_maxima' => @cantidad_hijos_maxima,
