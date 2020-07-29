@@ -1,0 +1,2 @@
+class PlanSinNombreError < StandardError
+end
