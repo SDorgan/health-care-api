@@ -1,3 +1,4 @@
+require_relative '../lib/string_helper'
 class Centro
   include ActiveModel::Validations
 
@@ -9,12 +10,6 @@ class Centro
     @nombre = nombre
     @latitud = latitud
     @longitud = longitud
-    @slug = sluggify(nombre)
-  end
-
-  private
-
-  def sluggify(string)
-    string.downcase.tr('àáäâãèéëẽêìíïîĩòóöôõùúüûũñç ', 'aaaaaeeeeeiiiiiooooouuuuunc_')
+    @slug = StringHelper.sluggify(nombre)
   end
 end
