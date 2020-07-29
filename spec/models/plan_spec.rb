@@ -218,4 +218,14 @@ describe 'Plan' do
                conyuge: conyuge)
     end.to raise_error(PlanRangoDeEdadesInvalido)
   end
+
+  it 'deberia lanzar un error cuando la cantidad de hijos es invalida' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos,
+               cantidad_hijos_maxima: -1,
+               edad_minima: 10, edad_maxima: 20,
+               conyuge: conyuge)
+    end.to raise_error(PlanCantidadHijosInvalido)
+  end
 end
