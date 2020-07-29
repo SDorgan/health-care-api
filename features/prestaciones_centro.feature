@@ -25,7 +25,6 @@ Característica: Prestaciones para un Centro
     Entonces obtiene un error por prestación no existente
 
   @mvp
-  @wip
   Escenario: ACENPRES3 - Alta fallida por prestación repetida
     Dado el centro llamado "Hospital Alemán"
     Y se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
