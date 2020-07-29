@@ -128,4 +128,13 @@ describe 'Plan' do
                conyuge: conyuge)
     end.to raise_error(PlanSinNombreError)
   end
+
+  it 'deberia lanzar un error cuando no especifico el costo' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos, edad_minima: edad_minima,
+               edad_maxima: edad_maxima, cantidad_hijos_maxima: cantidad_hijos_maxima,
+               conyuge: conyuge)
+    end.to raise_error(PlanSinCostoError)
+  end
 end

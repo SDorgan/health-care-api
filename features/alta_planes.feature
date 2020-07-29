@@ -5,18 +5,6 @@ Característica: CRUD Planes
   Como administrador de la prepaga
   Quiero poder manejar los planes
 
-  Escenario: Crear un nuevo plan
-    Dado el plan con nombre "Neo"
-    Cuando consulto los planes disponibles
-    Entonces obtengo el plan con nombre "Neo"
-
-  Escenario: Crear varios planes
-    Dado el plan con nombre "Neo"
-    Dado el plan con nombre "Familiar"
-    Cuando consulto los planes disponibles
-    Entonces obtengo el plan con nombre "Neo"
-    Y obtengo el plan con nombre "Familiar"
-
   Escenario: APLA1 - Alta exitosa de PlanJuventud
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
     Y restricciones edad min 15, edad max 20, hijos max 0, admite conyuge "no"

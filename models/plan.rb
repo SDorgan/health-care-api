@@ -9,8 +9,7 @@ class Plan
                 :cantidad_hijos_maxima, :conyuge
 
   def initialize(data = {})
-    raise PlanSinNombreError if data[:nombre].nil?
-
+    validate(data)
     @nombre = data[:nombre]
     @costo = data[:costo]
     @cobertura_visitas = data[:cobertura_visitas]
@@ -25,5 +24,12 @@ class Plan
     { NO_ADMITE_CONYUGE => 0,
       ADMITE_CONYUGE => 1,
       REQUIERE_CONYUGE => 2 }
+  end
+
+  private
+
+  def validate(data)
+    raise PlanSinNombreError if data[:nombre].nil?
+    raise PlanSinCostoError if data[:costo].nil?
   end
 end
