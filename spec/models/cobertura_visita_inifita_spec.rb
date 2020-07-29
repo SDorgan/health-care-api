@@ -20,6 +20,10 @@ describe 'CoberturaVisitaInfinita' do
     expect { CoberturaVisitaInfinita.new(nil) }.to raise_error(PlanSinCopagoError)
   end
 
+  it 'deberia lanzar error si el valor del copago es negativo' do
+    expect { CoberturaVisitaInfinita.new(-10) }.to raise_error(PlanCopagoInvalido)
+  end
+
   it 'deberia devolver el valor que simboliza el infinito' do
     copago = 0
     cobertura = CoberturaVisitaInfinita.new(copago)

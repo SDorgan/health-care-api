@@ -5,6 +5,7 @@ class CoberturaVisitaInfinita
 
   def initialize(copago)
     raise PlanSinCopagoError if copago.nil?
+    raise PlanCopagoInvalido if copago.negative?
 
     @cantidad = LIMITE
     @copago = copago
