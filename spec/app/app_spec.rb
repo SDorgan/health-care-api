@@ -16,7 +16,7 @@ describe 'App' do
              'limite_cobertura_visitas' => @limite_visita_plan,
              'cobertura_medicamentos' => @cobertura_medicamentos,
              'copago' => @copago,
-             'cantidad_hijos' => @cantidad_hijos,
+             'cantidad_hijos_maxima' => @cantidad_hijos,
              'edad_minima' => @edad_minima,
              'edad_maxima' => @edad_maxima,
              'conyuge' => @conyuge }.to_json

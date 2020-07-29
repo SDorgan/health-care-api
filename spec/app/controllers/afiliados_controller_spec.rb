@@ -29,7 +29,7 @@ describe 'AfiliadosController' do
                                    cobertura_visitas: CoberturaVisita.new(0, 0),
                                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
                                    edad_minima: 1, edad_maxima: 40, cantidad_hijos_maxima: 2,
-                                   conyuge: Plan::REQUIERE_CONYUGE)
+                                   conyuge: Plan::ADMITE_CONYUGE)
 
     plan_requiere_hijos
   end
@@ -84,6 +84,11 @@ describe 'AfiliadosController' do
 
   it 'deberia devolver error por superar cantidad de hijos del plan' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos', 'id_telegram': '10', 'cantidad_hijos': 3, 'edad': 18, 'conyuge': true }.to_json
+    expect(last_response.status).to be 400
+  end
+
+  it 'deberia devolver error por no tener hijos cuando el plan lo requiere' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': true }.to_json
     expect(last_response.status).to be 400
   end
 end
