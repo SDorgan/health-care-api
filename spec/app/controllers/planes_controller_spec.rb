@@ -49,6 +49,17 @@ describe 'PlanesController' do
       'conyuge' => conyuge }.to_json
   end
 
+  let(:body_sin_nombre) do
+    { 'costo' => costo,
+      'limite_cobertura_visitas' => limite_cobertura_visitas,
+      'copago' => copago,
+      'cobertura_medicamentos' => cobertura_medicamentos,
+      'edad_minima' => edad_minima,
+      'edad_maxima' => edad_maxima,
+      'cantidad_hijos_maxima' => cantidad_hijos_maxima,
+      'conyuge' => conyuge }.to_json
+  end
+
   it 'deberia devoler los planes' do
     get '/planes'
     last_response.body.include?('planes')
@@ -101,5 +112,10 @@ describe 'PlanesController' do
     post '/planes', body
     response = JSON.parse(last_response.body)
     expect(response['plan']['conyuge']).to eq conyuge
+  end
+
+  it 'deberia lanzar un error cuando no se especifica el nombre' do
+    post '/planes', body_sin_nombre
+    expect(last_response.status).to eq 400
   end
 end

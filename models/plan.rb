@@ -9,7 +9,7 @@ class Plan
                 :cantidad_hijos_maxima, :conyuge
 
   def initialize(data = {})
-    raise PlanSinNombreError unless data.include?(:nombre)
+    raise PlanSinNombreError if data[:nombre].nil?
 
     @nombre = data[:nombre]
     @costo = data[:costo]
