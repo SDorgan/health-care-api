@@ -45,7 +45,6 @@ Característica: CRUD Planes
     Cuando se registra el plan invalido
     Entonces se obtiene un error de plan sin valor de copago
 
-  @wip
   Escenario: APLA1.10 - Cantidad de hijos no especificado
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
     Y restricciones edad min 15, edad max 20, admite conyuge "no"
