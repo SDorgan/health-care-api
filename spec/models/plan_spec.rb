@@ -57,7 +57,7 @@ describe 'Plan' do
     Plan::REQUIERE_CONYUGE
   end
 
-  xit 'deberia poder devolver el nombre con el que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+  it 'deberia poder devolver el nombre con el que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
                     cantidad_hijos_maxima: cantidad_hijos_maxima,
