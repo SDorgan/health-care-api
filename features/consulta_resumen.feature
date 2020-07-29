@@ -20,7 +20,7 @@ Característica: Consulta resumen
 
   Escenario: RES1 - Consulta de resumen vacío
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
-    Y cobertura de visitas con límite 0
+    Y cobertura de visitas con copago $0 y con límite 0
     Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
@@ -36,7 +36,7 @@ Característica: Consulta resumen
 
   Escenario: RES3.1 - Consulta de resumen sin ninguna prestación cubierta y una consulta realizada
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
-    Y cobertura de visitas con límite 0
+    Y cobertura de visitas con copago $0 y con límite 0
     Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
@@ -47,7 +47,7 @@ Característica: Consulta resumen
 
   Escenario: RES3.2 - Consulta de resumen sin ninguna prestación cubierta y dos consultas realizadas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
-    Y cobertura de visitas con límite 0
+    Y cobertura de visitas con copago $0 y con límite 0
     Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
@@ -59,7 +59,7 @@ Característica: Consulta resumen
 
   Escenario: RES3.3 - Consulta de resumen con todas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
-    Y cobertura de visitas con límite 2
+    Y cobertura de visitas con copago $0 y con límite 2
     Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
@@ -71,7 +71,7 @@ Característica: Consulta resumen
 
   Escenario: RES3.4 - Consulta de resumen con todas las prestaciones cubiertas por infinito
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
-    Y cobertura de visitas con límite infinito
+    Y cobertura de visitas con copago $0 y con límite infinito
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"
     Y que registró una atención por la prestación "Traumatologia" en el centro "Enfermeria del Castillo Negro"
@@ -87,7 +87,7 @@ Característica: Consulta resumen
 
   Escenario: RES4 - Consulta de resumen con algunas las prestaciones cubiertas
     Dado el plan con nombre "PlanCuervo" con costo unitario $500
-    Y cobertura de visitas con límite 2
+    Y cobertura de visitas con copago $0 y con límite 2
     Y restricciones edad min 15, edad max 30, hijos max 1, admite conyuge "no"
     Y se registra el plan
     Dado el afiliado "JonSnow" afiliado a "PlanCuervo"

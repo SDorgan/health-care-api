@@ -37,14 +37,13 @@ Característica: CRUD Planes
     Cuando se registra el plan invalido
     Entonces se obtiene un error de plan sin rango de edades
 
-  @wip
   Escenario: APLA1.9 - Precio del copago no especificado
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
-    Y restricciones edad min 15, edad max 20, hijos max 0, conyuge "no"
     Y cobertura de visitas con límite 2
     Y cobertura de medicamentos 20%
-    Cuando se registra el plan
-    Entonces se obtiene un error
+    Y restricciones edad min 15, edad max 20, hijos max 0, admite conyuge "no"
+    Cuando se registra el plan invalido
+    Entonces se obtiene un error de plan sin valor de copago
 
   Escenario: APLA2 - Alta exitosa de plan 310
     Dado el plan con nombre "Plan310" con costo unitario $1000

@@ -41,7 +41,6 @@ Dado('cobertura de visitas con límite {int}') do |limite_visitas|
   @request = {
     'nombre' => @request['nombre'],
     'costo' => @request['costo'],
-    'copago' => 0,
     'limite_cobertura_visitas' => limite_visitas,
     'cobertura_medicamentos' => 0
   }
@@ -189,5 +188,9 @@ Entonces('se obtiene un error de plan sin costo') do
 end
 
 Entonces('se obtiene un error de plan sin rango de edades') do
+  expect(@response.status).to eq 400
+end
+
+Entonces('se obtiene un error de plan sin valor de copago') do
   expect(@response.status).to eq 400
 end
