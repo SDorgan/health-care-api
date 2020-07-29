@@ -2,6 +2,8 @@ class CoberturaVisita
   attr_accessor :cantidad, :copago
 
   def initialize(cantidad, copago)
+    raise PlanSinCopagoError if copago.nil?
+
     @cantidad = cantidad
     @copago = copago
   end

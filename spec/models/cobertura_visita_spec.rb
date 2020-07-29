@@ -18,6 +18,10 @@ describe 'CoberturaVisita' do
 
   let(:copago) { 0 }
 
+  it 'deberia lanzar error si no se especifica el valor del copago' do
+    expect { CoberturaVisita.new(2, nil) }.to raise_error(PlanSinCopagoError)
+  end
+
   it 'deberia devolver la cantidad con la que fue creada' do
     cantidad = 0
     cobertura_visita = CoberturaVisita.new(cantidad, copago)
