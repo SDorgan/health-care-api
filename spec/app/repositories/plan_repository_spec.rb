@@ -67,11 +67,11 @@ describe 'PlanRepository' do
                         edad_minima: 0,
                         edad_maxima: 60))
 
-    plan_encontrado = @repo.find_by_name(@plan.nombre)
+    plan_encontrado = @repo.find_by_slug(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
 
-  xit 'deberia poder filtrar por slug del plan' do # rubocop:disable RSpec/ExampleLength
+  it 'deberia poder filtrar por slug del plan' do # rubocop:disable RSpec/ExampleLength
     @repo.save(Plan.new(nombre: 'familiar',
                         costo: 1000,
                         cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
@@ -145,6 +145,6 @@ describe 'PlanRepository' do
                         edad_minima: 0,
                         edad_maxima: 60))
 
-    expect { @repo.find_by_name('noExiste') }.to raise_error(PlanInexistenteError)
+    expect { @repo.find_by_slug('noExiste') }.to raise_error(PlanInexistenteError)
   end
 end

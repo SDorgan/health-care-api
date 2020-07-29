@@ -11,8 +11,9 @@ class PlanRepository < BaseRepository
     plan
   end
 
-  def find_by_name(nombre)
-    load_object(dataset.first!(name: nombre))
+  def find_by_slug(nombre)
+    slug = nombre.downcase.tr('àáäâãèéëẽêìíïîĩòóöôõùúüûũñç ', 'aaaaaeeeeeiiiiiooooouuuuunc_')
+    load_object(dataset.first!(slug: slug))
   rescue Sequel::NoMatchingRow
     raise PlanInexistenteError
   end
@@ -35,13 +36,15 @@ class PlanRepository < BaseRepository
                     conyuge: Plan.mapeo_conyuge.key(a_record[:spouse]))
 
     plan.id = a_record[:id]
+    plan.slug = a_record[:slug]
 
     plan
   end
 
-  def changeset(plan)
+  def changeset(plan) # rubocop:disable Metrics/AbcSize
     {
       name: plan.nombre,
+      slug: plan.slug,
       cost: plan.costo,
       visit_limit: plan.cobertura_visitas.cantidad,
       copay: plan.cobertura_visitas.copago,
