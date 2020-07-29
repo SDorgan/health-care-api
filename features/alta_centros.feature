@@ -29,7 +29,6 @@ Característica: CRUD Centros
     Entonces se obtiene un mensaje de error centro ya existente
 
   @mvp
-  @wip
   Escenario: ACEN4 - Alta fallida por nombre de centro repetido
     Dado el centro con nombre "Hospital Alemán"
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
