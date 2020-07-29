@@ -11,8 +11,7 @@ Característica: CRUD Prestaciones
     Cuando se registra la prestación
     Entonces la prestación se registra exitosamente
 
-  @wip
   Escenario: APRE2 - Alta fallida de prestacion odontología
     Dado la prestación con nombre "Odontología"
-    Cuando se registra la prestación
+    Cuando se registra la prestación invalida
     Entonces se obtiene un mensaje de error por no indicar costo
