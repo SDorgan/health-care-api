@@ -51,6 +51,16 @@ Característica: CRUD Alifiados
         Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 1
         Cuando se registra al plan "PlanJuventud"
         Entonces obtiene un mensaje de error por tener hijos
+    
+    Escenario: RA4.1 - Registracion fallida por tener hijos
+        Dado el plan con nombre "PlanFamiliarSinHijos" con costo unitario $500
+        Y restricciones edad min 18, edad max 60, hijos max 0, requiere conyuge "si"
+        Y cobertura de visitas con copago $0 y con límite 2
+        Y cobertura de medicamentos 20%
+        Y se registra el plan
+        Dado el afiliado "hansolo" de 30 años, conyuge "no", hijos 1
+        Cuando se registra al plan "PlanFamiliarSinHijos"
+        Entonces obtiene un mensaje de error por tener hijos
         
     Escenario: RA5 - Registracion fallida por tener mas el maximo de hijos
         Dado el afiliado "hansolo" de 19 años, conyuge "no", hijos 3
