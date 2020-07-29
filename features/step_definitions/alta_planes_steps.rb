@@ -241,3 +241,7 @@ end
 Entonces('se obtiene un error de plan con rango de edades invalido') do
   expect(@response.status).to eq 400
 end
+
+Entonces('se obtiene un error de plan con cantidad de hijos invalido') do
+  expect(@response.status).to eq 400
+end
