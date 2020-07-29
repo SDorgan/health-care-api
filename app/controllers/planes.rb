@@ -34,5 +34,8 @@ HealthAPI::App.controllers :planes do
   rescue PlanSinNombreError => e
     status 400
     body e.message
+  rescue PlanSinCostoError => e
+    status 400
+    body e.message
   end
 end
