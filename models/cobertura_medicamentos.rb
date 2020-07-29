@@ -5,6 +5,7 @@ class CoberturaMedicamentos
 
   def initialize(porcentaje)
     raise PlanSinCoberturaMedicamentosError if porcentaje.nil?
+    raise PlanCoberturaMedicamentosInvalida if porcentaje.negative?
 
     @porcentaje = porcentaje
   end
