@@ -29,10 +29,10 @@ class Registro
   private
 
   def validar_afiliado(edad, cantidad_hijos, tiene_conyuge, plan)
-    validar_edad_maxima(edad, plan) unless plan.edad_maxima.nil?
-    validar_edad_minima(edad, plan) unless plan.edad_minima.nil?
-    validar_conyuge(tiene_conyuge, plan) unless plan.conyuge.nil?
-    validar_hijos(cantidad_hijos, plan) unless plan.cantidad_hijos_maxima.nil?
+    validar_edad_maxima(edad, plan)
+    validar_edad_minima(edad, plan)
+    validar_conyuge(tiene_conyuge, plan)
+    validar_hijos(cantidad_hijos, plan)
     true
   end
 
