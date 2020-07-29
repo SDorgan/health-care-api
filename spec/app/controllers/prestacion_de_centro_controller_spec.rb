@@ -46,4 +46,9 @@ describe 'PrestacionDeCentroController' do
     post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
     last_response.body.include?('ok')
   end
+
+  xit 'deberia devolver error al hacer el POST con prestación inexistente' do
+    post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @prestacion.id + @otra_prestacion + 1 }.to_json
+    last_response.body.include?('ok')
+  end
 end
