@@ -59,4 +59,12 @@ describe 'PrestacionDeCentroController' do
     expect(last_response.status).to be 404
     expect(last_response.body).to eq 'El centro pedido no existe'
   end
+
+  xit 'deberia devolver error al hacer el POST con una prestación repetida en el centro' do
+    post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
+    post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @prestacion.id }.to_json
+
+    expect(last_response.status).to be 400
+    expect(last_response.body).to eq 'El centro ya contiene esa prestación'
+  end
 end
