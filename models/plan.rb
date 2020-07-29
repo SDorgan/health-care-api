@@ -32,5 +32,6 @@ class Plan
     raise PlanSinNombreError if data[:nombre].nil?
     raise PlanSinCostoError if data[:costo].nil?
     raise PlanSinRangoDeEdadesError if data[:edad_maxima].nil? || data[:edad_minima].nil?
+    raise PlanSinCantidadMaximaHijosError if data[:cantidad_hijos_maxima].nil?
   end
 end

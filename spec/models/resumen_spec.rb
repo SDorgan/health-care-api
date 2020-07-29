@@ -5,31 +5,37 @@ describe 'Resumen' do
     @plan = Plan.new(nombre: 'Juventud', costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(0, 0),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                     cantidad_hijos_maxima: 1,
                      edad_minima: 0, edad_maxima: 10)
     @plan.id = 1
     @plan_con_cobertura = Plan.new(nombre: 'Premium', costo: 2000,
                                    cobertura_visitas: CoberturaVisita.new(2, 0),
                                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                                   cantidad_hijos_maxima: 1,
                                    edad_minima: 0, edad_maxima: 10)
     @plan_con_cobertura.id = 2
     @plan_infinito = Plan.new(nombre: 'Infinito', costo: 5000,
                               cobertura_visitas: CoberturaVisitaInfinita.new(0),
                               cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                              cantidad_hijos_maxima: 1,
                               edad_minima: 0, edad_maxima: 10)
     @plan_con_cobertura.id = 3
     @plan_con_copago = Plan.new(nombre: 'Familiar', costo: 3000,
                                 cobertura_visitas: CoberturaVisita.new(2, 10),
                                 cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                                cantidad_hijos_maxima: 1,
                                 edad_minima: 0, edad_maxima: 10)
     @plan_con_copago.id = 4
     @plan_con_medicamentos = Plan.new(nombre: 'Farmacia', costo: 1000,
                                       cobertura_visitas: CoberturaVisitaInfinita.new(0),
                                       cobertura_medicamentos: CoberturaMedicamentos.new(80),
+                                      cantidad_hijos_maxima: 1,
                                       edad_minima: 0, edad_maxima: 10)
     @plan_con_medicamentos.id = 5
     @plan_con_cobertura_y_medicamentos = Plan.new(nombre: 'Completo', costo: 1000,
                                                   cobertura_visitas: CoberturaVisita.new(2, 5),
                                                   cobertura_medicamentos: CoberturaMedicamentos.new(50), # rubocop:disable Metrics/LineLength
+                                                  cantidad_hijos_maxima: 1,
                                                   edad_minima: 0, edad_maxima: 10)
     @plan_con_cobertura_y_medicamentos.id = 6
 

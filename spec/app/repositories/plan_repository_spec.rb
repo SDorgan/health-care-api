@@ -10,8 +10,10 @@ describe 'PlanRepository' do
                      costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
-                     edad_minima: 15, edad_maxima: 60, cantidad_hijos_maxima: 3,
+                     edad_minima: 15, edad_maxima: 60,
+                     cantidad_hijos_maxima: 3,
                      conyuge: Plan::ADMITE_CONYUGE)
+
     @repo = PlanRepository.new
 
     @plan = @repo.save(@plan)
@@ -39,6 +41,7 @@ describe 'PlanRepository' do
                         costo: 1000,
                         cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, @copago),
                         cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        cantidad_hijos_maxima: 3,
                         edad_minima: 0,
                         edad_maxima: 60))
 
@@ -58,6 +61,7 @@ describe 'PlanRepository' do
                         costo: 1000,
                         cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
                         cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        cantidad_hijos_maxima: 3,
                         edad_minima: 0,
                         edad_maxima: 60))
 
@@ -120,6 +124,7 @@ describe 'PlanRepository' do
                         costo: 1000,
                         cobertura_visitas: CoberturaVisita.new(@cantidad_visitas, 200),
                         cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                        cantidad_hijos_maxima: 3,
                         edad_minima: 0,
                         edad_maxima: 60))
 

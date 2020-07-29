@@ -6,6 +6,7 @@ describe 'DiagnosticoCovidController' do
              costo: 1000,
              cobertura_visitas: CoberturaVisita.new(0, 0),
              cobertura_medicamentos: CoberturaMedicamentos.new(0),
+             cantidad_hijos_maxima: 1,
              edad_minima: 0,
              edad_maxima: 10)
   end

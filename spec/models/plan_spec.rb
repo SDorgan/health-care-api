@@ -56,6 +56,7 @@ describe 'Plan' do
   it 'deberia poder devolver el nombre con el que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
+                    cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.nombre).to eql nombre
@@ -64,6 +65,7 @@ describe 'Plan' do
   it 'deberia poder devolver el costo con el que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
+                    cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.costo).to eql costo
@@ -72,6 +74,7 @@ describe 'Plan' do
   it 'deberia poder devolver el limite de cobertura de visitas creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
+                    cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.cobertura_visitas.cantidad).to eql cantidad_visitas
@@ -80,6 +83,7 @@ describe 'Plan' do
   it 'deberia poder devolver la cantidad de copago creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
+                    cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.cobertura_visitas.copago).to eql copago
@@ -88,6 +92,7 @@ describe 'Plan' do
   it 'deberia poder devolver la cobertura a medicamentos con la que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
+                    cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.cobertura_medicamentos.porcentaje).to eql porcentaje_cobertura_medicamentos # rubocop:disable Metrics/LineLength
@@ -96,6 +101,7 @@ describe 'Plan' do
   it 'deberia poder devolver la edad minima con la que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
+                    cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.edad_minima).to eql edad_minima
@@ -104,6 +110,7 @@ describe 'Plan' do
   it 'deberia poder devolver la edad maxima con la que fue creado' do
     plan = Plan.new(nombre: nombre, costo: costo, cobertura_visitas: cobertura_visitas,
                     cobertura_medicamentos: cobertura_medicamentos,
+                    cantidad_hijos_maxima: cantidad_hijos_maxima,
                     edad_minima: edad_minima, edad_maxima: edad_maxima)
 
     expect(plan.edad_maxima).to eql edad_maxima
@@ -164,5 +171,15 @@ describe 'Plan' do
                cantidad_hijos_maxima: cantidad_hijos_maxima,
                conyuge: conyuge)
     end.to raise_error(PlanSinRangoDeEdadesError)
+  end
+
+  it 'deberia lanzar un error cuando no se especifica la cantidad maxima de hijos' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, costo: costo,
+               cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos,
+               edad_minima: edad_minima, edad_maxima: edad_maxima,
+               conyuge: conyuge)
+    end.to raise_error(PlanSinCantidadMaximaHijosError)
   end
 end
