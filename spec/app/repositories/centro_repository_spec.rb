@@ -91,4 +91,8 @@ describe 'CentroRepository' do
 
     expect { @repo.save(centro_error) }.to raise_error
   end
+
+  it 'debería devolver error si se intenta cargar una prestación repetida al centro' do
+    expect { @repo.add_prestacion_to_centro(@centro, @prestacion.id) }.to raise_error
+  end
 end
