@@ -54,7 +54,7 @@ describe 'PrestacionDeCentroController' do
     expect(last_response.body).to eq 'La prestación pedida no existe'
   end
 
-  xit 'deberia devolver error al hacer el POST con un centro inexistente' do
+  it 'deberia devolver error al hacer el POST con un centro inexistente' do
     post "/centros/#{@centro.id + @otro_centro.id + 1}/prestaciones", { 'prestacion': @prestacion.id }.to_json
     expect(last_response.status).to be 404
     expect(last_response.body).to eq 'El centro pedido no existe'
