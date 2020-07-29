@@ -53,7 +53,6 @@ Característica: CRUD Planes
     Cuando se registra el plan invalido
     Entonces se obtiene un error de plan sin cantidad de hijos
 
-  @wip
   Escenario: APLA1.11 - Estado civil no especificado
     Dado el plan con nombre "PlanJuventud" con costo unitario $500
     Y restricciones edad min 15, edad max 20, hijos max 0

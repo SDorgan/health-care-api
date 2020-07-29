@@ -197,6 +197,19 @@ Dado('restricciones edad min {int}, edad max {int}, admite conyuge {string}') do
   }
 end
 
+Dado('restricciones edad min {int}, edad max {int}, hijos max {int}') do |edad_minima, edad_maxima, cantidad_hijos_maxima| # rubocop:disable  Metrics/LineLength
+  @request = {
+    'nombre' => @request['nombre'],
+    'costo' => @request['costo'],
+    'cobertura_medicamentos' => @request['cobertura'],
+    'limite_cobertura_visitas' => @request['limite_cobertura_visitas'],
+    'copago' => @request['copago'],
+    'cantidad_hijos_maxima' => cantidad_hijos_maxima,
+    'edad_minima' => edad_minima,
+    'edad_maxima' => edad_maxima
+  }
+end
+
 Entonces('se obtiene un error de plan sin nombre') do
   expect(@response.status).to eq 400
 end
@@ -214,5 +227,9 @@ Entonces('se obtiene un error de plan sin valor de copago') do
 end
 
 Entonces('se obtiene un error de plan sin cantidad de hijos') do
+  expect(@response.status).to eq 400
+end
+
+Entonces('se obtiene un error de plan sin estado civil') do
   expect(@response.status).to eq 400
 end
