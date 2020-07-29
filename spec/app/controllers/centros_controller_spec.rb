@@ -50,7 +50,7 @@ describe 'CentrosController' do
     last_response.body.include?('centros')
   end
 
-  xit 'si se le pasa una prestacion, deberia devolver los centros en los que se da una prestacion' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+  it 'si se le pasa una prestacion, deberia devolver los centros en los que se da una prestacion' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     centro_repo = CentroRepository.new
     @centro = centro_repo.save(Centro.new(centro_nombre, latitud, longitud))
     @otro_centro = centro_repo.save(Centro.new(otro_centro, latitud + 1, longitud + 1))

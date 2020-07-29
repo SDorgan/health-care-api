@@ -9,7 +9,7 @@ Dado('el centro llamado {string}') do |nombre|
 end
 
 Cuando('se le agrega la prestación {string} al centro {string}') do |nombre_prestacion, nombre_centro| # rubocop:disable Metrics/LineLength
-  prestacion = PrestacionRepository.new.find_by_name(nombre_prestacion)
+  prestacion = PrestacionRepository.new.find_by_slug(nombre_prestacion)
   request = {
     'prestacion': prestacion.id
   }
