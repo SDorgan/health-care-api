@@ -26,7 +26,7 @@ describe 'PlanesController' do
   end
 
   let(:edad_maxima) do
-    10
+    30
   end
 
   let(:cantidad_hijos_maxima) do

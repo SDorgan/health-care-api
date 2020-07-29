@@ -39,6 +39,6 @@ class Plan
     raise PlanSinRangoDeEdadesError if data[:edad_maxima].nil? || data[:edad_minima].nil?
     raise PlanSinCantidadMaximaHijosError if data[:cantidad_hijos_maxima].nil?
     raise PlanSinEstadoCivilError if data[:conyuge].nil?
-    raise PlanRangoDeEdadesInvalido if data[:edad_minima] > data[:edad_maxima]
+    raise PlanRangoDeEdadesInvalido if data[:edad_minima] >= data[:edad_maxima]
   end
 end
