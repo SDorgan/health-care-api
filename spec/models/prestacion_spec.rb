@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Prestacion' do
-  xit 'deberia poder devolver los datos con los que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+  it 'deberia poder devolver los datos con los que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     nombre = 'Traumatología'
     slug = 'traumatologia'
     costo = 1200
