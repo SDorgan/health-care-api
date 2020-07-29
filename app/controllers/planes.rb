@@ -31,10 +31,7 @@ HealthAPI::App.controllers :planes do
 
     PlanResponseBuilder.create_from(plan)
 
-  rescue PlanSinNombreError => e
-    status 400
-    body e.message
-  rescue PlanSinCostoError => e
+  rescue PlanArgumentosInvalidosError => e
     status 400
     body e.message
   end

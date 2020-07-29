@@ -49,6 +49,17 @@ describe 'PlanesController' do
       'conyuge' => conyuge }.to_json
   end
 
+  let(:body_sin_edad_maxima) do
+    { 'nombre' => nombre,
+      'costo' => costo,
+      'limite_cobertura_visitas' => limite_cobertura_visitas,
+      'copago' => copago,
+      'cobertura_medicamentos' => cobertura_medicamentos,
+      'edad_minima' => edad_minima,
+      'cantidad_hijos_maxima' => cantidad_hijos_maxima,
+      'conyuge' => conyuge }.to_json
+  end
+
   let(:body_sin_costo) do
     { 'nombre' => nombre,
       'limite_cobertura_visitas' => limite_cobertura_visitas,
@@ -132,6 +143,11 @@ describe 'PlanesController' do
 
   it 'deberia lanzar un error cuando no se especifica el costo' do
     post '/planes', body_sin_costo
+    expect(last_response.status).to eq 400
+  end
+
+  it 'deberia lanzar un error cuando no se especifica la edad máxima' do
+    post '/planes', body_sin_edad_maxima
     expect(last_response.status).to eq 400
   end
 end
