@@ -68,6 +68,42 @@ Característica: CRUD Planes
     Cuando se registra el plan invalido
     Entonces se obtiene un error de plan sin cobertura de medicamentos
 
+  @wip
+  Escenario: APLA1.13 - Edad mínima debe ser menor que edad máxima
+    Dado el plan con nombre "PlanJuventud" con costo unitario $500
+    Y restricciones edad min 20, edad max 15, hijos max 0, admite conyuge "no"
+    Y cobertura de visitas con copago $0 y con límite 2
+    Y cobertura de medicamentos 20%
+    Cuando se registra el plan invalido
+    Entonces se obtiene un error de plan con rango de edades invalido
+
+  @wip
+  Escenario: APLA1.14 - Cobertura de medicamentos fuera de rango
+    Dado el plan con nombre "PlanJuventud" con costo unitario $500
+    Y restricciones edad min 15, edad max 20, hijos max 0, admite conyuge "no"
+    Y cobertura de visitas con copago $0 y con límite 2
+    Y cobertura de medicamentos -1%
+    Cuando se registra el plan invalido
+    Entonces se obtiene un error de plan con cobertura de medicamentos invalido
+
+  @wip
+  Escenario: APLA1.15 - Número inválido de hijos
+    Dado el plan con nombre "PlanJuventud" con costo unitario $500
+    Y restricciones edad min 15, edad max 20, hijos max -1, admite conyuge "no"
+    Y cobertura de visitas con copago $0 y con límite 2
+    Y cobertura de medicamentos 20%
+    Cuando se registra el plan invalido
+    Entonces se obtiene un error de plan con cantidad de hijos invalido
+
+  @wip
+  Escenario: APLA1.16 - Valor del copago fuera de rango
+    Dado el plan con nombre "PlanJuventud" con costo unitario $500
+    Y restricciones edad min 15, edad max 20, hijos max 0, admite conyuge "no"
+    Y cobertura de visitas con copago $-10 y con límite 2
+    Y cobertura de medicamentos 20%
+    Cuando se registra el plan invalido
+    Entonces se obtiene un error de plan con copago invalido
+
   Escenario: APLA2 - Alta exitosa de plan 310
     Dado el plan con nombre "Plan310" con costo unitario $1000
     Y restricciones edad min 21, edad max 99, hijos max 0, admite conyuge "no"
