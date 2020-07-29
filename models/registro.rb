@@ -32,8 +32,8 @@ class Registro
   def validar_afiliado(edad, cantidad_hijos, tiene_conyuge, plan)
     validar_edad_maxima(edad, plan)
     validar_edad_minima(edad, plan)
-    validar_conyuge(tiene_conyuge, plan)
     validar_hijos(cantidad_hijos, plan)
+    validar_conyuge(tiene_conyuge, plan)
     true
   end
 

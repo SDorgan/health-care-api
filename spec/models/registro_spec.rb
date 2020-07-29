@@ -119,4 +119,12 @@ describe 'Registro' do
                                    cantidad_hijos: 3, conyuge: true)
     end.to raise_error(SuperaLimiteDeHijosError)
   end
+
+  it 'deberia poder devolver error no se admite hijos antes del error de conyuge del plan' do
+    expect do
+      @registro.registrar_afiliado(nombre_afiliado: 'Juan', nombre_plan: 'PlanFamiliar',
+                                   id_telegram: 'fake_id', edad: 18,
+                                   cantidad_hijos: 3, conyuge: false)
+    end.to raise_error(NoSeAdmiteHijosError)
+  end
 end
