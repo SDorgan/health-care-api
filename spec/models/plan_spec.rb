@@ -154,4 +154,15 @@ describe 'Plan' do
                conyuge: conyuge)
     end.to raise_error(PlanSinRangoDeEdadesError)
   end
+
+  it 'deberia lanzar un error cuando no especifico el limite minimo de edad' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    expect do
+      Plan.new(nombre: nombre, costo: costo,
+               cobertura_visitas: cobertura_visitas,
+               cobertura_medicamentos: cobertura_medicamentos,
+               edad_maxima: edad_maxima,
+               cantidad_hijos_maxima: cantidad_hijos_maxima,
+               conyuge: conyuge)
+    end.to raise_error(PlanSinRangoDeEdadesError)
+  end
 end
