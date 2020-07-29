@@ -39,7 +39,6 @@ Característica: CRUD Centros
     Entonces se obtiene un mensaje de error centro ya existente
 
   @mvp
-  @wip
   Escenario: ACEN5 - Alta fallida por colision de coodeandas
     Dado el centro con nombre "Hospital Alemán"
     Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
