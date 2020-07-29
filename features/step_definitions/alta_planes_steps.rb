@@ -237,3 +237,7 @@ end
 Entonces('se obtiene un error de plan sin cobertura de medicamentos') do
   expect(@response.status).to eq 400
 end
+
+Entonces('se obtiene un error de plan con rango de edades invalido') do
+  expect(@response.status).to eq 400
+end

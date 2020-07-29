@@ -60,6 +60,22 @@ describe 'CentrosController' do
 
     centro_repo.add_prestacion_to_centro(@centro, @prestacion.id)
 
+    get '/centros?prestacion=traumatologia'
+    response = JSON.parse(last_response.body)
+
+    expect(response['centros'].length).to eq 1
+  end
+
+  it 'la prestacion para la que pide los centros debería poder hacer el pedido sin tildes o mayúsculas' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    centro_repo = CentroRepository.new
+    @centro = centro_repo.save(Centro.new(centro_nombre, latitud, longitud))
+    @otro_centro = centro_repo.save(Centro.new(otro_centro, latitud + 1, longitud + 1))
+
+    prestacion_repo = PrestacionRepository.new
+    @prestacion = prestacion_repo.save(Prestacion.new(prestacion['nombre'], prestacion['costo']))
+
+    centro_repo.add_prestacion_to_centro(@centro, @prestacion.id)
+
     get "/centros?prestacion=#{ERB::Util.url_encode(@prestacion.nombre)}"
     response = JSON.parse(last_response.body)
 

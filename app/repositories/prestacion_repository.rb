@@ -1,3 +1,4 @@
+require_relative '../../lib/string_helper'
 class PrestacionRepository < BaseRepository
   def initialize
     super(:prestaciones)
@@ -26,16 +27,17 @@ class PrestacionRepository < BaseRepository
   end
 
   def full_load_by_name(nombre)
-    prestacion = find_by_name(nombre)
+    prestacion = find_by_slug(nombre)
     prestacion.centros = CentroRepository.new.find_by_prestacion(prestacion.id)
 
     prestacion
   end
 
-  def find_by_name(nombre)
-    raise PrestacionNotExistsError unless exists_prestacion_with_name(nombre)
+  def find_by_slug(nombre)
+    slug = StringHelper.sluggify(nombre)
+    raise PrestacionNotExistsError unless exists_prestacion_with_slug(slug)
 
-    load_object(dataset.first!(name: nombre))
+    load_object(dataset.first!(slug: slug))
   end
 
   def find_by_centro(centro_id)
@@ -53,8 +55,8 @@ class PrestacionRepository < BaseRepository
     !dataset.where(id: id).blank?
   end
 
-  def exists_prestacion_with_name(nombre)
-    !dataset.where(name: nombre).blank?
+  def exists_prestacion_with_slug(slug)
+    !dataset.where(slug: slug).blank?
   end
 
   def dataset_with_centros
@@ -68,6 +70,7 @@ class PrestacionRepository < BaseRepository
   def load_object(a_record)
     prestacion = Prestacion.new(a_record[:name], a_record[:cost])
     prestacion.id = a_record[:prestacion_id] ||= a_record[:id]
+    prestacion.slug = a_record[:slug]
 
     prestacion
   end
@@ -75,6 +78,7 @@ class PrestacionRepository < BaseRepository
   def changeset(prestacion)
     {
       name: prestacion.nombre,
+      slug: prestacion.slug,
       cost: prestacion.costo
     }
   end
