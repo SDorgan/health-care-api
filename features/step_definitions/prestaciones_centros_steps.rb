@@ -8,10 +8,28 @@ Dado('el centro llamado {string}') do |nombre|
   @centro_id = centro['id']
 end
 
+Dado('el centro inexistente llamado {string}') do |nombre|
+  fake_id = 999_999_999
+  @centro_id = fake_id
+  @centros[nombre] = @centro_id
+end
+
 Cuando('se le agrega la prestación {string} al centro {string}') do |nombre_prestacion, nombre_centro| # rubocop:disable Metrics/LineLength
   prestacion = PrestacionRepository.new.find_by_slug(nombre_prestacion)
   request = {
     'prestacion': prestacion.id
+  }
+  @centro_id = @centros[nombre_centro]
+
+  URL = "#{CENTROS_URL}/#{@centro_id}/prestaciones".freeze
+
+  @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json')
+end
+
+Cuando('se le agrega la prestación inexistente {string} al centro {string}') do |_nombre_prestacion, nombre_centro| # rubocop:disable Metrics/LineLength
+  fake_id = 999_999_999
+  request = {
+    'prestacion': fake_id
   }
   @centro_id = @centros[nombre_centro]
 
