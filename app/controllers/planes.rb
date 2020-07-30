@@ -1,8 +1,18 @@
+require_relative '../../models/errors/plan_inexistente_error'
 HealthAPI::App.controllers :planes do
   get :index do
-    planes = PlanRepository.new.all
+    param_plan = request.params['nombre']
+    if param_plan.nil?
+      planes = PlanRepository.new.all
+      PlanResponseBuilder.create_from_all(planes)
+    else
+      plan = PlanRepository.new.find_by_slug(param_plan)
+      PlanResponseBuilder.create_from(plan)
+    end
 
-    PlanResponseBuilder.create_from_all(planes)
+  rescue PlanInexistenteError => e
+    status 404
+    body e.message
   end
 
   post :index do

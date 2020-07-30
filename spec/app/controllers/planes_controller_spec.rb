@@ -150,4 +150,18 @@ describe 'PlanesController' do
     post '/planes', body_sin_edad_maxima
     expect(last_response.status).to eq 400
   end
+
+  it 'deberia poder pedir por un plan individual por nombre' do
+    post '/planes', body
+    get "/planes?nombre=#{ERB::Util.url_encode(nombre)}"
+    response = JSON.parse(last_response.body)
+    plan = response['plan']
+    expect(plan['nombre']). to eq nombre
+  end
+
+  it 'deberia tener error si pido por un plan que no existe' do
+    get '/planes?nombre=PlanQueNoExiste'
+    expect(last_response.status).to eq 404
+    expect(last_response.body).to eq 'El plan es inexistente'
+  end
 end
