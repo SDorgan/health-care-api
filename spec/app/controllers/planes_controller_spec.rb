@@ -151,12 +151,12 @@ describe 'PlanesController' do
     expect(last_response.status).to eq 400
   end
 
-  xit 'deberia poder pedir por un plan individual' do
+  it 'deberia poder pedir por un plan individual por nombre' do
     post '/planes', body
-    get "/planes?nombre=#{ERB::Util.url_encode(body['nombre'])}"
+    get "/planes?nombre=#{ERB::Util.url_encode(nombre)}"
     response = JSON.parse(last_response.body)
     plan = response['plan']
-    expect(plan['nombre']). to eq body['nombre']
+    expect(plan['nombre']). to eq nombre
   end
 
   xit 'deberia tener error si pido por un plan que no existe' do
