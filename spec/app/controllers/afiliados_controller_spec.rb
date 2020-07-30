@@ -96,4 +96,19 @@ describe 'AfiliadosController' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliar', 'id_telegram': '10', 'cantidad_hijos': 1, 'edad': 18, 'conyuge': false }.to_json
     expect(last_response.status).to be 400
   end
+
+  xit 'debería poder preguntar si un id_telegram está afiliado' do
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
+    get '/afiliado?id_telegram=10'
+
+    response = JSON.parse(last_response.body)
+    expect(response['afiliado']).to be true
+  end
+
+  xit 'debería poder preguntar si un id_telegram no está afiliado' do
+    get '/afiliado?id_telegram=fake_id'
+
+    response = JSON.parse(last_response.body)
+    expect(response['afiliado']).to be false
+  end
 end
