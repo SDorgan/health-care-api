@@ -21,6 +21,15 @@ Cuando('se registra la prestación') do
   @prestaciones[@nombre_prestacion] = mi_prestacion['id']
 end
 
+Cuando('se registra la prestación invalida') do
+  @request = {
+    'nombre': @nombre_prestacion,
+    'costo': @costo_prestacion
+  }
+
+  @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json')
+end
+
 Entonces('la prestación se registra exitosamente') do
   json_response = JSON.parse(@response.body)
 
@@ -28,4 +37,9 @@ Entonces('la prestación se registra exitosamente') do
 
   expect(mi_prestacion['nombre']).to eq 'Traumatología'
   expect(mi_prestacion['costo']).to eq 1200
+end
+
+Entonces('se obtiene un mensaje de error por no indicar costo') do
+  expect(@response.status).to eq 400
+  expect(@response.body).to eq 'se debe especificar un costo'
 end

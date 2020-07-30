@@ -15,5 +15,9 @@ HealthAPI::App.controllers :prestaciones do
     status 201
 
     PrestacionResponseBuilder.create_from(prestacion)
+
+  rescue PrestacionSinCostoError => e
+    status 400
+    body e.message
   end
 end
