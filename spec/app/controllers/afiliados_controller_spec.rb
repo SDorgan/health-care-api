@@ -97,18 +97,16 @@ describe 'AfiliadosController' do
     expect(last_response.status).to be 400
   end
 
-  xit 'debería poder preguntar si un id_telegram está afiliado' do
+  it 'debería poder verificar la existencia de un afiliado con cierto id_telegram' do
     post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
-    get '/afiliado?id_telegram=10'
+    head '/afiliados/10'
 
-    response = JSON.parse(last_response.body)
-    expect(response['afiliado']).to be true
+    expect(last_response.status).to be 200
   end
 
-  xit 'debería poder preguntar si un id_telegram no está afiliado' do
-    get '/afiliado?id_telegram=fake_id'
+  xit 'debería poder verificar la no existencia de un afiliado con cierto id_telegram' do
+    head '/afiliados/fake_id'
 
-    response = JSON.parse(last_response.body)
-    expect(response['afiliado']).to be false
+    expect(last_response.status).to be 404
   end
 end

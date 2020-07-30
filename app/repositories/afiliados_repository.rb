@@ -39,14 +39,14 @@ class AfiliadoRepository < BaseRepository
     afiliado.covid_sospechoso
   end
 
+  def exists_afiliado_with_telegram_id(tele_id)
+    !dataset.where(id_telegram: tele_id).blank?
+  end
+
   private
 
   def find_dataset_by_id(id)
     dataset.where(pk_column => id)
-  end
-
-  def exists_afiliado_with_telegram_id(tele_id)
-    !dataset.where(id_telegram: tele_id).blank?
   end
 
   def update(a_record)
