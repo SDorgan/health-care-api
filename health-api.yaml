@@ -218,6 +218,20 @@ paths:
             properties:
               id:
                 $ref: '#/definitions/Id'
+  /afiliados/{telegram_id}:
+    parameters:
+    - name: telegram_id
+      in: path
+      type: string
+      description: "id de telegram del afiliado"
+      required: true
+    head:
+      description: "Obtiene la existencia de un afiliado"
+      responses:
+        200:
+          description: "El afiliado existe"
+        404:
+          description: "El afiliado no existe"
                 
   /visitas:
     post:

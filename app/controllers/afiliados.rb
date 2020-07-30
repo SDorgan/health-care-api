@@ -7,6 +7,15 @@ HealthAPI::App.controllers :afiliados do
     AfiliadoResponseBuilder.create_from_all(afiliados)
   end
 
+  head :index, with: :id_telegram do
+    exists = AfiliadoRepository.new.exists_afiliado_with_telegram_id(params[:id_telegram])
+    if exists
+      status 200
+    else
+      status 404
+    end
+  end
+
   post :index do
     params = JSON.parse(request.body.read)
 
