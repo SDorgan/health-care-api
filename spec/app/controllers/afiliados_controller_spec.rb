@@ -104,7 +104,7 @@ describe 'AfiliadosController' do
     expect(last_response.status).to be 200
   end
 
-  xit 'debería poder verificar la no existencia de un afiliado con cierto id_telegram' do
+  it 'debería poder verificar la no existencia de un afiliado con cierto id_telegram' do
     head '/afiliados/fake_id'
 
     expect(last_response.status).to be 404
