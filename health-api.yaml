@@ -59,6 +59,12 @@ paths:
 
   /planes:
     get:
+      parameters:
+      - in: query
+        name: nombre
+        type: integer
+        required: false
+        description: "Si se pasa, indica que se deben traer solo el plan de ese nombre"
       description: "Obtener todos los planes médicos disponibles"
       responses:
         200:
