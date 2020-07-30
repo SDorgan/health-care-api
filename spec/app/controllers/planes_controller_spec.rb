@@ -159,9 +159,9 @@ describe 'PlanesController' do
     expect(plan['nombre']). to eq nombre
   end
 
-  xit 'deberia tener error si pido por un plan que no existe' do
+  it 'deberia tener error si pido por un plan que no existe' do
     get '/planes?nombre=PlanQueNoExiste'
     expect(last_response.status).to eq 404
-    expect(last_response.body).to eq 'El plan pedido no existe'
+    expect(last_response.body).to eq 'El plan es inexistente'
   end
 end
