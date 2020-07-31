@@ -26,7 +26,7 @@ class CentroRepository < BaseRepository
   end
 
   def add_prestacion(centro, prestacion)
-    raise CentroYaContienePrestacionError if centro_contains_prestacion(centro.id, prestacion) # rubocop:disable Metrics/LineLength
+    raise CentroYaContienePrestacionError if centro_contains_prestacion(centro, prestacion) # rubocop:disable Metrics/LineLength
 
     changeset = {
       centro_id: centro.id,
@@ -48,8 +48,8 @@ class CentroRepository < BaseRepository
     dataset.delete
   end
 
-  def centro_contains_prestacion(centro_id, prestacion)
-    !dataset_prestaciones_de_centros.where(centro_id: centro_id,
+  def centro_contains_prestacion(centro, prestacion)
+    !dataset_prestaciones_de_centros.where(centro_id: centro.id,
                                            prestacion_id: prestacion.id).blank?
   end
 
