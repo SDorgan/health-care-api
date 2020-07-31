@@ -58,7 +58,7 @@ describe 'CentrosController' do
     prestacion_repo = PrestacionRepository.new
     @prestacion = prestacion_repo.save(Prestacion.new(prestacion['nombre'], prestacion['costo']))
 
-    centro_repo.add_prestacion_to_centro(@centro, @prestacion.id)
+    centro_repo.add_prestacion(@centro, @prestacion)
 
     get '/centros?prestacion=traumatologia'
     response = JSON.parse(last_response.body)
@@ -74,7 +74,7 @@ describe 'CentrosController' do
     prestacion_repo = PrestacionRepository.new
     @prestacion = prestacion_repo.save(Prestacion.new(prestacion['nombre'], prestacion['costo']))
 
-    centro_repo.add_prestacion_to_centro(@centro, @prestacion.id)
+    centro_repo.add_prestacion(@centro, @prestacion)
 
     get "/centros?prestacion=#{ERB::Util.url_encode(@prestacion.nombre)}"
     response = JSON.parse(last_response.body)

@@ -22,7 +22,7 @@ describe 'CentroRepository' do
     @prestacion_repo = PrestacionRepository.new
     @prestacion = @prestacion_repo.save(@prestacion)
 
-    @repo.add_prestacion_to_centro(@centro, @prestacion.id)
+    @repo.add_prestacion(@centro, @prestacion)
   end
 
   it 'deberia guardar el centro generando un id positivo' do
@@ -93,6 +93,6 @@ describe 'CentroRepository' do
   end
 
   it 'debería devolver error si se intenta cargar una prestación repetida al centro' do
-    expect { @repo.add_prestacion_to_centro(@centro, @prestacion.id) }.to raise_error
+    expect { @repo.add_prestacion(@centro, @prestacion) }.to raise_error
   end
 end

@@ -33,7 +33,7 @@ describe 'VisitaMedicaController' do
 
     @centro = CentroRepository.new.save(centro)
 
-    CentroRepository.new.add_prestacion_to_centro(@centro, @prestacion.id)
+    CentroRepository.new.add_prestacion(@centro, @prestacion)
 
     @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
