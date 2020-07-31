@@ -1,4 +1,5 @@
 require_relative '../lib/string_helper'
+
 class Plan
   NO_ADMITE_CONYUGE = 'NO_ADMITE_CONYUGE'.freeze
   ADMITE_CONYUGE = 'ADMITE_CONYUGE'.freeze
@@ -11,15 +12,33 @@ class Plan
 
   def initialize(data = {})
     validate(data)
+
     @nombre = data[:nombre]
     @costo = data[:costo]
-    @cobertura_visitas = data[:cobertura_visitas]
-    @cobertura_medicamentos = data[:cobertura_medicamentos]
     @edad_minima = data[:edad_minima]
     @edad_maxima = data[:edad_maxima]
+    @cobertura_visitas = data[:cobertura_visitas]
+    @cobertura_medicamentos = data[:cobertura_medicamentos]
     @cantidad_hijos_maxima = data[:cantidad_hijos_maxima]
     @conyuge = data[:conyuge]
+
     @slug = StringHelper.sluggify(nombre)
+  end
+
+  def self.create(data = {})
+    cobertura_visitas = if !data[:limite_visitas].nil?
+                          CoberturaVisita.new(data[:limite_visitas],
+                                              data[:costo_copago])
+                        else
+                          CoberturaVisitaInfinita.new(data[:costo_copago])
+                        end
+
+    cobertura_medicamentos = CoberturaMedicamentos.new(data[:porcentaje_medicamentos])
+
+    data[:cobertura_visitas] = cobertura_visitas
+    data[:cobertura_medicamentos] = cobertura_medicamentos
+
+    Plan.new(data)
   end
 
   def self.mapeo_conyuge

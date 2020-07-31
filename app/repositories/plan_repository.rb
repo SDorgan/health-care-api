@@ -1,4 +1,5 @@
 require_relative '../../lib/string_helper'
+
 class PlanRepository < BaseRepository
   def initialize
     super(:planes)
