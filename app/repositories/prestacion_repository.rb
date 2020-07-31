@@ -1,4 +1,5 @@
 require_relative '../../lib/string_helper'
+
 class PrestacionRepository < BaseRepository
   def initialize
     super(:prestaciones)
@@ -19,22 +20,9 @@ class PrestacionRepository < BaseRepository
     super(id_)
   end
 
-  def full_load(id)
-    prestacion = find(id)
-    prestacion.centros = CentroRepository.new.find_by_prestacion(id)
-
-    prestacion
-  end
-
-  def full_load_by_name(nombre)
-    prestacion = find_by_slug(nombre)
-    prestacion.centros = CentroRepository.new.find_by_prestacion(prestacion.id)
-
-    prestacion
-  end
-
-  def find_by_slug(nombre)
+  def find_by_name(nombre)
     slug = StringHelper.sluggify(nombre)
+
     raise PrestacionNotExistsError unless exists_prestacion_with_slug(slug)
 
     load_object(dataset.first!(slug: slug))

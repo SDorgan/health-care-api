@@ -52,7 +52,7 @@ describe 'PrestacionRepository' do
   end
 
   it 'deberia poder buscar por slug' do
-    prest_guardada = @repo.find_by_slug(@prestacion.slug)
+    prest_guardada = @repo.find_by_name(@prestacion.slug)
 
     expect(prest_guardada.nombre).to eql @prestacion.nombre
   end

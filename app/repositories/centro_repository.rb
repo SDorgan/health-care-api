@@ -6,9 +6,23 @@ class CentroRepository < BaseRepository
 
   def save(centro)
     validate(centro)
+
     id = insert(centro)
     centro.id = id
+
     centro
+  end
+
+  def find(id_)
+    raise CentroInexistenteError unless exists_centro_with_id(id_)
+
+    super(id_)
+  end
+
+  def find_by_prestacion(nombre_prestacion)
+    prestacion = PrestacionRepository.new.find_by_name(nombre_prestacion)
+
+    load_collection dataset_with_prestaciones.where(prestacion_id: prestacion.id)
   end
 
   def add_prestacion_to_centro(centro, prestacion_id)
@@ -22,21 +36,11 @@ class CentroRepository < BaseRepository
     dataset_prestaciones_de_centros.insert(changeset)
   end
 
-  def find(id_)
-    raise CentroInexistenteError unless exists_centro_with_id(id_)
-
-    super(id_)
-  end
-
   def full_load(id)
     centro = find(id)
     centro.prestaciones = PrestacionRepository.new.find_by_centro(id)
 
     centro
-  end
-
-  def find_by_prestacion(prestacion_id)
-    load_collection dataset_with_prestaciones.where(prestacion_id: prestacion_id)
   end
 
   def delete_all
