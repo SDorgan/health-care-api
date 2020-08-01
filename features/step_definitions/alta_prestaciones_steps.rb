@@ -6,6 +6,10 @@ Dado('costo unitario de prestación ${int}') do |costo|
   @costo_prestacion = costo
 end
 
+Dado('costo unitario de prestación {string}') do |costo|
+  @costo_prestacion = costo
+end
+
 Cuando('se registra la prestación') do
   @request = {
     'nombre': @nombre_prestacion,
@@ -47,4 +51,9 @@ end
 Entonces('se obtiene un mensaje de error por costo negativo') do
   expect(@response.status).to eq 400
   expect(@response.body).to eq 'se debe especificar un costo positivo'
+end
+
+Entonces('se obtiene un mensaje de error de que el costo debe ser numerico') do
+  expect(@response.status).to eq 400
+  expect(@response.body).to eq 'se debe especificar un costo numerico positivo'
 end
