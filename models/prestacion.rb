@@ -5,6 +5,7 @@ class Prestacion
 
   def initialize(nombre, costo)
     raise PrestacionSinCostoError if costo.nil?
+    raise PrestacionSinNombreError if nombre.nil?
 
     begin
       raise PrestacionCostoNegativoError if costo.negative?

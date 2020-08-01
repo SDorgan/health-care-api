@@ -6,6 +6,11 @@ describe 'Prestacion' do
     expect { Prestacion.new(nombre, nil) }.to raise_error(PrestacionSinCostoError)
   end
 
+  it 'deberia lanzar error cuando no se especifica el nombre' do
+    costo = 100
+    expect { Prestacion.new(nil, costo) }.to raise_error(PrestacionSinNombreError)
+  end
+
   it 'deberia lanzar error cuando se especifica el costo negativo' do
     nombre = 'Traumatología'
     costo = -100
