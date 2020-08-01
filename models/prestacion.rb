@@ -5,7 +5,12 @@ class Prestacion
 
   def initialize(nombre, costo)
     raise PrestacionSinCostoError if costo.nil?
-    raise PrestacionCostoNegativoError if costo.negative?
+
+    begin
+      raise PrestacionCostoNegativoError if costo.negative?
+    rescue NoMethodError
+      raise PrestacionCostoDebeSerNumericoError
+    end
 
     @nombre = nombre
     @costo = costo

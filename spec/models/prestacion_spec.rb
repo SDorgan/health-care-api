@@ -12,6 +12,12 @@ describe 'Prestacion' do
     expect { Prestacion.new(nombre, costo) }.to raise_error(PrestacionCostoNegativoError)
   end
 
+  it 'deberia lanzar error cuando se especifica el costo como texto' do
+    nombre = 'Traumatología'
+    costo = '-100'
+    expect { Prestacion.new(nombre, costo) }.to raise_error(PrestacionCostoDebeSerNumericoError)
+  end
+
   it 'deberia poder devolver los datos con los que fue creado' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
     nombre = 'Traumatología'
     slug = 'traumatologia'
