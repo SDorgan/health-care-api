@@ -43,3 +43,8 @@ Entonces('se obtiene un mensaje de error por no indicar costo') do
   expect(@response.status).to eq 400
   expect(@response.body).to eq 'se debe especificar un costo'
 end
+
+Entonces('se obtiene un mensaje de error por costo negativo') do
+  expect(@response.status).to eq 400
+  expect(@response.body).to eq 'se debe especificar un costo positivo'
+end

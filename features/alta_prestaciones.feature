@@ -16,7 +16,6 @@ Característica: CRUD Prestaciones
     Cuando se registra la prestación invalida
     Entonces se obtiene un mensaje de error por no indicar costo
 
-  @wip
   Escenario: APRE3 - Alta fallida de prestación por costo negativo
     Dado la prestación con nombre "Traumatología"
     Y costo unitario de prestación $-100
