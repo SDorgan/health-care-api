@@ -27,3 +27,9 @@ Característica: CRUD Prestaciones
     Y costo unitario de prestación "100"
     Cuando se registra la prestación invalida
     Entonces se obtiene un mensaje de error de que el costo debe ser numerico
+
+  @wip
+  Escenario: APRE5 - Alta fallida de prestación por no indicar nombre
+    Dado la prestación con costo unitario $100
+    Cuando se registra la prestación invalida
+    Entonces se obtiene un mensaje de error por no indicar el nombre
