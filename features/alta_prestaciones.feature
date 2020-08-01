@@ -21,3 +21,10 @@ Característica: CRUD Prestaciones
     Y costo unitario de prestación $-100
     Cuando se registra la prestación invalida
     Entonces se obtiene un mensaje de error por costo negativo
+
+  @wip
+  Escenario: APRE4 - Alta fallida de prestación por costo ingresado como texto
+    Dado la prestación con nombre "Traumatología"
+    Y costo unitario de prestación "100"
+    Cuando se registra la prestación invalida
+    Entonces se obtiene un mensaje de error de que el costo debe ser numerico
