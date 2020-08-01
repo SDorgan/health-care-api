@@ -2,7 +2,14 @@ require 'spec_helper'
 
 describe 'ComprasMedicamentosController' do
   let(:plan) do
-    plan = Plan.new('Neo', 1000, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
+    plan = Plan.new(nombre: 'Neo',
+                    costo: 1000,
+                    cobertura_visitas: CoberturaVisita.new(0, 0),
+                    cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                    cantidad_hijos_maxima: 1,
+                    conyuge: Plan::ADMITE_CONYUGE,
+                    edad_minima: 0,
+                    edad_maxima: 10)
 
     plan
   end
@@ -10,7 +17,7 @@ describe 'ComprasMedicamentosController' do
   before(:each) do
     @plan = PlanRepository.new.save(plan)
 
-    @afiliado = Afiliado.new('Juan Perez', @plan.id)
+    @afiliado = Afiliado.new('Juan Perez', @plan)
     @afiliado = AfiliadoRepository.new.save(@afiliado)
   end
 

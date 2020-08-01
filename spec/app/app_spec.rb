@@ -5,11 +5,21 @@ describe 'App' do
     @nombre_plan = 'PlanJuventud'
     @costo_plan = 100
     @limite_visita_plan = 3
+    @cobertura_medicamentos = 80
     @copago = 3
+    @edad_minima = 10
+    @edad_maxima = 60
+    @cantidad_hijos = 0
+    @conyuge = false
     data = { 'nombre' => @nombre_plan,
              'costo' => @costo_plan,
              'limite_cobertura_visitas' => @limite_visita_plan,
-             'copago' => @copago }.to_json
+             'cobertura_medicamentos' => @cobertura_medicamentos,
+             'copago' => @copago,
+             'cantidad_hijos_maxima' => @cantidad_hijos,
+             'edad_minima' => @edad_minima,
+             'edad_maxima' => @edad_maxima,
+             'conyuge' => @conyuge }.to_json
     post '/planes', data
     @plan_repository = PlanRepository.new
   end
@@ -23,10 +33,11 @@ describe 'App' do
     plan = @plan_repository.all.first
     plan_id = plan.id
     afiliado_repository = AfiliadoRepository.new
-    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud' }.to_json
+    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
-    expect(afiliados.first.plan_id).to eql plan_id
+    expect(afiliados.first.plan.id).to eql plan_id
   end
 
   it 'deberia guardarse el afiliado con plan y id telegram' do
@@ -34,10 +45,12 @@ describe 'App' do
     plan_id = plan.id
     id_telegram = '24'
     afiliado_repository = AfiliadoRepository.new
-    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud', 'id_telegram': id_telegram }.to_json
+    post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false,
+                         'id_telegram': id_telegram }.to_json
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
-    expect(afiliados.first.plan_id).to eql plan_id
+    expect(afiliados.first.plan.id).to eql plan_id
     expect(afiliados.first.id_telegram).to eql id_telegram
   end
 

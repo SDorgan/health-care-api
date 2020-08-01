@@ -59,6 +59,12 @@ paths:
 
   /planes:
     get:
+      parameters:
+      - in: query
+        name: nombre
+        type: integer
+        required: false
+        description: "Si se pasa, indica que se deben traer solo el plan de ese nombre"
       description: "Obtener todos los planes médicos disponibles"
       responses:
         200:
@@ -76,22 +82,7 @@ paths:
           name: body
           required: true
           schema:
-            properties:
-              nombre:
-                type: string
-              costo:
-                type: integer
-              limite_cobertura_visitas:
-                type: integer
-              copago:
-                type: integer
-              cobertura_medicamentos:
-                type: integer
-            required:
-              - nombre
-              - costo
-              - copago
-              - cobertura_medicamentos
+            $ref: '#/definitions/PlanesCreate'
       responses:
         201:
           description: "Alta correcta"
@@ -101,6 +92,12 @@ paths:
                 $ref: '#/definitions/Plan'
   /centros:
     get:
+      parameters:
+        - in: query
+          name: id
+          type: integer
+          required: false
+          description: "Si se pasa, indica que se deben traer solo los centros de esa prestación"
       description: "Obtener todos los centros médicos disponibles"
       responses:
         200:
@@ -193,6 +190,7 @@ paths:
             properties:
               prestacion:
                 $ref: '#/definitions/Prestacion'
+
   /afiliados:
     get:
       description: "Obtener todos los afiliados"
@@ -220,6 +218,20 @@ paths:
             properties:
               id:
                 $ref: '#/definitions/Id'
+  /afiliados/{telegram_id}:
+    parameters:
+    - name: telegram_id
+      in: path
+      type: string
+      description: "id de telegram del afiliado"
+      required: true
+    head:
+      description: "Obtiene la existencia de un afiliado"
+      responses:
+        200:
+          description: "El afiliado existe"
+        404:
+          description: "El afiliado no existe"
                 
   /visitas:
     post:
@@ -286,7 +298,24 @@ paths:
           schema:
             properties:
                 version: 
-                  $ref: '#/definitions/Version'                
+                  $ref: '#/definitions/Version'
+  /fecha:
+    post:
+      description: "Setear la fecha del sistema"
+      parameters:
+        - description: "La fecha debe tener formato dd/mm/YYYY"
+          in: body
+          name: body
+          required: true
+          schema:
+            properties:
+              fecha:
+                type: string
+      responses:
+        200:
+          description: "Se cambió correctamente la fecha de sitema"
+        405:
+          description: "Este comando no funciona en producción"
 
 definitions:
   Id:
@@ -305,6 +334,19 @@ definitions:
       adicional:
         type: integer
       total:
+        type: integer
+      items:
+        type: object
+        properties:
+          items:
+            $ref: '#/definitions/ItemResumen'
+  ItemResumen:
+    properties:
+      concepto:
+        type: string
+      fecha:
+        type: string
+      costo:
         type: integer
   VisitasCreate:
     properties:
@@ -335,6 +377,23 @@ definitions:
         type: integer
       cobertura_medicamentos:
         type: integer
+      edad_minima:
+        type: integer
+      edad_maxima:
+        type: integer
+      cantidad_hijos_maxima:
+        type: integer
+      conyuge:
+        $ref: '#/definitions/TipoConyuge' 
+    required:
+      - nombre
+      - costo
+      - copago
+      - cobertura_medicamentos
+      - edad_minima
+      - edad_maxima
+      - cantidad_hijos_maxima
+      - conyuge
   Plan:
     description: Plan médico
     properties:
@@ -350,6 +409,14 @@ definitions:
         type: integer
       cobertura_medicamentos:
         type: integer
+      edad_minima:
+        type: integer
+      edad_maxima:
+        type: integer
+      cantidad_hijos_maxima:
+        type: integer
+      conyuge:
+        $ref: '#/definitions/TipoConyuge' 
   CentrosCreate:
     properties:
       nombre:
@@ -369,6 +436,18 @@ definitions:
         type: string
       id_telegram:
         type: string
+      cantidad_hijos:
+        type: integer
+      edad:
+        type: integer
+      conyuge:
+        type: boolean
+    required:
+      - nombre
+      - nombre_plan
+      - cantidad_hijos
+      - edad
+      - conyuge
   Afiliado:
     description: Afiliado
     properties:
@@ -422,3 +501,6 @@ definitions:
         type: integer
       created_on:
         type: string
+  TipoConyuge:
+      type: string
+      enum: ["NO_ADMITE_CONYUGE", "ADMITE_CONYUGE", "REQUIERE_CONYUGE"]

@@ -1,0 +1,2 @@
+class PlanArgumentosInvalidosError < StandardError
+end

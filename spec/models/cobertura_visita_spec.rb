@@ -1,22 +1,30 @@
 require 'spec_helper'
 
 describe 'CoberturaVisita' do
-  let(:afiliado) do
-    Afiliado.new('Juan Perez', 1)
-  end
-
   let(:prestacion) do
     Prestacion.new('Traumatologia', 10)
   end
 
+  let(:centro) do
+    Centro.new('Hospital', 10.0, 12.0)
+  end
+
   let(:visitas) do
     [
-      VisitaMedica.new(afiliado.id, prestacion),
-      VisitaMedica.new(afiliado.id, prestacion)
+      VisitaMedica.new(1, prestacion, centro),
+      VisitaMedica.new(1, prestacion, centro)
     ]
   end
 
   let(:copago) { 0 }
+
+  it 'deberia lanzar error si no se especifica el valor del copago' do
+    expect { CoberturaVisita.new(2, nil) }.to raise_error(PlanSinCopagoError)
+  end
+
+  it 'deberia lanzar error si el valor del copago es negativo' do
+    expect { CoberturaVisita.new(2, -10) }.to raise_error(PlanCopagoInvalido)
+  end
 
   it 'deberia devolver la cantidad con la que fue creada' do
     cantidad = 0

@@ -7,6 +7,7 @@ Característica: Prestaciones para un Centro
 
   Antecedentes:
     Dado el centro con nombre "Hospital Alemán"
+    Y coordenadas geográficas latitud "-34.617670" y longitud "-58.368360"
     Y se registra el centro
     Y la prestación con nombre "Traumatología"
     Y costo unitario de prestación $1200
@@ -14,5 +15,25 @@ Característica: Prestaciones para un Centro
 
   Escenario: ACENPRES1 - Alta exitosa traumatología para Hospital Alemán
     Dado el centro llamado "Hospital Alemán"
-    Cuando se le agrega la prestación "Traumatología" al centro
+    Cuando se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
     Entonces se actualiza el centro exitosamente
+
+  @mvp
+  Escenario: ACENPRES2 - Alta fallida por prestación inexistente
+    Dado el centro llamado "Hospital Alemán"
+    Cuando se le agrega la prestación inexistente "Cirugía" al centro "Hospital Alemán"
+    Entonces obtiene un error por prestación no existente
+
+  @mvp
+  Escenario: ACENPRES3 - Alta fallida por prestación repetida
+    Dado el centro llamado "Hospital Alemán"
+    Y se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
+    Y se actualiza el centro exitosamente
+    Cuando se le agrega la prestación "Traumatología" al centro "Hospital Alemán"
+    Entonces se obtiene un error por prestación repetida
+
+  @mvp
+  Escenario: ACENPRES4 - Alta fallida por centro inexistente
+    Dado el centro inexistente llamado "Hospital Italiano"
+    Y se le agrega la prestación "Traumatología" al centro "Hospital Italiano"
+    Entonces obtiene un error por centro no existente

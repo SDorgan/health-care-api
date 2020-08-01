@@ -1,7 +1,15 @@
+require_relative '../lib/string_helper'
 class Centro
-  attr_accessor :id, :nombre, :prestaciones
+  include ActiveModel::Validations
 
-  def initialize(nombre)
+  attr_accessor :id, :nombre, :slug, :latitud, :longitud, :prestaciones
+
+  validates :latitud, :longitud, presence: true
+
+  def initialize(nombre, latitud, longitud)
     @nombre = nombre
+    @latitud = latitud
+    @longitud = longitud
+    @slug = StringHelper.sluggify(nombre)
   end
 end

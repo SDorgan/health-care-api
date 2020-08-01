@@ -4,6 +4,9 @@ class CoberturaVisitaInfinita
   attr_accessor :cantidad, :copago
 
   def initialize(copago)
+    raise PlanSinCopagoError if copago.nil?
+    raise PlanCopagoInvalido if copago.negative?
+
     @cantidad = LIMITE
     @copago = copago
   end

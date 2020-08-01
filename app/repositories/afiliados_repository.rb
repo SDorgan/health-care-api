@@ -20,6 +20,10 @@ class AfiliadoRepository < BaseRepository
     super(id_)
   end
 
+  def exists_afiliado_with_id(id)
+    !dataset.where(id: id).blank?
+  end
+
   def find_by_telegram_id(tele_id)
     raise IdNotAfiliadoError unless exists_afiliado_with_telegram_id(tele_id)
 
@@ -35,18 +39,14 @@ class AfiliadoRepository < BaseRepository
     afiliado.covid_sospechoso
   end
 
-  private
-
-  def find_dataset_by_id(id)
-    dataset.where(pk_column => id)
-  end
-
   def exists_afiliado_with_telegram_id(tele_id)
     !dataset.where(id_telegram: tele_id).blank?
   end
 
-  def exists_afiliado_with_id(id)
-    !dataset.where(id: id).blank?
+  private
+
+  def find_dataset_by_id(id)
+    dataset.where(pk_column => id)
   end
 
   def update(a_record)
@@ -54,10 +54,14 @@ class AfiliadoRepository < BaseRepository
   end
 
   def load_object(a_record)
-    afiliado = Afiliado.new(a_record[:name], a_record[:plan_id])
+    plan = PlanRepository.new.find(a_record[:plan_id])
+
+    afiliado = Afiliado.new(a_record[:name], plan)
+
     afiliado.id = a_record[:id]
     afiliado.id_telegram = a_record[:id_telegram]
     afiliado.covid_sospechoso = a_record[:covid_suspect]
+
     afiliado
   end
 
@@ -65,7 +69,7 @@ class AfiliadoRepository < BaseRepository
     {
       name: afiliado.nombre,
       id_telegram: afiliado.id_telegram.to_s,
-      plan_id: afiliado.plan_id,
+      plan_id: afiliado.plan.id,
       covid_suspect: afiliado.covid_sospechoso
     }
   end

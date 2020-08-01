@@ -1,8 +1,18 @@
+require_relative '../../models/errors/plan_inexistente_error'
 HealthAPI::App.controllers :planes do
   get :index do
-    planes = PlanRepository.new.all
+    param_plan = request.params['nombre']
+    if param_plan.nil?
+      planes = PlanRepository.new.all
+      PlanResponseBuilder.create_from_all(planes)
+    else
+      plan = PlanRepository.new.find_by_slug(param_plan)
+      PlanResponseBuilder.create_from(plan)
+    end
 
-    PlanResponseBuilder.create_from_all(planes)
+  rescue PlanInexistenteError => e
+    status 404
+    body e.message
   end
 
   post :index do
@@ -17,14 +27,22 @@ HealthAPI::App.controllers :planes do
 
     cobertura_medicamentos = CoberturaMedicamentos.new(params['cobertura_medicamentos'])
 
-    plan = Plan.new(params['nombre'],
-                    params['costo'],
-                    cobertura_medicamentos,
-                    cobertura_visitas)
+    plan = Plan.new(nombre: params['nombre'],
+                    costo: params['costo'],
+                    cobertura_visitas: cobertura_visitas,
+                    cobertura_medicamentos: cobertura_medicamentos,
+                    edad_minima: params['edad_minima'],
+                    edad_maxima: params['edad_maxima'],
+                    cantidad_hijos_maxima: params['cantidad_hijos_maxima'],
+                    conyuge: params['conyuge'])
 
     plan = PlanRepository.new.save(plan)
     status 201
 
     PlanResponseBuilder.create_from(plan)
+
+  rescue PlanArgumentosInvalidosError => e
+    status 400
+    body e.message
   end
 end

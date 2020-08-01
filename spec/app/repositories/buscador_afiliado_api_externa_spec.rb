@@ -2,12 +2,19 @@ require 'integration_spec_helper'
 
 describe 'BuscadorAfiliadoApiExterna' do
   before(:each) do
-    @plan = Plan.new('neo', 100, CoberturaMedicamentos.new(0), CoberturaVisita.new(0, 0))
+    @plan = Plan.new(nombre: 'Neo',
+                     costo: 1000,
+                     cobertura_visitas: CoberturaVisita.new(0, 0),
+                     cobertura_medicamentos: CoberturaMedicamentos.new(0),
+                     cantidad_hijos_maxima: 1,
+                     conyuge: Plan::ADMITE_CONYUGE,
+                     edad_minima: 0,
+                     edad_maxima: 10)
 
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
 
-    @afiliado = Afiliado.new('Juan', @plan.id)
+    @afiliado = Afiliado.new('Juan', @plan)
 
     @repo = AfiliadoRepository.new
     @afiliado = @repo.save(@afiliado)

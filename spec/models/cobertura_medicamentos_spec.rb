@@ -1,19 +1,19 @@
 require 'spec_helper'
 
 describe 'CoberturaMedicamentos' do
-  let(:afiliado) do
-    Afiliado.new('Juan Perez', 1)
-  end
-
-  let(:prestacion) do
-    Prestacion.new('Traumatologia', 10)
-  end
-
   let(:compras) do
     [
       CompraMedicamentos.new(1, 600),
       CompraMedicamentos.new(1, 400)
     ]
+  end
+
+  it 'deberia lanzar error si no se especifica el valor de descuento' do
+    expect { CoberturaMedicamentos.new(nil) }.to raise_error(PlanSinCoberturaMedicamentosError)
+  end
+
+  it 'deberia lanzar error si el valor especificado es negativo' do
+    expect { CoberturaMedicamentos.new(-10) }.to raise_error(PlanCoberturaMedicamentosInvalida)
   end
 
   it 'deberia devolver el porcentaje de reembolzo con el que fue creado' do

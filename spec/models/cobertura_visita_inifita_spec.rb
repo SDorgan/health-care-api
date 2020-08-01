@@ -1,19 +1,27 @@
 require 'spec_helper'
 
 describe 'CoberturaVisitaInfinita' do
-  let(:afiliado) do
-    Afiliado.new('Juan Perez', 1)
-  end
-
   let(:prestacion) do
     Prestacion.new('Traumatologia', 10)
   end
 
+  let(:centro) do
+    Centro.new('Hospital', 10.0, 12.0)
+  end
+
   let(:visitas) do
     [
-      VisitaMedica.new(afiliado.id, prestacion),
-      VisitaMedica.new(afiliado.id, prestacion)
+      VisitaMedica.new(1, prestacion, centro),
+      VisitaMedica.new(1, prestacion, centro)
     ]
+  end
+
+  it 'deberia lanzar error si no se especifica el valor del copago' do
+    expect { CoberturaVisitaInfinita.new(nil) }.to raise_error(PlanSinCopagoError)
+  end
+
+  it 'deberia lanzar error si el valor del copago es negativo' do
+    expect { CoberturaVisitaInfinita.new(-10) }.to raise_error(PlanCopagoInvalido)
   end
 
   it 'deberia devolver el valor que simboliza el infinito' do

@@ -2,7 +2,10 @@ Dado('el afiliado {string} afiliado a {string}') do |nombre, plan|
   request = {
     'nombre' => nombre,
     'nombre_plan' => plan,
-    'id_telegram' => 'fake_id_telegram'
+    'id_telegram' => 'fake_id_telegram',
+    'cantidad_hijos' => 0,
+    'edad' => 20,
+    'conyuge' => false
   }
   response = Faraday.post(AFILIADOS_URL, request.to_json, 'Content-Type' => 'application/json')
   json_response = JSON.parse(response.body)
