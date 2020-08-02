@@ -1,8 +1,3 @@
-require_relative '../errors/id_not_afiliado_error'
-require_relative '../errors/prestacion_not_exists_error'
-require_relative '../errors/centro_inexistente_error'
-require_relative '../errors/centro_no_contiene_prestacion_error'
-
 HealthAPI::App.controllers :visitas do
   post :index do
     params = JSON.parse(request.body.read)

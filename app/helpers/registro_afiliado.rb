@@ -1,19 +1,19 @@
-require_relative './errors/edad_maxima_supera_limite_error'
-require_relative './errors/edad_minima_no_alcanza_limite_error'
-require_relative './errors/no_se_admite_conyuge_error'
-require_relative './errors/se_requiere_conyuge_error'
-require_relative './errors/no_se_admite_hijos_error'
-require_relative './errors/plan_inexistente_error'
-require_relative './errors/supera_limite_de_hijos_error'
-require_relative './errors/se_requiere_hijos_error'
+require_relative '../../models/errors/edad_maxima_supera_limite_error'
+require_relative '../../models/errors/edad_minima_no_alcanza_limite_error'
+require_relative '../../models/errors/no_se_admite_conyuge_error'
+require_relative '../../models/errors/se_requiere_conyuge_error'
+require_relative '../../models/errors/no_se_admite_hijos_error'
+require_relative '../../models/errors/plan_inexistente_error'
+require_relative '../../models/errors/supera_limite_de_hijos_error'
+require_relative '../../models/errors/se_requiere_hijos_error'
 
-class Registro
+class RegistroAfiliado
   def initialize(repo_afiliados, repo_planes)
     @repo_afiliados = repo_afiliados
     @repo_planes = repo_planes
   end
 
-  def registrar_afiliado(data = {})
+  def registrar(data = {})
     plan = @repo_planes.find_by_name(data[:nombre_plan].to_s)
 
     validar_afiliado(data[:edad],

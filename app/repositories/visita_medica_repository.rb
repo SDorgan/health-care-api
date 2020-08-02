@@ -1,4 +1,5 @@
 require_relative '../../lib/date_manager'
+
 class VisitaMedicaRepository < BaseRepository
   def initialize
     super(:visitas_medicas)
