@@ -11,7 +11,24 @@ Característica: CRUD Prestaciones
     Cuando se registra la prestación
     Entonces la prestación se registra exitosamente
 
-  Escenario: APRE2 - Alta fallida de prestacion odontología
+  Escenario: APRE2 - Alta fallida de prestacion por no indicar costo
     Dado la prestación con nombre "Odontología"
     Cuando se registra la prestación invalida
     Entonces se obtiene un mensaje de error por no indicar costo
+
+  Escenario: APRE3 - Alta fallida de prestación por costo negativo
+    Dado la prestación con nombre "Traumatología"
+    Y costo unitario de prestación $-100
+    Cuando se registra la prestación invalida
+    Entonces se obtiene un mensaje de error por costo negativo
+
+  Escenario: APRE4 - Alta fallida de prestación por costo ingresado como texto
+    Dado la prestación con nombre "Traumatología"
+    Y costo unitario de prestación "100"
+    Cuando se registra la prestación invalida
+    Entonces se obtiene un mensaje de error de que el costo debe ser numerico
+
+  Escenario: APRE5 - Alta fallida de prestación por no indicar nombre
+    Dado la prestación con costo unitario $100
+    Cuando se registra la prestación invalida
+    Entonces se obtiene un mensaje de error por no indicar el nombre

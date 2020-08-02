@@ -6,26 +6,34 @@ class CentroRepository < BaseRepository
 
   def save(centro)
     validate(centro)
+
     id = insert(centro)
     centro.id = id
+
     centro
-  end
-
-  def add_prestacion_to_centro(centro, prestacion_id)
-    raise CentroYaContienePrestacionError if centro_has_prestacion(centro.id, prestacion_id) # rubocop:disable Metrics/LineLength
-
-    changeset = {
-      centro_id: centro.id,
-      prestacion_id: prestacion_id
-    }
-
-    dataset_prestaciones_de_centros.insert(changeset)
   end
 
   def find(id_)
     raise CentroInexistenteError unless exists_centro_with_id(id_)
 
     super(id_)
+  end
+
+  def find_by_prestacion(nombre_prestacion)
+    prestacion = PrestacionRepository.new.find_by_name(nombre_prestacion)
+
+    load_collection dataset_with_prestaciones.where(prestacion_id: prestacion.id)
+  end
+
+  def add_prestacion(centro, prestacion)
+    raise CentroYaContienePrestacionError if centro_contains_prestacion(centro, prestacion) # rubocop:disable Metrics/LineLength
+
+    changeset = {
+      centro_id: centro.id,
+      prestacion_id: prestacion.id
+    }
+
+    dataset_prestaciones_de_centros.insert(changeset)
   end
 
   def full_load(id)
@@ -35,17 +43,14 @@ class CentroRepository < BaseRepository
     centro
   end
 
-  def find_by_prestacion(prestacion_id)
-    load_collection dataset_with_prestaciones.where(prestacion_id: prestacion_id)
-  end
-
   def delete_all
     dataset_prestaciones_de_centros.delete
     dataset.delete
   end
 
-  def centro_contains_prestacion(centro_id, prestacion)
-    !dataset_prestaciones_de_centros.where(centro_id: centro_id, prestacion_id: prestacion.id).blank? # rubocop:disable Metrics/LineLength
+  def centro_contains_prestacion(centro, prestacion)
+    !dataset_prestaciones_de_centros.where(centro_id: centro.id,
+                                           prestacion_id: prestacion.id).blank?
   end
 
   private
@@ -98,10 +103,6 @@ class CentroRepository < BaseRepository
   def validate_unique_coordinates(centro)
     existent = find_by_similar_coordinates(centro.latitud, centro.longitud)
     existent.nil? || existent.id == centro.id
-  end
-
-  def centro_has_prestacion(centro_id, prestacion_id)
-    !dataset_prestaciones_de_centros.where(centro_id: centro_id, prestacion_id: prestacion_id).blank? # rubocop:disable Metrics/LineLength
   end
 
   def changeset(centro)

@@ -16,4 +16,19 @@ describe 'PrestacionesController' do
     post '/prestaciones', { 'nombre': 'Traumatología' }.to_json
     expect(last_response.status).to eq 400
   end
+
+  it 'deberia devolver un error si no se especifica el nombre' do
+    post '/prestaciones', { 'costo': 100 }.to_json
+    expect(last_response.status).to eq 400
+  end
+
+  it 'deberia devolver un error si se especifica el costo negativo' do
+    post '/prestaciones', { 'nombre': 'Traumatología', 'costo': -10 }.to_json
+    expect(last_response.status).to eq 400
+  end
+
+  it 'deberia devolver un error si se especifica el costo como texto' do
+    post '/prestaciones', { 'nombre': 'Traumatología', 'costo': '-10' }.to_json
+    expect(last_response.status).to eq 400
+  end
 end

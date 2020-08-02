@@ -1,0 +1,2 @@
+class PrestacionCostoInvalido < StandardError
+end

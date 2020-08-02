@@ -2,6 +2,7 @@ require_relative '../errors/id_not_afiliado_error'
 require_relative '../errors/prestacion_not_exists_error'
 require_relative '../errors/centro_inexistente_error'
 require_relative '../errors/centro_no_contiene_prestacion_error'
+
 HealthAPI::App.controllers :visitas do
   post :index do
     params = JSON.parse(request.body.read)
@@ -14,7 +15,7 @@ HealthAPI::App.controllers :visitas do
 
     centro = CentroRepository.new.find(params['centro'])
 
-    raise CentroNoContienePrestacionError unless CentroRepository.new.centro_contains_prestacion(centro.id, prestacion) # rubocop:disable Metrics/LineLength
+    raise CentroNoContienePrestacionError unless CentroRepository.new.centro_contains_prestacion(centro, prestacion) # rubocop:disable Metrics/LineLength
 
     visita_medica = VisitaMedica.new(afiliado_id, prestacion, centro)
 

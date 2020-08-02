@@ -26,7 +26,7 @@ describe 'PrestacionDeCentroController' do
     @prestacion = prestacion_repo.save(prestacion)
     @otra_prestacion = prestacion_repo.save(otra_prestacion)
 
-    centro_repo.add_prestacion_to_centro(@centro, @prestacion.id)
+    centro_repo.add_prestacion(@centro, @prestacion)
   end
 
   it 'deberia devolver un JSON con prestaciones como clave' do

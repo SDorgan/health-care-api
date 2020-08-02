@@ -1,5 +1,5 @@
 Cuando('consulta el resumen') do
-  response = Faraday.get(RESUMEN_URL + "?id=#{@id_afiliado}&from=api")
+  response = Faraday.get(RESUMEN_URL + "?id=#{@id_afiliado_telegram}")
   @response_status = response.status
 
   if response.status == 200

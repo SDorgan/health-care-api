@@ -2,15 +2,11 @@ require_relative '../errors/id_not_afiliado_error'
 
 HealthAPI::App.controllers :resumen do
   get :index do
-    id = request.params['id']
-    from = request.params['from']
-    repo_afiliados = if from.eql?('telegram')
-                       BuscadorAfiliadoTelegram.new(AfiliadoRepository.new)
-                     else
-                       BuscadorAfiliadoApiExterna.new(AfiliadoRepository.new)
-                     end
+    id_telegram = request.params['id']
 
-    resumen = Resumen.new(repo_afiliados.find(id),
+    afiliado = AfiliadoRepository.new.find_by_telegram_id(id_telegram)
+
+    resumen = Resumen.new(afiliado,
                           VisitaMedicaRepository.new,
                           CompraMedicamentosRepository.new)
 
