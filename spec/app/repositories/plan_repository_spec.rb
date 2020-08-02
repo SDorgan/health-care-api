@@ -67,7 +67,7 @@ describe 'PlanRepository' do
                         edad_minima: 0,
                         edad_maxima: 60))
 
-    plan_encontrado = @repo.find_by_slug(@plan.nombre)
+    plan_encontrado = @repo.find_by_name(@plan.nombre)
     expect(plan_encontrado.id).to eql @plan.id
   end
 
@@ -81,7 +81,7 @@ describe 'PlanRepository' do
                         edad_minima: 0,
                         edad_maxima: 60))
 
-    plan_encontrado = @repo.find_by_slug(@plan.slug)
+    plan_encontrado = @repo.find_by_name(@plan.slug)
     expect(plan_encontrado.id).to eql @plan.id
   end
 
@@ -145,6 +145,6 @@ describe 'PlanRepository' do
                         edad_minima: 0,
                         edad_maxima: 60))
 
-    expect { @repo.find_by_slug('noExiste') }.to raise_error(PlanInexistenteError)
+    expect { @repo.find_by_name('noExiste') }.to raise_error(PlanInexistenteError)
   end
 end

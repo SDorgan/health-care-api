@@ -14,7 +14,7 @@ class Registro
   end
 
   def registrar_afiliado(data = {})
-    plan = @repo_planes.find_by_slug(data[:nombre_plan].to_s)
+    plan = @repo_planes.find_by_name(data[:nombre_plan].to_s)
 
     validar_afiliado(data[:edad],
                      data[:cantidad_hijos],

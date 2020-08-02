@@ -1,11 +1,12 @@
 HealthAPI::App.controllers :planes do
   get :index do
-    param_plan = request.params['nombre']
-    if param_plan.nil?
+    nombre_plan = request.params['nombre']
+
+    if nombre_plan.nil?
       planes = PlanRepository.new.all
       PlanResponseBuilder.create_from_all(planes)
     else
-      plan = PlanRepository.new.find_by_slug(param_plan)
+      plan = PlanRepository.new.find_by_name(nombre_plan)
       PlanResponseBuilder.create_from(plan)
     end
 
