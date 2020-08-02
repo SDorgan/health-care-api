@@ -10,7 +10,6 @@ describe 'AfiliadoRepository' do
                      conyuge: Plan::ADMITE_CONYUGE,
                      edad_minima: 0,
                      edad_maxima: 10)
-
     @plan_repository = PlanRepository.new
     @plan = @plan_repository.save(@plan)
     @afiliado = Afiliado.new('Juan', @plan)
@@ -74,6 +73,16 @@ describe 'AfiliadoRepository' do
 
   it 'deberia ser error si no existe el afiliado que se busca por telegram_id' do
     expect { @repo.find_by_telegram_id('FAKE_ID') }.to raise_error
+  end
+
+  it 'deberia devolver el afiliado que se busca por telegram_id' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    id_telegram = '123'
+    @afiliado.id_telegram = id_telegram
+    @afiliado = @repo.save(@afiliado)
+    afiliado_obtenido = @repo.find_by_telegram_id(id_telegram)
+    expect(afiliado_obtenido.nombre).to eq @afiliado.nombre
+    expect(afiliado_obtenido.id_telegram).to eq @afiliado.id_telegram
+    expect(afiliado_obtenido.plan.id).to eq @afiliado.plan.id
   end
 
   it 'deberia ser error si no existe el afiliado que se busca por id' do

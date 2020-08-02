@@ -52,7 +52,7 @@ describe 'ResumenController' do
   end
 
   it 'deberia devolver el resumen de un afiliado por Telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    get "/resumen?id=#{@afiliado.id_telegram}&from=telegram"
+    get "/resumen?id=#{@afiliado.id_telegram}"
 
     response = JSON.parse(last_response.body)
 
@@ -61,43 +61,10 @@ describe 'ResumenController' do
     expect(resumen['afiliado']).to eq 'Juan Perez'
     expect(resumen['adicional']).to eq 1500
     expect(resumen['total']).to eq 2500
-  end
-
-  it 'debería devolver el resumen de un afiliado por ID' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    get "/resumen?id=#{@afiliado.id}&from=api"
-
-    response = JSON.parse(last_response.body)
-
-    resumen = response['resumen']
-
-    expect(resumen['afiliado']).to eq 'Juan Perez'
-    expect(resumen['adicional']).to eq 1500
-    expect(resumen['total']).to eq 2500
-  end
-
-  it 'deberia devolver la lista de items del resumen' do
-    get "/resumen?id=#{@afiliado.id}&from=api"
-
-    response = JSON.parse(last_response.body)
-
-    resumen = response['resumen']
-    expect(resumen['items'].length).to eq 2
-  end
-
-  it 'deberia devolver los items en orden' do # rubocop:disable RSpec/ExampleLength
-    get "/resumen?id=#{@afiliado.id}&from=api"
-
-    response = JSON.parse(last_response.body)
-
-    resumen = response['resumen']
-    items = resumen['items']
-    fecha_primero = Date.strptime(items[0]['fecha'], '%d/%m/%Y')
-    fecha_segundo = Date.strptime(items[1]['fecha'], '%d/%m/%Y')
-    expect(fecha_primero < fecha_segundo).to eq true
   end
 
   it 'deberia ser error si el ID no es de afiliado' do
-    get '/resumen?id=9999&from=telegram'
+    get '/resumen?id=9999'
 
     expect(last_response.status).to be 401
   end

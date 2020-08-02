@@ -1,8 +1,9 @@
 Dado('el afiliado {string} afiliado a {string}') do |nombre, plan|
+  @id_afiliado_telegram = 'fake_id_telegram'
   request = {
     'nombre' => nombre,
     'nombre_plan' => plan,
-    'id_telegram' => 'fake_id_telegram',
+    'id_telegram' => @id_afiliado_telegram,
     'cantidad_hijos' => 0,
     'edad' => 20,
     'conyuge' => false
