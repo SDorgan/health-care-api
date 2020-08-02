@@ -8,18 +8,15 @@ HealthAPI::App.controllers :visitas do
     params = JSON.parse(request.body.read)
 
     afiliado_id = params['afiliado']
+    prestacion_id = params['prestacion']
+    centro_id = params['centro']
 
-    raise IdNotAfiliadoError unless AfiliadoRepository.new.exists_afiliado_with_id(afiliado_id)
+    registro = RegistroVisita.new(AfiliadoRepository.new,
+                                  PrestacionRepository.new,
+                                  CentroRepository.new,
+                                  VisitaMedicaRepository.new)
 
-    prestacion = PrestacionRepository.new.find(params['prestacion'])
-
-    centro = CentroRepository.new.find(params['centro'])
-
-    raise CentroNoContienePrestacionError unless CentroRepository.new.centro_contains_prestacion(centro, prestacion) # rubocop:disable Metrics/LineLength
-
-    visita_medica = VisitaMedica.new(afiliado_id, prestacion, centro)
-
-    visita_medica = VisitaMedicaRepository.new.save(visita_medica)
+    visita_medica = registro.registrar(afiliado_id, prestacion_id, centro_id)
 
     status 201
 
