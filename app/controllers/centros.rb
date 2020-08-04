@@ -22,14 +22,17 @@ HealthAPI::App.controllers :centros do
   post :index do
     params = JSON.parse(request.body.read)
 
-    centro = Centro.new(params['nombre'], params['latitud'], params['longitud'])
+    service = CentroService.new(CentroRepository.new)
 
-    centro = CentroRepository.new.save(centro)
+    centro = service.registrar(params['nombre'], params['latitud'], params['longitud'])
 
     status 201
 
     CentroResponseBuilder.create_from(centro)
-  rescue CoordenadasInvalidasError, CentroYaExistenteError => e
+
+  rescue CoordenadasInvalidasError,
+         CentroYaExistenteError,
+         CentroCoordenadasInvalidas => e
     status 400
     body e.message
   end
