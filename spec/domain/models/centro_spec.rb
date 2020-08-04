@@ -15,7 +15,7 @@ describe 'Centro' do
     expect(centro.slug).to eql slug_name
   end
 
-  xit 'si se le asigna una dirección, debería tenerla' do # rubocop:disable RSpec/ExampleLength
+  it 'si se le asigna una dirección, debería tenerla' do # rubocop:disable RSpec/ExampleLength
     nombre = 'Hospital Alemán'
     latitud = -35.45
     longitud = -36.7
