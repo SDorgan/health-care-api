@@ -1,4 +1,4 @@
-class PrestacionNotExistsError < StandardError
+class PrestacionInexistenteError < StandardError
   def initialize(msg = 'La prestación pedida no existe')
     super
   end

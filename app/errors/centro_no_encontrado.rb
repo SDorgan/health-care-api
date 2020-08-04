@@ -1,0 +1,2 @@
+class CentroNoEncontrado < StandardError
+end

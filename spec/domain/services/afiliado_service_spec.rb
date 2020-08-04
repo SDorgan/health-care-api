@@ -9,7 +9,7 @@ require_relative '../../../domain/errors/no_se_admite_hijos_error'
 require_relative '../../../domain/errors/supera_limite_de_hijos_error'
 require_relative '../../../domain/errors/se_requiere_hijos_error'
 
-describe 'Registro' do
+describe 'AfiliadoService' do
   let(:afiliado_repository) do
     AfiliadoRepository.new
   end
@@ -46,7 +46,7 @@ describe 'Registro' do
     plan_repository.save(@plan_requiere_conyuge)
     plan_repository.save(@plan_requiere_hijos)
     @plan = plan_repository.save(@plan)
-    @registro = RegistroAfiliado.new(afiliado_repository, plan_repository)
+    @registro = AfiliadoService.new(afiliado_repository, plan_repository)
   end
 
   it 'deberia poder registrar el afiliado' do

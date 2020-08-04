@@ -15,7 +15,7 @@ class PrestacionRepository < BaseRepository
   end
 
   def find(id_)
-    raise PrestacionNotExistsError unless exists_prestacion_with_id(id_)
+    raise PrestacionNoEncontrada unless exists_prestacion_with_id(id_)
 
     super(id_)
   end
@@ -23,7 +23,7 @@ class PrestacionRepository < BaseRepository
   def find_by_name(nombre)
     slug = StringHelper.sluggify(nombre)
 
-    raise PrestacionNotExistsError unless exists_prestacion_with_slug(slug)
+    raise PrestacionNoEncontrada unless exists_prestacion_with_slug(slug)
 
     load_object(dataset.first!(slug: slug))
   end

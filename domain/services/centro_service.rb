@@ -1,6 +1,9 @@
+require_relative '../../app/errors/prestacion_no_encontrada'
+
 class CentroService
-  def initialize(repo_centro)
+  def initialize(repo_centro, repo_prestaciones)
     @repo_centro = repo_centro
+    @repo_prestaciones = repo_prestaciones
   end
 
   def buscar(params = {})
@@ -9,6 +12,19 @@ class CentroService
     return @repo_centro.find_by_prestacion(nombre_prestacion) unless nombre_prestacion.nil?
 
     @repo_centro.all
+  rescue PrestacionNoEncontrada
+    raise PrestacionInexistenteError
+  end
+
+  def add_prestacion(centro_id, nombre_prestacion)
+    centro = @repo_centro.find(centro_id)
+    prestacion = @repo_prestaciones.find(nombre_prestacion)
+
+    @repo_centro.add_prestacion(centro, prestacion)
+  rescue PrestacionNoEncontrada
+    raise PrestacionInexistenteError
+  rescue CentroNoEncontrado
+    raise CentroInexistenteError
   end
 
   def registrar(nombre, latitud, longitud)

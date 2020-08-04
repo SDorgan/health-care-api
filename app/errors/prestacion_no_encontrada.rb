@@ -1,0 +1,2 @@
+class PrestacionNoEncontrada < StandardError
+end

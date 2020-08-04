@@ -6,22 +6,22 @@ HealthAPI::App.controllers :visitas do
     prestacion_id = params['prestacion']
     centro_id = params['centro']
 
-    registro = RegistroVisita.new(AfiliadoRepository.new,
-                                  PrestacionRepository.new,
-                                  CentroRepository.new,
-                                  VisitaMedicaRepository.new)
+    service = VisitaService.new(AfiliadoRepository.new,
+                                PrestacionRepository.new,
+                                CentroRepository.new,
+                                VisitaMedicaRepository.new)
 
-    visita_medica = registro.registrar(afiliado_id, prestacion_id, centro_id)
+    visita_medica = service.registrar(afiliado_id, prestacion_id, centro_id)
 
     status 201
 
     VisitaMedicaResponseBuilder.create_from(visita_medica)
 
-  rescue IdNotAfiliadoError => e
+  rescue UsuarioNoAfiliadoError => e
     status 401
     body e.message
 
-  rescue PrestacionNotExistsError, CentroInexistenteError, CentroNoContienePrestacionError => e
+  rescue PrestacionInexistenteError, CentroInexistenteError, CentroNoContienePrestacionError => e
     status 404
     body e.message
   end

@@ -12,7 +12,7 @@ class CentroRepository < BaseRepository
   end
 
   def find(id_)
-    raise CentroInexistenteError unless exists_centro_with_id(id_)
+    raise CentroNoEncontrado unless exists_centro_with_id(id_)
 
     super(id_)
   end

@@ -1,5 +1,3 @@
-require_relative '../errors/id_not_afiliado_error'
-
 HealthAPI::App.controllers :resumen do
   get :index do
     id_telegram = request.params['id']
@@ -14,7 +12,7 @@ HealthAPI::App.controllers :resumen do
 
     ResumenResponseBuilder.create_from(resumen)
 
-  rescue IdNotAfiliadoError => e
+  rescue AfiliadoNoEncontrado => e
     status 401
     body e.message
   end

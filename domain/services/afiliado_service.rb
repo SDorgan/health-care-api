@@ -7,7 +7,7 @@ require_relative '../errors/plan_inexistente_error'
 require_relative '../errors/supera_limite_de_hijos_error'
 require_relative '../errors/se_requiere_hijos_error'
 
-class RegistroAfiliado
+class AfiliadoService
   def initialize(repo_afiliados, repo_planes)
     @repo_afiliados = repo_afiliados
     @repo_planes = repo_planes
