@@ -1,4 +1,5 @@
-require_relative '../lib/string_helper'
+require_relative '../../lib/string_helper'
+
 class Centro
   include ActiveModel::Validations
 

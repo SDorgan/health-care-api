@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-require_relative '../../../models/errors/plan_inexistente_error'
-require_relative '../../../models/errors/edad_maxima_supera_limite_error'
-require_relative '../../../models/errors/edad_minima_no_alcanza_limite_error'
-require_relative '../../../models/errors/no_se_admite_conyuge_error'
-require_relative '../../../models/errors/se_requiere_conyuge_error'
-require_relative '../../../models/errors/no_se_admite_hijos_error'
-require_relative '../../../models/errors/supera_limite_de_hijos_error'
-require_relative '../../../models/errors/se_requiere_hijos_error'
+require_relative '../../../domain/errors/plan_inexistente_error'
+require_relative '../../../domain/errors/edad_maxima_supera_limite_error'
+require_relative '../../../domain/errors/edad_minima_no_alcanza_limite_error'
+require_relative '../../../domain/errors/no_se_admite_conyuge_error'
+require_relative '../../../domain/errors/se_requiere_conyuge_error'
+require_relative '../../../domain/errors/no_se_admite_hijos_error'
+require_relative '../../../domain/errors/supera_limite_de_hijos_error'
+require_relative '../../../domain/errors/se_requiere_hijos_error'
 
 describe 'Registro' do
   let(:afiliado_repository) do

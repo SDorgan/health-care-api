@@ -1,4 +1,4 @@
-require_relative '../../models/errors/registracion_error'
+require_relative '../../domain/errors/registracion_error'
 
 HealthAPI::App.controllers :afiliados do
   get :index do

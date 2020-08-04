@@ -29,9 +29,9 @@ SimpleCov.start do
   add_filter '/admin/'
   add_filter '/db/'
   add_filter '/config/'
-  add_group 'Models', 'app/models'
+  add_group 'Models', 'domain/models'
   add_group 'Controllers', 'app/controllers'
-  add_group 'Helpers', 'app/helpers'
+  add_group 'Repositories', 'app/repositories'
 end
 
 Around do |_scenario, block|

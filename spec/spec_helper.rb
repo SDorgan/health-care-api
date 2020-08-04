@@ -1,7 +1,9 @@
 RACK_ENV = 'test'.freeze unless defined?(RACK_ENV)
 
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
-Dir[File.expand_path(File.dirname(__FILE__) + '/../app/helpers/**/*.rb')].each(&method(:require))
+Dir[File.expand_path(File.dirname(__FILE__) + '/../app/controllers/**/*.rb')].each(&method(:require))
+Dir[File.expand_path(File.dirname(__FILE__) + '/../app/repositories/**/*.rb')].each(&method(:require))
+Dir[File.expand_path(File.dirname(__FILE__) + '/../domain/**/*.rb')].each(&method(:require))
 
 require 'simplecov'
 
@@ -13,9 +15,9 @@ SimpleCov.start do
   add_filter '/admin/'
   add_filter '/db/'
   add_filter '/config/'
-  add_group 'Models', 'app/models'
+  add_group 'Models', 'domain/models'
   add_group 'Controllers', 'app/controllers'
-  add_group 'Helpers', 'app/helpers'
+  add_group 'Repositories', 'app/repositories'
 end
 
 RSpec.configure do |conf|

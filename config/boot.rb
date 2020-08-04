@@ -36,7 +36,7 @@ Padrino.before_load do
   Sequel::Model.plugin :validation_helpers
   Padrino.dependency_paths << Padrino.root('app/repositories/**/*.rb')
   Padrino.dependency_paths << Padrino.root('app/presenters/**/*.rb')
-  Padrino.dependency_paths << Padrino.root('app/security/**/*.rb')
+  Padrino.dependency_paths << Padrino.root('domain/**/*.rb')
 end
 
 #

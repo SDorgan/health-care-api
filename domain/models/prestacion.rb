@@ -1,4 +1,4 @@
-require_relative '../lib/string_helper'
+require_relative '../../lib/string_helper'
 
 class Prestacion
   attr_accessor :id, :nombre, :slug, :costo, :centros

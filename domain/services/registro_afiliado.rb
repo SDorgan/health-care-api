@@ -1,11 +1,11 @@
-require_relative '../../models/errors/edad_maxima_supera_limite_error'
-require_relative '../../models/errors/edad_minima_no_alcanza_limite_error'
-require_relative '../../models/errors/no_se_admite_conyuge_error'
-require_relative '../../models/errors/se_requiere_conyuge_error'
-require_relative '../../models/errors/no_se_admite_hijos_error'
-require_relative '../../models/errors/plan_inexistente_error'
-require_relative '../../models/errors/supera_limite_de_hijos_error'
-require_relative '../../models/errors/se_requiere_hijos_error'
+require_relative '../errors/edad_maxima_supera_limite_error'
+require_relative '../errors/edad_minima_no_alcanza_limite_error'
+require_relative '../errors/no_se_admite_conyuge_error'
+require_relative '../errors/se_requiere_conyuge_error'
+require_relative '../errors/no_se_admite_hijos_error'
+require_relative '../errors/plan_inexistente_error'
+require_relative '../errors/supera_limite_de_hijos_error'
+require_relative '../errors/se_requiere_hijos_error'
 
 class RegistroAfiliado
   def initialize(repo_afiliados, repo_planes)

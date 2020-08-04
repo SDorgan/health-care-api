@@ -1,6 +1,6 @@
 require 'integration_spec_helper'
 
-require_relative '../../../models/errors/plan_inexistente_error'
+require_relative '../../../domain/errors/plan_inexistente_error'
 
 describe 'PlanRepository' do
   before(:each) do

@@ -1,4 +1,4 @@
-require_relative '../lib/string_helper'
+require_relative '../../lib/string_helper'
 
 class Plan
   NO_ADMITE_CONYUGE = 'NO_ADMITE_CONYUGE'.freeze
