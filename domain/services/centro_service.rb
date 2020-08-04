@@ -3,6 +3,18 @@ class CentroService
     @repo_centro = repo_centro
   end
 
+  def buscar(params = {})
+    nombre_prestacion = params[:nombre_prestacion]
+
+    centros = if nombre_prestacion.nil?
+                CentroRepository.new.all
+              else
+                CentroRepository.new.find_by_prestacion(nombre_prestacion)
+              end
+
+    centros
+  end
+
   def registrar(nombre, latitud, longitud)
     centro = Centro.new(nombre, latitud, longitud)
 

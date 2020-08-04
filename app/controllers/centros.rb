@@ -6,11 +6,9 @@ HealthAPI::App.controllers :centros do
   get :index do
     nombre_prestacion = request.params['prestacion']
 
-    centros = if nombre_prestacion.nil?
-                CentroRepository.new.all
-              else
-                CentroRepository.new.find_by_prestacion(nombre_prestacion)
-              end
+    service = CentroService.new(CentroRepository.new)
+
+    centros = service.buscar(nombre_prestacion: nombre_prestacion)
 
     CentroResponseBuilder.create_from_all(centros)
 
