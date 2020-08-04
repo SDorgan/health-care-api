@@ -2,7 +2,9 @@ HealthAPI::App.controllers :centros do
   get :index do
     nombre_prestacion = request.params['prestacion']
 
-    service = CentroService.new(CentroRepository.new, PrestacionRepository.new)
+    service = CentroService.new(CentroRepository.new,
+                                PrestacionRepository.new,
+                                CalculadorDistancia.new)
 
     centros = service.buscar(nombre_prestacion: nombre_prestacion)
 
@@ -16,7 +18,9 @@ HealthAPI::App.controllers :centros do
   post :index do
     params = JSON.parse(request.body.read)
 
-    service = CentroService.new(CentroRepository.new, PrestacionRepository.new)
+    service = CentroService.new(CentroRepository.new,
+                                PrestacionRepository.new,
+                                CalculadorDistancia.new)
 
     centro = service.registrar(params['nombre'], params['latitud'], params['longitud'])
 

@@ -14,4 +14,18 @@ describe 'Centro' do
     expect(centro.longitud).to eql longitud
     expect(centro.slug).to eql slug_name
   end
+
+  it 'si se le asigna una dirección, debería tenerla' do # rubocop:disable RSpec/ExampleLength
+    nombre = 'Hospital Alemán'
+    latitud = -35.45
+    longitud = -36.7
+    direccion = '432 Maipú'
+    distancia = 4
+    centro = Centro.new(nombre, latitud, longitud)
+    centro.direccion = direccion
+    centro.distancia = distancia
+
+    expect(centro.direccion).to eql direccion
+    expect(centro.distancia).to eql distancia
+  end
 end
