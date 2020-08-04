@@ -19,7 +19,7 @@ Característica: Centros Cercanos
   @wip
   Escenario: CCC2 - Consulta por cercanía cuando no hay centros
     Cuando consulto por centros cercanos a latitud "-34.617793" y longitud "-58.368414"
-    Entonces obtengo un mensaje de que no hay centros disponibles
+    Entonces se obtiene una respuesta vacía
 
   @wip
   Escenario: CCC3 - Consulta por cercanía cuando hay cuatro centros devuelve el más cercano

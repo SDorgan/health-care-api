@@ -118,4 +118,21 @@ describe 'CentrosController' do
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'El centro ingresado ya existe'
   end
+
+  xit 'debería traer el centro más cercano' do
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
+
+    get "/centros?latitud=#{latitud}&longitud=#{longitud}"
+    expect(last_response.status).to be 200
+
+    response = JSON.parse(last_response.body)
+    expect(response['centros'].length).to eq 1
+  end
+
+  xit 'debería devolver vacío si no hay centros cercanos' do
+    get "/centros?latitud=#{latitud}&longitud=#{longitud}"
+
+    response = JSON.parse(last_response.body)
+    expect(response['centros'].length).to eq 0
+  end
 end

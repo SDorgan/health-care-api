@@ -9,11 +9,3 @@ Entonces('el centro más cercano es el {string}') do |centro|
   expect(@response.status).to be 200
   expect(json_response['centro']).to eq centro
 end
-
-Entonces('obtengo un mensaje de que no hay centros disponibles') do
-  json_response = JSON.parse(@response.body)
-
-  expect(@response.status).to be 404
-  expect(json_response['respuesta']).to be 'error'
-  expect(json_response['mensaje']).to be 'No hay centros disponibles'
-end
