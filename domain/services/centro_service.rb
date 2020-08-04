@@ -32,7 +32,22 @@ class CentroService
 
   private
 
-  def find_nearest_to(_latitud, _longitud)
-    []
+  def find_nearest_to(latitud, longitud)
+    centros = @repo_centro.all
+
+    return centros if centros.empty?
+
+    resultado = @calculador_distancia.obtener_direcciones_a_punto(centros, latitud, longitud)
+
+    distancias = resultado[:distancias]
+    direcciones = resultado[:direcciones]
+
+    indice_menor_distancia = distancias.rindex(distancias.min)
+
+    centro = centros[indice_menor_distancia]
+    centro.distancia = distancias[indice_menor_distancia]
+    centro.direccion = direcciones[indice_menor_distancia]
+
+    [centro]
   end
 end
