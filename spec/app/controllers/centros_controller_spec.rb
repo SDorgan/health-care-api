@@ -147,10 +147,14 @@ describe 'CentrosController' do
     expect(response['centros'].length).to eq 1
   end
 
-  xit 'debería devolver vacío si no hay centros cercanos' do
+  it 'debería devolver vacío si no hay centros cercanos' do
     centros = []
-    stub_request(:get, "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}")
-
     stub_send_location_centros(latitud_buscada, longitud_buscada, centros)
+
+    get "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}", {}, 'HTTP_API_KEY' => API_KEY
+
+    response = JSON.parse(last_response.body)
+
+    expect(response['centros'].length).to eq 0
   end
 end
