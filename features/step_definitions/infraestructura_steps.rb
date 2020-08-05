@@ -36,7 +36,7 @@ Dado('que existe un centro') do
 end
 
 Cuando("se ejecuta POST \/reset") do
-  @response = Faraday.post(RESET_URL)
+  @response = Faraday.post(RESET_URL, {}, 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('se eliminan los datos') do
