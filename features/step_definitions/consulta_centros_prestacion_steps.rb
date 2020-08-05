@@ -5,7 +5,7 @@ end
 
 Cuando('realizo la consulta de centro médico') do
   URL = "#{CENTROS_URL}?prestacion=#{ERB::Util.url_encode(@nombre_prestacion)}".freeze
-  @response = Faraday.get(URL)
+  @response = Faraday.get(URL, {}, 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('obtengo {string} como resultado') do |nombre_centro|

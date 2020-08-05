@@ -32,7 +32,7 @@ Dado('que existe un centro') do
     'latitud': 10.0
   }
 
-  @response = Faraday.post(CENTROS_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(CENTROS_URL, @request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Cuando("se ejecuta POST \/reset") do
@@ -48,7 +48,7 @@ Entonces('se eliminan los datos') do
   json_response = JSON.parse(response.body)
   prestaciones = json_response['prestaciones']
 
-  response = Faraday.get(CENTROS_URL, 'Content-Type' => 'application/json')
+  response = Faraday.get(CENTROS_URL, {}, 'HTTP_API_KEY' => API_KEY)
   json_response = JSON.parse(response.body)
   centros = json_response['centros']
 
