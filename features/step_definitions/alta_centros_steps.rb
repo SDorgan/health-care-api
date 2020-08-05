@@ -22,6 +22,8 @@ Dado('coordenadas geográficas latitud {string} y longitud {string}') do |lat, l
     'latitud': lat.to_f,
     'longitud': long.to_f
   }
+  @coords_centros = [] if @centros.nil?
+  @coords_centros << { 'latitud': lat.to_f, 'longitud': long.to_f }
 end
 
 Entonces('se obtiene un mensaje de error por falta de coordenadas') do
