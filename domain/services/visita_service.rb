@@ -17,7 +17,8 @@ class VisitaService
 
     centro = @repo_centros.find(centro_id)
 
-    raise CentroNoContienePrestacionError unless @repo_centros.centro_contains_prestacion(centro, prestacion) # rubocop:disable Metrics/LineLength
+    raise CentroNoContienePrestacionError unless @repo_centros.contains_prestacion(centro,
+                                                                                   prestacion)
 
     visita_medica = VisitaMedica.new(afiliado.id, prestacion, centro)
 

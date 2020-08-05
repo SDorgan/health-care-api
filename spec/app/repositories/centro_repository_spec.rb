@@ -73,8 +73,4 @@ describe 'CentroRepository' do
     fake_id = 999_999
     expect { @repo.find(fake_id) }.to raise_error
   end
-
-  it 'debería devolver error si se intenta cargar una prestación repetida al centro' do
-    expect { @repo.add_prestacion(@centro, @prestacion) }.to raise_error
-  end
 end

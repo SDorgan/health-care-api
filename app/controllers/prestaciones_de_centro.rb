@@ -8,11 +8,10 @@ HealthAPI::App.controllers :prestaciones, parent: :centros do
   post :index do
     body_params = JSON.parse(request.body.read)
 
-    service = CentroService.new(CentroRepository.new,
-                                PrestacionRepository.new,
-                                CalculadorDistancia.new)
+    service = PrestacionDeCentroService.new(CentroRepository.new,
+                                            PrestacionRepository.new)
 
-    service.add_prestacion(params[:centro_id], body_params['prestacion'])
+    service.registrar(params[:centro_id], body_params['prestacion'])
 
     status 201
 
