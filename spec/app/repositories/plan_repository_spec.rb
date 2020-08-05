@@ -1,7 +1,5 @@
 require 'integration_spec_helper'
 
-require_relative '../../../domain/errors/plan_inexistente_error'
-
 describe 'PlanRepository' do
   before(:each) do
     @cantidad_visitas = 0
@@ -145,6 +143,6 @@ describe 'PlanRepository' do
                         edad_minima: 0,
                         edad_maxima: 60))
 
-    expect { @repo.find_by_name('noExiste') }.to raise_error(PlanInexistenteError)
+    expect { @repo.find_by_name('noExiste') }.to raise_error(PlanNoEncontrado)
   end
 end

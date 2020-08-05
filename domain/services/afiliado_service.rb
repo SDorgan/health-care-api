@@ -6,6 +6,7 @@ require_relative '../errors/no_se_admite_hijos_error'
 require_relative '../errors/plan_inexistente_error'
 require_relative '../errors/supera_limite_de_hijos_error'
 require_relative '../errors/se_requiere_hijos_error'
+require_relative '../../app/errors/plan_no_encontrado'
 
 class AfiliadoService
   def initialize(repo_afiliados, repo_planes)
@@ -25,6 +26,8 @@ class AfiliadoService
     afiliado.id_telegram = data[:id_telegram] unless data[:id_telegram].nil?
 
     @repo_afiliados.save(afiliado)
+  rescue PlanNoEncontrado
+    raise PlanInexistenteError
   end
 
   private
