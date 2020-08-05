@@ -1,0 +1,2 @@
+class PlanNoEncontrado < StandardError
+end

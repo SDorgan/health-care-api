@@ -6,14 +6,11 @@ HealthAPI::App.controllers :planes do
   get :index do
     nombre_plan = request.params['nombre']
 
-    if nombre_plan.nil?
-      planes = PlanRepository.new.all
-      PlanResponseBuilder.create_from_all(planes)
-    else
-      plan = PlanRepository.new.find_by_name(nombre_plan)
-      PlanResponseBuilder.create_from(plan)
-    end
+    service = PlanService.new(PlanRepository.new)
 
+    response = service.buscar(nombre: nombre_plan)
+
+    response
   rescue PlanInexistenteError => e
     status 404
     body e.message
