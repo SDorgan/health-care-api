@@ -24,7 +24,7 @@ Cuando('se registra al plan {string}') do |plan|
     'edad' => @request['edad'],
     'conyuge' => @request['conyuge']
   }
-  @response_afiliado = Faraday.post(AFILIADOS_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response_afiliado = Faraday.post(AFILIADOS_URL, @request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('obtiene un numero unico de afiliado') do

@@ -1,5 +1,5 @@
 Dado('el centro llamado {string}') do |nombre|
-  @response = Faraday.get(CENTROS_URL)
+  @response = Faraday.get(CENTROS_URL, {}, 'HTTP_API_KEY' => API_KEY)
   json_response = JSON.parse(@response.body)
 
   centros = json_response['centros']
@@ -23,7 +23,7 @@ Cuando('se le agrega la prestación {string} al centro {string}') do |nombre_pre
 
   URL = "#{CENTROS_URL}/#{@centro_id}/prestaciones".freeze
 
-  @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Cuando('se le agrega la prestación inexistente {string} al centro {string}') do |_nombre_prestacion, nombre_centro| # rubocop:disable Metrics/LineLength
@@ -35,12 +35,12 @@ Cuando('se le agrega la prestación inexistente {string} al centro {string}') do
 
   URL = "#{CENTROS_URL}/#{@centro_id}/prestaciones".freeze
 
-  @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(URL, request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('se actualiza el centro exitosamente') do
   URL = "#{CENTROS_URL}/#{@centro_id}/prestaciones".freeze
-  @response = Faraday.get(URL)
+  @response = Faraday.get(URL, {}, 'HTTP_API_KEY' => API_KEY)
 
   json_response = JSON.parse(@response.body)
   prestaciones = json_response['prestaciones']

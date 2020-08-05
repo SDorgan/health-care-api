@@ -3,7 +3,7 @@ Cuando('realiza una compra de medicamentos por ${int}') do |monto|
     'afiliado' => @id_afiliado,
     'monto' => monto
   }
-  @response = Faraday.post(MEDICAMENTOS_URL, request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(MEDICAMENTOS_URL, request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('se registra la compra con un identificador único') do

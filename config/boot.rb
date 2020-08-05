@@ -1,6 +1,7 @@
 # Defines our constants
 RACK_ENV = ENV['RACK_ENV'] ||= 'development' unless defined?(RACK_ENV)
 PADRINO_ROOT = File.expand_path('..', __dir__) unless defined?(PADRINO_ROOT)
+API_KEY = ENV['API_KEY'] ||= 'altojardin' unless defined?(API_KEY)
 
 # Load our dependencies
 require 'bundler/setup'

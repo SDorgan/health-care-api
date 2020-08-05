@@ -20,7 +20,7 @@ Cuando('se registra la prestación') do
     'costo': @costo_prestacion
   }
 
-  @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 
   json_response = JSON.parse(@response.body)
   mi_prestacion = json_response['prestacion']
@@ -35,7 +35,7 @@ Cuando('se registra la prestación invalida') do
     'costo': @costo_prestacion
   }
 
-  @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(PRESTACIONES_URL, @request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('la prestación se registra exitosamente') do

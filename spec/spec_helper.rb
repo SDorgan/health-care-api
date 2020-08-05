@@ -1,4 +1,5 @@
 RACK_ENV = 'test'.freeze unless defined?(RACK_ENV)
+API_KEY = 'altojardin'.freeze unless defined?(API_KEY)
 
 require File.expand_path(File.dirname(__FILE__) + '/../config/boot')
 Dir[File.expand_path(File.dirname(__FILE__) + '/../app/controllers/**/*.rb')].each(&method(:require))

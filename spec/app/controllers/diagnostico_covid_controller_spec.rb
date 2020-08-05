@@ -27,24 +27,30 @@ describe 'DiagnosticoCovidController' do
   end
 
   it 'Ver si un afiliado es sospechoso cuando no lo es' do
-    get "/covid/#{@afiliado.id}"
+    get "/covid/#{@afiliado.id}", {}, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
     expect(response['sospechoso']).to be false
   end
 
   it 'Puedo hacer el test pasando el telegram_id en vez del id del afiliado' do
     data = { 'id_telegram': fake_id_telegram }.to_json
-    post '/covid', data
+    post '/covid', data, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
     expect(response['sospechoso']).to be true
   end
 
   it 'Ver si un afiliado es sospechoso cuando si lo es' do
     data = { 'id_telegram': fake_id_telegram }.to_json
-    post '/covid', data
+    post '/covid', data, 'HTTP_API_KEY' => API_KEY
 
-    get "/covid/#{@afiliado.id}"
+    get "/covid/#{@afiliado.id}", {}, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
     expect(response['sospechoso']).to be true
+  end
+
+  it 'deberia devolver 403 al no tener api key' do
+    data = { 'id_telegram': fake_id_telegram }.to_json
+    post '/covid', data
+    expect(last_response.status).to be 403
   end
 end

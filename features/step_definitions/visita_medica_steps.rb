@@ -4,7 +4,7 @@ Cuando('se atiende por {string} en el centro {string}') do |prestacion_nombre, c
     'prestacion' => @prestaciones[prestacion_nombre],
     'centro' => @centros[centro_nombre]
   }
-  @response = Faraday.post(VISITAS_URL, request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(VISITAS_URL, request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('se registra la prestación con un identificador único') do
