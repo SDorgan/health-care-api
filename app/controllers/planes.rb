@@ -19,17 +19,10 @@ HealthAPI::App.controllers :planes do
   post :index do
     params = JSON.parse(request.body.read)
 
-    plan = Plan.create(nombre: params['nombre'],
-                       costo: params['costo'],
-                       limite_visitas: params['limite_cobertura_visitas'],
-                       porcentaje_medicamentos: params['cobertura_medicamentos'],
-                       costo_copago: params['copago'],
-                       edad_minima: params['edad_minima'],
-                       edad_maxima: params['edad_maxima'],
-                       cantidad_hijos_maxima: params['cantidad_hijos_maxima'],
-                       conyuge: params['conyuge'])
+    service = PlanService.new(PlanRepository.new)
 
-    plan = PlanRepository.new.save(plan)
+    plan = service.registrar(params)
+
     status 201
 
     PlanResponseBuilder.create_from(plan)

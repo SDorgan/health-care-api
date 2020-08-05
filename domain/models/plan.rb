@@ -25,22 +25,6 @@ class Plan
     @slug = StringHelper.sluggify(nombre)
   end
 
-  def self.create(data = {})
-    cobertura_visitas = if !data[:limite_visitas].nil?
-                          CoberturaVisita.new(data[:limite_visitas],
-                                              data[:costo_copago])
-                        else
-                          CoberturaVisitaInfinita.new(data[:costo_copago])
-                        end
-
-    cobertura_medicamentos = CoberturaMedicamentos.new(data[:porcentaje_medicamentos])
-
-    data[:cobertura_visitas] = cobertura_visitas
-    data[:cobertura_medicamentos] = cobertura_medicamentos
-
-    Plan.new(data)
-  end
-
   def self.mapeo_conyuge
     { NO_ADMITE_CONYUGE => 0,
       ADMITE_CONYUGE => 1,
