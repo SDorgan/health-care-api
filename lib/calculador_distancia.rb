@@ -7,7 +7,7 @@ class CalculadorDistancia
 
   private
 
-  EXTERNAL_DISTANCE_URL = 'http://www.mapquestapi.com/directions/v2/routematrix?key='.freeze # rubocop:disable Metrics/LineLength
+  EXTERNAL_DISTANCE_URL = 'http://www.mapquestapi.com/directions/v2/routematrix?key='.freeze
   MILE_TO_KM = 1.60934
 
   def armar_body(centros, latitud, longitud)
@@ -28,7 +28,9 @@ class CalculadorDistancia
   end
 
   def llamar_api(body)
-    Faraday.post("#{EXTERNAL_DISTANCE_URL}#{ENV['DISTANCE_KEY']}", body, 'Content-Type' => 'application/json')
+    key = ENV['DISTANCE_KEY']
+    key = 'TEST_KEY' if ENV['RACK_ENV'] == 'test'
+    Faraday.post("#{EXTERNAL_DISTANCE_URL}#{key}", body, 'Content-Type' => 'application/json')
   end
 
   def parsear_resultado(response)

@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'erb'
+require 'web_mock'
 
 describe 'CentrosController' do
   let(:centro_nombre) do
@@ -14,8 +15,16 @@ describe 'CentrosController' do
     -34.44764
   end
 
+  let(:latitud_buscada) do
+    -34.54764
+  end
+
   let(:longitud) do
     -58.544412
+  end
+
+  let(:longitud_buscada) do
+    -58.564412
   end
 
   let(:prestacion) do
@@ -119,23 +128,20 @@ describe 'CentrosController' do
     expect(last_response.body).to eq 'El centro ingresado ya existe'
   end
 
-  xit 'debería traer el centro más cercano' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations, Metrics/LineLength
+  it 'debería traer el centro más cercano' do
+    centros = []
     post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
-    # add webmock
-    get "/centros?latitud=#{latitud}&longitud=#{longitud}"
-    expect(last_response.status).to be 200
+    centros << { 'latitud': latitud, 'longitud': longitud }
 
-    response = JSON.parse(last_response.body)
-    expect(response['centros'].length).to eq 1
-    centro = response['centros'].first
-    expect(centro['direccion']).not_to be nil
-    expect(centro['distancia']).not_to be nil
+    stub_request(:get, "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}")
+
+    stub_send_location_centros(latitud_buscada, longitud_buscada, centros)
   end
 
   xit 'debería devolver vacío si no hay centros cercanos' do
-    get "/centros?latitud=#{latitud}&longitud=#{longitud}"
+    centros = []
+    stub_request(:get, "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}")
 
-    response = JSON.parse(last_response.body)
-    expect(response['centros'].length).to eq 0
+    stub_send_location_centros(latitud_buscada, longitud_buscada, centros)
   end
 end
