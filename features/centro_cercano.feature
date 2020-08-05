@@ -16,7 +16,7 @@ Característica: Centros Cercanos
     Cuando consulto por centros cercanos a latitud "-34.617793" y longitud "-58.368414"
     Entonces el centro más cercano es el "Hospital Alemán"
 
-  @wip
+
   Escenario: CCC2 - Consulta por cercanía cuando no hay centros
     Cuando consulto por centros cercanos a latitud "-34.617793" y longitud "-58.368414"
     Entonces se obtiene una respuesta vacía
