@@ -1,6 +1,6 @@
 Cuando('consulto por centros cercanos a latitud {string} y longitud {string}') do |latitud, longitud| # rubocop:disable Metrics/LineLength
   URL = "#{CENTROS_URL}?latitud=#{ERB::Util.url_encode(latitud)}&longitud=#{ERB::Util.url_encode(longitud)}".freeze # rubocop:disable Metrics/LineLength
-  @response = Faraday.get(URL)
+  @response = Faraday.get(URL, {}, 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('el centro más cercano es el {string}') do |centro|

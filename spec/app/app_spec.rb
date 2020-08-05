@@ -20,7 +20,7 @@ describe 'App' do
              'edad_minima' => @edad_minima,
              'edad_maxima' => @edad_maxima,
              'conyuge' => @conyuge }.to_json
-    post '/planes', data
+    post '/planes', data, 'HTTP_API_KEY' => API_KEY
     @plan_repository = PlanRepository.new
   end
 
@@ -28,13 +28,13 @@ describe 'App' do
     planes = @plan_repository.all
     expect(planes.length).to be 1
   end
-  # rubocop:disable RSpec/ExampleLength
+  # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
   it 'deberia guardarse el afiliado ingresado junto con su plan' do
     plan = @plan_repository.all.first
     plan_id = plan.id
     afiliado_repository = AfiliadoRepository.new
     post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud',
-                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json, 'HTTP_API_KEY' => API_KEY
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
     expect(afiliados.first.plan.id).to eql plan_id
@@ -47,7 +47,7 @@ describe 'App' do
     afiliado_repository = AfiliadoRepository.new
     post '/afiliados', { 'nombre': 'Juan', 'nombre_plan': 'PlanJuventud',
                          'cantidad_hijos': 0, 'edad': 18, 'conyuge': false,
-                         'id_telegram': id_telegram }.to_json
+                         'id_telegram': id_telegram }.to_json, 'HTTP_API_KEY' => API_KEY
     afiliados = afiliado_repository.all
     expect(afiliados.first.nombre).to eql 'Juan'
     expect(afiliados.first.plan.id).to eql plan_id
@@ -55,7 +55,7 @@ describe 'App' do
   end
 
   it 'deberia devolver el plan guardado' do # rubocop:disable RSpec/MultipleExpectations
-    get 'planes'
+    get 'planes', {}, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
     plan = response['planes'].first
     expect(plan['nombre']).to eql @nombre_plan
@@ -63,5 +63,10 @@ describe 'App' do
     expect(plan['limite_cobertura_visitas']).to eql @limite_visita_plan
     expect(plan['copago']).to eql @copago
   end
-  # rubocop:enable RSpec/ExampleLength
+  # rubocop:enable RSpec/ExampleLength, Metrics/LineLength
+
+  it 'deberia devolver 403 cuando se manda sin header api key' do
+    get 'planes'
+    expect(last_response.status).to be 403
+  end
 end

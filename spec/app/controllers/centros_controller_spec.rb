@@ -32,13 +32,13 @@ describe 'CentrosController' do
   end
 
   it 'deberia devolver un JSON con centros como clave' do
-    get '/centros'
+    get '/centros', {}, 'HTTP_API_KEY' => API_KEY
     last_response.body.include?('centros')
   end
 
   it 'deberia devolver un JSON con el centro cargado' do # rubocop:disable RSpec/ExampleLength,  RSpec/MultipleExpectations, Metrics/LineLength
-    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
-    get '/centros'
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
+    get '/centros', {}, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
     expect(response['centros'].length).to eq 1
     expect(response['centros'][0]['nombre']).to eq centro_nombre
@@ -47,15 +47,15 @@ describe 'CentrosController' do
   end
 
   it 'deberia devolver el centro con el que se hizo POST' do
-    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
     expect(response['centro']['nombre']).to eq centro_nombre
   end
 
   it 'deberia devolver un JSON con centros como clave al pedir centros de una prestacion' do
-    post '/prestaciones', { 'nombre': prestacion['nombre'], 'costo': prestacion['costo'] }.to_json
+    post '/prestaciones', { 'nombre': prestacion['nombre'], 'costo': prestacion['costo'] }.to_json, 'HTTP_API_KEY' => API_KEY
 
-    get "/centros?prestacion=#{ERB::Util.url_encode(prestacion['nombre'])}"
+    get "/centros?prestacion=#{ERB::Util.url_encode(prestacion['nombre'])}", {}, 'HTTP_API_KEY' => API_KEY
     last_response.body.include?('centros')
   end
 
@@ -69,7 +69,7 @@ describe 'CentrosController' do
 
     centro_repo.add_prestacion(@centro, @prestacion)
 
-    get '/centros?prestacion=traumatologia'
+    get '/centros?prestacion=traumatologia', {}, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
 
     expect(response['centros'].length).to eq 1
@@ -85,44 +85,44 @@ describe 'CentrosController' do
 
     centro_repo.add_prestacion(@centro, @prestacion)
 
-    get "/centros?prestacion=#{ERB::Util.url_encode(@prestacion.nombre)}"
+    get "/centros?prestacion=#{ERB::Util.url_encode(@prestacion.nombre)}", {}, 'HTTP_API_KEY' => API_KEY
     response = JSON.parse(last_response.body)
 
     expect(response['centros'].length).to eq 1
   end
 
   it 'si se le pasa una prestacion, deberia devolver error si la prestacion no existe' do
-    get '/centros?prestacion=PrestacionInexistente'
+    get '/centros?prestacion=PrestacionInexistente', {}, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 404
     expect(last_response.body).to eq 'La prestación pedida no existe'
   end
 
   it 'deberia devolver error si no se especifica la latitud' do
-    post '/centros', { 'nombre': centro_nombre, 'longitud': longitud }.to_json
+    post '/centros', { 'nombre': centro_nombre, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'No se pasó un par válido de coordenadas'
   end
 
   it 'deberia devolver error si no se especifica la longitud' do
-    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud }.to_json
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'No se pasó un par válido de coordenadas'
   end
 
   it 'si cargo un centro con nombre repetido, devuelve error' do
-    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
-    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud + 1, 'longitud': longitud + 1 }.to_json
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud + 1, 'longitud': longitud + 1 }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'El centro ingresado ya existe'
   end
 
   it 'si cargo un centro con coordenadas repetidas, devuelve error' do
-    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
-    post '/centros', { 'nombre': otro_centro, 'latitud': latitud, 'longitud': longitud }.to_json
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
+    post '/centros', { 'nombre': otro_centro, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'El centro ingresado ya existe'

@@ -3,6 +3,7 @@ require_relative '../../lib/version'
 
 HealthAPI::App.controllers :reset do
   post :index do
+    halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
     raise NotAvailableInProductionError if ENV['RACK_ENV'] == 'production'
 
     ENV['TEST_DATE'] = nil
@@ -30,6 +31,7 @@ end
 
 HealthAPI::App.controllers :fecha do
   post :index do
+    halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
     raise NotAvailableInProductionError if ENV['RACK_ENV'] == 'production'
 
     params = JSON.parse(request.body.read)

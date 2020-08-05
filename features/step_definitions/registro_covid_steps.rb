@@ -8,7 +8,7 @@ Dado('el afiliado {string} afiliado a {string}') do |nombre, plan|
     'edad' => 20,
     'conyuge' => false
   }
-  response = Faraday.post(AFILIADOS_URL, request.to_json, 'Content-Type' => 'application/json')
+  response = Faraday.post(AFILIADOS_URL, request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
   json_response = JSON.parse(response.body)
   @id_afiliado = json_response['id']
 end
