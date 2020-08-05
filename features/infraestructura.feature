@@ -9,7 +9,7 @@ Característica: Infraestructura
     Dado que existe un plan
     Y que existe una prestacion
     Y que existe un centro
-  @wip
+  
   @mvp
   Escenario: INFRA1 - Seguridad: los requests sin api-key deben ser rechazados
     Dado el afiliado "pepeinseguro"

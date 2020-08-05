@@ -52,9 +52,14 @@ Entonces('se eliminan los datos') do
   json_response = JSON.parse(response.body)
   centros = json_response['centros']
 
+  response = Faraday.get(AFILIADOS_URL, {}, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
+  json_response = JSON.parse(response.body)
+  afiliados = json_response['afiliados']
+
   expect(planes.empty?).to be true
   expect(centros.empty?).to be true
   expect(prestaciones.empty?).to be true
+  expect(afiliados.empty?).to be true
 end
 
 Dado('que se esta en el ambiente de producción') do
@@ -73,4 +78,22 @@ Entonces('obtiene una version semántica de {int} números') do |numeros|
   response = JSON.parse(@response.body)
   version_split = response['version'].split('.')
   expect(version_split.length).to eq numeros
+end
+
+Cuando('el afiliado {string}') do |nombre|
+  @request = {
+    'nombre' => nombre,
+    'nombre_plan' => 'fake_plan',
+    'cantidad_hijos' => 0,
+    'edad' => 18,
+    'conyuge' => true
+  }
+end
+
+Cuando('se registra pero no envia api-key') do
+  @response = Faraday.post(AFILIADOS_URL, @request.to_json, 'Content-Type' => 'application/json')
+end
+
+Entonces('obtiene error {int}') do |status|
+  expect(@response.status).to eq status
 end
