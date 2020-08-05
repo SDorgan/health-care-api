@@ -2,6 +2,7 @@ HealthAPI::App.controllers :centros do
   before do
     halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
   end
+
   get :index do
     nombre_prestacion = request.params['prestacion']
     latitud = request.params['latitud']
@@ -11,7 +12,9 @@ HealthAPI::App.controllers :centros do
                                 PrestacionRepository.new,
                                 CalculadorDistancia.new)
 
-    centros = service.buscar(nombre_prestacion: nombre_prestacion, latitud: latitud, longitud: longitud) # rubocop:disable Metrics/LineLength
+    centros = service.buscar(nombre_prestacion: nombre_prestacion,
+                             latitud: latitud,
+                             longitud: longitud)
 
     CentroResponseBuilder.create_from_all(centros)
 
