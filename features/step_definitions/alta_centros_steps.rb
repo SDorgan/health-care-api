@@ -28,10 +28,12 @@ end
 
 Entonces('se obtiene un mensaje de error por falta de coordenadas') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'No se pasó un par válido de coordenadas'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'No se pasó un par válido de coordenadas'
 end
 
 Entonces('se obtiene un mensaje de error centro ya existente') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'El centro ingresado ya existe'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'El centro ingresado ya existe'
 end

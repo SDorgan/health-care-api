@@ -19,14 +19,17 @@ HealthAPI::App.controllers :prestaciones, parent: :centros do
 
     status 201
 
-    'ok'
+    respuesta = { 'respuesta': 'ok' }
+    body respuesta.to_json
 
   rescue PrestacionInexistenteError, CentroInexistenteError => e
     status 404
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
 
   rescue CentroYaContienePrestacionError => e
     status 400
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

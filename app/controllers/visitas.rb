@@ -23,10 +23,12 @@ HealthAPI::App.controllers :visitas do
 
   rescue UsuarioNoAfiliadoError => e
     status 401
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
 
   rescue PrestacionInexistenteError, CentroInexistenteError, CentroNoContienePrestacionError => e
     status 404
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

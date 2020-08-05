@@ -52,5 +52,6 @@ end
 
 Entonces('se obtiene un error por prestación repetida') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'El centro ya presenta esa prestación'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'El centro ya presenta esa prestación'
 end

@@ -38,6 +38,7 @@ HealthAPI::App.controllers :afiliados do
 
   rescue RegistracionError => e
     status 400
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

@@ -29,7 +29,8 @@ end
 
 Entonces('obtiene un error') do
   expect(@response_status).to eq 401
-  expect(@resumen).to eq 'El ID no pertenece a un afiliado'
+  json_response = JSON.parse(@resumen)
+  expect(json_response['mensaje']).to eq 'El ID no pertenece a un afiliado'
 end
 
 Entonces('posee una visita por la prestación {string} con costo ${int}') do |nombre, precio|

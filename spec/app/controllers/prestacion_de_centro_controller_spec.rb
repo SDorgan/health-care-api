@@ -51,13 +51,15 @@ describe 'PrestacionDeCentroController' do
     pres_id = (@prestacion.id + @otra_prestacion.id + 1)
     post "/centros/#{@centro.id}/prestaciones", { 'prestacion': pres_id }.to_json, 'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 404
-    expect(last_response.body).to eq 'La prestación pedida no existe'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'La prestación pedida no existe'
   end
 
   it 'deberia devolver error al hacer el POST con un centro inexistente' do
     post "/centros/#{@centro.id + @otro_centro.id + 1}/prestaciones", { 'prestacion': @prestacion.id }.to_json, 'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 404
-    expect(last_response.body).to eq 'El centro pedido no existe'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'El centro pedido no existe'
   end
 
   it 'deberia devolver error al hacer el POST con una prestación repetida en el centro' do
@@ -65,7 +67,8 @@ describe 'PrestacionDeCentroController' do
     post "/centros/#{@centro.id}/prestaciones", { 'prestacion': @otra_prestacion.id }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
-    expect(last_response.body).to eq 'El centro ya presenta esa prestación'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'El centro ya presenta esa prestación'
   end
 
   it 'deberia devolver 403 al no tener api key' do

@@ -18,6 +18,7 @@ HealthAPI::App.controllers :resumen do
 
   rescue AfiliadoNoEncontrado => e
     status 401
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

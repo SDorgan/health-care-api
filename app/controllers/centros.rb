@@ -20,7 +20,8 @@ HealthAPI::App.controllers :centros do
 
   rescue PrestacionInexistenteError => e
     status 404
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 
   post :index do
@@ -38,6 +39,7 @@ HealthAPI::App.controllers :centros do
 
   rescue CentroCoordenadasInvalidas, CentroYaExistenteError => e
     status 400
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

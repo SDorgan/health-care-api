@@ -22,6 +22,7 @@ HealthAPI::App.controllers :prestaciones do
 
   rescue PrestacionSinNombreError, PrestacionCostoInvalido => e
     status 400
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

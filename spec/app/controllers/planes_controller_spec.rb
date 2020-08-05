@@ -162,7 +162,8 @@ describe 'PlanesController' do
   it 'deberia tener error si pido por un plan que no existe' do
     get '/planes?nombre=PlanQueNoExiste', {}, 'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to eq 404
-    expect(last_response.body).to eq 'El plan es inexistente'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'El plan es inexistente'
   end
 
   it 'deberia devolver 403 cuando se manda sin header api key' do
