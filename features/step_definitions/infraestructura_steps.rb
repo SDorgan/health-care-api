@@ -12,7 +12,7 @@ Dado('que existe un plan') do
     'conyuge' => 'ADMITE_CONYUGE'
   }
 
-  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Dado('que existe una prestacion') do
@@ -40,7 +40,7 @@ Cuando("se ejecuta POST \/reset") do
 end
 
 Entonces('se eliminan los datos') do
-  response = Faraday.get(PLANES_URL, 'Content-Type' => 'application/json')
+  response = Faraday.get(PLANES_URL, {}, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
   json_response = JSON.parse(response.body)
   planes = json_response['planes']
 

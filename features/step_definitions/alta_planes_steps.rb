@@ -27,7 +27,7 @@ Dado('el plan con nombre {string} con costo unitario ${int}') do |nombre_plan, c
 end
 
 Cuando('se registra el plan') do
-  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
   json_response = JSON.parse(@response.body)
   plan = json_response['plan']
   @plan_id = plan['id']
@@ -153,7 +153,7 @@ Dado('restricciones edad min {int}, edad max {int}, hijos max {int}, requiere co
 end
 
 Cuando('se registra el plan invalido') do
-  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(PLANES_URL, @request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Dado('el plan con costo unitario ${int}') do |costo|

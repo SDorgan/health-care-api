@@ -3,6 +3,7 @@ require 'padrino-core/cli/rake'
 require 'English'
 
 RACK_ENV = ENV['RACK_ENV'] ||= ENV['RACK_ENV'] ||= 'test' unless defined?(RACK_ENV)
+API_KEY = ENV['API_KEY'] ||= ENV['API_KEY'] ||= 'altojardin' unless defined?(API_KEY)
 
 task :version do
   require './lib/version.rb'
