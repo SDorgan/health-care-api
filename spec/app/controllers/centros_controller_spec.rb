@@ -133,14 +133,18 @@ describe 'CentrosController' do
     expect(last_response.status).to be 403
   end
 
-  it 'debería traer el centro más cercano' do
+  it 'debería traer el centro más cercano' do # rubocop:disable RSpec/ExampleLength
     centros = []
     post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
     centros << { 'latitud': latitud, 'longitud': longitud }
 
-    stub_request(:get, "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}")
-
     stub_send_location_centros(latitud_buscada, longitud_buscada, centros)
+
+    get "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}", {}, 'HTTP_API_KEY' => API_KEY
+
+    response = JSON.parse(last_response.body)
+
+    expect(response['centros'].length).to eq 1
   end
 
   xit 'debería devolver vacío si no hay centros cercanos' do
