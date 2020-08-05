@@ -1,4 +1,7 @@
 HealthAPI::App.controllers :prestaciones do
+  before do
+    halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
+  end
   get :index do
     prestaciones = PrestacionRepository.new.all
 
