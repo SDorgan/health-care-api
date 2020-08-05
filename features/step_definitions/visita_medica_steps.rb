@@ -18,26 +18,30 @@ Entonces('obtiene un error por no estar afiliado') do
   response_status = @response.status
 
   expect(response_status).to eq 401
-  expect(@response.body).to eq 'El ID no pertenece a un afiliado'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'El ID no pertenece a un afiliado'
 end
 
 Entonces('obtiene un error por prestación no existente') do
   response_status = @response.status
 
   expect(response_status).to eq 404
-  expect(@response.body).to eq 'La prestación pedida no existe'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'La prestación pedida no existe'
 end
 
 Entonces('obtiene un error por centro no existente') do
   response_status = @response.status
 
   expect(response_status).to eq 404
-  expect(@response.body).to eq 'El centro pedido no existe'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'El centro pedido no existe'
 end
 
 Entonces('obtiene un error por prestacion no ofrecida en el centro') do
   response_status = @response.status
 
   expect(response_status).to eq 404
-  expect(@response.body).to eq 'La prestación pedida no se ofrece en el centro'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'La prestación pedida no se ofrece en el centro'
 end

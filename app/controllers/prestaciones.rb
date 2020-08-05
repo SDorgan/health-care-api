@@ -2,6 +2,7 @@ HealthAPI::App.controllers :prestaciones do
   before do
     halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
   end
+
   get :index do
     prestaciones = PrestacionRepository.new.all
 
@@ -21,6 +22,7 @@ HealthAPI::App.controllers :prestaciones do
 
   rescue PrestacionSinNombreError, PrestacionCostoInvalido => e
     status 400
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

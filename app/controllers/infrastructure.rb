@@ -14,10 +14,11 @@ HealthAPI::App.controllers :reset do
     CentroRepository.new.delete_all
     PrestacionRepository.new.delete_all
 
-    'ok'
-  rescue NotAvailableInProductionError
+    status 204
+  rescue NotAvailableInProductionError => e
     status 405
-    'error'
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end
 
@@ -37,9 +38,10 @@ HealthAPI::App.controllers :fecha do
     params = JSON.parse(request.body.read)
     ENV['TEST_DATE'] = params['fecha']
 
-    'ok'
+    status 204
   rescue NotAvailableInProductionError
     status 405
-    'error'
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

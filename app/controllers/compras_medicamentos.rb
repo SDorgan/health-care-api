@@ -2,6 +2,7 @@ HealthAPI::App.controllers :medicamentos do
   before do
     halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
   end
+
   post :index do
     params = JSON.parse(request.body.read)
 

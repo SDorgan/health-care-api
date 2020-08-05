@@ -95,21 +95,24 @@ describe 'CentrosController' do
     get '/centros?prestacion=PrestacionInexistente', {}, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 404
-    expect(last_response.body).to eq 'La prestación pedida no existe'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'La prestación pedida no existe'
   end
 
   it 'deberia devolver error si no se especifica la latitud' do
     post '/centros', { 'nombre': centro_nombre, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
-    expect(last_response.body).to eq 'No se pasó un par válido de coordenadas'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'No se pasó un par válido de coordenadas'
   end
 
   it 'deberia devolver error si no se especifica la longitud' do
     post '/centros', { 'nombre': centro_nombre, 'latitud': latitud }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
-    expect(last_response.body).to eq 'No se pasó un par válido de coordenadas'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'No se pasó un par válido de coordenadas'
   end
 
   it 'si cargo un centro con nombre repetido, devuelve error' do
@@ -117,7 +120,8 @@ describe 'CentrosController' do
     post '/centros', { 'nombre': centro_nombre, 'latitud': latitud + 1, 'longitud': longitud + 1 }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
-    expect(last_response.body).to eq 'El centro ingresado ya existe'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'El centro ingresado ya existe'
   end
 
   it 'si cargo un centro con coordenadas repetidas, devuelve error' do
@@ -125,7 +129,8 @@ describe 'CentrosController' do
     post '/centros', { 'nombre': otro_centro, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 400
-    expect(last_response.body).to eq 'El centro ingresado ya existe'
+    response = JSON.parse(last_response.body)
+    expect(response['mensaje']).to eq 'El centro ingresado ya existe'
   end
 
   it 'deberia devolver 403 cuando se manda sin header api key' do
@@ -147,10 +152,14 @@ describe 'CentrosController' do
     expect(response['centros'].length).to eq 1
   end
 
-  xit 'debería devolver vacío si no hay centros cercanos' do
+  it 'debería devolver vacío si no hay centros cercanos' do
     centros = []
-    stub_request(:get, "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}")
-
     stub_send_location_centros(latitud_buscada, longitud_buscada, centros)
+
+    get "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}", {}, 'HTTP_API_KEY' => API_KEY
+
+    response = JSON.parse(last_response.body)
+
+    expect(response['centros'].length).to eq 0
   end
 end

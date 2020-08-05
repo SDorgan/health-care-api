@@ -49,20 +49,24 @@ end
 
 Entonces('se obtiene un mensaje de error por no indicar costo') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'se debe especificar un costo'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'se debe especificar un costo'
 end
 
 Entonces('se obtiene un mensaje de error por costo negativo') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'se debe especificar un costo positivo'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'se debe especificar un costo positivo'
 end
 
 Entonces('se obtiene un mensaje de error de que el costo debe ser numerico') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'se debe especificar un costo numerico positivo'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'se debe especificar un costo numerico positivo'
 end
 
 Entonces('se obtiene un mensaje de error por no indicar el nombre') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'se debe especificar un nombre'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'se debe especificar un nombre'
 end

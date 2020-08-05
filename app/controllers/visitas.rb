@@ -2,6 +2,7 @@ HealthAPI::App.controllers :visitas do
   before do
     halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
   end
+
   post :index do
     params = JSON.parse(request.body.read)
 
@@ -22,10 +23,12 @@ HealthAPI::App.controllers :visitas do
 
   rescue UsuarioNoAfiliadoError => e
     status 401
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
 
   rescue PrestacionInexistenteError, CentroInexistenteError, CentroNoContienePrestacionError => e
     status 404
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

@@ -2,6 +2,7 @@ HealthAPI::App.controllers :resumen do
   before do
     halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
   end
+
   get :index do
     id_telegram = request.params['id']
 
@@ -17,6 +18,7 @@ HealthAPI::App.controllers :resumen do
 
   rescue AfiliadoNoEncontrado => e
     status 401
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

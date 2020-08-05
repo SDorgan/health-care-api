@@ -1,3 +1,4 @@
+require_relative './errors/api_externa_error'
 class CalculadorDistancia
   def obtener_direcciones_a_punto(centros, latitud, longitud)
     body = armar_body(centros, latitud, longitud)

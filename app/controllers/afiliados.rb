@@ -4,6 +4,7 @@ HealthAPI::App.controllers :afiliados do
   before do
     halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
   end
+
   get :index do
     afiliados = AfiliadoRepository.new.all
 
@@ -12,6 +13,7 @@ HealthAPI::App.controllers :afiliados do
 
   head :index, with: :id_telegram do
     exists = AfiliadoRepository.new.exists_afiliado_with_telegram_id(params[:id_telegram])
+
     if exists
       status 200
     else
@@ -36,6 +38,7 @@ HealthAPI::App.controllers :afiliados do
 
   rescue RegistracionError => e
     status 400
-    body e.message
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
   end
 end

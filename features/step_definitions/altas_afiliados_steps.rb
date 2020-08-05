@@ -37,35 +37,42 @@ end
 
 Entonces('obtiene un mensaje de error por plan inexistente') do
   expect(@response_afiliado.status).to eq 400
-  expect(@response_afiliado.body).to eq 'El plan es inexistente'
+  json_response = JSON.parse(@response_afiliado.body)
+  expect(json_response['mensaje']).to eq 'El plan es inexistente'
 end
 
 Entonces('obtiene un mensaje de error supera limite de edad') do
   expect(@response_afiliado.status).to eq 400
-  expect(@response_afiliado.body).to eq 'supera el límite máximo de edad'
+  json_response = JSON.parse(@response_afiliado.body)
+  expect(json_response['mensaje']).to eq 'supera el límite máximo de edad'
 end
 
 Entonces('obtiene un mensaje de error no alcanza el limite minimo de edad') do
   expect(@response_afiliado.status).to eq 400
-  expect(@response_afiliado.body).to eq 'no alcanza el límite mínimo de edad'
+  json_response = JSON.parse(@response_afiliado.body)
+  expect(json_response['mensaje']).to eq 'no alcanza el límite mínimo de edad'
 end
 
 Entonces('obtiene un mensaje de error por tener conyuge') do
   expect(@response_afiliado.status).to eq 400
-  expect(@response_afiliado.body).to eq 'este plan no admite conyuge'
+  json_response = JSON.parse(@response_afiliado.body)
+  expect(json_response['mensaje']).to eq 'este plan no admite conyuge'
 end
 
 Entonces('obtiene un mensaje de error por tener hijos') do
   expect(@response_afiliado.status).to eq 400
-  expect(@response_afiliado.body).to eq 'este plan no admite hijos'
+  json_response = JSON.parse(@response_afiliado.body)
+  expect(json_response['mensaje']).to eq 'este plan no admite hijos'
 end
 
 Entonces('obtiene un mensaje de error por superar la cantidad de hijos maxima') do
   expect(@response_afiliado.status).to eq 400
-  expect(@response_afiliado.body).to eq 'supera la cantidad de hijos requeridos para el plan'
+  json_response = JSON.parse(@response_afiliado.body)
+  expect(json_response['mensaje']).to eq 'supera la cantidad de hijos requeridos para el plan'
 end
 
 Entonces('obtiene un mensaje de error porque requiere hijos') do
   expect(@response_afiliado.status).to eq 400
-  expect(@response_afiliado.body).to eq 'este plan requiere tener hijos'
+  json_response = JSON.parse(@response_afiliado.body)
+  expect(json_response['mensaje']).to eq 'este plan requiere tener hijos'
 end

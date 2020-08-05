@@ -22,14 +22,18 @@ Dado('coordenadas geográficas latitud {string} y longitud {string}') do |lat, l
     'latitud': lat.to_f,
     'longitud': long.to_f
   }
+  @coords_centros = [] if @centros.nil?
+  @coords_centros << { 'latitud': lat.to_f, 'longitud': long.to_f }
 end
 
 Entonces('se obtiene un mensaje de error por falta de coordenadas') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'No se pasó un par válido de coordenadas'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'No se pasó un par válido de coordenadas'
 end
 
 Entonces('se obtiene un mensaje de error centro ya existente') do
   expect(@response.status).to eq 400
-  expect(@response.body).to eq 'El centro ingresado ya existe'
+  json_response = JSON.parse(@response.body)
+  expect(json_response['mensaje']).to eq 'El centro ingresado ya existe'
 end

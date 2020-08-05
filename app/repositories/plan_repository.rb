@@ -17,7 +17,7 @@ class PlanRepository < BaseRepository
     slug = StringHelper.sluggify(nombre)
     load_object(dataset.first!(slug: slug))
   rescue Sequel::NoMatchingRow
-    raise PlanInexistenteError
+    raise PlanNoEncontrado
   end
 
   private
