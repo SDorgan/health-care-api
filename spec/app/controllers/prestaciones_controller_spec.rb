@@ -31,4 +31,9 @@ describe 'PrestacionesController' do
     post '/prestaciones', { 'nombre': 'Traumatología', 'costo': '-10' }.to_json, 'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to eq 400
   end
+
+  it 'deberia devolver 403 si no se pasa api key' do
+    post '/prestaciones', { 'nombre': 'Traumatología', 'costo': 1200 }.to_json
+    expect(last_response.status).to eq 403
+  end
 end

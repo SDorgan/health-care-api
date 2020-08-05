@@ -164,4 +164,9 @@ describe 'PlanesController' do
     expect(last_response.status).to eq 404
     expect(last_response.body).to eq 'El plan es inexistente'
   end
+
+  it 'deberia devolver 403 cuando se manda sin header api key' do
+    get 'planes'
+    expect(last_response.status).to be 403
+  end
 end
