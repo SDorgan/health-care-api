@@ -128,9 +128,14 @@ describe 'CentrosController' do
     expect(last_response.body).to eq 'El centro ingresado ya existe'
   end
 
+  it 'deberia devolver 403 cuando se manda sin header api key' do
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
+    expect(last_response.status).to be 403
+  end
+
   it 'debería traer el centro más cercano' do
     centros = []
-    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
     centros << { 'latitud': latitud, 'longitud': longitud }
 
     stub_request(:get, "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}")
