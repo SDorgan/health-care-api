@@ -21,17 +21,6 @@ class CentroService
     raise PrestacionInexistenteError
   end
 
-  def add_prestacion(centro_id, nombre_prestacion)
-    centro = @repo_centro.find(centro_id)
-    prestacion = @repo_prestaciones.find(nombre_prestacion)
-
-    @repo_centro.add_prestacion(centro, prestacion)
-  rescue PrestacionNoEncontrada
-    raise PrestacionInexistenteError
-  rescue CentroNoEncontrado
-    raise CentroInexistenteError
-  end
-
   def registrar(nombre, latitud, longitud)
     centro = Centro.new(nombre, latitud, longitud)
 
