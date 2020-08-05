@@ -43,70 +43,111 @@ describe 'AfiliadosController' do
   end
 
   it 'deberia devoler los afiliados' do
-    get '/afiliados'
+    get '/afiliados', {}, 'HTTP_API_KEY' => API_KEY
     last_response.body.include?('afiliados')
   end
 
   it 'deberia devolver un id al crearse con un plan' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez',
+                         'nombre_plan': 'PlanJuventud',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
     last_response.body.include?('id')
   end
 
-  it 'deberia devolver un id al crearse con un plan y id telegram' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
+  it 'deberia devolver un id al crearse con un plan y id telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    post '/afiliados', { 'nombre': 'Juan Perez',
+                         'nombre_plan': 'PlanJuventud',
+                         'id_telegram': '10', 'cantidad_hijos': 0,
+                         'edad': 18, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
     last_response.body.include?('id')
   end
 
   it 'deberia devolver error por superar limite edad' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 60, 'conyuge': false }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez',
+                         'nombre_plan': 'PlanJuventud', 'id_telegram': '10',
+                         'cantidad_hijos': 0, 'edad': 60, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
   it 'deberia devolver error por no alcanzar minimo de edad' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 0, 'conyuge': false }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez',
+                         'nombre_plan': 'PlanJuventud', 'id_telegram': '10',
+                         'cantidad_hijos': 0, 'edad': 0, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
   it 'deberia devolver error por no admitir conyuge' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': true }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez',
+                         'nombre_plan': 'PlanJuventud', 'id_telegram': '10',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': true }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
   it 'deberia devolver error por no tener conyuge cuando es requerido' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliar', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez',
+                         'nombre_plan': 'PlanFamiliar', 'id_telegram': '10',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
   it 'deberia devolver error por tener hijos cuando el plan no admite hijos' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 1, 'edad': 18, 'conyuge': false }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud',
+                         'id_telegram': '10', 'cantidad_hijos': 1,
+                         'edad': 18, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
   it 'deberia devolver error por superar cantidad de hijos del plan' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos', 'id_telegram': '10', 'cantidad_hijos': 3, 'edad': 18, 'conyuge': true }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos',
+                         'id_telegram': '10', 'cantidad_hijos': 3,
+                         'edad': 18, 'conyuge': true }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
   it 'deberia devolver error por no tener hijos cuando el plan lo requiere' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': true }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliarConHijos',
+                         'id_telegram': '10', 'cantidad_hijos': 0,
+                         'edad': 18, 'conyuge': true }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
   it 'deberia devolver error por tener hijos cuando el plan no admite hijos y requiere conyuge' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliar', 'id_telegram': '10', 'cantidad_hijos': 1, 'edad': 18, 'conyuge': false }.to_json
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanFamiliar',
+                         'id_telegram': '10', 'cantidad_hijos': 1,
+                         'edad': 18, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
     expect(last_response.status).to be 400
   end
 
-  it 'debería poder verificar la existencia de un afiliado con cierto id_telegram' do
-    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud', 'id_telegram': '10', 'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
-    head '/afiliados/10'
+  it 'debería poder verificar la existencia de un afiliado con cierto id_telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    post '/afiliados', { 'nombre': 'Juan Perez', 'nombre_plan': 'PlanJuventud',
+                         'id_telegram': '10', 'cantidad_hijos': 0,
+                         'edad': 18, 'conyuge': false }.to_json,
+         'HTTP_API_KEY' => API_KEY
+    head '/afiliados/10', {}, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 200
   end
 
   it 'debería poder verificar la no existencia de un afiliado con cierto id_telegram' do
-    head '/afiliados/fake_id'
+    head '/afiliados/fake_id', {}, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 404
+  end
+
+  it 'deberia devolver 403 al no tener api key' do
+    post '/afiliados', { 'nombre': 'Juan Perez',
+                         'nombre_plan': 'PlanJuventud',
+                         'cantidad_hijos': 0, 'edad': 18, 'conyuge': false }.to_json
+    expect(last_response.status).to be 403
   end
 end

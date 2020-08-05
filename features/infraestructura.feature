@@ -9,6 +9,12 @@ Característica: Infraestructura
     Dado que existe un plan
     Y que existe una prestacion
     Y que existe un centro
+  @wip
+  @mvp
+  Escenario: INFRA1 - Seguridad: los requests sin api-key deben ser rechazados
+    Dado el afiliado "pepeinseguro"
+    Cuando se registra pero no envia api-key
+    Entonces obtiene error 403
 
   Escenario: INFRA3.1 - Endpoint de /reset elimina los datos
     Cuando se ejecuta POST /reset
