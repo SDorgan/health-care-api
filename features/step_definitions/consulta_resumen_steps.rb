@@ -24,7 +24,7 @@ Dado('que registró una atención por la prestación {string} en el centro {stri
     'prestacion' => @prestaciones[prestacion_nombre],
     'centro' => @centros[centro_nombre]
   }
-  @response = Faraday.post(VISITAS_URL, request.to_json, 'Content-Type' => 'application/json')
+  @response = Faraday.post(VISITAS_URL, request.to_json, 'Content-Type' => 'application/json', 'HTTP_API_KEY' => API_KEY)
 end
 
 Entonces('obtiene un error') do
