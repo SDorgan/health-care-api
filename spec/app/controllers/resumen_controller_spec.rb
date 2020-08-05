@@ -52,7 +52,7 @@ describe 'ResumenController' do
   end
 
   it 'deberia devolver el resumen de un afiliado por Telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    get "/resumen?id=#{@afiliado.id_telegram}"
+    get "/resumen?id=#{@afiliado.id_telegram}", {}, 'HTTP_API_KEY' => API_KEY
 
     response = JSON.parse(last_response.body)
 
@@ -64,8 +64,13 @@ describe 'ResumenController' do
   end
 
   it 'deberia ser error si el ID no es de afiliado' do
-    get '/resumen?id=9999'
+    get '/resumen?id=9999', {}, 'HTTP_API_KEY' => API_KEY
 
     expect(last_response.status).to be 401
+  end
+
+  it 'deberia devolver 403 al no tener api key' do
+    get "/resumen?id=#{@afiliado.id_telegram}"
+    expect(last_response.status).to be 403
   end
 end
