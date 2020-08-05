@@ -15,17 +15,13 @@ class AfiliadoRepository < BaseRepository
   end
 
   def find(id_)
-    raise IdNotAfiliadoError unless exists_afiliado_with_id(id_)
+    raise AfiliadoNoEncontrado unless exists_afiliado_with_id(id_)
 
     super(id_)
   end
 
-  def exists_afiliado_with_id(id)
-    !dataset.where(id: id).blank?
-  end
-
   def find_by_telegram_id(tele_id)
-    raise IdNotAfiliadoError unless exists_afiliado_with_telegram_id(tele_id)
+    raise AfiliadoNoEncontrado unless exists_afiliado_with_telegram_id(tele_id)
 
     load_object(dataset.first!(id_telegram: tele_id))
   end
@@ -37,6 +33,10 @@ class AfiliadoRepository < BaseRepository
   def es_sospechoso(id)
     afiliado = load_object(dataset.first!(pk_column => id))
     afiliado.covid_sospechoso
+  end
+
+  def exists_afiliado_with_id(id)
+    !dataset.where(id: id).blank?
   end
 
   def exists_afiliado_with_telegram_id(tele_id)

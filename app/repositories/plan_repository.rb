@@ -13,7 +13,7 @@ class PlanRepository < BaseRepository
     plan
   end
 
-  def find_by_slug(nombre)
+  def find_by_name(nombre)
     slug = StringHelper.sluggify(nombre)
     load_object(dataset.first!(slug: slug))
   rescue Sequel::NoMatchingRow
@@ -28,6 +28,7 @@ class PlanRepository < BaseRepository
                         else
                           CoberturaVisita.new(a_record[:visit_limit], a_record[:copay])
                         end
+
     cobertura_medicamentos = CoberturaMedicamentos.new(a_record[:medicine_coverage])
 
     plan = Plan.new(nombre: a_record[:name], costo: a_record[:cost],

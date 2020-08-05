@@ -8,6 +8,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'thin'
 
 # Project requirements
+gem 'dotenv'
 gem 'rake'
 
 # Component requirements

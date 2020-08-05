@@ -5,8 +5,6 @@ class CentroRepository < BaseRepository
   end
 
   def save(centro)
-    validate(centro)
-
     id = insert(centro)
     centro.id = id
 
@@ -14,9 +12,23 @@ class CentroRepository < BaseRepository
   end
 
   def find(id_)
-    raise CentroInexistenteError unless exists_centro_with_id(id_)
+    raise CentroNoEncontrado unless exists_centro_with_id(id_)
 
     super(id_)
+  end
+
+  def exists_by_name(nombre)
+    slug = StringHelper.sluggify(nombre)
+
+    return false if find_by_slug(slug).nil?
+
+    true
+  end
+
+  def exists_by_coordinates(latitud, longitud)
+    return false if find_by_similar_coordinates(latitud, longitud).nil?
+
+    true
   end
 
   def find_by_prestacion(nombre_prestacion)
@@ -26,14 +38,17 @@ class CentroRepository < BaseRepository
   end
 
   def add_prestacion(centro, prestacion)
-    raise CentroYaContienePrestacionError if centro_contains_prestacion(centro, prestacion) # rubocop:disable Metrics/LineLength
-
     changeset = {
       centro_id: centro.id,
       prestacion_id: prestacion.id
     }
 
     dataset_prestaciones_de_centros.insert(changeset)
+  end
+
+  def contains_prestacion(centro, prestacion)
+    !dataset_prestaciones_de_centros.where(centro_id: centro.id,
+                                           prestacion_id: prestacion.id).blank?
   end
 
   def full_load(id)
@@ -46,11 +61,6 @@ class CentroRepository < BaseRepository
   def delete_all
     dataset_prestaciones_de_centros.delete
     dataset.delete
-  end
-
-  def centro_contains_prestacion(centro, prestacion)
-    !dataset_prestaciones_de_centros.where(centro_id: centro.id,
-                                           prestacion_id: prestacion.id).blank?
   end
 
   private
@@ -85,24 +95,6 @@ class CentroRepository < BaseRepository
     load_object(dataset.first!(latitude: lat.floor..lat.ceil, longitude: lon.floor..lon.ceil)) # rubocop:disable Metrics/LineLength
   rescue Sequel::NoMatchingRow
     nil
-  end
-
-  def validate(centro)
-    unless centro.valid?
-      cause = centro.errors.keys[0]
-      raise CoordenadasInvalidasError if %i[longitud latitud].include? cause
-    end
-
-    raise CentroYaExistenteError unless validate_unique_slug(centro) && validate_unique_coordinates(centro) # rubocop:disable Metrics/LineLength
-  end
-
-  def validate_unique_slug(centro)
-    find_by_slug(centro.slug).nil? || find_by_slug(centro.slug).id == centro.id
-  end
-
-  def validate_unique_coordinates(centro)
-    existent = find_by_similar_coordinates(centro.latitud, centro.longitud)
-    existent.nil? || existent.id == centro.id
   end
 
   def changeset(centro)

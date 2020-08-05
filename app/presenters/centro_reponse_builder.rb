@@ -14,12 +14,16 @@ class CentroResponseBuilder
     output = { 'centros': [] }
 
     centros.each do |centro|
-      output[:centros] << {
+      centro_actual = {
         'id': centro.id,
         'nombre': centro.nombre,
         'latitud': centro.latitud,
         'longitud': centro.longitud
       }
+      centro_actual['direccion'] = centro.direccion unless centro.direccion.nil?
+      centro_actual['distancia'] = centro.distancia unless centro.distancia.nil?
+
+      output[:centros] << centro_actual
     end
 
     output.to_json

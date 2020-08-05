@@ -73,26 +73,4 @@ describe 'CentroRepository' do
     fake_id = 999_999
     expect { @repo.find(fake_id) }.to raise_error
   end
-
-  it 'debería devolver error si no se mandan las coordenadas' do
-    centro_error = Centro.new('Hospital', nil, nil)
-
-    expect { @repo.save(centro_error) }.to raise_error
-  end
-
-  it 'debería devolver error si se intenta cargar un hospital con nombre repetido' do
-    centro_error = Centro.new(@centro.nombre, @centro.latitud + 1, @centro.longitud + 1)
-
-    expect { @repo.save(centro_error) }.to raise_error
-  end
-
-  it 'debería devolver error si se intenta cargar un hospital con coordenadas repetidas' do
-    centro_error = Centro.new('Nuevo Centro', @centro.latitud, @centro.longitud)
-
-    expect { @repo.save(centro_error) }.to raise_error
-  end
-
-  it 'debería devolver error si se intenta cargar una prestación repetida al centro' do
-    expect { @repo.add_prestacion(@centro, @prestacion) }.to raise_error
-  end
 end

@@ -1,20 +1,18 @@
-require_relative '../errors/prestacion_not_exists_error'
-require_relative '../errors/coordenadas_invalidas_error'
-require_relative '../errors/centro_ya_existente_error'
-
 HealthAPI::App.controllers :centros do
   get :index do
     nombre_prestacion = request.params['prestacion']
+    latitud = request.params['latitud']
+    longitud = request.params['longitud']
 
-    centros = if nombre_prestacion.nil?
-                CentroRepository.new.all
-              else
-                CentroRepository.new.find_by_prestacion(nombre_prestacion)
-              end
+    service = CentroService.new(CentroRepository.new,
+                                PrestacionRepository.new,
+                                CalculadorDistancia.new)
+
+    centros = service.buscar(nombre_prestacion: nombre_prestacion, latitud: latitud, longitud: longitud) # rubocop:disable Metrics/LineLength
 
     CentroResponseBuilder.create_from_all(centros)
 
-  rescue PrestacionNotExistsError => e
+  rescue PrestacionInexistenteError => e
     status 404
     body e.message
   end
@@ -22,14 +20,17 @@ HealthAPI::App.controllers :centros do
   post :index do
     params = JSON.parse(request.body.read)
 
-    centro = Centro.new(params['nombre'], params['latitud'], params['longitud'])
+    service = CentroService.new(CentroRepository.new,
+                                PrestacionRepository.new,
+                                CalculadorDistancia.new)
 
-    centro = CentroRepository.new.save(centro)
+    centro = service.registrar(params['nombre'], params['latitud'], params['longitud'])
 
     status 201
 
     CentroResponseBuilder.create_from(centro)
-  rescue CoordenadasInvalidasError, CentroYaExistenteError => e
+
+  rescue CentroCoordenadasInvalidas, CentroYaExistenteError => e
     status 400
     body e.message
   end

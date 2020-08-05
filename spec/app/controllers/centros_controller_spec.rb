@@ -11,11 +11,11 @@ describe 'CentrosController' do
   end
 
   let(:latitud) do
-    -34.555
+    -34.44764
   end
 
   let(:longitud) do
-    39.501
+    -58.544412
   end
 
   let(:prestacion) do
@@ -89,8 +89,15 @@ describe 'CentrosController' do
     expect(last_response.body).to eq 'La prestación pedida no existe'
   end
 
-  it 'si no se pasan las coordenadas, devuelve error' do
-    post '/centros', { 'nombre': centro_nombre }.to_json
+  it 'deberia devolver error si no se especifica la latitud' do
+    post '/centros', { 'nombre': centro_nombre, 'longitud': longitud }.to_json
+
+    expect(last_response.status).to be 400
+    expect(last_response.body).to eq 'No se pasó un par válido de coordenadas'
+  end
+
+  it 'deberia devolver error si no se especifica la longitud' do
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud }.to_json
 
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'No se pasó un par válido de coordenadas'
@@ -110,5 +117,25 @@ describe 'CentrosController' do
 
     expect(last_response.status).to be 400
     expect(last_response.body).to eq 'El centro ingresado ya existe'
+  end
+
+  xit 'debería traer el centro más cercano' do # rubocop:disable RSpec/ExampleLength, RSpec/MultipleExpectations, Metrics/LineLength
+    post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json
+    # add webmock
+    get "/centros?latitud=#{latitud}&longitud=#{longitud}"
+    expect(last_response.status).to be 200
+
+    response = JSON.parse(last_response.body)
+    expect(response['centros'].length).to eq 1
+    centro = response['centros'].first
+    expect(centro['direccion']).not_to be nil
+    expect(centro['distancia']).not_to be nil
+  end
+
+  xit 'debería devolver vacío si no hay centros cercanos' do
+    get "/centros?latitud=#{latitud}&longitud=#{longitud}"
+
+    response = JSON.parse(last_response.body)
+    expect(response['centros'].length).to eq 0
   end
 end
