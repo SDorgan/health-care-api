@@ -37,13 +37,19 @@ describe 'ResumenController' do
 
     @afiliado = AfiliadoRepository.new.save(@afiliado)
 
+    # visita realizada en: enero
     ENV['TEST_DATE'] = '02/01/2020'
+    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
+
+    # visita realizada en: febrero
+    ENV['TEST_DATE'] = '02/02/2020'
     @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
 
     @repo_visitas = VisitaMedicaRepository.new
     @visita_medica = @repo_visitas.save(@visita_medica)
 
-    ENV['TEST_DATE'] = '01/01/2020'
+    # compra realizada en: febrero
+    ENV['TEST_DATE'] = '11/02/2020'
     @compra_medicamentos = CompraMedicamentos.new(@afiliado.id, 500)
 
     @repo_compras = CompraMedicamentosRepository.new
@@ -51,6 +57,9 @@ describe 'ResumenController' do
   end
 
   it 'deberia devolver el resumen de un afiliado por Telegram' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    # consulta realizada en: febrero
+    ENV['TEST_DATE'] = '21/02/2020'
+
     get "/resumen?id=#{@afiliado.id_telegram}", {}, 'HTTP_API_KEY' => API_KEY
 
     response = JSON.parse(last_response.body)
@@ -70,6 +79,7 @@ describe 'ResumenController' do
 
   it 'deberia devolver 403 al no tener api key' do
     get "/resumen?id=#{@afiliado.id_telegram}"
+
     expect(last_response.status).to be 403
   end
 end
