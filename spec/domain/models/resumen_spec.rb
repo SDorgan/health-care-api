@@ -2,6 +2,8 @@ require 'spec_helper'
 
 describe 'Resumen' do
   before(:each) do # rubocop:disable Metrics/BlockLength
+    ENV['TEST_DATE'] = '12/03/2020'
+
     @plan = Plan.new(nombre: 'Juventud', costo: 1000,
                      cobertura_visitas: CoberturaVisita.new(0, 0),
                      cobertura_medicamentos: CoberturaMedicamentos.new(0),
@@ -99,9 +101,15 @@ describe 'Resumen' do
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return([visitas[0]])
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([visitas[1]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_copago.id).and_return([visitas[2]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes })
+        .and_return([visitas[0]])
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado_premium.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([visitas[1]])
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado_copago.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([visitas[2]])
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
       allow(@repo_compras).to receive(:find_by_afiliado).and_return([])
@@ -159,9 +167,15 @@ describe 'Resumen' do
         ]
 
         @repo_visitas = instance_double('VisitaMedicaRepository')
-        allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return(visitas)
-        allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_infinito.id).and_return(visitas_infinito) # rubocop:disable Metrics/LineLength
-        allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_copago.id).and_return(visitas_copago) # rubocop:disable Metrics/LineLength
+        allow(@repo_visitas).to receive(:find_by_afiliado)
+          .with(id: @afiliado.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+          .and_return(visitas)
+        allow(@repo_visitas).to receive(:find_by_afiliado)
+          .with(id: @afiliado_infinito.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+          .and_return(visitas_infinito)
+        allow(@repo_visitas).to receive(:find_by_afiliado)
+          .with(id: @afiliado_copago.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+          .and_return(visitas_copago)
 
         @repo_compras = instance_double('CompraMedicamentosRepository')
         allow(@repo_compras).to receive(:find_by_afiliado).and_return([])
@@ -249,8 +263,12 @@ describe 'Resumen' do
       ]
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[2]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado)
+        .with(id: @afiliado_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([compras[0], compras[1]])
+      allow(@repo_compras).to receive(:find_by_afiliado)
+        .with(id: @afiliado_cobertura_y_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([compras[2]])
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
       allow(@repo_visitas).to receive(:find_by_afiliado).and_return([])
@@ -297,7 +315,9 @@ describe 'Resumen' do
       ]
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado)
+        .with(id: @afiliado_cobertura_y_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([compras[0], compras[1]])
 
       visitas = [
         VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro),
@@ -306,7 +326,9 @@ describe 'Resumen' do
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return(visitas) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado_cobertura_y_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return(visitas)
     end
 
     it 'deberia generar un costo adicional con las compras y visitas' do # rubocop:disable Metrics/LineLength
@@ -327,7 +349,7 @@ describe 'Resumen' do
   end
 
   describe 'items de resumen' do
-    before(:each) do
+    before(:each) do # rubocop:disable Metrics/BlockLength
       compras = [
         CompraMedicamentos.new(@afiliado_medicamentos.id, 1000),
         CompraMedicamentos.new(@afiliado_cobertura_y_medicamentos.id, 1000),
@@ -335,10 +357,18 @@ describe 'Resumen' do
       ]
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([])
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([compras[0]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[1], compras[2]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado)
+        .with(id: @afiliado.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes })
+        .and_return([])
+      allow(@repo_compras).to receive(:find_by_afiliado)
+        .with(id: @afiliado_premium.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([])
+      allow(@repo_compras).to receive(:find_by_afiliado)
+        .with(id: @afiliado_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([compras[0]])
+      allow(@repo_compras).to receive(:find_by_afiliado)
+        .with(id: @afiliado_cobertura_y_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([compras[1], compras[2]])
 
       visitas = [
         VisitaMedica.new(@afiliado_premium.id, @prestacion, @centro),
@@ -348,10 +378,18 @@ describe 'Resumen' do
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([]) # rubocop:disable Metrics/LineLength
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([visitas[0]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([visitas[1], visitas[2], visitas[3]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes })
+        .and_return([])
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([])
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado_premium.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([visitas[0]])
+      allow(@repo_visitas).to receive(:find_by_afiliado)
+        .with(id: @afiliado_cobertura_y_medicamentos.id, fecha: { inicio: DateManager.inicio_mes, fin: DateManager.fin_mes }) # rubocop:disable Metrics/LineLength
+        .and_return([visitas[1], visitas[2], visitas[3]])
     end
 
     it 'resumen vacio no deberia tener items' do

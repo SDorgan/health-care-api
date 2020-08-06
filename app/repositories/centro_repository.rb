@@ -25,8 +25,8 @@ class CentroRepository < BaseRepository
     true
   end
 
-  def exists_by_coordinates(latitud, longitud)
-    return false if find_by_similar_coordinates(latitud, longitud).nil?
+  def exists_by_coordinates(rango_latitud, rango_longitud)
+    return false if find_by_coordinates(rango_latitud, rango_longitud).nil?
 
     true
   end
@@ -91,8 +91,14 @@ class CentroRepository < BaseRepository
     nil
   end
 
-  def find_by_similar_coordinates(lat, lon)
-    load_object(dataset.first!(latitude: lat.floor..lat.ceil, longitude: lon.floor..lon.ceil)) # rubocop:disable Metrics/LineLength
+  def find_by_coordinates(rango_latitud, rango_longitud)
+    lat_inicio = rango_latitud[:inicio]
+    lat_fin = rango_latitud[:fin]
+    long_inicio = rango_longitud[:inicio]
+    long_fin = rango_longitud[:fin]
+
+    load_object(dataset.first!(latitude: lat_inicio..lat_fin,
+                               longitude: long_inicio..long_fin))
   rescue Sequel::NoMatchingRow
     nil
   end
