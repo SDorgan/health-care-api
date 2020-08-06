@@ -45,3 +45,19 @@ HealthAPI::App.controllers :fecha do
     body respuesta.to_json
   end
 end
+
+HealthAPI::App.controllers :distancias do
+  post :index do
+    halt 403 if request.env['HTTP_API_KEY'].nil? || !request.env['HTTP_API_KEY'].eql?(API_KEY)
+    raise NotAvailableInProductionError if ENV['RACK_ENV'] == 'production'
+
+    params = JSON.parse(request.body.read)
+    ENV['DISTANCIAS'] = params['respuesta'].to_json
+
+    status 204
+  rescue NotAvailableInProductionError
+    status 405
+    respuesta = { 'respuesta': 'error', 'mensaje': e.message }
+    body respuesta.to_json
+  end
+end

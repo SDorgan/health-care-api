@@ -50,13 +50,13 @@ class Resumen
   def agregar_items_de_visitas
     @visitas.map do |visita|
       concepto = "#{visita.prestacion.nombre} - #{visita.centro.nombre}"
-      @items << ItemResumen.new(concepto, visita.created_on, visita.costo)
+      @items << ItemResumen.new(concepto, visita.fecha_visita, visita.costo)
     end
   end
 
   def agregar_items_de_medicamentos
     @compras_medicamentos.map do |compra|
-      @items << ItemResumen.new('Medicamentos', compra.created_on, compra.costo_final)
+      @items << ItemResumen.new('Medicamentos', compra.fecha_compra, compra.costo_final)
     end
   end
 end

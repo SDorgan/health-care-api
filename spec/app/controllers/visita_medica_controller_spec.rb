@@ -47,7 +47,7 @@ describe 'VisitaMedicaController' do
 
     expect(visita['afiliado']).to eq @afiliado.id
     expect(visita['prestacion']).to eq @prestacion.nombre
-    expect(visita['created_on'].nil?).to be false
+    expect(visita['fecha_visita'].nil?).to be false
   end
 
   it 'deberia devolver error si no se encuentra al afiliado' do

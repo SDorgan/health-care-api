@@ -8,9 +8,11 @@ HealthAPI::App.controllers :centros do
     latitud = request.params['latitud']
     longitud = request.params['longitud']
 
+    calculador_distancia = CalculadorDistanciaFactory.obtener_calculador
+
     service = CentroService.new(CentroRepository.new,
                                 PrestacionRepository.new,
-                                CalculadorDistancia.new)
+                                calculador_distancia)
 
     centros = service.buscar(nombre_prestacion: nombre_prestacion,
                              latitud: latitud,
@@ -27,9 +29,11 @@ HealthAPI::App.controllers :centros do
   post :index do
     params = JSON.parse(request.body.read)
 
+    calculador_distancia = CalculadorDistanciaFactory.obtener_calculador
+
     service = CentroService.new(CentroRepository.new,
                                 PrestacionRepository.new,
-                                CalculadorDistancia.new)
+                                calculador_distancia)
 
     centro = service.registrar(params['nombre'], params['latitud'], params['longitud'])
 

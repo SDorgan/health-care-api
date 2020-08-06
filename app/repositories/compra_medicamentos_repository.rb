@@ -5,8 +5,6 @@ class CompraMedicamentosRepository < BaseRepository
   end
 
   def save(compra_medicamentos)
-    compra_medicamentos.created_on = DateManager.date
-
     id = insert(compra_medicamentos)
 
     compra_medicamentos.id = id
@@ -21,18 +19,18 @@ class CompraMedicamentosRepository < BaseRepository
   private
 
   def load_object(a_record)
-    compra_medicamentos = CompraMedicamentos.new(a_record[:afiliado_id], a_record[:amount])
-    compra_medicamentos.id = a_record[:id]
-    compra_medicamentos.created_on = a_record[:created_on]
+    fecha_compra = a_record[:created_on]
+    compra = CompraMedicamentos.new(a_record[:afiliado_id], a_record[:amount], fecha_compra)
+    compra.id = a_record[:id]
 
-    compra_medicamentos
+    compra
   end
 
   def changeset(compra_medicamentos)
     {
       afiliado_id: compra_medicamentos.afiliado_id,
       amount: compra_medicamentos.monto,
-      created_on: compra_medicamentos.created_on
+      created_on: compra_medicamentos.fecha_compra
     }
   end
 end
