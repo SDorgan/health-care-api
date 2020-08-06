@@ -13,8 +13,17 @@ class VisitaMedicaRepository < BaseRepository
     visita_medica
   end
 
-  def find_by_afiliado(id)
-    load_collection dataset.where(afiliado_id: id)
+  def find_by_afiliado(criteria = {})
+    id = criteria[:id]
+
+    fecha = criteria[:fecha]
+
+    if !fecha.nil?
+      load_collection dataset.where(afiliado_id: id,
+                                    created_on: (fecha[:inicio]..fecha[:fin]))
+    else
+      load_collection dataset.where(afiliado_id: id)
+    end
   end
 
   private

@@ -28,7 +28,7 @@ class CentroService
 
     raise CentroYaExistenteError if existe
 
-    existe = @repo_centro.exists_by_coordinates(latitud, longitud)
+    existe = @repo_centro.exists_by_coordinates(get_range(latitud), get_range(longitud))
 
     raise CentroYaExistenteError if existe
 
@@ -36,6 +36,13 @@ class CentroService
   end
 
   private
+
+  def get_range(coordenada)
+    {
+      inicio: coordenada.floor,
+      fin: coordenada.ceil
+    }
+  end
 
   def find_nearest_to(latitud, longitud)
     centros = @repo_centro.all

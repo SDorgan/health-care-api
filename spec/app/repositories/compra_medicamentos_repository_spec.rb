@@ -24,18 +24,20 @@ describe 'CompraMedicamentosRepository' do
     @compra_medicamentos = CompraMedicamentos.new(@afiliado.id, @monto_de_compra)
 
     @repo = CompraMedicamentosRepository.new
-    @compra_medicamentos = @repo.save(@compra_medicamentos)
   end
 
   it 'deberia poder guardar la compra generando un id positivo' do
+    @compra_medicamentos = @repo.save(@compra_medicamentos)
     expect(@compra_medicamentos.id.positive?).to be true
   end
 
   it 'deberia poder guardar la compra generando una fecha' do
+    @compra_medicamentos = @repo.save(@compra_medicamentos)
     expect(@compra_medicamentos.fecha_compra.nil?).to be false
   end
 
   it 'deberia poder obtener la compra que se guardo' do
+    @compra_medicamentos = @repo.save(@compra_medicamentos)
     compra_medicamentos_guardada = @repo.find(@compra_medicamentos.id)
 
     expect(compra_medicamentos_guardada.afiliado_id).to eq @afiliado.id
@@ -43,10 +45,40 @@ describe 'CompraMedicamentosRepository' do
   end
 
   it 'deberia poder obtener las compras correspondientes a un afiliado' do
+    @compra_medicamentos = @repo.save(@compra_medicamentos)
+
     otra_compra = CompraMedicamentos.new(@afiliado.id, @monto_de_compra)
     @repo.save(otra_compra)
 
-    compras = @repo.find_by_afiliado(@afiliado.id)
+    compras = @repo.find_by_afiliado(id: @afiliado.id)
+
+    expect(compras.length).to eq 2
+  end
+
+  it 'deberia poder obtener las compras correspondientes a un afiliado del mes' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
+    # visita en: enero
+    ENV['TEST_DATE'] = '02/01/2020'
+    otra_compra = CompraMedicamentos.new(@afiliado.id, @monto_de_compra)
+    @repo.save(otra_compra)
+
+    # visita en: marzo
+    ENV['TEST_DATE'] = '02/03/2020'
+    otra_compra = CompraMedicamentos.new(@afiliado.id, @monto_de_compra)
+    @repo.save(otra_compra)
+
+    # visita en: marzo
+    ENV['TEST_DATE'] = '12/03/2020'
+    otra_compra = CompraMedicamentos.new(@afiliado.id, @monto_de_compra)
+    @repo.save(otra_compra)
+
+    # consulta en: marzo
+    ENV['TEST_DATE'] = '22/03/2020'
+    fecha = {
+      inicio: DateManager.inicio_mes,
+      fin: DateManager.fin_mes
+    }
+
+    compras = @repo.find_by_afiliado(id: @afiliado.id, fecha: fecha)
 
     expect(compras.length).to eq 2
   end

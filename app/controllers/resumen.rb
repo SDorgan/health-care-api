@@ -6,17 +6,15 @@ HealthAPI::App.controllers :resumen do
   get :index do
     id_telegram = request.params['id']
 
-    afiliado = AfiliadoRepository.new.find_by_telegram_id(id_telegram)
+    service = ResumenService.new(AfiliadoRepository.new,
+                                 VisitaMedicaRepository.new,
+                                 CompraMedicamentosRepository.new)
 
-    resumen = Resumen.new(afiliado,
-                          VisitaMedicaRepository.new,
-                          CompraMedicamentosRepository.new)
-
-    resumen.generar
+    resumen = service.generar(id_telegram)
 
     ResumenResponseBuilder.create_from(resumen)
 
-  rescue AfiliadoNoEncontrado => e
+  rescue UsuarioNoAfiliadoError => e
     status 401
     respuesta = { 'respuesta': 'error', 'mensaje': e.message }
     body respuesta.to_json
