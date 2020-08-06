@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'erb'
-require 'web_mock'
 
 describe 'CentrosController' do
   let(:centro_nombre) do
@@ -143,7 +142,9 @@ describe 'CentrosController' do
     post '/centros', { 'nombre': centro_nombre, 'latitud': latitud, 'longitud': longitud }.to_json, 'HTTP_API_KEY' => API_KEY
     centros << { 'latitud': latitud, 'longitud': longitud }
 
-    stub_send_location_centros(latitud_buscada, longitud_buscada, centros)
+    body = { 'respuesta': { 'distancias': [107.562], 'direcciones': ['Ruta Nacional 205'] } }
+
+    post '/distancias', body.to_json, 'HTTP_API_KEY' => API_KEY
 
     get "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}", {}, 'HTTP_API_KEY' => API_KEY
 
@@ -153,9 +154,6 @@ describe 'CentrosController' do
   end
 
   it 'debería devolver vacío si no hay centros cercanos' do
-    centros = []
-    stub_send_location_centros(latitud_buscada, longitud_buscada, centros)
-
     get "/centros?latitud=#{latitud_buscada}&longitud=#{longitud_buscada}", {}, 'HTTP_API_KEY' => API_KEY
 
     response = JSON.parse(last_response.body)
