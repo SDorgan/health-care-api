@@ -99,9 +99,9 @@ describe 'Resumen' do
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return([visitas[0]])
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([visitas[1]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_copago.id).and_return([visitas[2]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado.id).and_return([visitas[0]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_premium.id).and_return([visitas[1]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_copago.id).and_return([visitas[2]]) # rubocop:disable Metrics/LineLength
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
       allow(@repo_compras).to receive(:find_by_afiliado).and_return([])
@@ -159,9 +159,9 @@ describe 'Resumen' do
         ]
 
         @repo_visitas = instance_double('VisitaMedicaRepository')
-        allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return(visitas)
-        allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_infinito.id).and_return(visitas_infinito) # rubocop:disable Metrics/LineLength
-        allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_copago.id).and_return(visitas_copago) # rubocop:disable Metrics/LineLength
+        allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado.id).and_return(visitas) # rubocop:disable Metrics/LineLength
+        allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_infinito.id).and_return(visitas_infinito) # rubocop:disable Metrics/LineLength
+        allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_copago.id).and_return(visitas_copago) # rubocop:disable Metrics/LineLength
 
         @repo_compras = instance_double('CompraMedicamentosRepository')
         allow(@repo_compras).to receive(:find_by_afiliado).and_return([])
@@ -249,8 +249,8 @@ describe 'Resumen' do
       ]
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[2]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(id: @afiliado_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(id: @afiliado_cobertura_y_medicamentos.id).and_return([compras[2]]) # rubocop:disable Metrics/LineLength
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
       allow(@repo_visitas).to receive(:find_by_afiliado).and_return([])
@@ -297,7 +297,7 @@ describe 'Resumen' do
       ]
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(id: @afiliado_cobertura_y_medicamentos.id).and_return([compras[0], compras[1]]) # rubocop:disable Metrics/LineLength
 
       visitas = [
         VisitaMedica.new(@afiliado_cobertura_y_medicamentos.id, @prestacion, @centro),
@@ -306,7 +306,7 @@ describe 'Resumen' do
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return(visitas) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_cobertura_y_medicamentos.id).and_return(visitas) # rubocop:disable Metrics/LineLength
     end
 
     it 'deberia generar un costo adicional con las compras y visitas' do # rubocop:disable Metrics/LineLength
@@ -335,10 +335,10 @@ describe 'Resumen' do
       ]
 
       @repo_compras = instance_double('CompraMedicamentosRepository')
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([])
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([compras[0]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_compras).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([compras[1], compras[2]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(id: @afiliado.id).and_return([])
+      allow(@repo_compras).to receive(:find_by_afiliado).with(id: @afiliado_premium.id).and_return([]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(id: @afiliado_medicamentos.id).and_return([compras[0]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_compras).to receive(:find_by_afiliado).with(id: @afiliado_cobertura_y_medicamentos.id).and_return([compras[1], compras[2]]) # rubocop:disable Metrics/LineLength
 
       visitas = [
         VisitaMedica.new(@afiliado_premium.id, @prestacion, @centro),
@@ -348,10 +348,10 @@ describe 'Resumen' do
       ]
 
       @repo_visitas = instance_double('VisitaMedicaRepository')
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado.id).and_return([])
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_medicamentos.id).and_return([]) # rubocop:disable Metrics/LineLength
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_premium.id).and_return([visitas[0]]) # rubocop:disable Metrics/LineLength
-      allow(@repo_visitas).to receive(:find_by_afiliado).with(@afiliado_cobertura_y_medicamentos.id).and_return([visitas[1], visitas[2], visitas[3]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado.id).and_return([])
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_medicamentos.id).and_return([]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_premium.id).and_return([visitas[0]]) # rubocop:disable Metrics/LineLength
+      allow(@repo_visitas).to receive(:find_by_afiliado).with(id: @afiliado_cobertura_y_medicamentos.id).and_return([visitas[1], visitas[2], visitas[3]]) # rubocop:disable Metrics/LineLength
     end
 
     it 'resumen vacio no deberia tener items' do

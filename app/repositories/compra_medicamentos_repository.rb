@@ -1,4 +1,5 @@
 require_relative '../../lib/date_manager'
+
 class CompraMedicamentosRepository < BaseRepository
   def initialize
     super(:compras_medicamentos)
@@ -12,7 +13,8 @@ class CompraMedicamentosRepository < BaseRepository
     compra_medicamentos
   end
 
-  def find_by_afiliado(id)
+  def find_by_afiliado(criteria = {})
+    id = criteria[:id]
     load_collection dataset.where(afiliado_id: id)
   end
 

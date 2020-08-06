@@ -11,8 +11,8 @@ class Resumen
   def generar
     @plan = @afiliado.plan
 
-    @visitas = @repo_visitas.find_by_afiliado(@afiliado.id)
-    @compras_medicamentos = @repo_medicamentos.find_by_afiliado(@afiliado.id)
+    @visitas = @repo_visitas.find_by_afiliado(id: @afiliado.id)
+    @compras_medicamentos = @repo_medicamentos.find_by_afiliado(id: @afiliado.id)
 
     aplicar_descuentos
     agregar_items

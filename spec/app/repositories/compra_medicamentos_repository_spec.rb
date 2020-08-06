@@ -46,7 +46,7 @@ describe 'CompraMedicamentosRepository' do
     otra_compra = CompraMedicamentos.new(@afiliado.id, @monto_de_compra)
     @repo.save(otra_compra)
 
-    compras = @repo.find_by_afiliado(@afiliado.id)
+    compras = @repo.find_by_afiliado(id: @afiliado.id)
 
     expect(compras.length).to eq 2
   end
