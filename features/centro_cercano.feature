@@ -18,7 +18,7 @@ Característica: Centros Cercanos
   Escenario: CCC2 - Consulta por cercanía cuando no hay centros
     Cuando consulto por centros cercanos a latitud "-34.117793" y longitud "-58.968414"
     Entonces se obtiene una respuesta vacía
-@wip
+
   Escenario: CCC3 - Consulta por cercanía cuando hay cuatro centros devuelve el más cercano
     Dado el centro con nombre "Hospital Aleman"
     Y coordenadas geográficas latitud "-34.591874" y longitud "-58.101343"
