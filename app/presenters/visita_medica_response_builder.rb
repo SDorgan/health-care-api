@@ -5,7 +5,7 @@ class VisitaMedicaResponseBuilder
         'id': visita_medica.id,
         'afiliado': visita_medica.afiliado_id,
         'prestacion': visita_medica.prestacion.nombre,
-        'created_on': visita_medica.created_on
+        'fecha_visita': visita_medica.fecha_visita
       }
     }.to_json
   end

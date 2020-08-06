@@ -5,7 +5,7 @@ class CompraMedicamentosResponseBuilder
         'id': compra.id,
         'afiliado': compra.afiliado_id,
         'monto': compra.monto,
-        'created_on': compra.created_on
+        'fecha_compra': compra.fecha_compra
       }
     }.to_json
   end

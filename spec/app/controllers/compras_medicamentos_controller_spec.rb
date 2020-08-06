@@ -30,7 +30,7 @@ describe 'ComprasMedicamentosController' do
 
     expect(compra['afiliado']).to eq @afiliado.id
     expect(compra['monto']).to eq monto_de_compra
-    expect(compra['created_on'].nil?).to be false
+    expect(compra['fecha_compra'].nil?).to be false
   end
 
   it 'deberia devolver 403 si no se manda api key' do

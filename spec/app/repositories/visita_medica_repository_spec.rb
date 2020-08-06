@@ -46,7 +46,7 @@ describe 'VisitaMedicaRepository' do
   end
 
   it 'deberia poder guardar la visita generando una fecha' do
-    expect(@visita_medica.created_on.nil?).to be false
+    expect(@visita_medica.fecha_visita.nil?).to be false
   end
 
   it 'deberia poder obtener la visita que se guardo' do

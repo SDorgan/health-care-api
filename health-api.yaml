@@ -94,10 +94,20 @@ paths:
     get:
       parameters:
         - in: query
-          name: id
-          type: integer
+          name: prestacion
+          type: string
           required: false
           description: "Si se pasa, indica que se deben traer solo los centros de esa prestación"
+        - in: query
+          name: latitud
+          type: number
+          required: false
+          description: "Si se pasa junto a la longitud, indica las coordenadas a buscar"
+        - in: query
+          name: longitud
+          type: number
+          required: false
+          description: "Si se pasa junto a la latitud, indica las coordenadas a buscar"
       description: "Obtener todos los centros médicos disponibles"
       responses:
         200:
@@ -363,7 +373,7 @@ definitions:
         type: integer
       prestacion:
         type: string
-      created_on:
+      fecha_visita:
         type: string
   PlanesCreate:
     properties:
@@ -499,7 +509,7 @@ definitions:
         type: integer
       monto:
         type: integer
-      created_on:
+      fecha_compra:
         type: string
   TipoConyuge:
       type: string
