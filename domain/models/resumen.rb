@@ -11,8 +11,13 @@ class Resumen
   def generar
     @plan = @afiliado.plan
 
-    @visitas = @repo_visitas.find_by_afiliado(id: @afiliado.id)
-    @compras_medicamentos = @repo_medicamentos.find_by_afiliado(id: @afiliado.id)
+    fecha = {
+      inicio: DateManager.inicio_mes,
+      fin: DateManager.fin_mes
+    }
+
+    @visitas = @repo_visitas.find_by_afiliado(id: @afiliado.id, fecha: fecha)
+    @compras_medicamentos = @repo_medicamentos.find_by_afiliado(id: @afiliado.id, fecha: fecha)
 
     aplicar_descuentos
     agregar_items

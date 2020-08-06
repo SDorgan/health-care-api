@@ -37,17 +37,16 @@ describe 'ResumenController' do
 
     @afiliado = AfiliadoRepository.new.save(@afiliado)
 
-    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
-    @repo_visitas = VisitaMedicaRepository.new
-
     ENV['TEST_DATE'] = '02/01/2020'
+    @visita_medica = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
+
+    @repo_visitas = VisitaMedicaRepository.new
     @visita_medica = @repo_visitas.save(@visita_medica)
 
+    ENV['TEST_DATE'] = '01/01/2020'
     @compra_medicamentos = CompraMedicamentos.new(@afiliado.id, 500)
 
     @repo_compras = CompraMedicamentosRepository.new
-
-    ENV['TEST_DATE'] = '01/01/2020'
     @compra_medicamentos = @repo_compras.save(@compra_medicamentos)
   end
 
