@@ -9,6 +9,7 @@ gem 'thin'
 
 # Project requirements
 gem 'dotenv'
+gem 'faraday'
 gem 'rake'
 
 # Component requirements
@@ -29,7 +30,6 @@ gem 'padrino', '~> 0.14'
 group :development, :test do
   gem 'capybara'
   gem 'cucumber'
-  gem 'faraday'
   gem 'rack-test', require: 'rack/test'
   gem 'rspec'
   gem 'rspec_junit_formatter'
