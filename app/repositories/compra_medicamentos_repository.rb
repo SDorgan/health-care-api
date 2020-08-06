@@ -15,7 +15,15 @@ class CompraMedicamentosRepository < BaseRepository
 
   def find_by_afiliado(criteria = {})
     id = criteria[:id]
-    load_collection dataset.where(afiliado_id: id)
+
+    fecha = criteria[:fecha]
+
+    if !fecha.nil?
+      load_collection dataset.where(afiliado_id: id,
+                                    created_on: (fecha[:inicio]..fecha[:fin]))
+    else
+      load_collection dataset.where(afiliado_id: id)
+    end
   end
 
   private

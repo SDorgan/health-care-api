@@ -71,7 +71,7 @@ describe 'VisitaMedicaRepository' do
   end
 
   it 'deberia poder obtener las visitas correspondientes a un afiliado del mes' do # rubocop:disable RSpec/ExampleLength, Metrics/LineLength
-    # visita en: febrero
+    # visita en: enero
     ENV['TEST_DATE'] = '02/01/2020'
     otra_visita = VisitaMedica.new(@afiliado.id, @prestacion, @centro)
     @repo.save(otra_visita)
@@ -93,8 +93,7 @@ describe 'VisitaMedicaRepository' do
       fin: DateManager.fin_mes
     }
 
-    visitas = @repo.find_by_afiliado(id: @afiliado.id,
-                                     fecha: fecha)
+    visitas = @repo.find_by_afiliado(id: @afiliado.id, fecha: fecha)
 
     expect(visitas.length).to eq 2
   end
