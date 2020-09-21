@@ -1,4 +1,8 @@
-[![build status](https://gitlab.com/fiuba-memo2/tp2/altojardin-api/badges/master/pipeline.svg)](https://gitlab.com/fiuba-memo2/tp2/altojardin-api/commits/master)
+## Preamble
+
+This repository contains the API that will be used on the [bot repository](https://github.com/SDorgan/health-care-bot). The Heroku servers and Telegram bots have been disabled to reduce unnecessary upkeep costs. 
+
+_____________
 
 ## Heroku
 
